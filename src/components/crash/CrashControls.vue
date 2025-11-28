@@ -403,7 +403,6 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--accent-yellow);
         border-radius: 15px;
     }
 
@@ -511,12 +510,13 @@
         font-size: 16px;
         font-weight: 800;
         color: #ffffff;
-        background: var(--accent-yellow);
+        background: var(--gradient-red);
         border-radius: 15px;
+        border: 1px solid var(--accent-yellow);
     }
 
     .crash-controls .controls-manual button.button-bet .button-inner {
-        background: rgba(255, 107, 0, 0.5);
+        background: var(--accent-red);
     }
 
     .crash-controls .manual-bets {
@@ -664,7 +664,6 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--accent-yellow);
         border-radius: 15px;
     }
 
@@ -733,8 +732,9 @@
         font-size: 14px;
         font-weight: 800;
         color: #ffffff;
-        background: var(--accent-yellow);
+        background: var(--gradient-red);
         border-radius: 15px;
+        border: 1px solid var(--accent-yellow);
     }
 
     .crash-controls .controls-auto button.button-stop .button-inner {

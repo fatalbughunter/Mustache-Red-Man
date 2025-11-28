@@ -246,8 +246,8 @@
         font-size: 15px;
         font-weight: 800;
         color: #ffffff;
-        background-color: #003f35;
-        border: 1px dashed #44edc7;
+        background-color: var(--accent-deep-red);
+        border: 1px dashed var(--accent-yellow);
     }
 
     .blackjack-seat-element .user-info{

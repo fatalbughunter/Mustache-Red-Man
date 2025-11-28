@@ -257,8 +257,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--accent-yellow);
-        border-radius: 15px;
+        border-radius: 12px;
+        pointer-events: none;
     }
 
     .towers-controls .controls-amount input {
@@ -267,14 +267,23 @@
         padding: 0 100px 0 43px;
         font-size: 12px;
         font-weight: 600;
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.05);
+        color: var(--accent-yellow);
+        background-color: #1a1a1a;
         border: none;
-        border-radius: 14px;
+        outline: none;
+        border-radius: 12px;
+        cursor: text;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .towers-controls .controls-amount input:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
     }
 
     .towers-controls .controls-amount input::placeholder {
-        color: #888888;
+        color: #5e768e;
     }
 
     .towers-controls .controls-amount img {
@@ -284,6 +293,8 @@
         top: 50%;
         left: 15px;
         transform: translate(0, -50%);
+        z-index: 2;
+        pointer-events: none;
     }
 
     .towers-controls .amount-buttons {
@@ -291,6 +302,7 @@
         top: 50%;
         right: 15px;
         transform: translate(0, -50%);
+        z-index: 2;
     }
 
     .towers-controls .amount-buttons button {
@@ -311,9 +323,9 @@
         align-items: center;
         font-size: 12px;
         font-weight: 800;
-        color: #ffffff;
-        background: var(--accent-yellow);
-        border-radius: 12px;
+        color: #FFFFFF;
+        background: var(--accent-deep-red);
+        border-radius: 8px;
     }
 
     .towers-controls .controls-bottom {
@@ -347,14 +359,13 @@
         font-size: 12px;
         font-weight: 700;
         color: #ffffff;
-        background: var(--accent-yellow);
+        background: var(--accent-deep-red);
         transition: color 0.3s ease;
-        border-radius: 15px;
+        border-radius: 8px;
     }
 
     .towers-controls .bottom-info button:hover .button-inner {
-        color: #ffffff;
-        background: rgba(255, 107, 0, 0.5);
+        color: var(--accent-yellow);
     }
 
     .towers-controls .bottom-info button .button-inner svg {
@@ -418,15 +429,15 @@
     }
 
     .towers-controls button.button-bet .button-inner {
-        background: var(--accent-yellow);
+        background: var(--gradient-red);
     }
 
     .towers-controls button.button-bet.button-lose .button-inner {
-        background: var(--accent-yellow);
+        background: var(--gradient-red);
     }
 
     .towers-controls button.button-cashout .button-inner {
-        background: var(--accent-yellow);
+        background: linear-gradient(255deg, rgba(255, 107, 0, 0.35) -20%, rgba(255, 138, 0, 0.35) 100%);
     }
 
     .towers-controls button.button-bet .button-loading.fade-leave-active,
