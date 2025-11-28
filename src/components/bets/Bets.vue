@@ -84,6 +84,8 @@
     .bets {
         width: 1050px;
         margin-top: 50px;
+        position: relative;
+        z-index: 1;
     }
 
     .bets .bets-nav {
@@ -91,6 +93,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
+        z-index: 2;
     }
 
     .bets .bets-nav button.nav-link {
@@ -101,6 +105,10 @@
         font-weight: 600;
         color: var(--gradient-yellow);
         transition: all 0.3s ease;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1;
     }
 
     .bets .bets-nav button.nav-link:last-of-type {

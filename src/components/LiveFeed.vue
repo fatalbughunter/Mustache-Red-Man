@@ -325,33 +325,40 @@ export default {
 }
 
 .feed-tabs {
-    display: flex;
-    gap: var(--spacing-sm);
+    display: inline-flex;
+    gap: 0;
     margin-bottom: var(--spacing-xl);
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
+    padding: 4px;
+    background: var(--bg-tertiary);
+    border-radius: 50px;
+    position: relative;
 }
 
 .tab-button {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background: var(--bg-tertiary);
+    padding: 10px 24px;
+    background: transparent;
     color: var(--text-secondary);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 50px;
     font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
 }
 
 .tab-button.active {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
+    background: var(--accent-yellow);
+    color: #1a1a1a;
 }
 
 .tab-button:hover:not(.active) {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
+    color: var(--accent-yellow);
 }
 
 .feed-table {
@@ -382,6 +389,25 @@ export default {
 .table-body {
     max-height: 800px;
     overflow-y: auto;
+    position: relative;
+}
+
+.table-body::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, 
+        rgba(26, 26, 26, 0) 0%, 
+        rgba(26, 26, 26, 0.2) 20%, 
+        rgba(13, 13, 13, 0.5) 50%, 
+        rgba(13, 13, 13, 0.8) 80%, 
+        rgba(13, 13, 13, 1) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
 }
 
 .table-row {
