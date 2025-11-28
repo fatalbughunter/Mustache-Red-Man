@@ -2,7 +2,7 @@
     <div class="mines-controls">
         <div class="controls-top">
             <div class="top-amount">
-                <input v-model="minesAmount" v-on:input="minesValidateInput" type="text" placeholder="BET AMOUNT" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'" />
+                <input v-model="minesAmount" v-on:input="minesValidateInput" type="text" placeholder="BET AMOUNT" v-bind:disabled="isInputDisabled" />
                 <img src="@/assets/img/icons/coin.svg" alt="icon" />
                 <div class="amount-buttons">
                     <button v-on:click="minesSetAmount('2x')" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
@@ -100,7 +100,7 @@
         },
         data() {
             return {
-                minesAmount: null,
+                minesAmount: '',
                 minesCount: 1
             }
         },
@@ -117,19 +117,27 @@
                 return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             minesValidateInput() {
-                this.minesAmount = this.minesAmount.replace(',', '.').replace(/[^\d.]/g, '');
+                if(this.minesAmount === null || this.minesAmount === undefined) {
+                    this.minesAmount = '';
+                    return;
+                }
+                const value = String(this.minesAmount);
+                if(value === '') {
+                    return;
+                }
+                this.minesAmount = value.replace(',', '.').replace(/[^\d.]/g, '');
                 this.minesAmount = this.minesAmount.indexOf('.') >= 0 ? this.minesAmount.substr(0, this.minesAmount.indexOf('.')) + '.' + this.minesAmount.substr((this.minesAmount.indexOf('.') + 1), 2).replace('.', '') : this.minesAmount;
             },
             minesIsCount(count) {
                 return Number(this.minesCount) === count;
             },
             minesSetAmount(action) {
-                let amount = Math.floor(this.minesAmount * 1000);
+                let amount = this.minesAmount === null || this.minesAmount === '' ? 0 : Math.floor(parseFloat(this.minesAmount) * 1000);
 
                 if(action === '2x') {
                     amount = Math.floor(amount * 2);
                 } else if(action === 'max') {
-                    amount = this.authUser.user.balance <= 25000000 ? this.authUser.user.balance : 25000000;
+                    amount = this.authUser.user !== null && this.authUser.user.balance <= 25000000 ? this.authUser.user.balance : 25000000;
                 }
 
                 this.minesAmount = parseFloat(Math.floor(amount / 10) / 100).toFixed(2);
@@ -143,7 +151,7 @@
                     return;
                 }
 
-                const amount = Math.floor(this.minesAmount * 1000);
+                const amount = this.minesAmount === null || this.minesAmount === '' ? 0 : Math.floor(parseFloat(this.minesAmount) * 1000);
                 const minesCount = Math.floor(this.minesCount);
 
                 if(isNaN(amount) === true || amount <= 0) {
@@ -204,6 +212,9 @@
                 'authUser',
                 'minesGame'
             ]),
+            isInputDisabled() {
+                return this.minesGame !== null && this.minesGame.state !== 'completed';
+            },
             minesGetCashoutAmount() {
                 let multiplier = 0;
 
@@ -251,8 +262,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
         border-radius: 12px;
+        pointer-events: none;
     }
 
     .mines-controls .top-amount input {
@@ -263,7 +274,17 @@
         font-weight: 600;
         color: var(--accent-yellow);
         background-color: #1a1a1a;
+        border: none;
+        outline: none;
         border-radius: 12px;
+        cursor: text;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .mines-controls .top-amount input:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
     }
 
     .mines-controls .top-amount input::placeholder {
@@ -277,6 +298,8 @@
         top: 50%;
         left: 15px;
         transform: translate(0, -50%);
+        z-index: 2;
+        pointer-events: none;
     }
 
     .mines-controls .amount-buttons {
@@ -284,6 +307,7 @@
         top: 50%;
         right: 15px;
         transform: translate(0, -50%);
+        z-index: 2;
     }
 
     .mines-controls .amount-buttons button {
