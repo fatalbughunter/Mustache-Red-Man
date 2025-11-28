@@ -140,15 +140,59 @@
         flex-direction: column;
         align-items: center;
         padding: 35px 80px 48px 80px;
-        border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% 0%, rgba(0, 255, 194, 0.2) 0%, rgba(7, 38, 61, 0) 80%), 
-                    linear-gradient(256deg, #07263d 0%, #07243a 100%);
+        border-radius: var(--radius-lg);
+        /* Desert sand background matching header theme */
+        background: 
+            /* Sand grain texture overlay */
+            radial-gradient(circle at 20% 30%, rgba(222, 184, 135, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(184, 115, 51, 0.12) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(205, 127, 50, 0.1) 0%, transparent 50%),
+            /* Fine sand texture pattern */
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(222, 184, 135, 0.03) 2px,
+                rgba(222, 184, 135, 0.03) 3px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(184, 115, 51, 0.03) 2px,
+                rgba(184, 115, 51, 0.03) 3px
+            ),
+            /* Main desert sand gradient */
+            linear-gradient(
+                180deg,
+                rgba(222, 184, 135, 0.25) 0%,
+                rgba(205, 127, 50, 0.30) 25%,
+                rgba(184, 115, 51, 0.35) 50%,
+                rgba(139, 111, 71, 0.30) 75%,
+                rgba(101, 67, 33, 0.25) 100%
+            ),
+            /* Base dark background */
+            rgba(26, 20, 15, 0.98);
+        backdrop-filter: blur(10px) saturate(120%);
+        border: 2px solid rgba(222, 184, 135, 0.6);
+        box-shadow: 
+            0 10px 40px rgba(0, 0, 0, 0.9),
+            0 5px 20px rgba(184, 115, 51, 0.4),
+            inset 0 1px 0 rgba(222, 184, 135, 0.2);
     }
 
     .modal-link-roblox .roblox-title {
         text-align: center;
         font-size: 32px;
         font-weight: 900;
+    }
+
+    .modal-link-roblox .roblox-title .gradient-green {
+        background: var(--gradient-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
     }
 
     .modal-link-roblox .roblox-login {
@@ -175,7 +219,7 @@
     .modal-link-roblox .element-title {
         font-size: 14px;
         font-weight: 800;
-        color: #bbbfd0;
+        color: var(--accent-copper-light);
     }
 
     .modal-link-roblox .twostep-input,
@@ -186,7 +230,6 @@
         position: relative;
         margin-top: 20px;
         padding: 1px;
-        filter: drop-shadow(0px 4px 25px rgba(15, 41, 63, 0.35));
     }
 
     .modal-link-roblox .twostep-input:before,
@@ -198,8 +241,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #04131f 0%, #223a4e 100%);
-        clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 25%, 100% 75%, calc(100% - 16px) 100%, 16px 100%, 0 75%, 0 25%);
+        background: linear-gradient(180deg, rgba(184, 115, 51, 0.3) 0%, rgba(139, 111, 71, 0.4) 100%);
+        border-radius: var(--radius-md);
     }
 
     .modal-link-roblox .twostep-input input,
@@ -210,15 +253,24 @@
         padding: 0 115px 0 25px;
         font-size: 16px;
         font-weight: 600;
-        color: #ffffff;
-        background-color: #072435;
-        clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 25%, 100% 75%, calc(100% - 16px) 100%, 16px 100%, 0 75%, 0 25%);
+        color: var(--text-gold);
+        background-color: rgba(13, 13, 13, 0.8);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.3);
+    }
+
+    .modal-link-roblox .twostep-input input:focus,
+    .modal-link-roblox .cookie-input input:focus,
+    .modal-link-roblox .element-input input:focus {
+        outline: none;
+        border-color: rgba(222, 184, 135, 0.6);
+        box-shadow: 0 0 10px rgba(184, 115, 51, 0.3);
     }
 
     .modal-link-roblox .twostep-input input::placeholder,
     .modal-link-roblox .cookie-input input::placeholder,
     .modal-link-roblox .element-input input::placeholder {
-        color: #5e768e;
+        color: var(--text-muted);
     }
 
     .modal-link-roblox .roblox-buttons {
@@ -233,21 +285,19 @@
         position: relative;
         margin-right: 20px;
         padding: 1px;
-        filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.35));
-        transition: filter 0.3s ease;
         z-index: 1;
+        transition: all 0.3s ease;
     }
 
     .modal-link-roblox button.button-toggle.button-active {
-        filter: drop-shadow(0px 4px 25px rgba(1, 230, 169, 0.15)) 
-                drop-shadow(0px 2px 25px rgba(15, 41, 63, 0.35));
+        filter: drop-shadow(0px 4px 15px rgba(184, 115, 51, 0.4));
     }
 
     .modal-link-roblox button.button-action {
         width: 180px;
         height: 54px;
         position: relative;
-        filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.35)) drop-shadow(0px 4px 25px rgba(1, 230, 169, 0.15));
+        transition: all 0.3s ease;
     }
 
     .modal-link-roblox button.button-toggle::before {
@@ -257,13 +307,15 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #1a4f63;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        background: var(--gradient-copper);
+        border-radius: var(--radius-md);
         z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
     .modal-link-roblox button.button-toggle.button-active::before {
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #01e0a3 100%);
+        opacity: 1;
     }
 
     .modal-link-roblox button.button-toggle::after {
@@ -273,9 +325,15 @@
         position: absolute;
         top: 1px;
         left: 1px;
-        background-color: #07243a;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        background-color: rgba(13, 13, 13, 0.9);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.2);
         z-index: -1;
+        transition: all 0.3s ease;
+    }
+
+    .modal-link-roblox button.button-toggle.button-active::after {
+        border-color: rgba(222, 184, 135, 0.5);
     }
 
     .modal-link-roblox button.button-toggle .button-inner,
@@ -287,23 +345,60 @@
         justify-content: center;
         font-size: 18px;
         font-weight: 800;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        border-radius: var(--radius-md);
+        transition: all 0.3s ease;
     }
 
     .modal-link-roblox button.button-toggle .button-inner {
-        color: #bbbfd0;
-        background-color: #1a4f63;
+        color: var(--accent-copper-light);
+        background-color: rgba(13, 13, 13, 0.8);
+        border: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .modal-link-roblox button.button-toggle.button-active .button-inner {
-        color: #00ffc2;
-        background: radial-gradient(60% 60% at 50% 50%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), 
-                    linear-gradient(255deg, rgba(0, 255, 194, 0.05) 0%, rgba(0, 170, 109, 0.05) 100%);
+        color: var(--text-gold);
+        background: rgba(184, 115, 51, 0.1);
+        border-color: rgba(222, 184, 135, 0.5);
+    }
+    
+    .modal-link-roblox button.button-toggle:hover .button-inner {
+        border-color: rgba(222, 184, 135, 0.4);
     }
 
     .modal-link-roblox button.button-action .button-inner {
-        color: #ffffff;
-        background: linear-gradient(250deg, #00ffc2 0%, #00aa6d 100%);
+        color: var(--text-gold);
+        background: var(--gradient-copper);
+        border: 1px solid rgba(222, 184, 135, 0.5);
+        box-shadow: 
+            0 4px 15px rgba(184, 115, 51, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    .modal-link-roblox button.button-action:hover .button-inner {
+        background: var(--gradient-copper-dark);
+        box-shadow: 
+            0 6px 20px rgba(184, 115, 51, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+    }
+    
+    .modal-link-roblox button.button-toggle:disabled .button-inner {
+        opacity: 0.5;
+        cursor: not-allowed;
+        color: var(--text-muted);
+        background-color: rgba(13, 13, 13, 0.5);
+        border-color: rgba(222, 184, 135, 0.1);
+    }
+    
+    .modal-link-roblox button.button-action:disabled .button-inner {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: rgba(184, 115, 51, 0.2);
+        box-shadow: none;
+    }
+    
+    .modal-link-roblox button.button-action:disabled:hover .button-inner {
+        transform: none;
     }
 
     @media only screen and (max-width: 793px) {

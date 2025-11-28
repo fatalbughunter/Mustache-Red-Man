@@ -27,8 +27,23 @@
     .notifications {
         position: fixed;
         right: 35px;
-        top: 50px;
+        top: 100px; /* Position below 80px header + 20px spacing */
         z-index: 103;
+    }
+    
+    /* On desktop, ensure notifications are below the header */
+    @media only screen and (min-width: 1501px) {
+        .notifications {
+            top: 100px; /* Header height (80px) + spacing (20px) */
+        }
+    }
+    
+    /* On mobile/tablet, header is at bottom, so notifications can be near top */
+    @media only screen and (max-width: 1500px) {
+        .notifications {
+            top: 20px; /* Small spacing from top since header is at bottom */
+            bottom: auto;
+        }
     }
 
     .notifications .slide-enter-active,

@@ -30,6 +30,7 @@ import Leaderboard from '../views/Leaderboard';
 import Slots from '../views/Slots';
 import Jackpots from '../views/Jackpots';
 import LiveCasino from '../views/LiveCasino';
+import OurCasino from '../views/OurCasino';
 
 const Profile = () => import(/* webpackChunkName: "group-user" */ '../views/profile/Profile');
 const ProfileTransactions = () => import(/* webpackChunkName: "group-user" */ '../views/profile/ProfileTransactions');
@@ -228,6 +229,11 @@ const routes = [
         path: '/live-casino',
         name: 'LiveCasino',
         component: LiveCasino
+    },
+    {
+        path: '/our-casino',
+        name: 'OurCasino',
+        component: OurCasino
     },
     {
         path: '/admin',

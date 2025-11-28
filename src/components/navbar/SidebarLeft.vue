@@ -1,8 +1,7 @@
 <template>
     <div>
         <button class="mobile-fab" v-on:click="toggleMobile">
-            <svg width="18" height="12" viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="2" y="0"/><rect width="18" height="2" y="5"/><rect width="18" height="2" y="10"/></svg>
-            <span>MENU</span>
+            <img src="@/assets/img/icons/mobileMenu.png" alt="Menu" class="menu-icon-mobile" />
         </button>
         <router-link to="/" class="mobile-home-btn" @click.native="closeMobile">
             <img src="@/assets/img/icons/mobileHome.png" alt="Home" />
@@ -24,7 +23,8 @@
 
             <nav class="sidebar-group">
                 <div class="sidebar-title">CASINO</div>
-                <router-link to="/battles" class="sidebar-link sidebar-link-casino" v-on:click.native="closeMobile">
+                <!-- Temporarily hidden Case Battle -->
+                <router-link v-if="false" to="/battles" class="sidebar-link sidebar-link-casino" v-on:click.native="closeMobile">
                   <!--<IconBattles /> -->
                   <svg width="31" height="23" viewBox="0 0 31 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M24.5862 11.6353L24.5862 23H9.08621V11.6353H14.1638V12.9882H19.5086V11.6353H24.5862Z" fill="currentColor"/>
@@ -58,28 +58,19 @@
 
                     <span>Black Jack</span>
                 </router-link>
-                <router-link to="/roll" class="sidebar-link sidebar-link-casino" v-on:click.native="closeMobile">
-                 <!--   <IconRoll />    -->
-                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M28.8 3.6C28.8 3.33333 28.5333 3.2 28.2667 3.06666C23.2 1.73333 17.7333 3.46666 14.4 7.46666L12.6667 9.46666L9.06667 8.53333C7.60001 8 6.13334 8.66666 5.46667 10L2.66667 14.9333C2.66667 14.9333 2.66667 15.0667 2.53334 15.0667C2.40001 15.4667 2.66667 15.7333 3.06667 15.8667L7.60001 16.8C7.20001 18 6.80001 19.2 6.66667 20.4C6.66667 20.6667 6.66667 20.8 6.80001 20.9333L10.8 24.8C10.9333 24.9333 11.0667 24.9333 11.3333 24.9333C12.5333 24.8 13.8667 24.5333 15.0667 24.1333L16 28.5333C16 28.8 16.4 29.0667 16.6667 29.0667C16.8 29.0667 16.9333 29.0667 16.9333 28.9333L21.8667 26.1333C23.0667 25.4667 23.6 24 23.3333 22.6667L22.4 18.8L24.2667 17.0667C28.4 14 30.1333 8.66666 28.8 3.6ZM4.26667 14.8L6.53334 10.6667C6.93334 9.86666 7.73334 9.6 8.53334 9.86666L11.6 10.6667L10.2667 12.2667C9.46667 13.3333 8.66667 14.4 8.13334 15.6L4.26667 14.8ZM21.3333 25.3333L17.2 27.7333L16.4 23.8667C17.6 23.3333 18.6667 22.5333 19.7333 21.7333L21.4667 20.1333L22.2667 23.2C22.2667 24 22 24.9333 21.3333 25.3333ZM23.4667 16.4L18.8 20.6667C16.8 22.4 14.2667 23.4667 11.6 23.7333L8.13334 20.2667C8.53334 17.6 9.60001 15.0667 11.3333 13.0667L13.4667 10.6667L13.6 10.5333L15.4667 8.4C18.4 4.93333 23.2 3.33333 27.6 4.26666C28.5333 8.8 27.0667 13.4667 23.4667 16.4ZM21.8667 7.46666C20.4 7.46666 19.3333 8.66666 19.3333 10C19.3333 11.3333 20.5333 12.5333 21.8667 12.5333C23.3333 12.5333 24.4 11.3333 24.4 10C24.4 8.66666 23.3333 7.46666 21.8667 7.46666ZM21.8667 11.3333C21.2 11.3333 20.6667 10.8 20.6667 10.1333C20.6667 9.46666 21.2 8.93333 21.8667 8.93333C22.5333 8.93333 23.0667 9.46666 23.0667 10.1333C23.0667 10.8 22.5333 11.3333 21.8667 11.3333Z" fill="currentColor"/>
-</svg>
-
-                    <span>Limbo</span>
+                <router-link to="/crash" class="sidebar-link sidebar-link-casino" v-on:click.native="closeMobile">
+                    <svg width="32" height="32" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.15019 10.1486C3.90571 9.90426 3.81363 10.0271 3.75926 10.0815C2.35141 11.4893 1.10155 14.8862 1.7623 14.5545C4.16769 13.3467 4.56847 13.7063 5.97627 12.2985C6.0307 12.2441 6.15585 12.1544 5.90425 11.9028L4.15019 10.1486Z" fill="currentColor"/>
+                        <path d="M11.7397 10.1298C11.6759 9.92678 11.8096 9.82894 11.8658 9.76821C14.9731 6.41355 16.9479 1.94409 15.4844 0.480563C14.0287 -0.975075 9.69708 1.05741 6.34334 4.14226C6.27699 4.20336 6.14621 4.31909 5.91226 4.27024L4.86736 4.02143C4.57725 3.95244 4.16733 4.06841 3.95646 4.27928L0.122402 8.11329C-0.0884723 8.32421 -0.0199598 8.53465 0.274668 8.5809L3.04772 9.01669C3.34235 9.06304 3.75592 8.92837 3.96675 8.71745C3.96675 8.71745 4.10983 8.57398 4.25359 8.71769C5.0467 9.5107 6.52051 10.9845 7.27612 11.7402C7.42632 11.8903 7.28246 12.0332 7.28246 12.0332C7.07154 12.2441 6.93692 12.6576 6.98327 12.9522L7.41901 15.7252C7.46531 16.02 7.67575 16.0885 7.88662 15.8776L11.7207 12.0435C11.9316 11.8326 12.0476 11.4228 11.9785 11.1326L11.7397 10.1298ZM10.8813 5.17648C10.2319 4.52708 10.2319 3.47429 10.8813 2.82499C11.5307 2.17559 12.5835 2.17559 13.2329 2.82499C13.8822 3.47425 13.8822 4.52708 13.2329 5.17643C12.5835 5.82584 11.5306 5.82584 10.8813 5.17648Z" fill="currentColor"/>
+                    </svg>
+                    <span>Crash</span>
                 </router-link>
-                <router-link to="/duels" class="sidebar-link sidebar-link-casino" v-on:click.native="closeMobile">
-                 <!--   <IconDuels />   -->
-                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_41_2155)">
-<path d="M17.6 0C18.873 0 20.0939 0.505713 20.9941 1.40589C21.8943 2.30606 22.4 3.52696 22.4 4.8V9.6H27.2C28.473 9.6 29.6939 10.1057 30.5941 11.0059C31.4943 11.9061 32 13.127 32 14.4V27.2C32 28.473 31.4943 29.6939 30.5941 30.5941C29.6939 31.4943 28.473 32 27.2 32H14.4C13.127 32 11.9061 31.4943 11.0059 30.5941C10.1057 29.6939 9.6 28.473 9.6 27.2V22.4H4.8C3.52696 22.4 2.30606 21.8943 1.40589 20.9941C0.505713 20.0939 0 18.873 0 17.6L0 4.8C0 3.52696 0.505713 2.30606 1.40589 1.40589C2.30606 0.505713 3.52696 0 4.8 0L17.6 0ZM16 24C15.5757 24 15.1687 24.1686 14.8686 24.4686C14.5686 24.7687 14.4 25.1757 14.4 25.6C14.4 26.0243 14.5686 26.4313 14.8686 26.7314C15.1687 27.0314 15.5757 27.2 16 27.2C16.4243 27.2 16.8313 27.0314 17.1314 26.7314C17.4314 26.4313 17.6 26.0243 17.6 25.6C17.6 25.1757 17.4314 24.7687 17.1314 24.4686C16.8313 24.1686 16.4243 24 16 24ZM25.6 24C25.1757 24 24.7687 24.1686 24.4686 24.4686C24.1686 24.7687 24 25.1757 24 25.6C24 26.0243 24.1686 26.4313 24.4686 26.7314C24.7687 27.0314 25.1757 27.2 25.6 27.2C26.0243 27.2 26.4313 27.0314 26.7314 26.7314C27.0314 26.4313 27.2 26.0243 27.2 25.6C27.2 25.1757 27.0314 24.7687 26.7314 24.4686C26.4313 24.1686 26.0243 24 25.6 24ZM20.8 19.2C20.3757 19.2 19.9687 19.3686 19.6686 19.6686C19.3686 19.9687 19.2 20.3757 19.2 20.8C19.2 21.2243 19.3686 21.6313 19.6686 21.9314C19.9687 22.2314 20.3757 22.4 20.8 22.4C21.2243 22.4 21.6313 22.2314 21.9314 21.9314C22.2314 21.6313 22.4 21.2243 22.4 20.8C22.4 20.3757 22.2314 19.9687 21.9314 19.6686C21.6313 19.3686 21.2243 19.2 20.8 19.2ZM16 14.4C15.5757 14.4 15.1687 14.5686 14.8686 14.8686C14.5686 15.1687 14.4 15.5757 14.4 16C14.4 16.4243 14.5686 16.8313 14.8686 17.1314C15.1687 17.4314 15.5757 17.6 16 17.6C16.4243 17.6 16.8313 17.4314 17.1314 17.1314C17.4314 16.8313 17.6 16.4243 17.6 16C17.6 15.5757 17.4314 15.1687 17.1314 14.8686C16.8313 14.5686 16.4243 14.4 16 14.4ZM25.6 14.4C25.1757 14.4 24.7687 14.5686 24.4686 14.8686C24.1686 15.1687 24 15.5757 24 16C24 16.4243 24.1686 16.8313 24.4686 17.1314C24.7687 17.4314 25.1757 17.6 25.6 17.6C26.0243 17.6 26.4313 17.4314 26.7314 17.1314C27.0314 16.8313 27.2 16.4243 27.2 16C27.2 15.5757 27.0314 15.1687 26.7314 14.8686C26.4313 14.5686 26.0243 14.4 25.6 14.4ZM7.2208 14.3888C6.79645 14.3888 6.38949 14.5574 6.08943 14.8574C5.78937 15.1575 5.6208 15.5645 5.6208 15.9888C5.6208 16.4131 5.78937 16.8201 6.08943 17.1202C6.38949 17.4202 6.79645 17.5888 7.2208 17.5888C7.64515 17.5888 8.05211 17.4202 8.35217 17.1202C8.65223 16.8201 8.8208 16.4131 8.8208 15.9888C8.8208 15.5645 8.65223 15.1575 8.35217 14.8574C8.05211 14.5574 7.64515 14.3888 7.2208 14.3888ZM7.2208 9.5888C6.79645 9.5888 6.38949 9.75737 6.08943 10.0574C5.78937 10.3575 5.6208 10.7645 5.6208 11.1888C5.6208 11.6131 5.78937 12.0201 6.08943 12.3202C6.38949 12.6202 6.79645 12.7888 7.2208 12.7888C7.64515 12.7888 8.05211 12.6202 8.35217 12.3202C8.65223 12.0201 8.8208 11.6131 8.8208 11.1888C8.8208 10.7645 8.65223 10.3575 8.35217 10.0574C8.05211 9.75737 7.64515 9.5888 7.2208 9.5888ZM7.2208 4.7888C6.79645 4.7888 6.38949 4.95737 6.08943 5.25743C5.78937 5.55749 5.6208 5.96445 5.6208 6.3888C5.6208 6.81315 5.78937 7.22011 6.08943 7.52017C6.38949 7.82023 6.79645 7.9888 7.2208 7.9888C7.64515 7.9888 8.05211 7.82023 8.35217 7.52017C8.65223 7.22011 8.8208 6.81315 8.8208 6.3888C8.8208 5.96445 8.65223 5.55749 8.35217 5.25743C8.05211 4.95737 7.64515 4.7888 7.2208 4.7888ZM15.2208 4.7888C14.7965 4.7888 14.3895 4.95737 14.0894 5.25743C13.7894 5.55749 13.6208 5.96445 13.6208 6.3888C13.6208 6.81315 13.7894 7.22011 14.0894 7.52017C14.3895 7.82023 14.7965 7.9888 15.2208 7.9888C15.6451 7.9888 16.0521 7.82023 16.3522 7.52017C16.6522 7.22011 16.8208 6.81315 16.8208 6.3888C16.8208 5.96445 16.6522 5.55749 16.3522 5.25743C16.0521 4.95737 15.6451 4.7888 15.2208 4.7888Z" fill="currentColor"/>
-</g>
-<defs>
-<clipPath id="clip0_41_2155">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-
-                    <span>Dice</span>
+                <router-link to="/towers" class="sidebar-link sidebar-link-casino" v-on:click.native="closeMobile">
+                    <svg width="32" height="32" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.7526 0H8.72751C8.59087 0 8.4801 0.110779 8.4801 0.247413V1.48448H6.82861V0.247413C6.82861 0.110779 6.71783 0 6.5812 0H4.41757C4.28093 0 4.17015 0.110779 4.17015 0.247413V1.48448H2.51991V0.247413C2.51991 0.110779 2.40913 0 2.27249 0H0.247413C0.110779 0 0 0.110779 0 0.247413V2.9034C0.00136077 3.57305 0.543908 4.1156 1.21356 4.11696H1.21851H9.78644C10.4561 4.1156 10.9986 3.57305 11 2.9034V0.247413C11 0.110779 10.8892 0 10.7526 0Z" fill="currentColor"/>
+                        <path d="M9.58606 4.48689H1.42141L1.07132 12.4301V12.5068C1.06894 12.8843 1.19648 13.2513 1.43255 13.5459C1.64925 13.8246 1.97469 13.9975 2.32694 14.021H8.68176C9.03401 13.9975 9.35946 13.8246 9.57616 13.5459C9.81222 13.2513 9.93976 12.8843 9.93738 12.5068C9.93738 12.4919 9.93738 12.466 9.93738 12.4301L9.58606 4.48689ZM7.38036 13.5385H3.62463V10.0549C3.62463 9.01678 4.4662 8.1752 5.50435 8.1752C6.5425 8.1752 7.38408 9.01678 7.38408 10.0549L7.38036 13.5385Z" fill="currentColor"/>
+                    </svg>
+                    <span>Tower</span>
                 </router-link>
             </nav>
 
@@ -147,7 +138,21 @@
             },
             openSupport() { this.modalsSetShow('Support'); this.closeMobile(); }
         },
-        mounted() { this.$emit('collapsed-change', this.collapsed); }
+        mounted() { 
+            this.$emit('collapsed-change', this.collapsed);
+            // Listen for events from Header to toggle sidebar
+            this.$root.$on('toggle-sidebar-mobile', () => {
+                this.toggleMobile();
+            });
+            this.$root.$on('close-sidebar-mobile', () => {
+                this.closeMobile();
+            });
+        },
+        beforeDestroy() {
+            // Clean up event listeners
+            this.$root.$off('toggle-sidebar-mobile');
+            this.$root.$off('close-sidebar-mobile');
+        }
     }
 </script>
 
@@ -303,17 +308,29 @@
         z-index: 120; 
         display: none; 
         align-items: center; 
-        gap: var(--spacing-sm); 
+        justify-content: center;
         background: transparent;
-        /* backdrop-filter: blur(10px); */
-        /*border: 1px solid var(--accent-yellow); */
-        color: var(--accent-yellow); 
-        padding: 0 0 33px 18px;
-        /*border-radius: var(--radius-sm); */
+        border: none;
+        padding: 0;
+        cursor: pointer;
         transition: all 0.3s ease;
     }
-    .mobile-fab svg { fill: var(--accent-yellow); }
-    .mobile-fab:hover { color: var(--accent-yellow); }
+    
+    .menu-icon-mobile {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        padding: 12px;
+    }
+    
+    .mobile-fab:hover {
+        transform: scale(1.05);
+    }
+    
+    .mobile-fab:active {
+        transform: scale(0.95);
+    }
 
     .mobile-backdrop { 
         position: fixed; 
@@ -357,49 +374,36 @@
         transition: all 0.3s ease;
         align-items: center;
         justify-content: center;
-        height: 80px;
+        width: 60px;
+        height: 60px;
     }
 
     .mobile-home-btn img {
-        width: auto;
-        height: 36px;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
         display: block;
+        padding: 12px;
         transition: transform 0.3s ease;
     }
 
     .mobile-home-btn:hover img {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
     .mobile-home-btn:active img {
         transform: scale(0.95);
     }
 
-    /* Position mobile fav button at bottom left of fixed header on tablets and mobile */
-    @media only screen and (max-width: 1024px) {
+    /* Hide individual buttons on all mobile/tablet sizes - they're now in the mobile button row */
+    @media only screen and (max-width: 1500px) {
+        /* Hide individual buttons - they're now in the mobile button row */
         .mobile-fab {
-            position: fixed !important;
-            top: auto !important;
-            bottom: 0 !important;
-            left: var(--spacing-md) !important;
-            z-index: 100001 !important;
-            display: inline-flex !important;
-            padding: 0 0 33px 18px !important;
-            align-items: center !important;
-            gap: var(--spacing-sm) !important;
-            background: transparent !important;
-            color: var(--accent-yellow) !important;
-            transition: all 0.3s ease !important;
+            display: none !important;
         }
         
         .mobile-home-btn {
-            display: flex !important;
-            position: fixed !important;
-            top: auto !important;
-            bottom: 0 !important;
-            left: calc(var(--spacing-md) + 91px) !important;
-            z-index: 100001 !important;
-            height: 80px !important;
+            display: none !important;
         }
         
         aside#sidebar-left {
@@ -411,49 +415,6 @@
     @media only screen and (max-width: 768px) {
         aside#sidebar-left { 
             width: 260px; 
-            bottom: 80px !important;
-            top: auto !important;
-        }
-        
-        .mobile-fab {
-            position: fixed !important;
-            top: auto !important;
-            bottom: 0 !important;
-            left: var(--spacing-sm) !important;
-            padding: 0 0 33px 18px !important;
-            min-height: auto !important;
-            min-width: auto !important;
-            z-index: 100001 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: var(--spacing-xs) !important;
-        }
-        
-        .mobile-home-btn {
-            left: calc(var(--spacing-sm) + 91px) !important;
-        }
-        
-        .mobile-home-btn img {
-            height: 36px;
-        }
-    }
-    
-    @media only screen and (max-width: 480px) {
-        .mobile-fab {
-            position: fixed !important;
-            top: auto !important;
-            bottom: 0 !important;
-            left: var(--spacing-xs) !important;
-            padding: 0 0 33px 18px !important;
-            z-index: 100001 !important;
-        }
-        
-        .mobile-home-btn {
-            left: calc(var(--spacing-xs) + 91px) !important;
-        }
-        
-        .mobile-home-btn img {
-            height: 36px;
         }
     }
 </style> 

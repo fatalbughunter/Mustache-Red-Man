@@ -163,7 +163,7 @@
     .profile-settings .head-action {
         font-size: 13px;
         font-weight: 700;
-        color: #5e768e;
+        color: var(--accent-copper-light);
     }
 
     .profile-settings .section-content {
@@ -189,8 +189,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #051924;
-        clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 25%, 100% 75%, calc(100% - 4px) 100%, 4px 100%, 0 75%, 0 25%);
+        background-color: rgba(13, 13, 13, 0.8);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .profile-settings .profile-settings-element button.button-toggle::after {
@@ -200,14 +201,14 @@
         position: absolute;
         top: -2px;
         left: 0;
-        background: #1c5064;
-        clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 25%, 100% 75%, calc(100% - 3px) 100%, 3px 100%, 0 75%, 0 25%);
+        background: rgba(139, 111, 71, 0.6);
+        border-radius: var(--radius-sm);
         transition: all 0.3s ease;
     }
 
     .profile-settings .profile-settings-element button.button-toggle.button-active::after {
         transform: translate(20px, 0);
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
+        background: var(--gradient-copper);
     }
 
     .profile-settings .profile-settings-element input[type="range"] {
@@ -217,7 +218,6 @@
         -webkit-appearance: none;
         -moz-apperance: none;
         background-color: transparent;
-        filter: drop-shadow(0px 4px 25px rgba(15, 41, 63, 0.35));
     }
 
     .profile-settings .profile-settings-element input[type="range"]::before {
@@ -227,8 +227,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #051924;
-        clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 25%, 100% 75%, calc(100% - 4px) 100%, 4px 100%, 0 75%, 0 25%);
+        background-color: rgba(13, 13, 13, 0.8);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .profile-settings .profile-settings-element input[type="range"]::-webkit-slider-thumb {
@@ -236,17 +237,19 @@
         height: 19px;
         -webkit-appearance: none;
         appearance: none;
-        background: var(--thumbColor);
-        clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 25%, 100% 75%, calc(100% - 3px) 100%, 3px 100%, 0 75%, 0 25%);
+        background: var(--thumbColor, var(--gradient-copper));
+        border-radius: var(--radius-sm);
         cursor: pointer;
+        border: 1px solid rgba(222, 184, 135, 0.3);
     }
 
     .profile-settings .profile-settings-element input[type="range"]::-moz-range-thumb {
         width: 25px;
         height: 19px;
-        background: var(--thumbColor);
-        clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 25%, 100% 75%, calc(100% - 3px) 100%, 3px 100%, 0 75%, 0 25%);
+        background: var(--thumbColor, var(--gradient-copper));
+        border-radius: var(--radius-sm);
         cursor: pointer;
+        border: 1px solid rgba(222, 184, 135, 0.3);
     }
 
     .profile-settings .profile-settings-element button.button-link,
@@ -273,16 +276,36 @@
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
-        background: #214059;
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        background: rgba(13, 13, 13, 0.8);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .profile-settings .profile-settings-element button.button-link:hover .button-inner,
+    .profile-settings .profile-settings-element button.button-verify:hover .button-inner {
+        background: rgba(184, 115, 51, 0.3);
+        border-color: rgba(222, 184, 135, 0.5);
     }
 
     .profile-settings .profile-settings-element button.button-link.button-roblox .button-inner {
-        background: #4178ca;
+        background: rgba(13, 13, 13, 0.8);
+        border-color: rgba(65, 120, 202, 0.5);
+    }
+    
+    .profile-settings .profile-settings-element button.button-link.button-roblox:hover .button-inner {
+        background: rgba(65, 120, 202, 0.3);
+        border-color: rgba(65, 120, 202, 0.7);
     }
 
     .profile-settings .profile-settings-element button.button-link.button-google .button-inner {
-        background: #ef4444;
+        background: rgba(13, 13, 13, 0.8);
+        border-color: rgba(239, 68, 68, 0.5);
+    }
+    
+    .profile-settings .profile-settings-element button.button-link.button-google:hover .button-inner {
+        background: rgba(239, 68, 68, 0.3);
+        border-color: rgba(239, 68, 68, 0.7);
     }
 
     .profile-settings .profile-settings-element button.button-link .button-inner svg {
@@ -299,11 +322,12 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 30px 0 10px;
-        border-radius: 5px;
+        border-radius: var(--radius-md);
         font-size: 12px;
         font-weight: 600;
-        color: #ffffff;
-        background: #0a2434;
+        color: var(--text-gold);
+        background: rgba(13, 13, 13, 0.8);
+        border: 1px solid rgba(222, 184, 135, 0.3);
     }
 
     .profile-settings .profile-settings-element .element-info span {
@@ -324,12 +348,12 @@
     }
 
     .profile-settings .profile-settings-element .element-info button svg {
-        fill: #5e768e;
+        fill: var(--accent-copper);
         transition: fill 0.3s ease;
     }
 
     .profile-settings .profile-settings-element .element-info button:hover svg {
-        fill: #ffffff;
+        fill: var(--accent-copper-light);
     }
 
     @media only screen and (max-width: 450px) {

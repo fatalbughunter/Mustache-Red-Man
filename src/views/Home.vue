@@ -4,7 +4,7 @@
         <div class="second-bar-section">
             <Header />
             <img src="@/assets/img/banner/secondBar.png" alt="Second Bar" class="second-bar-image" />
-            <button class="play-now-button" @click="showSignupModal = true">
+            <button class="play-now-button" @click="handlePlayNowClick">
                 PLAY NOW
             </button>
         </div>
@@ -24,7 +24,7 @@
         />
         <PopularGames />
         <AllGames />
-        <CasinoPanels />
+        <CasinoPanels v-if="false" />
         <div class="live-feed-section">
             <LiveFeed />
             <div class="image-container">
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import HeroBanner from '@/components/HeroBanner';
     import Header from '@/components/Header';
     import SignupModal from '@/components/SignupModal.vue';
@@ -65,7 +66,19 @@
                 showSignInModal: false
             }
         },
+        computed: {
+            ...mapGetters(['authUser'])
+        },
         methods: {
+            handlePlayNowClick() {
+                // If user is not logged in, show sign in modal
+                if (this.authUser.user === null) {
+                    this.showSignInModal = true;
+                } else {
+                    // If user is logged in, navigate to Our Casino page
+                    this.$router.push('/our-casino');
+                }
+            },
             handleSignInRequest() {
                 this.showSignupModal = false;
                 this.showSignInModal = true;

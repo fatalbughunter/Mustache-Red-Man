@@ -66,7 +66,7 @@
     }
 
     .box-rank.rank-admin::before {
-        background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #00ffc2 100%);
+        background: var(--gradient-red-hero);
     }
 
     .box-rank::after {
@@ -124,7 +124,7 @@
     }
 
     .box-rank.rank-admin .rank-inner {
-        background: linear-gradient(180deg, rgba(0, 255, 194, 0.05) 0%, rgba(0, 170, 109, 0.05) 100%);
+        background: var(--bg-primary);
     }
 
     .box-rank.rank-mod .rank-inner img {

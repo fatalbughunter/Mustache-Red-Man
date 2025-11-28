@@ -136,7 +136,7 @@
         width: 100%;
         font-size: 14px;
         font-weight: 700;
-        color: #5191b1;
+        color: var(--text-primary);
     }
 
     .cashier-deposit .section-gift {
@@ -147,7 +147,7 @@
     .cashier-deposit .gift-title {
         font-size: 13px;
         font-weight: 400;
-        color: #5191b1;
+        color: var(--text-primary);
     }
 
     .cashier-deposit .gift-input {
@@ -164,13 +164,18 @@
         border-radius: 12px;
         font-size: 13px;
         font-weight: 400;
-        color: #ffffff;
-        background: #072131;
-        border: 1px dashed #123651;
+        color: var(--text-primary);
+        background: var(--bg-tertiary);
+        border: 1px dashed rgba(212, 165, 116, 0.3);
     }
 
     .cashier-deposit .gift-input input::placeholder {
-        color: #bbbfd0;
+        color: var(--text-muted);
+    }
+
+    .cashier-deposit .gift-input input:focus {
+        border-color: var(--accent-copper-light);
+        outline: none;
     }
 
     .cashier-deposit button.button-redeem {
@@ -190,9 +195,9 @@
         align-items: center;
         font-size: 13px;
         font-weight: 800;
-        color: #ffffff;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        color: #000000;
+        background: var(--gradient-copper);
+        border-radius: 8px;
     }
 
     @media only screen and (max-width: 840px) {

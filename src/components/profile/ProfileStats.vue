@@ -73,7 +73,7 @@
         align-items: center;
         margin-top: 35px;
         padding-top: 30px;
-        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        border-top: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .profile-stats .stats-element {
@@ -84,11 +84,11 @@
         text-align: center;
         font-size: 12px;
         font-weight: 600;
-        color: #5e768e;
+        color: var(--accent-copper-light);
     }
 
     .profile-stats .stats-element.element-profit .element-title {
-        background: linear-gradient(250deg, #00ffc2 0%, #00aa6d 100%), #a6cae8;
+        background: var(--gradient-copper);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -96,7 +96,7 @@
     }
 
     .profile-stats .stats-element.element-negative .element-title {
-        background: linear-gradient(250deg, #d15e5e 0%, #ff4545 100%);
+        background: var(--gradient-red);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -118,16 +118,16 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #04131f 0%, #223a4e 100%);
-        clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 25%, 100% 75%, calc(100% - 16px) 100%, 16px 100%, 0 75%, 0 25%);
+        background: linear-gradient(180deg, rgba(184, 115, 51, 0.3) 0%, rgba(139, 111, 71, 0.4) 100%);
+        border-radius: var(--radius-md);
     }
 
     .profile-stats .stats-element.element-profit .element-amount::before {
-        background: linear-gradient(180deg, #04131f 25%, #00ffc2 100%);
+        background: linear-gradient(180deg, rgba(222, 184, 135, 0.3) 25%, rgba(184, 115, 51, 0.5) 100%);
     }
 
     .profile-stats .stats-element.element-negative .element-amount::before {
-        background: linear-gradient(180deg, #04131f 25%, #cf5048 100%);
+        background: linear-gradient(180deg, rgba(205, 127, 50, 0.3) 25%, rgba(139, 0, 0, 0.5) 100%);
     }
 
     .profile-stats .amount-inner {
@@ -136,17 +136,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #041e30;
-        clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 25%, 100% 75%, calc(100% - 16px) 100%, 16px 100%, 0 75%, 0 25%);
+        background-color: rgba(13, 13, 13, 0.8);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.3);
         z-index: 1;
     }
 
     .profile-stats .stats-element.element-profit .amount-inner {
-        background: radial-gradient(80% 80% at 50% 50%, rgba(0, 255, 194, 0.05) 0%, rgba(0, 0, 0, 0) 100%), #041e30;
+        background: radial-gradient(80% 80% at 50% 50%, rgba(222, 184, 135, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(13, 13, 13, 0.8);
     }
 
     .profile-stats .stats-element.element-negative .amount-inner {
-        background: radial-gradient(80% 80% at 50% 50%, rgba(207, 80, 72, 0.05) 0%, rgba(0, 0, 0, 0) 100%), #041e30;
+        background: radial-gradient(80% 80% at 50% 50%, rgba(220, 20, 60, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(13, 13, 13, 0.8);
     }
 
     .profile-stats .amount-inner img {
@@ -158,13 +159,13 @@
     .profile-stats .inner-value {
         font-size: 14px;
         font-weight: 600;
-        color: #c1c1c1;
+        color: var(--accent-copper-light);
     }
 
     .profile-stats .inner-value span {
         font-size: 16px;
         font-weight: 700;
-        color: #ffffff;
+        color: var(--text-gold);
     }
 
     @media only screen and (max-width: 950px) {

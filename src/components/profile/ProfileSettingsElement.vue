@@ -30,12 +30,15 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 20px;
-        border-radius: 5px;
-        background: rgba(19, 66, 88, 0.1);
+        border-radius: var(--radius-md);
+        background: rgba(13, 13, 13, 0.4);
+        border: 1px solid rgba(222, 184, 135, 0.1);
+        margin-bottom: 8px;
     }
 
     .profile-settings-element:nth-child(odd) {
-        background: rgba(19, 66, 88, 0.25);
+        background: rgba(13, 13, 13, 0.6);
+        border-color: rgba(222, 184, 135, 0.2);
     }
 
     .profile-settings-element:first-of-type {
@@ -47,16 +50,16 @@
         align-items: center;
         font-size: 14px;
         font-weight: 700;
-        color: #bbbfd0;
+        color: var(--accent-copper-light);
     }
 
     .profile-settings-element .element-name svg {
         margin-right: 9px;
-        fill: #db7d48;
+        fill: var(--accent-copper);
     }
 
     .profile-settings-element.element-success .element-name svg {
-        fill: #00ffc2;
+        fill: var(--accent-copper-light);
     }
 
     .profile-settings-element .element-action {

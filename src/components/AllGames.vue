@@ -1,19 +1,27 @@
 <template>
     <div class="all-games">
         <div class="section-header">
-            <div class="copper-bolt bolt-left-top"></div>
-            <div class="copper-bolt bolt-right-top"></div>
-            <h2 class="section-title">All Games</h2>
-            <div class="copper-bolt bolt-left-bottom"></div>
+            <div class="copper-bolt bolt-left-top" v-if="showTopBolts"></div>
+            <div class="copper-bolt bolt-right-top" v-if="showTopBolts"></div>
+            <h2 class="section-title">{{ title }}</h2>
+            <div class="copper-bolt bolt-left-bottom" v-if="showBottomBolts"></div>
+            <div class="copper-bolt bolt-right-bottom" v-if="showBottomBolts"></div>
         </div>
-        <div class="games-grid">
-            <div class="game-card" v-for="game in games" :key="game.id" @click="navigateToGame(game.route)">
+        <div class="games-grid" :class="{ 'large-cards-layout': largeCards }">
+            <div class="game-card" 
+                 v-for="game in games" 
+                 :key="game.id" 
+                 :class="{ 'game-disabled': isGameDisabled(game.name) }"
+                 @click="handleGameClick(game)">
                 <div class="game-screen" :class="game.bgClass">
                     <div class="game-info">
                         <h3 class="game-title">{{ game.name }}</h3>
                         <p class="game-subtitle">{{ game.subtitle }}</p>
                     </div>
-                    <button class="play-button">PLAY NOW <span class="chevron">></span></button>
+                    <button v-if="showPlayButton" class="play-button">
+                        {{ isGameDisabled(game.name) ? 'COMING SOON' : 'PLAY NOW' }}
+                        <span class="chevron" v-if="!isGameDisabled(game.name)">></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -23,9 +31,35 @@
 <script>
 export default {
     name: 'AllGames',
+    props: {
+        title: {
+            type: String,
+            default: 'All Games'
+        },
+        showTopBolts: {
+            type: Boolean,
+            default: true
+        },
+        showBottomBolts: {
+            type: Boolean,
+            default: true
+        },
+        showPlayButton: {
+            type: Boolean,
+            default: true
+        },
+        filteredGameNames: {
+            type: Array,
+            default: () => []
+        },
+        largeCards: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
-            games: [
+            allGames: [
                 {
                     id: 1,
                     name: 'Crash',
@@ -92,7 +126,40 @@ export default {
             ]
         }
     },
+    computed: {
+        games() {
+            // If filteredGameNames is provided, filter games by name (case-insensitive) and preserve order
+            if (this.filteredGameNames && this.filteredGameNames.length > 0) {
+                const filtered = [];
+                this.filteredGameNames.forEach(filterName => {
+                    const match = this.allGames.find(game => {
+                        const gameNameLower = game.name.toLowerCase();
+                        const filterNameLower = filterName.toLowerCase();
+                        return gameNameLower === filterNameLower ||
+                               gameNameLower === filterNameLower + 's' ||
+                               gameNameLower + 's' === filterNameLower;
+                    });
+                    if (match) {
+                        filtered.push(match);
+                    }
+                });
+                return filtered;
+            }
+            // Otherwise return all games
+            return this.allGames;
+        }
+    },
     methods: {
+        isGameDisabled(gameName) {
+            const disabledGames = ['Upgrader', 'Duels', 'Battles', 'Unbox', 'Roll'];
+            return disabledGames.includes(gameName);
+        },
+        handleGameClick(game) {
+            // Don't navigate if game is disabled
+            if (!this.isGameDisabled(game.name)) {
+                this.navigateToGame(game.route);
+            }
+        },
         navigateToGame(route) {
             this.$router.push(route);
         }
@@ -135,7 +202,6 @@ export default {
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
-    z-index: 2;
     display: inline-block;
 }
 
@@ -199,6 +265,7 @@ export default {
 .bolt-right-bottom {
     right: -60px;
     transform: translateY(-50%);
+    display: none;
 }
 
 @media only screen and (max-width: 768px) {
@@ -243,6 +310,20 @@ export default {
     justify-items: center;
 }
 
+/* Large cards layout - 4 cards in a row, centered */
+.games-grid.large-cards-layout {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1600px;
+    gap: var(--spacing-xl);
+    justify-content: center;
+    align-items: center;
+}
+
+.games-grid.large-cards-layout .game-card {
+    max-width: 400px;
+    width: 100%;
+}
+
 .game-card {
     border-radius: 8px;
     padding: 8px;
@@ -279,7 +360,7 @@ export default {
     height: 18px;
     background: radial-gradient(circle at 30% 30%, rgba(212, 165, 116, 1), rgba(184, 115, 51, 0.95), rgba(139, 111, 71, 1));
     border-radius: 50%;
-    z-index: 10;
+   /* z-index: 10; */
     box-shadow: 
         0 2px 8px rgba(0, 0, 0, 0.6),
         inset 0 1px 3px rgba(255, 255, 255, 0.4),
@@ -301,7 +382,7 @@ export default {
     right: -3px;
 }
 
-.game-card:hover {
+.game-card:hover:not(.game-disabled) {
     transform: translateY(-4px);
     border-color: rgba(212, 165, 116, 0.8);
     box-shadow: 
@@ -311,8 +392,24 @@ export default {
         0 0 30px rgba(212, 165, 116, 0.6);
 }
 
-.game-card:hover::before,
-.game-card:hover::after {
+/* Disabled game styles */
+.game-card.game-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.game-card.game-disabled:hover {
+    transform: none;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(184, 115, 51, 0.4);
+    border-color: rgba(184, 115, 51, 0.6);
+}
+
+.game-card:hover:not(.game-disabled)::before,
+.game-card:hover:not(.game-disabled)::after {
     box-shadow: 
         0 3px 10px rgba(0, 0, 0, 0.7),
         inset 0 1px 3px rgba(255, 255, 255, 0.5),
@@ -345,7 +442,7 @@ export default {
     height: 18px;
     background: radial-gradient(circle at 30% 30%, rgba(212, 165, 116, 1), rgba(184, 115, 51, 0.95), rgba(139, 111, 71, 1));
     border-radius: 50%;
-    z-index: 10;
+    z-index: 1;
     box-shadow: 
         0 2px 8px rgba(0, 0, 0, 0.6),
         inset 0 1px 3px rgba(255, 255, 255, 0.4),
@@ -367,8 +464,8 @@ export default {
     right: -3px;
 }
 
-.game-card:hover .game-screen::before,
-.game-card:hover .game-screen::after {
+.game-card:hover:not(.game-disabled) .game-screen::before,
+.game-card:hover:not(.game-disabled) .game-screen::after {
     box-shadow: 
         0 3px 10px rgba(0, 0, 0, 0.7),
         inset 0 1px 3px rgba(255, 255, 255, 0.5),
@@ -524,7 +621,7 @@ export default {
 
 .game-info {
     text-align: center;
-    z-index: 2;
+   /* z-index: 2; */
     position: relative;
     width: 100%;
     display: flex;
@@ -574,7 +671,7 @@ export default {
     margin-top: auto;
     margin-bottom: 0;
     position: relative;
-    z-index: 3;
+   /* z-index: 3; */
 }
 
 .play-button .chevron {
@@ -628,10 +725,32 @@ export default {
     background: linear-gradient(135deg, #D4A574 0%, #B87333 50%, #D4A574 100%);
 }
 
+/* Large cards layout responsive */
+@media (max-width: 1400px) {
+    .games-grid.large-cards-layout {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-lg);
+        max-width: 1400px;
+    }
+    
+    .games-grid.large-cards-layout .game-card {
+        max-width: 320px;
+    }
+}
+
 @media (max-width: 1200px) {
     .games-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: var(--spacing-md);
+    }
+    
+    .games-grid.large-cards-layout {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+    
+    .games-grid.large-cards-layout .game-card {
+        max-width: 350px;
     }
 }
 
@@ -641,7 +760,16 @@ export default {
         gap: var(--spacing-sm);
     }
     
+    .games-grid.large-cards-layout {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+    
     .game-card {
+        max-width: 100%;
+    }
+    
+    .games-grid.large-cards-layout .game-card {
         max-width: 100%;
     }
     

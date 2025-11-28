@@ -235,7 +235,7 @@
         justify-content: center;
         align-items: center;
         background: var(--bg-tertiary);
-        clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 25%, 100% 75%, calc(100% - 6px) 100%, 6px 100%, 0 75%, 0 25%);
+        border-radius: 8px;
     }
 
     .modals .body-modal.modal-square button.button-close .button-inner {

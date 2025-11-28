@@ -123,9 +123,56 @@
         flex-direction: column;
         align-items: center;
         padding: 35px 30px 30px 30px;
-        border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% 0%, rgba(0, 255, 194, 0.25) 0%, rgba(7, 38, 61, 0) 80%), 
-                    linear-gradient(256deg, #07263d 0%, #07243a 100%);
+        border-radius: var(--radius-lg);
+        /* Desert sand background matching header theme */
+        background: 
+            /* Sand grain texture overlay */
+            radial-gradient(circle at 20% 30%, rgba(222, 184, 135, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(184, 115, 51, 0.12) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(205, 127, 50, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 60% 20%, rgba(222, 184, 135, 0.08) 0%, transparent 50%),
+            /* Fine sand texture pattern */
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(222, 184, 135, 0.03) 2px,
+                rgba(222, 184, 135, 0.03) 3px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(184, 115, 51, 0.03) 2px,
+                rgba(184, 115, 51, 0.03) 3px
+            ),
+            /* Subtle diagonal sand drift pattern */
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 8px,
+                rgba(222, 184, 135, 0.04) 8px,
+                rgba(222, 184, 135, 0.04) 9px,
+                transparent 9px,
+                transparent 16px
+            ),
+            /* Main desert sand gradient */
+            linear-gradient(
+                180deg,
+                rgba(222, 184, 135, 0.25) 0%,
+                rgba(205, 127, 50, 0.30) 25%,
+                rgba(184, 115, 51, 0.35) 50%,
+                rgba(139, 111, 71, 0.30) 75%,
+                rgba(101, 67, 33, 0.25) 100%
+            ),
+            /* Base dark background */
+            rgba(26, 20, 15, 0.98);
+        backdrop-filter: blur(10px) saturate(120%);
+        border: 2px solid rgba(222, 184, 135, 0.6);
+        box-shadow: 
+            0 10px 40px rgba(0, 0, 0, 0.9),
+            0 5px 20px rgba(184, 115, 51, 0.4),
+            inset 0 1px 0 rgba(222, 184, 135, 0.2);
     }
 
     .modal-fair-seed .seed-header {
@@ -142,7 +189,11 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        background: linear-gradient(255deg, rgba(0, 255, 194, 0.2)0%, rgba(0, 170, 109, 0.2) 100%);
+        background: var(--gradient-copper);
+        border: 2px solid rgba(222, 184, 135, 0.5);
+        box-shadow: 
+            0 4px 15px rgba(184, 115, 51, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .modal-fair-seed .header-icon img {
@@ -180,14 +231,15 @@
         align-items: center;
         margin-top: 12px;
         padding: 0 52px 0 20px;
-        border-radius: 8px;
-        background: #071f2e;
+        border-radius: var(--radius-md);
+        background: rgba(13, 13, 13, 0.8);
+        border: 1px solid rgba(222, 184, 135, 0.3);
     }
 
     .modal-fair-seed .element-content span {
         font-size: 16px;
         font-weight: 600;
-        color: #5e768e;
+        color: var(--accent-copper-light);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -198,8 +250,14 @@
         height: 100%;
         font-size: 16px;
         font-weight: 600;
-        color: #5e768e;
+        color: var(--accent-copper-light);
         background: transparent;
+        border: none;
+        outline: none;
+    }
+    
+    .modal-fair-seed .element-content input::placeholder {
+        color: var(--text-muted);
     }
 
     .modal-fair-seed button.button-cycle {
@@ -220,8 +278,26 @@
         font-size: 14px;
         font-weight: 800;
         color: #ffffff;
-        background: linear-gradient(250deg, #00ffc2 0%, #00aa6d 100%);
-        clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 25%, 100% 75%, calc(100% - 7px) 100%, 7px 100%, 0 75%, 0 25%);
+        background: var(--gradient-copper);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.5);
+        box-shadow: 
+            0 4px 15px rgba(184, 115, 51, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .modal-fair-seed button.button-cycle:hover .button-inner {
+        background: var(--gradient-copper-dark);
+        box-shadow: 
+            0 6px 20px rgba(184, 115, 51, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+    }
+    
+    .modal-fair-seed button.button-cycle:disabled .button-inner {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
     .modal-fair-seed .element-content button.button-copy {
@@ -234,12 +310,12 @@
     .modal-fair-seed .element-content button.button-copy svg {
         width: 20px;
         height: auto;
-        fill: #49687d;
+        fill: var(--accent-copper);
         transition: fill 0.3s ease;
     }
 
     .modal-fair-seed .element-content button.button-copy:hover svg {
-        fill: #ffffff;
+        fill: var(--accent-copper-light);
     }
 
     @media only screen and (max-width: 740px) {

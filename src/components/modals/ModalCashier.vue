@@ -69,8 +69,7 @@
         align-items: center;
         padding: 25px 35px 40px 35px;
         border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% -30%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), 
-                    linear-gradient(255deg, #07263d 0%, #07243a 100%);
+        background: #000000;
     }
 
     .modal-cashier .cashier-header {
@@ -78,7 +77,8 @@
         display: flex;
         align-items: center;
         padding-bottom: 25px;
-        border-bottom: 1px solid #335361;
+        border-bottom: 1px solid #ffffff;
+        opacity: 0.3;
     }
 
     .modal-cashier button.button-nav {
@@ -91,7 +91,7 @@
     }
 
     .modal-cashier button.button-nav.button-active {
-        filter: drop-shadow(0px 4px 25px rgba(1, 230, 169, 0.15));
+        filter: drop-shadow(0px 4px 25px rgba(220, 20, 60, 0.4));
     }
 
     .modal-cashier button.button-nav::before {
@@ -101,13 +101,14 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #0d4557;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        background-color: var(--bg-tertiary);
+        border-radius: 8px;
         z-index: -1;
     }
 
     .modal-cashier button.button-nav.button-active::before {
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #01e0a3 100%);
+        background: var(--accent-red);
+        border-radius: 8px;
     }
 
     .modal-cashier button.button-nav:last-of-type {
@@ -121,28 +122,34 @@
         justify-content: center;
         align-items: center;
         padding: 0 20px;
-        background-color: #0d4557;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        background-color: var(--bg-tertiary);
+        border-radius: 8px;
     }
     
     .modal-cashier button.button-nav.button-active .button-inner {
-        background: radial-gradient(80% 80% at 50% 50%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), 
-                    repeating-linear-gradient(-50deg, transparent, transparent 7px, rgba(2, 21, 36, 0.2) 7px, rgba(2, 21, 36, 0.2) 13px), #073e4b;
+        background: var(--accent-red);
+        border-radius: 8px;
     }
 
     .modal-cashier button.button-nav .button-inner svg {
         margin-right: 8px;
-        fill: #bbbfd0;
+        fill: var(--text-muted);
     }
 
     .modal-cashier button.button-nav.button-active .button-inner svg {
-        fill: #00ffc2;
+        fill: #ffffff;
     }
 
     .modal-cashier button.button-nav .button-inner span {
         font-size: 14px;
         font-weight: 700;
-        color: #bbbfd0;
+        color: #ffffff;
+    }
+
+    .modal-cashier button.button-nav.button-active .button-inner span {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        background: none !important;
     }
 
     @media only screen and (max-width: 840px) {

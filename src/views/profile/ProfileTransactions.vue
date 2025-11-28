@@ -100,21 +100,21 @@
         width: 30%;
         font-size: 13px;
         font-weight: 700;
-        color: #5e768e;
+        color: var(--accent-copper-light);
     }
 
     .profile-transactions .head-method {
         width: 30%;
         font-size: 13px;
         font-weight: 700;
-        color: #5e768e;
+        color: var(--accent-copper-light);
     }
 
     .profile-transactions .head-type {
         width: 20%;
         font-size: 13px;
         font-weight: 700;
-        color: #5e768e;
+        color: var(--accent-copper-light);
     }
 
     .profile-transactions .head-amount {
@@ -122,14 +122,14 @@
         text-align: right;
         font-size: 13px;
         font-weight: 700;
-        color: #5e768e;
+        color: var(--accent-copper-light);
     }
 
     .profile-transactions .transactions-content {
         width: 100%;
         margin-top: 15px;
         padding-bottom: 25px;
-        border-bottom: 1px solid rgba(24, 72, 109, 0.5);
+        border-bottom: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .profile-transactions .content-loading {
@@ -174,7 +174,7 @@
         text-transform: uppercase;
         font-size: 12px;
         font-weight: 600;
-        color: #5e768e;
+        color: var(--accent-copper-light);
     }
 
     .profile-transactions .content-list.fade-enter-active,
@@ -214,13 +214,13 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #01fabd 0%, #01b376 100%);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        background: var(--gradient-copper);
+        border-radius: var(--radius-md);
         z-index: -1;
     }
 
     .profile-transactions .transactions-pagination button:disabled:before {
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #05253e 100%);
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(139, 111, 71, 0.2) 100%);
     }
 
     .profile-transactions .transactions-pagination button:after {
@@ -230,8 +230,8 @@
         position: absolute;
         top: 1px;
         left: 1px;
-        background: #07253c;
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        background: rgba(13, 13, 13, 0.9);
+        border-radius: var(--radius-md);
         z-index: -1;
     }
 
@@ -241,12 +241,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(255deg, rgba(0, 255, 194, 0.1) 0%, rgba(0, 170, 109, 0.1) 100%), rgba(0, 0, 0, 0.1);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        background: rgba(184, 115, 51, 0.1);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .profile-transactions .transactions-pagination button:disabled .button-inner {
-        background: rgba(3, 20, 34, 0.27);
+        background: rgba(13, 13, 13, 0.5);
+        border-color: rgba(139, 111, 71, 0.2);
         box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.35);
     }
 
@@ -259,13 +261,17 @@
     }
 
     .profile-transactions .transactions-pagination button:disabled .button-inner svg {
-        fill: #7a93ac;
+        fill: var(--text-muted);
+    }
+
+    .profile-transactions .transactions-pagination button:not(:disabled) .button-inner svg {
+        fill: var(--accent-copper-light);
     }
 
     .profile-transactions .pagination-info {
         font-size: 12px;
         font-weight: 800;
-        color: #5e768e;
+        color: var(--accent-copper-light);
     }
 
     @media only screen and (max-width: 725px) {

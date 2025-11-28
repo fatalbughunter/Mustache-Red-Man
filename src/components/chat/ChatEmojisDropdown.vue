@@ -110,7 +110,7 @@
         padding: 13px;
         border-radius: 15px;
 
-        background: radial-gradient(163.2% 163.2% at 50% -31.45%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(256.23deg, #07263d 0%, #07243a 100%);
+        background: var(--bg-primary);
         box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
     }
 
@@ -122,7 +122,7 @@
         bottom: -14px;
         right: 60px;
         border-left: 15px solid transparent;
-        border-top: 14px solid #072d41;
+        border-top: 14px solid var(--bg-primary);
     }
 
     .chat-emojis-dropdown .inner-list {

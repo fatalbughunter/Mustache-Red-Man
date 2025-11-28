@@ -168,7 +168,7 @@
         align-items: center;
         font-size: 16px;
         font-weight: 700;
-        color: #ffffff;
+        color: var(--text-gold);
     }
 
     .profile-header .info-username span {
@@ -186,7 +186,7 @@
         align-items: center;
         font-size: 12px;
         font-weight: 700;
-        color: #9e9e9e;
+        color: var(--accent-copper);
     }
 
     .profile-header.header-blue .info-level {
@@ -241,8 +241,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #9e9e9e 100%);
-        clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 25%, 100% 75%, calc(100% - 7px) 100%, 7px 100%, 0 75%, 0 25%);
+        background: linear-gradient(180deg, rgba(139, 111, 71, 0.3) 0%, rgba(184, 115, 51, 0.6) 100%);
+        border-radius: var(--radius-md);
     }
 
     .profile-header.header-blue .level-box::before {
@@ -273,9 +273,10 @@
         align-items: center;
         font-weight: 700;
         font-size: 15px;
-        color: #9e9e9e;
-        background-color: #03121e;
-        clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 25%, 100% 75%, calc(100% - 7px) 100%, 7px 100%, 0 75%, 0 25%);
+        color: var(--accent-copper);
+        background-color: rgba(13, 13, 13, 0.9);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .profile-header.header-blue .box-inner {
@@ -303,12 +304,15 @@
         height: 13px;
         position: relative;
         padding: 4px 0;
-        background-color: #03121e;
+        background-color: rgba(13, 13, 13, 0.8);
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .profile-header .progress-bar {
         height: 100%;
-        background: linear-gradient(90deg, #ffffff 0%, #9e9e9e 100%);
+        background: var(--gradient-copper);
+        border-radius: var(--radius-sm);
     }
 
     .profile-header.header-blue .progress-bar {
@@ -341,7 +345,7 @@
     .profile-header .progress-text span {
         font-size: 15px;
         font-weight: 700;
-        color: #9e9e9e;
+        color: var(--accent-copper-light);
     }
 
     .profile-header.header-blue .progress-text span {
@@ -400,19 +404,30 @@
         align-items: center;
         font-size: 14px;
         font-weight: 700;
-        color: #6a88a1;
+        color: var(--accent-copper-light);
     }
 
     .profile-header .id-title svg {
         margin-right: 12px;
-        fill: #6a88a1;
+        fill: var(--accent-copper);
     }
 
     .profile-header .header-id button {
         margin-left: 5px;
         font-size: 14px;
         font-weight: 400;
-        color: #ffffff;
+        color: var(--text-gold);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: var(--radius-sm);
+        transition: all 0.3s ease;
+    }
+    
+    .profile-header .header-id button:hover {
+        background: rgba(222, 184, 135, 0.1);
+        color: var(--accent-copper-light);
     }
 
     @media only screen and (max-width: 1000px) {

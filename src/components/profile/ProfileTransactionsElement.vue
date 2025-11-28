@@ -89,12 +89,15 @@
         display: flex;
         align-items: center;
         padding: 0 20px;
-        border-radius: 5px;
-        background: rgba(19, 66, 88, 0.1);
+        border-radius: var(--radius-md);
+        background: rgba(13, 13, 13, 0.4);
+        border: 1px solid rgba(222, 184, 135, 0.1);
+        margin-bottom: 8px;
     }
 
     .profile-transactions-element:nth-child(odd) {
-        background-color: rgba(19, 66, 88, 0.25);
+        background-color: rgba(13, 13, 13, 0.6);
+        border-color: rgba(222, 184, 135, 0.2);
     }
 
     .profile-transactions-element .element-date {
@@ -129,7 +132,7 @@
         display: none;
         font-size: 13px;
         font-weight: 600;
-        color: #8bacc8;
+        color: var(--accent-copper-light);
     }
 
     .profile-transactions-element .date-content,
@@ -137,7 +140,7 @@
     .profile-transactions-element .type-content {
         font-size: 14px;
         font-weight: 400;
-        color: #bbbfd0;
+        color: var(--accent-copper-light);
     }
 
     .profile-transactions-element .amount-content {
@@ -154,7 +157,7 @@
     .profile-transactions-element .content-value {
         font-size: 10px;
         font-weight: 600;
-        color: #bbbfd0;
+        color: var(--accent-copper-light);
     }
 
     .profile-transactions-element .content-value span {
@@ -163,7 +166,7 @@
     }
 
     .profile-transactions-element .content-value.value-positive span {
-        color: #ffffff;
+        color: var(--text-gold);
     }
 
     @media only screen and (max-width: 725px) {

@@ -104,6 +104,7 @@
         flex-direction: column;
         align-items: center;
         padding: 45px 10px;
+        z-index: 1;
     }
 
     .blackjack-table .table-header {

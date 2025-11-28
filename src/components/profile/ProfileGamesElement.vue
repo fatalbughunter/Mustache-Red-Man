@@ -73,12 +73,15 @@
         display: flex;
         align-items: center;
         padding: 0 20px;
-        border-radius: 5px;
-        background: rgba(19, 66, 88, 0.1);
+        border-radius: var(--radius-md);
+        background: rgba(13, 13, 13, 0.4);
+        border: 1px solid rgba(222, 184, 135, 0.1);
+        margin-bottom: 8px;
     }
 
     .profile-games-element:nth-child(odd) {
-        background: rgba(19, 66, 88, 0.25);
+        background: rgba(13, 13, 13, 0.6);
+        border-color: rgba(222, 184, 135, 0.2);
     }
 
     .profile-games-element .element-date {
@@ -113,19 +116,19 @@
         display: none;
         font-size: 13px;
         font-weight: 600;
-        color: #8bacc8;
+        color: var(--accent-copper-light);
     }
 
     .profile-games-element .date-content {
         font-size: 14px;
         font-weight: 400;
-        color: #bbbfd0;
+        color: var(--accent-copper-light);
     }
 
     .profile-games-element .game-content {
         font-size: 14px;
         font-weight: 400;
-        color: #bbbfd0;
+        color: var(--accent-copper-light);
     }
 
     .profile-games-element .verify-content button {
@@ -141,9 +144,16 @@
         align-items: center;
         font-size: 12px;
         font-weight: 800;
-        color: #ffffff;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
-        clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 25%, 100% 75%, calc(100% - 4px) 100%, 4px 100%, 0 75%, 0 25%);
+        color: var(--text-gold);
+        background: var(--gradient-copper);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .profile-games-element .verify-content button:hover .button-inner {
+        background: var(--gradient-copper-dark);
+        border-color: rgba(222, 184, 135, 0.5);
     }
 
     .profile-games-element .amount-content {
@@ -160,7 +170,7 @@
     .profile-games-element .content-value {
         font-size: 10px;
         font-weight: 600;
-        color: #bbbfd0;
+        color: var(--accent-copper-light);
     }
 
     .profile-games-element .content-value span {
@@ -169,7 +179,7 @@
     }
 
     .profile-games-element .content-value.value-positive span {
-        color: #ffffff;
+        color: var(--text-gold);
     }
 
     @media only screen and (max-width: 725px) {

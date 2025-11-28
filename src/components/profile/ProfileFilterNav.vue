@@ -62,12 +62,19 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 12px;
-        border-radius: 5px;
-        background: rgba(19, 66, 88, 0.25);
+        border-radius: var(--radius-md);
+        background: rgba(13, 13, 13, 0.6);
+        border: 1px solid rgba(222, 184, 135, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .profile-filter-nav button.button-toggle:hover {
+        background: rgba(13, 13, 13, 0.8);
+        border-color: rgba(222, 184, 135, 0.5);
     }
 
     .profile-filter-nav button.button-toggle svg {
-        fill: #49687d;
+        fill: var(--accent-copper);
         transition: all 0.3s ease;
     }
 
@@ -79,12 +86,12 @@
         display: flex;
         font-size: 14px;
         font-weight: 600;
-        color: #49687d;
+        color: var(--accent-copper-light);
     }
 
     .profile-filter-nav button.button-toggle .button-value span {
         margin-left: 8px;
-        color: #ffffff;
+        color: var(--text-gold);
     }
 
     .profile-filter-nav .nav-menu {
@@ -104,8 +111,12 @@
     .profile-filter-nav .menu-inner {
         width: 100%;
         padding: 3px;
-        border-radius: 5px;
-        background: #022038;
+        border-radius: var(--radius-md);
+        background: rgba(13, 13, 13, 0.9);
+        border: 1px solid rgba(222, 184, 135, 0.3);
+        box-shadow: 
+            0 5px 20px rgba(0, 0, 0, 0.5),
+            0 0 10px rgba(184, 115, 51, 0.3);
     }
 
     .profile-filter-nav .menu-inner a {
@@ -114,15 +125,21 @@
         display: flex;
         align-items: center;
         padding: 0 14px;
-        border-radius: 5px;
+        border-radius: var(--radius-sm);
         font-size: 14px;
         font-weight: 600;
-        color: #8bacc8;
+        color: var(--accent-copper-light);
         transition: 0.3s ease;
     }
 
     .profile-filter-nav .menu-inner a:hover {
-        background: rgba(19, 66, 88, 0.15);
+        background: rgba(222, 184, 135, 0.1);
+        color: var(--text-gold);
+    }
+    
+    .profile-filter-nav .menu-inner a.router-link-active {
+        background: rgba(222, 184, 135, 0.15);
+        color: var(--text-gold);
     }
 
     @media only screen and (max-width: 600px) {

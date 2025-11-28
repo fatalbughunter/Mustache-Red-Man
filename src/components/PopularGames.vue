@@ -6,14 +6,19 @@
             <h2 class="section-title">Popular Games</h2>
             <div class="copper-bolt bolt-left-bottom"></div>
         </div>
-        <div class="games-grid">
-            <div class="game-card" v-for="game in games" :key="game.id" @click="navigateToGame(game.route)">
-                <div class="game-screen" :class="{ 'casino-bg': game.id === 1, 'card2-bg': game.id === 2, 'card3-bg': game.id === 3, 'card4-bg': game.id === 4, 'card5-bg': game.id === 5 }">
-                    <div class="game-info">
-                        <h3 class="game-title">{{ game.name }}</h3>
-                        <p class="game-subtitle">{{ game.subtitle }}</p>
+        <div class="games-carousel-wrapper">
+            <div class="games-carousel" :class="{ 'paused': isPaused }" @mouseenter="pauseCarousel" @mouseleave="resumeCarousel">
+                <div class="games-carousel-track" :style="{ transform: `translateX(${carouselOffset}px)` }">
+                    <!-- Duplicate games for seamless loop -->
+                    <div class="game-card" v-for="(game, index) in duplicatedGames" :key="`${game.id}-${index}`" @click="navigateToGame(game.route)">
+                        <div class="game-screen" :class="game.bgClass">
+                            <div class="game-info">
+                                <h3 class="game-title">{{ game.name }}</h3>
+                                <p class="game-subtitle">{{ game.subtitle }}</p>
+                            </div>
+                            <button class="play-button">PLAY NOW <span class="chevron">></span></button>
+                        </div>
                     </div>
-                    <button class="play-button">PLAY NOW <span class="chevron">></span></button>
                 </div>
             </div>
         </div>
@@ -28,45 +33,85 @@ export default {
             games: [
                 {
                     id: 1,
-                    name: 'Cases Battle',
-                    subtitle: 'NOVA-CASINO Popular',
-                    route: '/battles',
-                    image: require('@/assets/img/chest.png')
+                    name: 'Mines',
+                    subtitle: 'RBXGOLD Original',
+                    route: '/mines',
+                    bgClass: 'card2-bg'
                 },
                 {
                     id: 2,
-                    name: 'Mines',
-                    subtitle: 'RBXGOLD Original',
-                    route: '/mines',
-                    image: require('@/assets/img/mines/mine.png')
+                    name: 'Crash',
+                    subtitle: 'NOVA-CASINO Popular',
+                    route: '/crash',
+                    bgClass: 'casino-bg'
                 },
                 {
                     id: 3,
-                    name: 'Cases Battle',
+                    name: 'BlackJack',
                     subtitle: 'NOVA-CASINO Popular',
-                    route: '/battles',
-                    image: require('@/assets/img/chest.png')
+                    route: '/blackjack',
+                    bgClass: 'card5-bg'
                 },
                 {
                     id: 4,
-                    name: 'Mines',
+                    name: 'Tower',
                     subtitle: 'RBXGOLD Original',
-                    route: '/mines',
-                    image: require('@/assets/img/mines/mine.png')
-                },
-                {
-                    id: 5,
-                    name: 'Cases Battle',
-                    subtitle: 'NOVA-CASINO Popular',
-                    route: '/battles',
-                    image: require('@/assets/img/chest.png')
+                    route: '/towers',
+                    bgClass: 'card4-bg'
                 }
-            ]
+            ],
+            carouselOffset: 0,
+            isPaused: false,
+            cardWidth: 256, // max-width (240px) + gap (16px)
+            animationFrameId: null
+        }
+    },
+    computed: {
+        duplicatedGames() {
+            // Duplicate games array 3 times for seamless infinite scroll
+            return [...this.games, ...this.games, ...this.games];
+        },
+        singleSetWidth() {
+            // Width of one complete set of games
+            return this.cardWidth * this.games.length;
         }
     },
     methods: {
         navigateToGame(route) {
             this.$router.push(route);
+        },
+        pauseCarousel() {
+            this.isPaused = true;
+        },
+        resumeCarousel() {
+            this.isPaused = false;
+        },
+        updateCarousel() {
+            if (!this.isPaused) {
+                // Move slowly: 0.2 pixels per frame (slow, smooth movement)
+                this.carouselOffset -= 0.2;
+                
+                // Reset position seamlessly when we've scrolled one complete set
+                // This creates an infinite loop effect
+                if (Math.abs(this.carouselOffset) >= this.singleSetWidth) {
+                    this.carouselOffset = 0;
+                }
+            }
+            
+            // Continue animation
+            this.animationFrameId = requestAnimationFrame(() => this.updateCarousel());
+        }
+    },
+    mounted() {
+        // Calculate card width based on actual card size + gap
+        this.$nextTick(() => {
+            // Start auto-rotation animation
+            this.animationFrameId = requestAnimationFrame(() => this.updateCarousel());
+        });
+    },
+    beforeDestroy() {
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
         }
     }
 }
@@ -107,7 +152,6 @@ export default {
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
-    z-index: 2;
     display: inline-block;
 }
 
@@ -206,6 +250,39 @@ export default {
     }
 }
 
+/* Carousel Wrapper */
+.games-carousel-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.games-carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.games-carousel.paused {
+    /* Animation pauses on hover */
+}
+
+.games-carousel-track {
+    display: flex;
+    gap: var(--spacing-md);
+    width: fit-content;
+    will-change: transform;
+}
+
+.games-carousel-track .game-card {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 240px;
+}
+
+/* Games Grid - now used in carousel */
 .games-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -351,9 +428,9 @@ export default {
 
 .game-screen.casino-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                url('~@/assets/img/gamePreview/cases_battle.png');
+                url('~@/assets/img/gamePreview/crash.png');
     background-size: cover;
-    background-position: bottom;
+    background-position: top;
     color: white;
 }
 
@@ -375,7 +452,7 @@ export default {
 
 .game-screen.card4-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                url('~@/assets/img/gamePreview/mines.png');
+                url('~@/assets/img/gamePreview/towers.jpeg');
     background-size: cover;
     background-position: bottom;
     color: white;
@@ -383,7 +460,7 @@ export default {
 
 .game-screen.card5-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                url('~@/assets/img/gamePreview/cases_battle.png');
+                url('~@/assets/img/gamePreview/black_jack.png');
     background-size: cover;
     background-position: center;
     color: white;
@@ -612,6 +689,10 @@ export default {
     .games-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-sm);
+    }
+    
+    .games-carousel-wrapper {
+        margin: 0;
     }
     
     .game-card {

@@ -126,14 +126,22 @@
         flex-direction: column;
         align-items: center;
         padding: 35px 20px 48px 20px;
-        border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% -31.45%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(255deg, #07263d 0%, #07243a 100%);
+        border-radius: var(--radius-lg);
+        background: var(--bg-primary);
     }
 
     .modal-tip .tip-title {
         text-align: center;
         font-size: 32px;
         font-weight: 900;
+    }
+    
+    .modal-tip .tip-title .gradient-green {
+        background: var(--gradient-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
     }
 
     .modal-tip .tip-avatar {
@@ -145,7 +153,7 @@
     .modal-tip .date-loading {
         position: relative;
         overflow: hidden;
-        background-color: #072435;
+        background-color: rgba(13, 13, 13, 0.8);
     }
 
     .modal-tip .avatar-loading {
@@ -157,13 +165,13 @@
     .modal-tip .username-loading {
         width: 150px;
         height: 30px;
-        border-radius: 5px;
+        border-radius: var(--radius-sm);
     }
 
     .modal-tip .date-loading {
         width: 110px;
         height: 19px;
-        border-radius: 5px;
+        border-radius: var(--radius-sm);
     }
 
     .modal-tip .avatar-loading::after,
@@ -249,7 +257,7 @@
         align-items: center;
         font-size: 22px;
         font-weight: 700;
-        color: #ffffff;
+        color: var(--text-primary);
     }
 
     .modal-tip .username-content.fade-enter-active {
@@ -267,7 +275,7 @@
     .modal-tip .date-content {
         font-size: 14px;
         font-weight: 400;
-        color: #49687d;
+        color: var(--text-muted);
     }
 
     .modal-tip .date-content.fade-enter-active {
@@ -293,8 +301,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #04131f 0%, #223a4e 100%);
-        clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 25%, 100% 75%, calc(100% - 14px) 100%, 14px 100%, 0 75%, 0 25%);
+        background: linear-gradient(180deg, rgba(184, 115, 51, 0.3) 0%, rgba(139, 111, 71, 0.4) 100%);
+        border-radius: var(--radius-md);
     }
 
     .modal-tip .tip-input input {
@@ -303,13 +311,20 @@
         padding: 0 127px 0 45px;
         font-size: 16px;
         font-weight: 600;
-        color: #ffffff;
-        background-color: #072435;
-        clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 25%, 100% 75%, calc(100% - 14px) 100%, 14px 100%, 0 75%, 0 25%);
+        color: var(--text-gold);
+        background-color: rgba(13, 13, 13, 0.8);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(222, 184, 135, 0.3);
+    }
+    
+    .modal-tip .tip-input input:focus {
+        outline: none;
+        border-color: rgba(222, 184, 135, 0.6);
+        box-shadow: 0 0 10px rgba(184, 115, 51, 0.3);
     }
 
     .modal-tip .tip-input input::placeholder {
-        color: #5e768e;
+        color: var(--text-muted);
     }
 
     .modal-tip .tip-input img {
@@ -337,8 +352,27 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
-        clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 25%, 100% 75%, calc(100% - 6px) 100%, 6px 100%, 0 75%, 0 25%);
+        background: var(--gradient-copper);
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(222, 184, 135, 0.3);
+        box-shadow: 
+            0 4px 15px rgba(184, 115, 51, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .modal-tip .tip-input button.button-tip:hover:not(:disabled) .button-inner {
+        background: var(--gradient-copper-dark);
+        box-shadow: 
+            0 6px 20px rgba(184, 115, 51, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+    }
+    
+    .modal-tip .tip-input button.button-tip:disabled .button-inner {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: rgba(184, 115, 51, 0.2);
     }
 
     .modal-tip .tip-input button.button-tip .button-loading.fade-leave-active {
@@ -352,7 +386,7 @@
     .modal-tip .tip-input button.button-tip .inner-content {
         font-size: 16px;
         font-weight: 800;
-        color: #ffffff;
+        color: var(--text-gold);
     }
 
     .modal-tip .tip-input button.button-tip .inner-content.fade-enter-active {
@@ -370,7 +404,7 @@
         text-align: center;
         font-size: 14px;
         font-weight: 400;
-        color: #49687d;
+        color: var(--text-muted);
     }
 
     @keyframes loading_animation {

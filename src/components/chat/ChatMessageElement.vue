@@ -257,7 +257,7 @@
     }
 
     .chat-message-element .rain-header span {
-        color: #FF6B00;
+        color: var(--accent-yellow);
     }
 
     .chat-message-element .rain-header svg,
@@ -289,7 +289,7 @@
     .chat-message-element .rain-content span.content-username,
     .chat-message-element .rain-content span.content-participants {
         font-weight: 700;
-        color: #FF6B00;
+        color: var(--accent-yellow);
     }
 
     .chat-message-element .tip-amount,
@@ -316,7 +316,7 @@
     .chat-message-element .completed-amount span {
         font-size: 14px;
         font-weight: 800;
-        color: #FF6B00;
+        color: var(--accent-yellow);
     }
 
     .chat-message-element .element-top {
@@ -367,7 +367,7 @@
     }
 
     .chat-message-element .element-message.message-admin button.button-user .avatar-image {
-        border: 2px solid #00ffc2;
+        border: 2px solid var(--accent-yellow);
     }
 
     .chat-message-element button.button-user span.user-username {
@@ -397,7 +397,7 @@
     }
 
     .chat-message-element .element-message.message-admin button.button-user span.user-username {
-        background: linear-gradient(250deg, #00ffc2 0%, #00aa6d 100%), #a6cae8;
+        background: var(--accent-yellow);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -435,11 +435,11 @@
     }
 
     .chat-message-element .top-admin button.button-mute .button-inner {
-        background: #fca311;
+        background: var(--accent-yellow);
     }
 
     .chat-message-element .top-admin button.button-remove .button-inner {
-        background: #f55046;
+        background: var(--accent-yellow);
     }
 
     .chat-message-element .top-admin button.button-mute .button-inner svg,
@@ -465,7 +465,7 @@
     }
 
     .chat-message-element .element-message.message-admin .element-text {
-        color: #01f3b9;
+        color: var(--accent-yellow);
     }
 
     .chat-message-element button.button-game {

@@ -11,8 +11,14 @@
                 <div class="hero-left">
                     <div class="hero-glow-circle"></div>
                     <h1 class="hero-title">
-                        <span class="title-outline">MUSTACHE CASINO</span>
-                        <span class="title-text">MUSTACHE CASINO</span>
+                        <span class="title-outline">
+                            <span class="title-line">MUSTACHE</span>
+                            <span class="title-line">CASINO</span>
+                        </span>
+                        <span class="title-text">
+                            <span class="title-line">MUSTACHE</span>
+                            <span class="title-line">CASINO</span>
+                        </span>
                     </h1>
                 </div>
                 <div class="hero-right" v-if="authUser.user === null">
@@ -146,6 +152,11 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    line-height: 1.2;
+}
+
+.hero-title .title-line {
+    display: block;
 }
 
 .title-outline {
@@ -163,6 +174,10 @@ export default {
     text-transform: uppercase;
     letter-spacing: 8px;
     filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .title-text {
@@ -184,6 +199,10 @@ export default {
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     /* Enhanced layered shadows creating depth, clarity, and border effect */
     filter: drop-shadow(0 0 10px rgba(184, 115, 51, 0.9))
             drop-shadow(0 0 20px rgba(184, 115, 51, 0.7))
@@ -205,29 +224,13 @@ export default {
 }
 
 .hero-title::before {
-    content: 'MUSTACHE CASINO';
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
     width: 100%;
     height: 100%;
-    /* Create a soft, gentle border by using a darker version of the text */
-    background: linear-gradient(
-        135deg,
-        rgba(139, 111, 71, 0.8) 0%,
-        rgba(101, 67, 33, 0.9) 25%,
-        rgba(139, 111, 71, 0.8) 50%,
-        rgba(101, 67, 33, 0.9) 75%,
-        rgba(139, 111, 71, 0.8) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% 200%;
-    filter: blur(3px);
-    transform: translate(3px, 3px);
-    animation: titleShimmer 3s ease-in-out infinite;
 }
 
 .hero-title::after {

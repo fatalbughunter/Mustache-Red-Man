@@ -154,6 +154,7 @@
         flex-direction: column;
         align-items: center;
         padding: 45px 10px;
+        z-index: 1;
     }
 
     .blackjack-overview .overview-standard,
