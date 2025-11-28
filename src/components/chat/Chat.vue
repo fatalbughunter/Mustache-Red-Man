@@ -15,8 +15,8 @@
                 </button>
             </div>
             <div class="chat-header">
-                <button v-on:click="generalSetSidebarMobile(null)" class="button-close">
-                    <IconClose />
+                <button v-on:click="closeChat" class="button-close">
+                    <img src="@/assets/img/icons/rightArrow.png" alt="Close" />
                 </button>
                 <div class="header-online">
                     <IconUsers />
@@ -78,7 +78,6 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import IconChatGradient from '@/components/icons/IconChatGradient';
-    import IconClose from '@/components/icons/IconClose';
     import IconUsers from '@/components/icons/IconUsers';
     import IconMessage from '@/components/icons/IconMessage';
     import IconRules from '@/components/icons/IconRules';
@@ -92,7 +91,6 @@
         name: 'Chat',
         components: {
             IconChatGradient,
-            IconClose,
             IconUsers,
             IconMessage,
             IconRules,
@@ -210,6 +208,16 @@
             },
             toggleDesktopChat() {
                 this.generalSetDesktopChatOpen(!this.generalDesktopChatOpen);
+            },
+            closeChat() {
+                // Close mobile sidebar if open
+                if(this.generalSidebarMobile === 'Chat') {
+                    this.generalSetSidebarMobile(null);
+                }
+                // Close desktop chat if open
+                if(this.generalDesktopChatOpen) {
+                    this.generalSetDesktopChatOpen(false);
+                }
             }
         },
         computed: {
@@ -325,13 +333,23 @@
 
     aside#chat .chat-header button.button-close {
         position: absolute;
-        display: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         top: 3px;
         left: 10px;
+        width: 30px;
+        height: 30px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
     }
 
-    aside#chat .chat-header button.button-close svg {
-        fill: #6e95b6;
+    aside#chat .chat-header button.button-close img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
     }
 
     aside#chat .header-online {
@@ -643,9 +661,6 @@
             display: none;
         }
 
-        aside#chat .chat-header button.button-close {
-            display: block;
-        }
 
     }
 
