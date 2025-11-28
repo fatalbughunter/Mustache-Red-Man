@@ -18,7 +18,6 @@
                 <img src="@/assets/img/mines/mine.png" />
             </div>
             <button v-else v-on:click="minesRevealTile()" class="button-reveal" v-bind:disabled="socketSendLoading !== null || minesGame === null || minesGame.state === 'completed'">
-                <img src="@/assets/img/logo_small.png" />
             </button>
         </transition>
     </div>
@@ -98,11 +97,10 @@
         width: 95px;
         height: 95px;
         border-radius: 7px;
-        /*
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)), 
-                    radial-gradient(160% 160% at 50% -30%, rgba(0, 194, 255, 0.32) 0%, rgba(0, 0, 0, 0) 100%), 
-                    linear-gradient(255deg, #07263d 0%, #07243a 100%); */
-        background: #2a2a2a;            
+        background-image: url('~@/assets/img/mines/minecardBack.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         box-shadow: 0px 2px 5px rgba(7, 26, 41, 0.25);
     }
 
@@ -242,17 +240,6 @@
         align-items: center;
     }
 
-    .mines-tile button.button-reveal img {
-        width: 48px;
-        transform: rotate(-4deg);
-        mix-blend-mode: luminosity;
-        opacity: 0.13;
-        transition: transform 0.3s ease;
-    }
-
-    .mines-tile button.button-reveal:enabled:hover img {
-        transform: scale(1.08);
-    }
 
     @media only screen and (max-width: 575px) {
 
@@ -283,9 +270,6 @@
             font-size: 10px;
         }
 
-        .mines-tile button.button-reveal img {
-            width: 40px;
-        }
 
     }
 
@@ -313,9 +297,6 @@
             font-size: 8px;
         }
 
-        .mines-tile button.button-reveal img {
-            width: 36px;
-        }
 
     }
 

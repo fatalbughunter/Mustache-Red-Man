@@ -132,6 +132,52 @@ a {
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+    /* Custom */
+    /*1. Smooth Dark Brown Gradient*/
+    --mines-bk-1: linear-gradient(
+        135deg,
+        #3b2a1f 0%,
+        #2e2118 50%,
+        #1f1712 100%
+    );
+    /*2. Rich Chocolate Brown Gradient*/
+    --mines-bk-2: linear-gradient(
+        135deg,
+        #4a3427 0%,
+        #36271d 50%,
+        #241a14 100%
+    );
+    /*3. Deep Espresso Gradient*/
+    --mines-bk-3: linear-gradient(
+        135deg,
+        #2c1e17 0%,
+        #20140f 50%,
+        #140c08 100%
+    );
+    /*4. Warm Mocha Brown Gradient */
+    --mines-bk-4: linear-gradient(
+        135deg,
+        #5a3f2f 0%,
+        #433024 45%,
+        #2e2219 100%
+    );
+    /*5. Dark Brown + Black Mixed Gradient*/
+    --mines-bk-5: linear-gradient(
+        135deg,
+        #3a2b22 0%,
+        #241b15 40%,
+        #0f0c0a 100%
+    );
+    /*6. Smooth Chocolate Velvet Gradient*/
+    --mines-bk-6: linear-gradient(
+        135deg,
+        #4b382c 0%,
+        #3a2b22 50%,
+        #2a1f18 100%
+    );
+    /*any container*/
+    --mines-bk-7: linear-gradient(135deg, #3b2a1f, #2e2118, #1f1712);    
 }
 
 *::-webkit-scrollbar {

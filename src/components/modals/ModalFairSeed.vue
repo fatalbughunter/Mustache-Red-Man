@@ -124,50 +124,7 @@
         align-items: center;
         padding: 35px 30px 30px 30px;
         border-radius: var(--radius-lg);
-        /* Desert sand background matching header theme */
-        background: 
-            /* Sand grain texture overlay */
-            radial-gradient(circle at 20% 30%, rgba(222, 184, 135, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(184, 115, 51, 0.12) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(205, 127, 50, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 60% 20%, rgba(222, 184, 135, 0.08) 0%, transparent 50%),
-            /* Fine sand texture pattern */
-            repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(222, 184, 135, 0.03) 2px,
-                rgba(222, 184, 135, 0.03) 3px
-            ),
-            repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 2px,
-                rgba(184, 115, 51, 0.03) 2px,
-                rgba(184, 115, 51, 0.03) 3px
-            ),
-            /* Subtle diagonal sand drift pattern */
-            repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 8px,
-                rgba(222, 184, 135, 0.04) 8px,
-                rgba(222, 184, 135, 0.04) 9px,
-                transparent 9px,
-                transparent 16px
-            ),
-            /* Main desert sand gradient */
-            linear-gradient(
-                180deg,
-                rgba(222, 184, 135, 0.25) 0%,
-                rgba(205, 127, 50, 0.30) 25%,
-                rgba(184, 115, 51, 0.35) 50%,
-                rgba(139, 111, 71, 0.30) 75%,
-                rgba(101, 67, 33, 0.25) 100%
-            ),
-            /* Base dark background */
-            rgba(26, 20, 15, 0.98);
-        backdrop-filter: blur(10px) saturate(120%);
+        background: var(--bg-primary);
         border: 2px solid rgba(222, 184, 135, 0.6);
         box-shadow: 
             0 10px 40px rgba(0, 0, 0, 0.9),

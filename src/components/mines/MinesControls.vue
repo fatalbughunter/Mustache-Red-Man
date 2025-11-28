@@ -240,6 +240,7 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 20px 15px;
+        background: var(--mines-bk-1);
         border-radius: 15px;
         border: 1px solid var(--accent-yellow);
     }
@@ -506,26 +507,14 @@
     .mines-controls button.button-bet,
     .mines-controls button.button-cashout {
         margin-top: 25px;
-        padding: 1px;
-        filter: drop-shadow(0px 4px 25px rgba(1, 230, 169, 0.15)) drop-shadow(0px 4px 25px rgba(15, 41, 63, 0.35));
+        padding: 0;
+        filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
     }
 
     .mines-controls button.button-auto {
         margin-top: 13px;
+        padding: 0;
         filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
-    }
-
-    .mines-controls button.button-bet::before,
-    .mines-controls button.button-cashout::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: var(--accent-yellow);
-        border-radius: 12px;
-        z-index: -1;
     }
 
     .mines-controls button.button-cashout::after {
@@ -548,10 +537,12 @@
         justify-content: center;
         align-items: center;
         border-radius: 12px;
+        border: 1px solid var(--accent-yellow);
+        background: var(--accent-deep-red);
     }
 
     .mines-controls button.button-bet .button-inner {
-        background: var(--gradient-red);
+        background: var(--accent-deep-red);
     }
 
     .mines-controls button.button-cashout .button-inner {
@@ -561,8 +552,8 @@
     .mines-controls button.button-auto .button-inner {
         font-size: 14px;
         font-weight: 700;
-        color: #FFFFFF;
-        background: var(--gradient-red);
+        color: var(--accent-yellow);
+        background: var(--accent-deep-red);
         transition: color 0.3s ease;
     }
 
@@ -596,7 +587,7 @@
         align-items: center;
         font-size: 15px;
         font-weight: 800;
-        color: #FFFFFF;
+        color: var(--accent-yellow);
     }
 
     .mines-controls button.button-cashout .content-amount {
@@ -647,8 +638,9 @@
         align-items: center;
         font-size: 12px;
         font-weight: 700;
-        color: #FFFFFF;
+        color: var(--accent-yellow);
         background: var(--accent-deep-red);
+        border: 1px solid var(--accent-yellow);
         transition: color 0.3s ease;
         border-radius: 8px;
     }
@@ -659,12 +651,12 @@
 
     .mines-controls .controls-info button .button-inner svg {
         margin-right: 6px;
-        fill: #FFFFFF;
+        fill: var(--accent-yellow);
         transition: fill 0.3s ease;
     }
 
     .mines-controls .controls-info button:hover .button-inner svg {
-        fill: #ffffff;
+        fill: var(--accent-yellow);
     }
 
     @media only screen and (max-width: 850px) {

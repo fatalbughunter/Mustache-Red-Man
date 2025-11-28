@@ -75,7 +75,7 @@
         margin-left: 16px;
         padding: 20px 0;
         border-radius: 25px;
-      /*  background: rgba(3, 20, 33, 0.66);  */
+        background: var(--mines-bk-1);
         border: 1px solid var(--accent-yellow);
         box-shadow: 0px 4px 10px rgba(7, 26, 41, 0.25);
     }
