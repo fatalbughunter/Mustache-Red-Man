@@ -76,10 +76,10 @@ export default {
                 },
                 {
                     id: 3,
-                    name: 'Upgrader',
+                    name: 'Blackjack',
                     subtitle: 'NOVA-CASINO Popular',
-                    route: '/upgrader',
-                    bgClass: 'card3-bg'
+                    route: '/blackjack',
+                    bgClass: 'card5-bg'
                 },
                 {
                     id: 4,
@@ -90,10 +90,10 @@ export default {
                 },
                 {
                     id: 5,
-                    name: 'Blackjack',
+                    name: 'Upgrader',
                     subtitle: 'NOVA-CASINO Popular',
-                    route: '/blackjack',
-                    bgClass: 'card5-bg'
+                    route: '/upgrader',
+                    bgClass: 'card3-bg'
                 },
                 {
                     id: 6,

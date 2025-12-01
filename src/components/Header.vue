@@ -82,9 +82,9 @@
                     </div>
                 </div>
                 
-                <router-link to="/live-casino" class="nav-link">LIVE CASINO</router-link>
-                <router-link to="/leaderboard" class="nav-link">LEADERBOARD</router-link>
                 <router-link to="/slots" class="nav-link">SLOTS</router-link>
+                <router-link to="/leaderboard" class="nav-link">LEADERBOARD</router-link>
+                <router-link to="/live-casino" class="nav-link">LIVE CASINO</router-link>
                 <router-link to="/jackpots" class="nav-link">JACKPOTS</router-link>
             </nav>
 
