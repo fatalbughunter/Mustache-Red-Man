@@ -28,10 +28,8 @@
         align-items: center;
         border-radius: 15px;
         font-family: 'Rubik', sans-serif;
-        background: radial-gradient(75% 175% at 50% 95%, rgba(151, 102, 255, 0.31) 0%, rgba(0, 0, 0, 0) 100%),
-                    linear-gradient(125deg, rgba(0, 84, 246, 0.5) 0%, rgba(0, 0, 0, 0) 20%),
-                    linear-gradient(125deg, rgba(0, 0, 0, 0) 80%, rgba(0, 255, 194, 0.5) 100%) #062138;
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25), inset 0px 0px 15px rgba(95, 178, 255, 0.52);
+        background: var(--bg-primary-dark);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
 
     }
 

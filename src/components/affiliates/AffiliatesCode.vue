@@ -9,7 +9,7 @@
                 <div class="info-text">
                     <span class="gradient-green">COPY AND SHARE YOUR REFERRAL CODE</span>
                     <div class="text-link">
-                        https://rblxroll.com/?a={{ affiliatesData.data !== null && affiliatesData.data.code !== undefined ? affiliatesData.data.code : '' }}
+                        https://mustache-casino.com/?a={{ affiliatesData.data !== null && affiliatesData.data.code !== undefined ? affiliatesData.data.code : '' }}
                         <button v-if="affiliatesData.data !== null && affiliatesData.data.code !== undefined" v-on:click="affiliatesCopyButton" class="button-copy">
                             <IconCopy />
                         </button>
@@ -53,7 +53,7 @@
             ...mapActions(['notificationShow', 'affiliatesSendCodeSocket']),
             affiliatesCopyButton() {
                 const el = document.createElement('textarea');
-                el.value = ' https://rblxroll.com/?a=' + (this.affiliatesData.data !== null && this.affiliatesData.data.code !== undefined ? this.affiliatesData.data.code : '');
+                el.value = ' https://mustache-casino.com/?a=' + (this.affiliatesData.data !== null && this.affiliatesData.data.code !== undefined ? this.affiliatesData.data.code : '');
                 el.setAttribute('readonly', '');
                 el.style.position = 'absolute';
                 el.style.left = '-9999px';
@@ -107,7 +107,7 @@
         top: 0;
         left: 0;
         border-radius: 15px;
-        background: linear-gradient(180deg, rgba(20, 68, 104, 0) 0%, #144468 100%);
+        background: var(--bg-primary-dark);
         z-index: -1;
     }
 
@@ -119,7 +119,7 @@
         top: 1px;
         left: 1px;
         border-radius: 15px;
-        background: linear-gradient(255deg, #07263d 0%, #07243a 100%);
+        background: var(--bg-primary-dark);
         z-index: -1;
     }
 
@@ -212,7 +212,7 @@
         top: 0;
         left: 0;
         background: linear-gradient(180deg, #04131f 0%, #223a4e 100%);
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .affiliates-code .inner-input input {
@@ -223,7 +223,7 @@
         font-weight: 600;
         color: #ffffff;
         background-color: #07253b;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .affiliates-code .inner-input input::placeholder {
@@ -251,8 +251,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        background: var(--bg-brown-medium);
+        border-radius: 15px;
     }
 
     .affiliates-code .inner-input button.button-code .button-loading.fade-leave-active {

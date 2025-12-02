@@ -222,7 +222,7 @@ export default {
     
     .hero-banner {
         margin: var(--spacing-md);
-        min-height: 500px;
+        min-height: 321px;
     }
     
     .hero-play-button {

@@ -38,7 +38,7 @@
                     <div class="section-title">ADDITIONAL</div>
                     <router-link to="/affiliates">Affiliates</router-link>
                     <router-link to="/leaderboard">Leaderboard</router-link>
-                    <a href="https://discord.gg/rblxroll" target="_blank">Support</a>
+                    <!-- <a href="https://discord.gg/rblxroll" target="_blank">Support</a> -->
                     <button v-on:click="modalsSetShow('Fair')">Provably Fair</button>
                 </div>
                 <div class="links-section" v-if="false">

@@ -2,8 +2,8 @@
     <div class="modal-privacy">
         <div class="privacy-header">
             <span class="gradient-green">PRIVACY POLICY</span>
-            <p>RBLXRoll is committed to protecting the privacy of its users. This privacy policy applies to the
-            RBLXRoll website and services, and explains how we collect, use, and disclose information
+            <p>Mustache Casino is committed to protecting the privacy of its users. This privacy policy applies to the
+            Mustache Casino website and services, and explains how we collect, use, and disclose information
             about you.</p>
             <p>By using our website and services, you acknowledge and consent to the practices described in
             this privacy policy.</p>
@@ -13,99 +13,75 @@
             <div class="list-element">
                 <div class="element-title">1. Information We Collect</div>
                 <div class="element-text">
-                    <p>1.1 When you register for an account on our website and provide your Roblox credentials or
-                    authentication, we collect personal information such as your username, email address, and IP
-                    address.</p>
-                    <p>1.2 We may also collect information about your use of our website and services, such as your
-                    browser type, the pages you visit, and the time and duration of your visits.</p>
-                    <p>1.3 We may use cookies and other tracking technologies to collect information about you and
-                    your use of our website and services. You can choose to disable cookies in your browser
-                    settings, but please note that this may prevent you from using certain features of our website
-                    and services.</p>
-                    <p>1.4 We may collect information about your location based on your IP address or other
-                    information provided by your device.</p>
+                    <p><strong>1.1 Account & Basic Info</strong></p>
+                    <p>When you create an account or interact with our site, we may collect information such as your username, email address, IP address, and any details you choose to enter.</p>
+                    <p><strong>1.2 Website Usage</strong></p>
+                    <p>We collect general information about how you use our site (pages visited, time spent, device type, browser type, etc.) to help improve our services.</p>
+                    <p><strong>1.3 Cookies</strong></p>
+                    <p>We use cookies to make our website work smoothly and improve your experience. You can disable cookies in your browser, but some features may not work properly.</p>
+                    <p><strong>1.4 Location Info</strong></p>
+                    <p>We may detect your approximate location using your IP address to help protect your account and comply with regulations.</p>
                 </div>
             </div>
 
             <div class="list-element">
                 <div class="element-title">2. How We Use Your Information</div>
                 <div class="element-text">
-                    <p>2.1 We use the information we collect about you to provide, maintain, and improve our website
-                    and services. This may include:
-                        <ul>
-                            <li>Verifying your identity and location</li>
-                            <li>Processing your transactions and payments</li>
-                            <li>Communicating with you about your account and our services</li>
-                            <li>Providing customer support and responding to your inquiries</li>
-                            <li>Analyzing and improving the performance and functionality of our website and services</li>
-                        </ul>
-                    </p>
-                    <p>2.2 We may also use your information for marketing and promotional purposes, such as sending
-                    you newsletters, offers, and other updates about RBLXRoll and our services. You may opt out of
-                    receiving these communications at any time by following the unsubscribe instructions provided
-                    in the communication.</p>
-                    <p>2.3 We may use your information for research and development purposes, such as creating and
-                    testing new features and services.</p>
-                    <p>2.4 We may use your information for compliance and legal purposes, such as detecting and
-                    preventing fraud, enforcing our terms of service, and complying with legal and regulatory
-                    requirements.</p>
+                    <p><strong>2.1 To Provide Our Services</strong></p>
+                    <p>We use collected information to run Mustache Casino and offer features such as:</p>
+                    <ul>
+                        <li>Verifying your account</li>
+                        <li>Processing transactions</li>
+                        <li>Sending important notifications</li>
+                        <li>Providing customer support</li>
+                        <li>Improving site performance and functionality</li>
+                    </ul>
+                    <p><strong>2.2 Communication & Updates</strong></p>
+                    <p>We may send you updates, promotions, or offers related to Mustache Casino. You can unsubscribe anytime.</p>
+                    <p><strong>2.3 Development & Safety</strong></p>
+                    <p>We may use your information to test new features, prevent fraud, and comply with legal requirements.</p>
                 </div>
             </div>
 
             <div class="list-element">
                 <div class="element-title">3. Sharing Your Information</div>
                 <div class="element-text">
-                    <p>3.1 We may share your information with third-party service providers who assist us in operating
-                    our website and providing our services. These service providers are bound by confidentiality
-                    agreements and are only permitted to use your information in connection with the services they
-                    provide to us.</p>
-                    <p>3.2 We may share your information with third-party payment processors and gateways to
-                    process your transactions and payments. These third parties may have their own privacy
-                    policies, and we encourage you to review them before providing any personal information.</p>
-                    <p>3.3 We may share your information as required by law, such as in response to a subpoena or
-                    court order, or to comply with other legal and regulatory obligations.</p>
-                    <p>3.4 We may share your information in the event of a sale, merger, acquisition, or other change
-                    of control of RBLXRoll.</p>
+                    <p><strong>3.1 Service Providers</strong></p>
+                    <p>We may share information with trusted third-party partners who help run our website (hosting, payment processing, support tools). They can only use the data for the tasks we assign.</p>
+                    <p><strong>3.2 Legal Requirements</strong></p>
+                    <p>We may share information if required by law, such as responding to a court order.</p>
+                    <p><strong>3.3 Business Changes</strong></p>
+                    <p>If Mustache Casino is ever sold or merged, your information may be transferred as part of the business.</p>
                 </div>
             </div>
 
             <div class="list-element">
-                <div class="element-title">4. Security of Your Information</div>
+                <div class="element-title">4. Keeping Your Information Safe</div>
                 <div class="element-text">
-                    <p>4.1 We take reasonable measures to protect your information from unauthorized access, use, or
-                    disclosure. However, no security measures are perfect, and we cannot guarantee the security of
-                    your information.</p>
-                    <p>4.2 You are responsible for maintaining the security of your account and for any activities that
-                    occur under your account. You should choose a strong password and keep it confidential. You
-                    should also log out of your account and close your browser when you are finished using our
-                    website and services.</p>
+                    <p>We use reasonable security measures to protect your data, but no system is 100% secure.</p>
+                    <p>You are responsible for keeping your account details and password safe.</p>
                 </div>
             </div>
 
             <div class="list-element">
                 <div class="element-title">5. Children's Privacy</div>
                 <div class="element-text">
-                    <p>5.1 Our website and services are not intended for children under the age of 18. We do not
-                    knowingly collect personal information from children under the age of 18. If we become aware
-                    that a child under the age of 18 has provided personal information to us, we will delete such
-                    information from our records.</p>
+                    <p>Mustache Casino is not for users under 18. We do not knowingly collect information from anyone under that age. If we discover such information, we delete it.</p>
                 </div>
             </div>
 
             <div class="list-element">
-                <div class="element-title">6. Changes to Our Privacy Policy</div>
+                <div class="element-title">6. Changes to This Policy</div>
                 <div class="element-text">
-                    <p>6.1 We may update this privacy policy from time to time, and will post the most current version
-                    on our website. By continuing to use our website and services after any changes have been
-                    made, you are agreeing to be bound by the modified privacy policy.</p>
+                    <p>We may update this Privacy Policy from time to time. The newest version will always be posted on our website. Continued use of Mustache Casino means you accept any updated terms.</p>
                 </div>
             </div>
 
             <div class="list-element">
                 <div class="element-title">Contact Us</div>
                 <div class="element-text">
-                    <p>If you have any questions about these Terms of Service, please contact us at
-                    support@rblxroll.com.</p>
+                    <p>If you have any questions about this Privacy Policy, you can contact us at:</p>
+                    <p>support@mustachecasino.com</p>
                 </div>
             </div>
 
@@ -128,7 +104,7 @@
         align-items: center;
         padding: 30px 30px 0 30px;
         border-radius: 15px;
-        background: var(--bg-primary) url('~@/assets/img/affiliates_banner.png') no-repeat center center;
+        background: var(--bg-primary-blue);
     }
 
     .modal-privacy .privacy-header {

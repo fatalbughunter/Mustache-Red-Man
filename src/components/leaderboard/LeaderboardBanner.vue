@@ -150,7 +150,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: rgba(255, 107, 0, 0.2);
+        background: transparent;
         clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 25%, 100% 75%, calc(100% - 7px) 100%, 7px 100%, 0 75%, 0 25%);
     }
 

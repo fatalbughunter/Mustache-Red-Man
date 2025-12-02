@@ -72,13 +72,7 @@ export default {
 
 .icon-wrapper {
     margin-bottom: var(--spacing-xl);
-    animation: float 6s ease-in-out infinite;
     filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.4));
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
 }
 
 .coming-soon-title {
@@ -93,16 +87,7 @@ export default {
     margin-bottom: var(--spacing-lg);
     text-transform: uppercase;
     text-shadow: 0 0 40px rgba(212, 165, 116, 0.5);
-    animation: glow 3s ease-in-out infinite;
-}
-
-@keyframes glow {
-    0%, 100% { 
-        filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.5));
-    }
-    50% { 
-        filter: drop-shadow(0 0 30px rgba(212, 165, 116, 0.8));
-    }
+    filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.5));
 }
 
 .coming-soon-divider {
@@ -135,33 +120,11 @@ export default {
     letter-spacing: 4px;
     margin-top: var(--spacing-xl);
     text-transform: uppercase;
-    animation: fadeInOut 4s ease-in-out infinite;
-}
-
-@keyframes fadeInOut {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
+    opacity: 1;
 }
 
 .coming-soon-shimmer {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(212, 165, 116, 0.1) 50%,
-        transparent 100%
-    );
-    animation: shimmer 4s ease-in-out infinite;
-    pointer-events: none;
-}
-
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
+    display: none;
 }
 
 @media only screen and (max-width: 768px) {

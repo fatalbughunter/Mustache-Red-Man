@@ -144,12 +144,12 @@
         top: 0;
         left: 0;
         border-radius: 15px;
-        background: linear-gradient(180deg, rgba(20, 68, 104, 0) 0%, #144468 100%);
+        background: var(--bg-primary-dark);
         z-index: -1;
     }
 
     .affiliates-stats .stats-element.element-available::before {
-        background: linear-gradient(180deg, rgba(0, 255, 194, 0) 0%, #00ffc2 100%);
+        background: var(--bg-primary-dark);
     }
 
     .affiliates-stats .stats-element.element-available::after {
@@ -160,7 +160,7 @@
         top: 1px;
         left: 1px;
         border-radius: 15px;
-        background-color: #05233b;
+        background: var(--bg-primary-dark);
         z-index: -1;
     }
 
@@ -168,11 +168,11 @@
         width: 100%;
         height: 100%;
         border-radius: 15px;
-        background: linear-gradient(255deg, #07263d 0%, #07243a 100%);
+        background: var(--bg-primary-dark);
     }
 
     .affiliates-stats .stats-element.element-available .element-inner {
-        background: linear-gradient(256deg, rgba(0, 255, 194, 0.05) 0%, rgba(0, 170, 109, 0.05) 100%), radial-gradient(81.75% 81.75% at 50% 50%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+        background: var(--bg-primary-dark);
     }
 
     .affiliates-stats .inner-loading {
@@ -290,8 +290,8 @@
         font-size: 12px;
         font-weight: 800;
         color: #ffffff;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
-        clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 25%, 100% 75%, calc(100% - 6px) 100%, 6px 100%, 0 75%, 0 25%);
+        background: var(--bg-brown-medium);
+        border-radius: 15px;
     }
 
     .affiliates-stats .stats-element.element-available button.button-claim img {

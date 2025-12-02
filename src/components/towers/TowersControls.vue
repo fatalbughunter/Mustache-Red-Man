@@ -203,13 +203,13 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--accent-yellow);
+        background: var(--bg-brown-medium);
         border-radius: 15px;
         z-index: -1;
     }
 
     .towers-controls .controls-mode button.button-active::before {
-        background: rgba(255, 107, 0, 0.5);
+        background: var(--bg-brown-medium);
     }
 
     .towers-controls .controls-mode button.button-active::after {
@@ -233,13 +233,13 @@
         font-size: 12px;
         font-weight: 700;
         color: #ffffff;
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--bg-brown-medium);
         border-radius: 14px;
     }
 
     .towers-controls .controls-mode button.button-active .button-inner {
         color: #ffffff;
-        background: rgba(255, 107, 0, 0.15);
+        background: var(--bg-brown-medium);
     }
 
     .towers-controls .controls-amount {
@@ -324,7 +324,7 @@
         font-size: 12px;
         font-weight: 800;
         color: #FFFFFF;
-        background: var(--accent-deep-red);
+        background: var(--bg-brown-medium);
         border-radius: 8px;
     }
 
@@ -359,7 +359,7 @@
         font-size: 12px;
         font-weight: 700;
         color: #ffffff;
-        background: var(--accent-deep-red);
+        background: var(--bg-brown-medium);
         transition: color 0.3s ease;
         border-radius: 8px;
     }
@@ -396,13 +396,13 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--accent-yellow);
+        background: var(--bg-brown-medium);
         border-radius: 15px;
         z-index: -1;
     }
 
     .towers-controls button.button-bet.button-lose::before {
-        background: var(--accent-yellow);
+        background: var(--bg-brown-medium);
     }
 
     .towers-controls button.button-bet.button-lose::after,
@@ -429,15 +429,15 @@
     }
 
     .towers-controls button.button-bet .button-inner {
-        background: var(--gradient-red);
+        background: var(--bg-brown-medium);
     }
 
     .towers-controls button.button-bet.button-lose .button-inner {
-        background: var(--gradient-red);
+        background: var(--bg-brown-medium);
     }
 
     .towers-controls button.button-cashout .button-inner {
-        background: linear-gradient(255deg, rgba(255, 107, 0, 0.35) -20%, rgba(255, 138, 0, 0.35) 100%);
+        background: var(--bg-brown-medium);
     }
 
     .towers-controls button.button-bet .button-loading.fade-leave-active,

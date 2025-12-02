@@ -330,7 +330,7 @@
         font-size: 12px;
         font-weight: 800;
         color: #FFFFFF;
-        background: var(--accent-deep-red);
+        background: var(--bg-brown-medium);
         border-radius: 8px;
     }
 
@@ -373,7 +373,7 @@
         height: 19px;
         -webkit-appearance: none;
         appearance: none;
-        background: var(--gradient-red);
+        background: var(--bg-brown-medium);
         border-radius: 8px;
         border: none;
         cursor: pointer;
@@ -383,7 +383,7 @@
     .mines-controls .top-slider input::-moz-range-thumb {
         width: 25px;
         height: 19px;
-        background: var(--gradient-red);
+        background: var(--bg-brown-medium);
         border-radius: 8px;
         border: none;
         cursor: pointer;
@@ -454,12 +454,12 @@
         font-size: 12px;
         font-weight: 600;
         color: #FFFFFF;
-        background-color: #2a2a2a;
+        background-color: var(--bg-brown-medium);
         border-radius: 8px;
     }
 
     .mines-controls .mines-content button.button-active .button-inner {
-        background: var(--accent-deep-red);
+        background: var(--bg-brown-medium);
     }
 
     .mines-controls .content-input {
@@ -538,22 +538,22 @@
         align-items: center;
         border-radius: 12px;
         border: 1px solid var(--accent-yellow);
-        background: var(--accent-deep-red);
+        background: var(--bg-brown-medium);
     }
 
     .mines-controls button.button-bet .button-inner {
-        background: var(--accent-deep-red);
+        background: var(--bg-brown-medium);
     }
 
     .mines-controls button.button-cashout .button-inner {
-        background: linear-gradient(255deg, rgba(255, 107, 0, 0.35) -20%, rgba(255, 138, 0, 0.35) 100%);
+        background: var(--bg-brown-medium);
     }
 
     .mines-controls button.button-auto .button-inner {
         font-size: 14px;
         font-weight: 700;
         color: var(--accent-yellow);
-        background: var(--accent-deep-red);
+        background: var(--bg-brown-medium);
         transition: color 0.3s ease;
     }
 
@@ -639,7 +639,7 @@
         font-size: 12px;
         font-weight: 700;
         color: var(--accent-yellow);
-        background: var(--accent-deep-red);
+        background: var(--bg-brown-medium);
         border: 1px solid var(--accent-yellow);
         transition: color 0.3s ease;
         border-radius: 8px;

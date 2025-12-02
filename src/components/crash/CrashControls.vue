@@ -336,12 +336,12 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--accent-yellow);
+        background: var(--bg-brown-medium);
         border-radius: 15px;
     }
 
     .crash-controls .controls-mode button.button-active::before {
-        background: rgba(255, 107, 0, 0.5);
+        background: var(--bg-brown-medium);
     }
 
     .crash-controls .controls-mode button::after {
@@ -364,13 +364,13 @@
         align-items: center;
         top: 1px;
         left: 1px;
-        background: var(--accent-yellow);
+        background: var(--bg-brown-medium);
         border-radius: 14px;
         z-index: 1;
     }
 
     .crash-controls .controls-mode button.button-active .button-inner {
-        background: rgba(255, 107, 0, 0.5);
+        background: var(--bg-brown-medium);
     }
 
     .crash-controls .controls-mode button .button-inner span {
@@ -463,7 +463,7 @@
         font-size: 12px;
         font-weight: 800;
         color: #ffffff;
-        background: var(--accent-yellow);
+        background: var(--bg-brown-medium);
         border-radius: 12px;
     }
 
@@ -510,13 +510,13 @@
         font-size: 16px;
         font-weight: 800;
         color: #ffffff;
-        background: var(--gradient-red);
+        background: var(--bg-brown-medium);
         border-radius: 15px;
         border: 1px solid var(--accent-yellow);
     }
 
     .crash-controls .controls-manual button.button-bet .button-inner {
-        background: var(--accent-red);
+        background: var(--bg-brown-medium);
     }
 
     .crash-controls .manual-bets {
@@ -732,13 +732,13 @@
         font-size: 14px;
         font-weight: 800;
         color: #ffffff;
-        background: var(--gradient-red);
+        background: var(--bg-brown-medium);
         border-radius: 15px;
         border: 1px solid var(--accent-yellow);
     }
 
     .crash-controls .controls-auto button.button-stop .button-inner {
-        background: rgba(255, 107, 0, 0.5);
+        background: var(--bg-brown-medium);
     }
 
     @media only screen and (max-width: 950px) {

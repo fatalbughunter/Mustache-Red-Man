@@ -91,8 +91,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        border-radius: 5px;
-        background: linear-gradient(180deg, rgba(20, 68, 104, 0) 0%, #144468 100%);
+        border-radius: 15px;
+        background: var(--bg-primary-dark);
         z-index: -1;
     }
 
@@ -103,8 +103,8 @@
         position: absolute;
         top: 1px;
         left: 1px;
-        border-radius: 5px;
-        background-color: #05223a;
+        border-radius: 15px;
+        background: var(--bg-primary-dark);
         z-index: -1;
     }
 
@@ -114,8 +114,8 @@
         display: flex;
         align-items: center;
         padding: 0 25px;
-        border-radius: 5px;
-        background-color: rgba(2, 21, 39, 0.25);
+        border-radius: 15px;
+        background: var(--bg-primary-dark);
     }
 
     .affiliates-referred-element .inner-user {

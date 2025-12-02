@@ -14,7 +14,7 @@ html, body {
 }
 
 html {
-    background: linear-gradient(180deg, #B87333 0%, #2A1810 50%, #000000 100%);
+    background: var(--bg-primary-blue);
     background-attachment: fixed;
     min-height: 100%;
 }

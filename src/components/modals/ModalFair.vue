@@ -17,19 +17,9 @@
                     <span>BLACKJACK</span>
                 </div>
             </button>
-            <button v-on:click="modalSetGame('Roll')" v-bind:class="{ 'button-active': modalGame === 'Roll' }">
-                <div class="button-inner">
-                    <span>ROLL</span>
-                </div>
-            </button>
             <button v-on:click="modalSetGame('Crash')" v-bind:class="{ 'button-active': modalGame === 'Crash' }">
                 <div class="button-inner">
                     <span>CRASH</span>
-                </div>
-            </button>
-            <button v-on:click="modalSetGame('Duels')" v-bind:class="{ 'button-active': modalGame === 'Duels' }">
-                <div class="button-inner">
-                    <span>DICE DUELS</span>
                 </div>
             </button>
             <button v-on:click="modalSetGame('Mines')" v-bind:class="{ 'button-active': modalGame === 'Mines' }">
@@ -42,16 +32,6 @@
                     <span>TOWERS</span>
                 </div>
             </button>
-            <button v-on:click="modalSetGame('Battles')" v-bind:class="{ 'button-active': modalGame === 'Battles' }">
-                <div class="button-inner">
-                    <span>BATTLES</span>
-                </div>
-            </button>
-            <button v-on:click="modalSetGame('Unbox')" v-bind:class="{ 'button-active': modalGame === 'Unbox' }">
-                <div class="button-inner">
-                    <span>UNBOX</span>
-                </div>
-            </button>
         </div>
         <div class="fair-content">
             <component v-bind:is="'Fair' + modalGame" />
@@ -61,25 +41,17 @@
 
 <script>
     import FairBlackjack from '@/components/fair/FairBlackjack';
-    import FairRoll from '@/components/fair/FairRoll';
     import FairCrash from '@/components/fair/FairCrash';
-    import FairDuels from '@/components/fair/FairDuels';
     import FairMines from '@/components/fair/FairMines';
     import FairTowers from '@/components/fair/FairTowers';
-    import FairUnbox from '@/components/fair/FairUnbox';
-    import FairBattles from '@/components/fair/FairBattles';
 
     export default {
         name: 'ModalFair',
         components: {
             FairBlackjack,
-            FairRoll,
             FairCrash,
-            FairDuels,
             FairMines,
-            FairTowers,
-            FairUnbox,
-            FairBattles
+            FairTowers
         },  
         data() {
             return {
@@ -102,7 +74,7 @@
         align-items: center;
         padding: 35px 30px 30px 30px;
         border-radius: 20px;
-        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        background: var(--bg-primary-blue);
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
     }
@@ -253,5 +225,15 @@
             padding: 0;
         }
 
+    }
+
+    @media only screen and (min-width: 826px) {
+        .modal-fair .fair-nav button {
+            width: calc(25% - 3px);
+        }
+
+        .modal-fair .fair-nav button:nth-child(4n) {
+            margin-right: 0;
+        }
     }
 </style>

@@ -102,10 +102,10 @@
                 <img src="@/assets/img/lastLogo.png" alt="Logo" />
             </div>
             <div class="sidebar-footer">
-                <button class="sidebar-link" v-on:click="openSupport">
+                <!-- <button class="sidebar-link" v-on:click="openSupport">
                     <IconInfo />
                     <span>Support</span>
-                </button>
+                </button> -->
             </div>
         </aside>
         <div v-if="mobileOpen" class="mobile-backdrop" v-on:click="closeMobile"></div>
@@ -227,6 +227,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         min-height: 0;
+        max-height: 320px;
     }
     .sidebar-title { 
         font-size: 10px; 
@@ -372,7 +373,7 @@
     }
 
     .sidebar-logo {
-        margin-top: auto;
+        margin-top: 0;
         padding: 0 16px 16px 16px;
         display: flex;
         align-items: center;

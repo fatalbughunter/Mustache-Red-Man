@@ -39,8 +39,8 @@
                 <div 
                     v-else
                     class="table-row" 
-                    v-for="bet in filteredBets" 
-                    :key="bet._id || bet.id"
+                    v-for="(bet, index) in filteredBets" 
+                    :key="`${bet._id || bet.id}-${index}-${bet.updatedAt || Date.now()}`"
                 >
                     <div class="table-cell">
                         <div class="game-icon">
@@ -139,13 +139,16 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['generalBets', 'generalTimeDiff']),
+        ...mapGetters(['generalBets', 'generalTimeDiff', 'socketGeneral']),
         bets() {
-            if (this.generalBets.bets === null || !this.generalBets.bets.all) {
+            // Ensure we're accessing the array properly for reactivity
+            if (this.generalBets.bets === null || !this.generalBets.bets.all || !Array.isArray(this.generalBets.bets.all)) {
                 return [];
             }
             // Get all bets, limited to 12 for display
-            return (this.generalBets.bets.all || []).slice(0, 12);
+            // Directly slice the array - Vue should track changes to the source array
+            const allBets = this.generalBets.bets.all;
+            return allBets.slice(0, 12);
         },
         filteredBets() {
             let bets = this.bets;
@@ -281,19 +284,47 @@ export default {
         }
     },
     watch: {
-        generalBets: {
+        // Watch the bets array length to detect when new bets are added via unshift
+        'generalBets.bets.all.length': {
+            handler(newLength, oldLength) {
+                // When array length changes, Vue should automatically update
+                // But we'll force an update to ensure UI reflects the change
+                if (newLength !== oldLength && newLength > 0) {
+                    this.$forceUpdate();
+                }
+            },
+            immediate: false
+        },
+        // Also watch the first bet's updatedAt to catch updates to existing bets
+        'generalBets.bets.all.0': {
             handler() {
-                // React to changes in generalBets
+                // When the first bet changes (new bet added), update the UI
                 this.$forceUpdate();
             },
-            deep: true
+            deep: true,
+            immediate: false
+        },
+        'socketGeneral.connected': {
+            handler(connected) {
+                // When socket connects, fetch bets data if not already loaded
+                if (connected) {
+                    if (this.generalBets.bets === null && this.generalBets.loading === false) {
+                        const data = {};
+                        this.generalGetBetsDataSocket(data);
+                    }
+                }
+            },
+            immediate: true
         }
     },
     created() {
         // Fetch bets data on creation, same as Bets component
-        if(this.generalBets.bets === null && this.generalBets.loading === false) {
-            const data = {};
-            this.generalGetBetsDataSocket(data);
+        // But also check if socket is already connected
+        if (this.socketGeneral && this.socketGeneral.connected) {
+            if(this.generalBets.bets === null && this.generalBets.loading === false) {
+                const data = {};
+                this.generalGetBetsDataSocket(data);
+            }
         }
     },
     mounted() {
