@@ -415,6 +415,7 @@
         background: var(--accent-deep-red);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(220, 20, 60, 0.4);
+<<<<<<< HEAD
         }
 
     .confirm-button:disabled {
@@ -428,6 +429,21 @@
             align-items: stretch;
         }
 
+=======
+    }
+
+    .confirm-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    @media only screen and (max-width: 750px) {
+        .rate-content {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+>>>>>>> a322706cbf271dcd65bfd58b4dc1062c8de5076b
         .equals-sign {
             display: none;
         }

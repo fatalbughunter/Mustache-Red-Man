@@ -520,6 +520,7 @@
     .fade-enter-active,
     .fade-leave-active {
         transition: opacity 0.5s;
+<<<<<<< HEAD
         }
 
     .fade-enter,
@@ -533,6 +534,21 @@
             align-items: stretch;
         }
 
+=======
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
+    }
+
+    @media only screen and (max-width: 750px) {
+        .rate-content {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+>>>>>>> a322706cbf271dcd65bfd58b4dc1062c8de5076b
         .equals-sign {
             display: none;
         }
