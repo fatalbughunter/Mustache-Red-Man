@@ -11,21 +11,21 @@
             <div class="top-links">
                 <div class="links-section">
                     <div class="section-title">OUR GAMES</div>
-                    <router-link to="/battles">
-                        <IconBattles />
-                        <span class="gradient-yellow">Battles</span>
+                    <router-link to="/mines">
+                        <IconMines />
+                        <span class="gradient-yellow">Mines</span>
+                    </router-link>
+                    <router-link to="/blackjack">
+                        <IconBlackjack />
+                        <span class="gradient-yellow">Black Jack</span>
                     </router-link>
                     <router-link to="/crash">
                         <IconCrash />
                         <span class="gradient-yellow">Crash</span>
                     </router-link>
-                    <router-link to="/roll">
-                        <IconRoll />
-                        <span class="gradient-green">Roll</span>
-                    </router-link>
-                    <router-link to="/duels">
-                        <IconDuels />
-                        <span class="gradient-red">Dice Duels</span>
+                    <router-link to="/towers">
+                        <IconTowers />
+                        <span class="gradient-yellow">Tower</span>
                     </router-link>
                 </div>
                 <div class="links-section">
@@ -41,7 +41,7 @@
                     <a href="https://discord.gg/rblxroll" target="_blank">Support</a>
                     <button v-on:click="modalsSetShow('Fair')">Provably Fair</button>
                 </div>
-                <div class="links-section">
+                <div class="links-section" v-if="false">
                     <div class="section-title">SOCIALS</div>
                     <a href="https://twitter.com/RBLXRoll" target="_blank">
                         <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -153,18 +153,18 @@
 
 <script>
     import { mapActions } from 'vuex';
-    import IconBattles from '@/components/icons/IconBattles';
+    import IconMines from '@/components/icons/IconMines';
+    import IconBlackjack from '@/components/icons/IconBlackjack';
     import IconCrash from '@/components/icons/IconCrash';
-    import IconRoll from '@/components/icons/IconRoll';
-    import IconDuels from '@/components/icons/IconDuels';
+    import IconTowers from '@/components/icons/IconTowers';
 
     export default {
         name: 'Footer',
         components: {
-            IconBattles,
+            IconMines,
+            IconBlackjack,
             IconCrash,
-            IconRoll,
-            IconDuels
+            IconTowers
         },
         methods: {
             ...mapActions([
