@@ -64,14 +64,11 @@ a {
 /* Design System Variables */
 :root {
     /* Colors - Copper Theme */
-<<<<<<< HEAD
     --bg-primary: #0D1318;
     --bg-primary-blue: #131F30;
     --bg-blue-dark: #0A1320;
-=======
     --bg-primary-dark: #0D0D0D;
     --bg-primary: #0D1318;
->>>>>>> a322706cbf271dcd65bfd58b4dc1062c8de5076b
     --bg-secondary: #1A1A1A;
     --bg-tertiary: #2A2A2A;
     --bg-temp-red: #ee3536;
