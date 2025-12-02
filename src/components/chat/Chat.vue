@@ -1,7 +1,7 @@
 <template>
     <div>
         <aside id="chat" v-bind:class="{ 
-            'chat-open': generalSidebarMobile === 'Chat',
+            'chat-open': generalSidebarMobile === 'Chat' || generalDesktopChatOpen,
             'chat-rain': generalRain.active !== null,
             'chat-desktop-closed': !generalDesktopChatOpen && generalSidebarMobile !== 'Chat'
         }">
@@ -267,7 +267,14 @@
             },
             'generalSidebarMobile': {
                 handler(state, oldState) {
-                    if(this.generalSidebarMobile === 'Chat') { this.chatScrollToBottom(); }
+                    if(this.generalSidebarMobile === 'Chat') { 
+                        this.chatScrollToBottom(); 
+                    } else if(this.generalSidebarMobile !== null && this.generalSidebarMobile !== 'Chat') {
+                        // When mobile menu is displayed (and it's not chat), close desktop chat
+                        if(this.generalDesktopChatOpen) {
+                            this.generalSetDesktopChatOpen(false);
+                        }
+                    }
                 }
             }
         },
@@ -285,8 +292,7 @@
         top: 0;
         right: 0;
         padding: 17px 0 20px 0;
-        background: #1A1A1A;
-        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--bg-menu-sidebar);
         box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.07);
         z-index: 50;
         transition: transform 0.3s ease;
@@ -377,8 +383,7 @@
        height: 64px;
        position: absolute;
        top: 0;
-       left: 0;
-       background: linear-gradient(180deg, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 0.7) 75%, rgba(26, 26, 26, 0.1) 100%);
+       left: 0; 
        z-index: 2;
    }
 
@@ -642,15 +647,22 @@
         100% { transform: translateX(100%); }
     }
 
-    @media only screen and (max-width: 1500px) {
-
+    /* Desktop chat behavior - for all screens above 1024px */
+    @media only screen and (min-width: 1025px) {
         aside#chat {
+            top: 80px;
+            height: calc(100% - 80px);
             transform: translate(100%, 0);
             z-index: 121;
         }
 
         aside#chat.chat-open {
             transform: translate(0, 0);
+        }
+        
+        /* Desktop chat uses generalDesktopChatOpen, not mobile sidebar */
+        aside#chat.chat-desktop-closed {
+            transform: translate(100%, 0);
         }
 
         aside#chat .chat-toggle {
@@ -660,8 +672,6 @@
         aside#chat.chat-open .chat-toggle {
             display: none;
         }
-
-
     }
 
     /* Mobile backdrop */
@@ -673,7 +683,7 @@
         display: none;
     }
 
-    /* Position chat above bottom header on mobile, similar to sidebar */
+    /* Position chat above bottom header on mobile and tablet, similar to sidebar */
     @media only screen and (max-width: 1024px) {
         aside#chat {
             position: fixed !important;
@@ -691,6 +701,11 @@
 
         aside#chat.chat-open {
             transform: translateX(0) !important;
+        }
+        
+        /* Override desktop-closed class on mobile/tablet */
+        aside#chat.chat-desktop-closed {
+            transform: translateX(100%) !important;
         }
 
         .mobile-backdrop {

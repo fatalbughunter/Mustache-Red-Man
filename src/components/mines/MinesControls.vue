@@ -240,7 +240,7 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 20px 15px;
-        background: var(--mines-bk-1);
+        background: var(--bg-blue-dark);
         border-radius: 15px;
         border: 1px solid var(--accent-yellow);
     }

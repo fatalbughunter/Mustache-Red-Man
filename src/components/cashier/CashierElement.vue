@@ -5,7 +5,7 @@
                 <img src="@/assets/img/knight.png" />
             </div>
             <div class="inner-image">
-                <img v-bind:src="require('@/assets/img/cashier/' + method + '.png')" />
+                <img v-bind:src="getImagePath()" />
             </div>           
             <div class="inner-text">
                 <div class="text-method">{{ modalGetMethod }}</div>
@@ -19,6 +19,24 @@
     export default {
         name: 'CashierElement',
         props: ['type', 'method', 'enabled'],
+        methods: {
+            getImagePath() {
+                // Use crypto images from payments/crypto directory
+                const cryptoImages = {
+                    'eth': 'ether',
+                    'bnb': 'bnb',
+                    'trx': 'trx',
+                    'sol': 'solana'
+                };
+
+                if (cryptoImages[this.method]) {
+                    return require('@/assets/img/payments/crypto/' + cryptoImages[this.method] + '.png');
+                }
+
+                // Fallback to cashier directory for other methods
+                return require('@/assets/img/cashier/' + this.method + '.png');
+            }
+        },
         computed: {
             modalGetMethod() {
                 let method = this.method.charAt(0).toUpperCase() + this.method.substring(1);
@@ -30,6 +48,9 @@
                 else if(this.method === 'btc') { method = 'Bitcoin' }
                 else if(this.method === 'eth') { method = 'Ethereum' }
                 else if(this.method === 'ltc') { method = 'Litecoin' }
+                else if(this.method === 'bnb') { method = 'BNB' }
+                else if(this.method === 'trx') { method = 'TRX' }
+                else if(this.method === 'sol') { method = 'SOL' }
                 else if(['usdt', 'usdc', 'g2a'].includes(this.method) === true) { method = this.method.toUpperCase(); }
 
                 return method;
@@ -102,6 +123,18 @@
 
     .cashier-element.element-usdc {
         background: linear-gradient(90deg, #2775ca 0%, rgba(39, 117, 202, 0.3) 100%);
+    }
+
+    .cashier-element.element-bnb {
+        background: linear-gradient(90deg, #f3ba2f 0%, rgba(243, 186, 47, 0.3) 100%);
+    }
+
+    .cashier-element.element-trx {
+        background: linear-gradient(90deg, #ff0019 0%, rgba(255, 0, 25, 0.3) 100%);
+    }
+
+    .cashier-element.element-sol {
+        background: linear-gradient(90deg, #9945ff 0%, rgba(153, 69, 255, 0.3) 100%);
     }
 
     .cashier-element.element-kinguin {
@@ -217,6 +250,30 @@
                     repeating-linear-gradient(-55deg, transparent, transparent 5px, rgba(2, 21, 36, 0.12) 5px, rgba(2, 21, 36, 0.12) 10px);
     }
 
+    .cashier-element.element-bnb .element-inner {
+        background: radial-gradient(650% 160% at 100% 25%, rgba(37, 20, 0, 0.27) 0%, rgba(0, 0, 0, 0) 100%), 
+                    linear-gradient(0deg, rgba(243, 186, 47, 0.15) 0%, rgba(243, 186, 47, 0.15) 100%), 
+                    linear-gradient(90deg, rgba(243, 186, 47, 0.62) -30%, rgba(0, 0, 0, 0) 180%), 
+                    linear-gradient(265deg, #001626 0%, rgba(12, 52, 82, 0) 150%),
+                    repeating-linear-gradient(-55deg, transparent, transparent 5px, rgba(2, 21, 36, 0.12) 5px, rgba(2, 21, 36, 0.12) 10px);
+    }
+
+    .cashier-element.element-trx .element-inner {
+        background: radial-gradient(650% 160% at 100% 25%, rgba(37, 20, 0, 0.27) 0%, rgba(0, 0, 0, 0) 100%), 
+                    linear-gradient(0deg, rgba(255, 0, 25, 0.15) 0%, rgba(255, 0, 25, 0.15) 100%), 
+                    linear-gradient(90deg, rgba(255, 0, 25, 0.62) -30%, rgba(0, 0, 0, 0) 180%), 
+                    linear-gradient(265deg, #001626 0%, rgba(12, 52, 82, 0) 150%),
+                    repeating-linear-gradient(-55deg, transparent, transparent 5px, rgba(2, 21, 36, 0.12) 5px, rgba(2, 21, 36, 0.12) 10px);
+    }
+
+    .cashier-element.element-sol .element-inner {
+        background: radial-gradient(650% 160% at 100% 25%, rgba(37, 20, 0, 0.27) 0%, rgba(0, 0, 0, 0) 100%), 
+                    linear-gradient(0deg, rgba(153, 69, 255, 0.15) 0%, rgba(153, 69, 255, 0.15) 100%), 
+                    linear-gradient(90deg, rgba(153, 69, 255, 0.62) -30%, rgba(0, 0, 0, 0) 180%), 
+                    linear-gradient(265deg, #001626 0%, rgba(12, 52, 82, 0) 150%),
+                    repeating-linear-gradient(-55deg, transparent, transparent 5px, rgba(2, 21, 36, 0.12) 5px, rgba(2, 21, 36, 0.12) 10px);
+    }
+
     .cashier-element.element-kinguin .element-inner {
         background: radial-gradient(650% 160% at 100% 25%, rgba(37, 20, 0, 0.27) 0%, rgba(0, 0, 0, 0) 100%), 
                     linear-gradient(0deg, rgba(255, 188, 0, 0.15) 0%, rgba(255, 188, 0, 0.15) 100%), 
@@ -272,7 +329,10 @@
     .cashier-element.element-eth .inner-image img,
     .cashier-element.element-ltc .inner-image img,
     .cashier-element.element-usdt .inner-image img,
-    .cashier-element.element-usdc .inner-image img {
+    .cashier-element.element-usdc .inner-image img,
+    .cashier-element.element-bnb .inner-image img,
+    .cashier-element.element-trx .inner-image img,
+    .cashier-element.element-sol .inner-image img {
         width: 45px;
     }
 
@@ -325,6 +385,18 @@
 
     .cashier-element.element-usdc .text-method {
         color: #2775ca;
+    }
+
+    .cashier-element.element-bnb .text-method {
+        color: #f3ba2f;
+    }
+
+    .cashier-element.element-trx .text-method {
+        color: #ff0019;
+    }
+
+    .cashier-element.element-sol .text-method {
+        color: #9945ff;
     }
 
     .cashier-element.element-kinguin .text-method {

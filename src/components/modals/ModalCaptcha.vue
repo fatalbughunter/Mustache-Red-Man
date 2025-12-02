@@ -11,7 +11,7 @@
                     Continue
                 </button>
             </div>
-            <!-- Original captcha component (commented out)
+           
             <VueHcaptcha 
                 ref="modalCaptcha" 
                 v-bind:sitekey="modalCaptchaKey" 
@@ -19,19 +19,19 @@
                 @expired="modalOnExpire"
                 @challengeExpired="modalOnExpire"
             />
-            -->
+            
         </div>
     </div>
 </template>
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    // import VueHcaptcha from '@hcaptcha/vue-hcaptcha';
+    import VueHcaptcha from '@hcaptcha/vue-hcaptcha';
 
     export default {
         name: 'ModalTip',
         components: {
-            // VueHcaptcha
+            VueHcaptcha
         },
         data() {
             return {
@@ -84,9 +84,9 @@
         },
         mounted() {
             // Auto-bypass captcha after a short delay for better UX
-            setTimeout(() => {
-                this.modalOnVerify('dev-bypass-token');
-            }, 1000);
+            //setTimeout(() => {
+            //    this.modalOnVerify('dev-bypass-token');
+            //}, 1000);
         }
     }
 </script>
@@ -100,7 +100,7 @@
         align-items: center;
         padding: 35px 0 48px 0;
         border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% -31.45%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(255deg, #07263d 0%, #07243a 100%);
+        background: var(--bg-primary);
     }
 
     .modal-captcha .captcha-title {
@@ -110,39 +110,51 @@
     }
 
     .modal-captcha .captcha-content {
-        width: 303px;
-        height: 76px;
+        width: 100%;
+        max-width: 500px;
         margin-top: 35px;
+        padding: 0 20px;
         border-radius: 4px;
-        background-color: #1a4f63;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 20px;
+    }
+
+    .modal-captcha .captcha-content >>> iframe {
+        border-radius: 4px;
     }
 
     .captcha-bypass {
         text-align: center;
-        color: #00ffc2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
     }
 
     .captcha-bypass p {
-        margin: 0 0 10px 0;
+        margin: 0;
         font-size: 14px;
     }
 
     .bypass-button {
-        background: linear-gradient(180deg, #00ffc2 0%, #00aa94 100%);
+        background: var(--accent-red);
         border: none;
         border-radius: 4px;
-        padding: 8px 16px;
-        color: #0a1a24;
+        padding: 10px 24px;
+        color: white;
         font-weight: 600;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 14px;
+        transition: all 0.3s ease;
     }
 
     .bypass-button:hover {
-        opacity: 0.8;
+        background: var(--accent-deep-red);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(220, 20, 60, 0.4);
     }
 
     @media only screen and (max-width: 793px) {

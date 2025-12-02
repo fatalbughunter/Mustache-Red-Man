@@ -194,7 +194,7 @@
 
     .chat-message-element.element-rain {     /* right side chat grid */
         padding: 15px 15px 15px 14px;
-        background: rgba(26, 26, 26, 0.8);
+        background: var(--bg-primary-blue);
     }
 
     .chat-message-element.element-system {

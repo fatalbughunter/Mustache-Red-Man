@@ -11,21 +11,21 @@
             <div class="top-links">
                 <div class="links-section">
                     <div class="section-title">OUR GAMES</div>
-                    <router-link to="/battles">
-                        <IconBattles />
-                        <span class="gradient-yellow">Battles</span>
+                    <router-link to="/mines">
+                        <IconMines />
+                        <span class="gradient-yellow">Mines</span>
+                    </router-link>
+                    <router-link to="/blackjack">
+                        <IconBlackjack />
+                        <span class="gradient-yellow">Black Jack</span>
                     </router-link>
                     <router-link to="/crash">
                         <IconCrash />
                         <span class="gradient-yellow">Crash</span>
                     </router-link>
-                    <router-link to="/roll">
-                        <IconRoll />
-                        <span class="gradient-green">Roll</span>
-                    </router-link>
-                    <router-link to="/duels">
-                        <IconDuels />
-                        <span class="gradient-red">Dice Duels</span>
+                    <router-link to="/towers">
+                        <IconTowers />
+                        <span class="gradient-yellow">Tower</span>
                     </router-link>
                 </div>
                 <div class="links-section">
@@ -41,7 +41,7 @@
                     <a href="https://discord.gg/rblxroll" target="_blank">Support</a>
                     <button v-on:click="modalsSetShow('Fair')">Provably Fair</button>
                 </div>
-                <div class="links-section">
+                <div class="links-section" v-if="false">
                     <div class="section-title">SOCIALS</div>
                     <a href="https://twitter.com/RBLXRoll" target="_blank">
                         <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,71 +76,24 @@
         <div class="payment-section">
             <div class="payment-title">Our Deposit Methods</div>
             <div class="payment-methods">
-                <!-- First Row: visa, mastercard, neteller, bitcoin, payop -->
-                <div class="payment-method payment-row-1" title="VISA">
+                <div class="payment-method" title="ETH" @click="openDepositModal">
                     <div class="payment-card">
-                        <img src="@/assets/img/payments/visa.svg" alt="VISA" />
+                        <img src="@/assets/img/payments/crypto/ether.png" alt="ETH" />
                     </div>
                 </div>
-                <div class="payment-method payment-row-1" title="Mastercard">
+                <div class="payment-method" title="BNB" @click="openDepositModal">
                     <div class="payment-card">
-                        <img src="@/assets/img/payments/mastercard.svg" alt="Mastercard" />
+                        <img src="@/assets/img/payments/crypto/bnb.png" alt="BNB" />
                     </div>
                 </div>
-                <div class="payment-method payment-row-1" title="NETELLER">
+                <div class="payment-method" title="TRX" @click="openDepositModal">
                     <div class="payment-card">
-                        <img src="@/assets/img/payments/netteler.svg" alt="NETELLER" />
+                        <img src="@/assets/img/payments/crypto/trx.png" alt="TRX" />
                     </div>
                 </div>
-                <div class="payment-method payment-row-1" title="Bitcoin">
+                <div class="payment-method" title="SOL" @click="openDepositModal">
                     <div class="payment-card">
-                        <img src="@/assets/img/payments/btc.svg" alt="Bitcoin" />
-                    </div>
-                </div>
-                <div class="payment-method payment-row-1" title="PayOp">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/payop.svg" alt="PayOp" />
-                    </div>
-                </div>
-                <!-- Second Row: All the rest -->
-                <div class="payment-method payment-row-2" title="Crypto">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/cryptologo.svg" alt="Crypto" />
-                    </div>
-                </div>
-                <div class="payment-method payment-row-2" title="Skrill">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/skrill.svg" alt="Skrill" />
-                    </div>
-                </div>
-                <div class="payment-method payment-row-2" title="paysafecard">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/paysafecard.svg" alt="paysafecard" />
-                    </div>
-                </div>
-                <div class="payment-method payment-row-2" title="Interac">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/interac.png" alt="Interac" />
-                    </div>
-                </div>
-                <div class="payment-method payment-row-2" title="MiFINITY">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/minifity.png" alt="MiFINITY" />
-                    </div>
-                </div>
-                <div class="payment-method payment-row-2" title="AstroPay">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/astropay.svg" alt="AstroPay" />
-                    </div>
-                </div>
-                <div class="payment-method payment-row-2" title="Jetonbank">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/jetonbank logo.png" alt="Jetonbank" />
-                    </div>
-                </div>
-                <div class="payment-method payment-row-2" title="pix">
-                    <div class="payment-card">
-                        <img src="@/assets/img/payments/pix.png" alt="pix" />
+                        <img src="@/assets/img/payments/crypto/solana.png" alt="SOL" />
                     </div>
                 </div>
             </div>
@@ -153,23 +106,28 @@
 
 <script>
     import { mapActions } from 'vuex';
-    import IconBattles from '@/components/icons/IconBattles';
+    import IconMines from '@/components/icons/IconMines';
+    import IconBlackjack from '@/components/icons/IconBlackjack';
     import IconCrash from '@/components/icons/IconCrash';
-    import IconRoll from '@/components/icons/IconRoll';
-    import IconDuels from '@/components/icons/IconDuels';
+    import IconTowers from '@/components/icons/IconTowers';
 
     export default {
         name: 'Footer',
         components: {
-            IconBattles,
+            IconMines,
+            IconBlackjack,
             IconCrash,
-            IconRoll,
-            IconDuels
+            IconTowers
         },
         methods: {
             ...mapActions([
-                'modalsSetShow'
-            ])
+                'modalsSetShow',
+                'modalsSetData'
+            ]),
+            openDepositModal() {
+                this.modalsSetData({ typeCashier: 'deposit' });
+                this.modalsSetShow('Cashier');
+            }
         }
     }
 </script>
@@ -181,7 +139,7 @@
         flex-direction: column;
         align-items: center;
         padding: 50px 0 12px 0;
-      /*  background-color: var(--bg-secondary); */
+        background-color: var(--bg-menu-sidebar);
         border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
@@ -349,43 +307,13 @@
     }
 
     footer#footer .payment-methods {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        grid-template-rows: auto auto;
-        gap: 20px;
-        justify-items: center;
+        display: flex;
+        justify-content: center;
         align-items: center;
+        gap: 20px;
         max-width: 1200px;
         margin: 0 auto;
-    }
-
-    footer#footer .payment-method.payment-row-1 {
-        grid-row: 1;
-    }
-
-    /* Center the first row (5 items) in the 8-column grid: start at column 2 */
-    footer#footer .payment-method.payment-row-1:nth-child(1) {
-        grid-column: 2;
-    }
-
-    footer#footer .payment-method.payment-row-1:nth-child(2) {
-        grid-column: 3;
-    }
-
-    footer#footer .payment-method.payment-row-1:nth-child(3) {
-        grid-column: 4;
-    }
-
-    footer#footer .payment-method.payment-row-1:nth-child(4) {
-        grid-column: 5;
-    }
-
-    footer#footer .payment-method.payment-row-1:nth-child(5) {
-        grid-column: 6;
-    }
-
-    footer#footer .payment-method.payment-row-2 {
-        grid-row: 2;
+        flex-wrap: nowrap;
     }
 
     footer#footer .payment-method {
@@ -394,7 +322,7 @@
         justify-content: center;
         cursor: pointer;
         transition: transform 0.3s ease;
-        width: 100%;
+        flex: 0 0 auto;
     }
 
     footer#footer .payment-method:hover {
@@ -503,7 +431,6 @@
         }
 
         footer#footer .payment-methods {
-            grid-template-columns: repeat(8, 1fr);
             gap: 15px;
         }
 
@@ -542,16 +469,7 @@
         }
 
         footer#footer .payment-methods {
-            grid-template-columns: repeat(4, 1fr);
             gap: 12px;
-        }
-
-        footer#footer .payment-method.payment-row-1:nth-child(1),
-        footer#footer .payment-method.payment-row-1:nth-child(2),
-        footer#footer .payment-method.payment-row-1:nth-child(3),
-        footer#footer .payment-method.payment-row-1:nth-child(4),
-        footer#footer .payment-method.payment-row-1:nth-child(5) {
-            grid-column: auto;
         }
 
         footer#footer .payment-card {
@@ -580,7 +498,6 @@
         }
 
         footer#footer .payment-methods {
-            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
 

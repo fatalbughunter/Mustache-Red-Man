@@ -115,10 +115,7 @@
         flex-direction: column;
         align-items: center;
         padding: 65px 10px 45px 10px;
-        /*
-        background: var(--bg-primary) url('~@/assets/img/main_bg.svg') no-repeat center center;
-        */
-        background: #0B0B0B;
+        background: var(--bg-primary-blue);
         background-size: cover;
         background-attachment: fixed;
         min-height: calc(100vh - 80px);

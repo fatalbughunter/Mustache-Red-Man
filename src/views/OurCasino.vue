@@ -29,11 +29,7 @@ export default {
 .our-casino {
     width: 100%;
     min-height: 100vh;
-    background-image: url('~@/assets/img/banner/allGames.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background: var(--bg-primary-blue);
     padding: var(--spacing-2xl) 0;
 }
 

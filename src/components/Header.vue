@@ -1,8 +1,12 @@
 <template>
     <header class="header" :class="{ 'header-below-banner': isHomePage }">
         <div class="header-container">
+            <!-- Logo Image -->
+            <router-link to="/" class="header-logo-title">
+                <img src="@/assets/img/headerLogo.png" alt="Mustache Casino" class="header-logo-img">
+            </router-link>
             <!-- Navigation Menu -->
-            <nav class="header-nav">
+            <nav class="header-nav" style="display: none;">
                 <router-link to="/" class="nav-link">HOME</router-link>
                 
                 <!-- Casino Dropdown -->
@@ -609,103 +613,19 @@ export default {
     left: 0;
     right: 0;
     height: 80px;
-    background: 
-        /* Sand grain texture overlay */
-        radial-gradient(circle at 20% 30%, rgba(222, 184, 135, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(184, 115, 51, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(205, 127, 50, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 60% 20%, rgba(222, 184, 135, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 10% 60%, rgba(184, 115, 51, 0.11) 0%, transparent 50%),
-        radial-gradient(circle at 90% 40%, rgba(205, 127, 50, 0.09) 0%, transparent 50%),
-        /* Fine sand texture pattern */
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(222, 184, 135, 0.03) 2px,
-            rgba(222, 184, 135, 0.03) 3px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 2px,
-            rgba(184, 115, 51, 0.03) 2px,
-            rgba(184, 115, 51, 0.03) 3px
-        ),
-        /* Subtle diagonal sand drift pattern */
-        repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 8px,
-            rgba(222, 184, 135, 0.04) 8px,
-            rgba(222, 184, 135, 0.04) 9px,
-            transparent 9px,
-            transparent 16px
-        ),
-        /* Main desert sand gradient */
-        linear-gradient(
-            180deg,
-            rgba(222, 184, 135, 0.25) 0%,
-            rgba(205, 127, 50, 0.30) 25%,
-            rgba(184, 115, 51, 0.35) 50%,
-            rgba(139, 111, 71, 0.30) 75%,
-            rgba(101, 67, 33, 0.25) 100%
-        ),
-        /* Base dark background with transparency */
-        rgba(26, 20, 15, 0.98);
+    background: var(--bg-menu-sidebar);
     backdrop-filter: blur(10px) saturate(120%);
     z-index: 99998;
     display: flex;
     align-items: center;
-    box-shadow: 
+   /* box-shadow: 
         0 2px 10px rgba(0, 0, 0, 0.5),
         0 4px 20px rgba(184, 115, 51, 0.4),
         inset 0 1px 0 rgba(222, 184, 135, 0.2);
-    border-bottom: 2px solid rgba(222, 184, 135, 0.4);
-    position: relative;
+    border-bottom: 2px solid rgba(222, 184, 135, 0.4); */
     overflow: visible;
 }
 
-/* Additional sand texture layer for depth */
-.header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(ellipse at 25% 40%, rgba(222, 184, 135, 0.12) 0%, transparent 45%),
-        radial-gradient(ellipse at 75% 60%, rgba(205, 127, 50, 0.1) 0%, transparent 45%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Additional sand texture depth layer */
-.header::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        /* Sand dune shadows and highlights */
-        radial-gradient(ellipse at 15% 50%, rgba(139, 111, 71, 0.2) 0%, transparent 40%),
-        radial-gradient(ellipse at 85% 50%, rgba(205, 127, 50, 0.15) 0%, transparent 40%),
-        radial-gradient(ellipse at 50% 50%, rgba(222, 184, 135, 0.1) 0%, transparent 50%),
-        /* Additional texture layers */
-        repeating-linear-gradient(
-            30deg,
-            transparent,
-            transparent 12px,
-            rgba(222, 184, 135, 0.02) 12px,
-            rgba(222, 184, 135, 0.02) 13px
-        );
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.6;
-}
 
 /* Ensure header container and content are above sand effects */
 .header-container,
@@ -717,14 +637,16 @@ export default {
 
 .header.header-below-banner {
     overflow: visible;
+    position: fixed !important;
+    top: 0 !important;
 }
 
 .header-below-banner {
-    position: relative;
-    top: auto;
+    position: fixed !important;
+    top: 0 !important;
     overflow: visible;
     min-height: 80px;
-    height: auto;
+    height: 80px;
     z-index: 99998;
 }
 
@@ -741,12 +663,32 @@ export default {
     /*padding: 0 var(--spacing-lg); */
     padding: 0 75px;
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     align-items: center;
     gap: var(--spacing-lg);
     position: relative;
     z-index: 99998;
     overflow: visible;
+}
+
+.header-logo-title {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.header-logo-title:hover {
+    opacity: 0.8;
+}
+
+.header-logo-img {
+    height: auto;
+    max-height: 50px;
+    width: auto;
+    object-fit: contain;
 }
 
 .header-nav {
@@ -1184,8 +1126,8 @@ export default {
 
 .btn-signin {
     padding: var(--spacing-sm) var(--spacing-lg);
-    background: var(--accent-red);
-    color: white;
+    background: var(--accent-yellow-main);
+    color: #000000;
     border-radius: var(--radius-sm);
     font-weight: 600;
     font-size: 14px;
@@ -1196,10 +1138,11 @@ export default {
 }
 
 .btn-signin:hover {
-    background: var(--accent-deep-red);
+    background: var(--accent-yellow-main);
+    opacity: 0.9;
     border-color: rgba(255, 255, 255, 0.4);
-    color: var(--text-gold);
-    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+    color: #000000;
+    box-shadow: 0 4px 15px rgba(222, 199, 156, 0.4);
 }
 
 .btn-chat {
@@ -1353,51 +1296,8 @@ export default {
     bottom: calc(100% + 10px);
     right: 0;
     min-width: 200px;
-    /* Desert sand background matching header */
-    background: 
-        /* Sand grain texture overlay */
-        radial-gradient(circle at 20% 30%, rgba(222, 184, 135, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(184, 115, 51, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(205, 127, 50, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 60% 20%, rgba(222, 184, 135, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 10% 60%, rgba(184, 115, 51, 0.11) 0%, transparent 50%),
-        radial-gradient(circle at 90% 40%, rgba(205, 127, 50, 0.09) 0%, transparent 50%),
-        /* Fine sand texture pattern */
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(222, 184, 135, 0.03) 2px,
-            rgba(222, 184, 135, 0.03) 3px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 2px,
-            rgba(184, 115, 51, 0.03) 2px,
-            rgba(184, 115, 51, 0.03) 3px
-        ),
-        /* Subtle diagonal sand drift pattern */
-        repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 8px,
-            rgba(222, 184, 135, 0.04) 8px,
-            rgba(222, 184, 135, 0.04) 9px,
-            transparent 9px,
-            transparent 16px
-        ),
-        /* Main desert sand gradient */
-        linear-gradient(
-            180deg,
-            rgba(222, 184, 135, 0.25) 0%,
-            rgba(205, 127, 50, 0.30) 25%,
-            rgba(184, 115, 51, 0.35) 50%,
-            rgba(139, 111, 71, 0.30) 75%,
-            rgba(101, 67, 33, 0.25) 100%
-        ),
-        /* Base dark background with transparency */
-        rgba(26, 20, 15, 0.98);
+    /* Use menu sidebar background */
+    background: var(--bg-menu-sidebar);
     backdrop-filter: blur(10px) saturate(120%);
     border: 2px solid rgba(222, 184, 135, 0.6);
     border-radius: 8px;
@@ -1553,51 +1453,7 @@ export default {
             0 2px 10px rgba(0, 0, 0, 0.5),
             0 4px 20px rgba(184, 115, 51, 0.4),
             inset 0 1px 0 rgba(222, 184, 135, 0.2);
-        /* Preserve desert sand background effect on mobile */
-        background: 
-            /* Sand grain texture overlay */
-            radial-gradient(circle at 20% 30%, rgba(222, 184, 135, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(184, 115, 51, 0.12) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(205, 127, 50, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 60% 20%, rgba(222, 184, 135, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 10% 60%, rgba(184, 115, 51, 0.11) 0%, transparent 50%),
-            radial-gradient(circle at 90% 40%, rgba(205, 127, 50, 0.09) 0%, transparent 50%),
-            /* Fine sand texture pattern */
-            repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(222, 184, 135, 0.03) 2px,
-                rgba(222, 184, 135, 0.03) 3px
-            ),
-            repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 2px,
-                rgba(184, 115, 51, 0.03) 2px,
-                rgba(184, 115, 51, 0.03) 3px
-            ),
-            /* Subtle diagonal sand drift pattern */
-            repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 8px,
-                rgba(222, 184, 135, 0.04) 8px,
-                rgba(222, 184, 135, 0.04) 9px,
-                transparent 9px,
-                transparent 16px
-            ),
-            /* Main desert sand gradient */
-            linear-gradient(
-                180deg,
-                rgba(222, 184, 135, 0.25) 0%,
-                rgba(205, 127, 50, 0.30) 25%,
-                rgba(184, 115, 51, 0.35) 50%,
-                rgba(139, 111, 71, 0.30) 75%,
-                rgba(101, 67, 33, 0.25) 100%
-            ),
-            /* Base dark background with transparency */
-            rgba(26, 20, 15, 0.98) !important;
+        background: var(--bg-menu-sidebar) !important;
         backdrop-filter: blur(10px) saturate(120%) !important;
         border-bottom: 2px solid rgba(222, 184, 135, 0.4) !important;
     }
@@ -1625,31 +1481,16 @@ export default {
         align-items: center !important;
     }
     
+    /* Hide header logo on tablet and mobile */
+    .header-logo-title {
+        display: none !important;
+    }
+    
     /* Sign In button - hide on mobile */
     .btn-signin {
         display: none !important;
     }
     
-    /* Preserve sand texture layers on mobile */
-    .header::before {
-        background: 
-            radial-gradient(ellipse at 25% 40%, rgba(222, 184, 135, 0.12) 0%, transparent 45%),
-            radial-gradient(ellipse at 75% 60%, rgba(205, 127, 50, 0.1) 0%, transparent 45%) !important;
-    }
-    
-    .header::after {
-        background-image: 
-            radial-gradient(ellipse at 15% 50%, rgba(139, 111, 71, 0.2) 0%, transparent 40%),
-            radial-gradient(ellipse at 85% 50%, rgba(205, 127, 50, 0.15) 0%, transparent 40%),
-            radial-gradient(ellipse at 50% 50%, rgba(222, 184, 135, 0.1) 0%, transparent 50%),
-            repeating-linear-gradient(
-                30deg,
-                transparent,
-                transparent 12px,
-                rgba(222, 184, 135, 0.02) 12px,
-                rgba(222, 184, 135, 0.02) 13px
-            ) !important;
-    }
     
     /* Hide user-info on mobile */
     .user-info {
@@ -1684,57 +1525,19 @@ export default {
         right: 50% !important;
         transform: translateX(50%) !important;
         z-index: 100001 !important;
-        /* Ensure desert sand background on mobile */
-        background: 
-            /* Sand grain texture overlay */
-            radial-gradient(circle at 20% 30%, rgba(222, 184, 135, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(184, 115, 51, 0.12) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(205, 127, 50, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 60% 20%, rgba(222, 184, 135, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 10% 60%, rgba(184, 115, 51, 0.11) 0%, transparent 50%),
-            radial-gradient(circle at 90% 40%, rgba(205, 127, 50, 0.09) 0%, transparent 50%),
-            /* Fine sand texture pattern */
-            repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(222, 184, 135, 0.03) 2px,
-                rgba(222, 184, 135, 0.03) 3px
-            ),
-            repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 2px,
-                rgba(184, 115, 51, 0.03) 2px,
-                rgba(184, 115, 51, 0.03) 3px
-            ),
-            /* Subtle diagonal sand drift pattern */
-            repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 8px,
-                rgba(222, 184, 135, 0.04) 8px,
-                rgba(222, 184, 135, 0.04) 9px,
-                transparent 9px,
-                transparent 16px
-            ),
-            /* Main desert sand gradient */
-            linear-gradient(
-                180deg,
-                rgba(222, 184, 135, 0.25) 0%,
-                rgba(205, 127, 50, 0.30) 25%,
-                rgba(184, 115, 51, 0.35) 50%,
-                rgba(139, 111, 71, 0.30) 75%,
-                rgba(101, 67, 33, 0.25) 100%
-            ),
-            /* Base dark background with transparency */
-            rgba(26, 20, 15, 0.98) !important;
+        /* Use menu sidebar background on tablet and mobile */
+        background: var(--bg-menu-sidebar) !important;
         backdrop-filter: blur(10px) saturate(120%) !important;
         border: 2px solid rgba(222, 184, 135, 0.6) !important;
         box-shadow: 
             0 10px 40px rgba(0, 0, 0, 0.9),
             0 5px 20px rgba(184, 115, 51, 0.4),
             inset 0 1px 0 rgba(222, 184, 135, 0.2) !important;
+    }
+    
+    /* Also update desktop profile dropdown on tablet */
+    .profile-dropdown-menu {
+        background: var(--bg-menu-sidebar) !important;
     }
     
     /* Ensure buttons in row are evenly spaced */
@@ -1750,7 +1553,7 @@ export default {
     .header-below-banner {
         position: fixed !important;
         top: auto !important;
-        bottom: 80px !important;
+        bottom: 0px !important;
         width: 100% !important;
         left: 0 !important;
         right: 0 !important;

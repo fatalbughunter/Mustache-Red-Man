@@ -1,11 +1,7 @@
 <template>
     <div class="all-games">
         <div class="section-header">
-            <div class="copper-bolt bolt-left-top" v-if="showTopBolts"></div>
-            <div class="copper-bolt bolt-right-top" v-if="showTopBolts"></div>
             <h2 class="section-title">{{ title }}</h2>
-            <div class="copper-bolt bolt-left-bottom" v-if="showBottomBolts"></div>
-            <div class="copper-bolt bolt-right-bottom" v-if="showBottomBolts"></div>
         </div>
         <div class="games-grid" :class="{ 'large-cards-layout': largeCards }">
             <div class="game-card" 
@@ -194,112 +190,18 @@ export default {
     font-weight: 900;
     text-align: center;
     margin: 0;
-    color: var(--text-gold);
+    color: var(--accent-yellow-main);
     text-shadow: 
         2px 2px 4px rgba(0, 0, 0, 0.8),
-        0 0 20px rgba(212, 165, 116, 0.5),
-        0 0 40px rgba(184, 115, 51, 0.3);
+        0 0 20px rgba(222, 199, 156, 0.5),
+        0 0 40px rgba(222, 199, 156, 0.3);
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
     display: inline-block;
 }
 
-.copper-bolt {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: var(--gradient-copper);
-    border-radius: 50%;
-    box-shadow: 
-        0 0 15px rgba(184, 115, 51, 0.6),
-        inset 0 2px 5px rgba(255, 255, 255, 0.2),
-        inset 0 -2px 5px rgba(0, 0, 0, 0.3);
-    z-index: 1;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.copper-bolt::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
-    border-radius: 50%;
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
-}
-
-.copper-bolt::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    width: 24px;
-    height: 4px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 2px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
-}
-
-.bolt-left-top {
-    left: 0px;
-    transform: translateY(-50%);
-}
-
-.bolt-right-top {
-    right: 0px;
-    transform: translateY(-50%);
-}
-
-.bolt-left-bottom {
-    left: -60px;
-    transform: translateY(-50%);
-    display: none;
-}
-
-.bolt-right-bottom {
-    right: -60px;
-    transform: translateY(-50%);
-    display: none;
-}
-
-@media only screen and (max-width: 768px) {
-    .copper-bolt {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .copper-bolt::before {
-        width: 15px;
-        height: 15px;
-    }
-    
-    .copper-bolt::after {
-        width: 18px;
-        height: 3px;
-    }
-    
-    .bolt-left-top {
-        left: -20px;
-    }
-    
-    .bolt-right-top {
-        right: -20px;
-    }
-    
-    .bolt-left-bottom {
-        left: -45px;
-    }
-    
-    .bolt-right-bottom {
-        right: -45px;
-    }
-}
+/* Copper bolts removed */
 
 .games-grid {
     display: grid;
@@ -336,60 +238,22 @@ export default {
     max-width: 240px;
     display: flex;
     flex-direction: column;
-    /* Copper plate background */
-    background: linear-gradient(135deg, 
-        rgba(184, 115, 51, 0.95) 0%, 
-        rgba(212, 165, 116, 0.95) 25%,
-        rgba(184, 115, 51, 0.95) 50%,
-        rgba(139, 111, 71, 0.95) 75%,
-        rgba(184, 115, 51, 0.95) 100%);
+    background: transparent;
     box-shadow: 
         0 4px 15px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(184, 115, 51, 0.4);
-    border: 2px solid rgba(184, 115, 51, 0.6);
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    border: none;
 }
 
-/* Corner bolts - Top corners */
-.game-card::before,
-.game-card::after {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    background: radial-gradient(circle at 30% 30%, rgba(212, 165, 116, 1), rgba(184, 115, 51, 0.95), rgba(139, 111, 71, 1));
-    border-radius: 50%;
-   /* z-index: 10; */
-    box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.6),
-        inset 0 1px 3px rgba(255, 255, 255, 0.4),
-        inset 0 -1px 3px rgba(0, 0, 0, 0.6),
-        0 0 10px rgba(184, 115, 51, 0.4);
-    /* Create cross pattern for bolt */
-    background-image: 
-        radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 35%, transparent 35%),
-        radial-gradient(circle at 30% 30%, rgba(212, 165, 116, 1), rgba(184, 115, 51, 0.95));
-}
-
-.game-card::before {
-    top: -3px;
-    left: -3px;
-}
-
-.game-card::after {
-    top: -3px;
-    right: -3px;
-}
+/* Corner bolts removed */
 
 .game-card:hover:not(.game-disabled) {
     transform: translateY(-4px);
-    border-color: rgba(212, 165, 116, 0.8);
     box-shadow: 
         0 8px 30px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-        0 0 30px rgba(212, 165, 116, 0.6);
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* Disabled game styles */
@@ -403,18 +267,7 @@ export default {
     box-shadow: 
         0 4px 15px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(184, 115, 51, 0.4);
-    border-color: rgba(184, 115, 51, 0.6);
-}
-
-.game-card:hover:not(.game-disabled)::before,
-.game-card:hover:not(.game-disabled)::after {
-    box-shadow: 
-        0 3px 10px rgba(0, 0, 0, 0.7),
-        inset 0 1px 3px rgba(255, 255, 255, 0.5),
-        inset 0 -1px 3px rgba(0, 0, 0, 0.6),
-        0 0 15px rgba(212, 165, 116, 0.6);
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .game-screen {
@@ -431,46 +284,6 @@ export default {
     min-height: 0;
     padding: 16px 12px 0 12px;
     overflow: hidden;
-}
-
-/* Bottom corner bolts on game-screen */
-.game-screen::before,
-.game-screen::after {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    background: radial-gradient(circle at 30% 30%, rgba(212, 165, 116, 1), rgba(184, 115, 51, 0.95), rgba(139, 111, 71, 1));
-    border-radius: 50%;
-    z-index: 1;
-    box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.6),
-        inset 0 1px 3px rgba(255, 255, 255, 0.4),
-        inset 0 -1px 3px rgba(0, 0, 0, 0.6),
-        0 0 10px rgba(184, 115, 51, 0.4);
-    /* Create cross pattern for bolt */
-    background-image: 
-        radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 35%, transparent 35%),
-        radial-gradient(circle at 30% 30%, rgba(212, 165, 116, 1), rgba(184, 115, 51, 0.95));
-}
-
-.game-screen::before {
-    bottom: -3px;
-    left: -3px;
-}
-
-.game-screen::after {
-    bottom: -3px;
-    right: -3px;
-}
-
-.game-card:hover:not(.game-disabled) .game-screen::before,
-.game-card:hover:not(.game-disabled) .game-screen::after {
-    box-shadow: 
-        0 3px 10px rgba(0, 0, 0, 0.7),
-        inset 0 1px 3px rgba(255, 255, 255, 0.5),
-        inset 0 -1px 3px rgba(0, 0, 0, 0.6),
-        0 0 15px rgba(212, 165, 116, 0.6);
 }
 
 .game-screen.casino-bg {
@@ -648,7 +461,7 @@ export default {
 }
 
 .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
     border: none;
     border-radius: 0 0 4px 4px;
     color: #000000;
@@ -659,7 +472,7 @@ export default {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(184, 115, 51, 0.5);
+    box-shadow: 0 4px 15px rgba(222, 199, 156, 0.5);
     width: calc(100% + 24px);
     margin-left: -12px;
     margin-right: -12px;
@@ -680,49 +493,49 @@ export default {
 }
 
 .game-card:nth-child(1) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(2) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(3) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(4) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(5) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(6) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(7) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(8) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(9) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .game-card:nth-child(n+10) .play-button {
-    background: var(--gradient-copper);
+    background: var(--accent-yellow-main);
 }
 
 .play-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(184, 115, 51, 0.7);
-    background: linear-gradient(135deg, #D4A574 0%, #B87333 50%, #D4A574 100%);
+    box-shadow: 0 8px 25px rgba(222, 199, 156, 0.7);
+    background: rgba(222, 199, 156, 0.9);
 }
 
 /* Large cards layout responsive */
@@ -771,35 +584,6 @@ export default {
     
     .games-grid.large-cards-layout .game-card {
         max-width: 100%;
-    }
-    
-    /* Smaller bolts on mobile */
-    .game-card::before,
-    .game-card::after,
-    .game-screen::before,
-    .game-screen::after {
-        width: 14px;
-        height: 14px;
-    }
-    
-    .game-card::before {
-        top: -2px;
-        left: -2px;
-    }
-    
-    .game-card::after {
-        top: -2px;
-        right: -2px;
-    }
-    
-    .game-screen::before {
-        bottom: -2px;
-        left: -2px;
-    }
-    
-    .game-screen::after {
-        bottom: -2px;
-        right: -2px;
     }
     
     .section-title {

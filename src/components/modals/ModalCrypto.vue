@@ -8,7 +8,7 @@
                     </svg>
                 </div>
             </button>
-            <img v-bind:src="require('@/assets/img/cashier/' + modalsData.currency + '.png')" />
+            <img v-bind:src="getCurrencyIcon()" />
             <div class="header-text">
                 {{ modalGetName }}
                 <div class="text-amount">${{ modalFormatValue(cashierCryptoData.prices !== null ? cashierCryptoData.prices[this.modalsData.currency].price : 0) }}</div>
@@ -45,6 +45,22 @@
                 this.modalsSetShow(null);
 
                 setTimeout(() => { this.modalsSetShow('Cashier'); }, 200);
+            },
+            getCurrencyIcon() {
+                // Map currency codes to crypto payment images
+                const cryptoImageMap = {
+                    'eth': 'ether',
+                    'bnb': 'bnb',
+                    'trx': 'trx',
+                    'sol': 'solana'
+                };
+                
+                if (cryptoImageMap[this.modalsData.currency]) {
+                    return require('@/assets/img/payments/crypto/' + cryptoImageMap[this.modalsData.currency] + '.png');
+                }
+                
+                // Fallback to cashier directory
+                return require('@/assets/img/cashier/' + this.modalsData.currency + '.png');
             }
         },
         computed: {
@@ -55,12 +71,14 @@
             modalGetName() {
                 let name = this.modalsData.currency.toUpperCase();
 
-                if(this.modalsData.currency === 'btc') {
-                    name = 'Bitcoin';
-                } else if(this.modalsData.currency === 'eth') {
+                if(this.modalsData.currency === 'eth') {
                     name = 'Ethereum';
-                }  else if(this.modalsData.currency === 'ltc') {
-                    name = 'Litecoin';
+                } else if(this.modalsData.currency === 'bnb') {
+                    name = 'Binance Coin';
+                } else if(this.modalsData.currency === 'trx') {
+                    name = 'Tron';
+                } else if(this.modalsData.currency === 'sol') {
+                    name = 'Solana';
                 }
 
                 return name;
@@ -84,8 +102,7 @@
         align-items: center;
         padding: 25px 35px 40px 35px;
         border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% -30%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), 
-                    linear-gradient(255deg, #07263d 0%, #07243a 100%);
+        background: var(--bg-primary);
     }
 
     .modal-crypto .crypto-header {
@@ -132,24 +149,20 @@
         font-weight: 800;
     }
 
-    .modal-crypto.crypto-btc .header-text {
-        color: #f7931a;
-    }
-
     .modal-crypto.crypto-eth .header-text {
         color: #627eea;
     }
 
-    .modal-crypto.crypto-ltc .header-text {
-        color: #527fc6;
+    .modal-crypto.crypto-bnb .header-text {
+        color: #f3ba2f;
     }
 
-    .modal-crypto.crypto-usdt .header-text {
-        color: #27a17c;
+    .modal-crypto.crypto-trx .header-text {
+        color: #ff0019;
     }
 
-    .modal-crypto.crypto-usdc .header-text {
-        color: #2775ca;
+    .modal-crypto.crypto-sol .header-text {
+        color: #9945ff;
     }
 
     .modal-crypto .text-amount {

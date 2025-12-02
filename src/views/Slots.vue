@@ -43,22 +43,9 @@ export default {
     align-items: center;
     justify-content: center;
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background: url('~@/assets/img/banner/pageBg_001.png') no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed;
+    background: var(--bg-primary-blue);
     position: relative;
     overflow: hidden;
-}
-
-.coming-soon-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    pointer-events: none;
 }
 
 .coming-soon-container {

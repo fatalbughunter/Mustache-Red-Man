@@ -322,6 +322,7 @@ export default {
     font-weight: 900;
     text-align: center;
     margin: 0 0 var(--spacing-xl) 0;
+    color: var(--accent-yellow-main);
 }
 
 .feed-tabs {
@@ -353,7 +354,7 @@ export default {
 }
 
 .tab-button.active {
-    background: var(--accent-yellow);
+    background: var(--accent-yellow-main);
     color: #1a1a1a;
 }
 

@@ -20,10 +20,6 @@ html {
 }
 
 body {
-    /*
-    background: #0D0D0D url('~@/assets/img/main_bg.svg') no-repeat center center fixed;
-    */
-    background: linear-gradient(180deg, #B87333 0%, #2A1810 50%, #000000 100%);
     background-size: cover;
     background-attachment: fixed;
     min-height: 100vh;
@@ -68,7 +64,9 @@ a {
 /* Design System Variables */
 :root {
     /* Colors - Copper Theme */
-    --bg-primary: #0D0D0D;
+    --bg-primary: #0D1318;
+    --bg-primary-blue: #131F30;
+    --bg-blue-dark: #0A1320;
     --bg-secondary: #1A1A1A;
     --bg-tertiary: #2A2A2A;
     --bg-temp-red: #ee3536;
@@ -77,6 +75,7 @@ a {
     --bg-red-medium: #A81414;
     --bg-brown-dark: #654321;
     --bg-brown-medium: #8B4513;
+    --bg-menu-sidebar: #142236;
     
     /* Text Colors - Copper Theme */
     --text-primary: #D4A574;
@@ -87,6 +86,7 @@ a {
     
     /* Accent Colors - Copper Theme */
     --accent-yellow: #D4A574;
+    --accent-yellow-main: #DEC79C;
     --accent-gold: #B87333;
     --accent-red: #DC143C;
     --accent-deep-red: #8B0000;

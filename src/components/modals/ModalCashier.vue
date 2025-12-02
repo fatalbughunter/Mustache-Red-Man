@@ -69,7 +69,7 @@
         align-items: center;
         padding: 25px 35px 40px 35px;
         border-radius: 15px;
-        background: #000000;
+        background: var(--bg-primary-blue);
     }
 
     .modal-cashier .cashier-header {

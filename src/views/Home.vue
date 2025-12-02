@@ -1,8 +1,8 @@
 <template>
     <div class="home">
+        <Header />
         <HeroBanner />
         <div class="second-bar-section">
-            <Header />
             <img src="@/assets/img/banner/secondBar.png" alt="Second Bar" class="second-bar-image" />
             <button class="play-now-button" @click="handlePlayNowClick">
                 PLAY NOW
@@ -27,9 +27,6 @@
         <CasinoPanels v-if="false" />
         <div class="live-feed-section">
             <LiveFeed />
-            <div class="image-container">
-                <img src="@/assets/img/ppl_Img.png" alt="People Image" class="people-image" />
-            </div>
         </div>
     </div>
 </template>
@@ -104,9 +101,7 @@
     .home {
         width: 100%;
         min-height: 100vh;
-        /*
-        background: var(--bg-primary) url('~@/assets/img/main_bg.svg') no-repeat center center;
-        */
+        background: var(--bg-primary-blue) !important;
         background-size: cover;
         background-attachment: fixed;
     }
@@ -116,51 +111,40 @@
         /*width: 100%; */
         display: flex;
         flex-direction: column;
-        margin: -47px 100px 0 100px;
+        margin: 0 100px 0 100px;
         padding: 0;
         border-radius: var(--radius-lg);
         overflow: visible;
-        border: 2px solid rgba(184, 115, 51, 0.6);
-        box-shadow: 
-            0 0 20px rgba(184, 115, 51, 0.5),
-            0 0 40px rgba(184, 115, 51, 0.3),
-            inset 0 0 20px rgba(212, 165, 116, 0.1);
-            z-index: 1;
-    }
-    
-    .second-bar-section .header {
-        position: relative;
-        width: 100%;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
 
     .second-bar-image {
         width: 100%;
         height: auto;
+        max-height: 300px;
         display: block;
         object-fit: cover;
-        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        border-radius: var(--radius-lg);
     }
 
     .play-now-button {
         position: absolute;
-        top: 77%;
-        left: 77%;
+        top:68%;
+        left: 79%;
         transform: translate(-50%, -50%);
-        padding: var(--spacing-lg) var(--spacing-2xl);
-        background: var(--gradient-copper);
-        color: #ffffff;
+        padding: var(--spacing-sm) var(--spacing-lg);
+        background: var(--accent-yellow-main);
+        color: #000000;
         border: none;
         border-radius: var(--radius-md);
         font-weight: 800;
-        font-size: 24px;
+        font-size: 21px;
         text-transform: uppercase;
         letter-spacing: 2px;
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 
-            0 8px 25px rgba(184, 115, 51, 0.6),
-            0 0 30px rgba(184, 115, 51, 0.4),
+            0 8px 25px rgba(222, 199, 156, 0.6),
+            0 0 30px rgba(222, 199, 156, 0.4),
             inset 0 2px 10px rgba(255, 255, 255, 0.3);
         overflow: hidden;
         z-index: 10;
@@ -180,8 +164,8 @@
     .play-now-button:hover {
         transform: translate(-50%, -50%) scale(1.05) translateY(-2px);
         box-shadow: 
-            0 12px 35px rgba(184, 115, 51, 0.8),
-            0 0 50px rgba(184, 115, 51, 0.6),
+            0 12px 35px rgba(222, 199, 156, 0.8),
+            0 0 50px rgba(222, 199, 156, 0.6),
             inset 0 2px 10px rgba(255, 255, 255, 0.4);
     }
 
@@ -216,28 +200,10 @@
         align-items: center;
     }
 
-    .image-container {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: end;
-    }
-
-    .people-image {
-        max-width: 70%;
-        height: auto;
-        object-fit: contain;
-        border-radius: var(--radius-lg);
-    }
-
     @media only screen and (max-width: 1200px) {
         .live-feed-section {
             flex-direction: column;
             margin: 0 var(--spacing-lg);
-        }
-
-        .image-container {
-            width: 100%;
         }
     }
 
@@ -249,19 +215,7 @@
         }
     }
 
-    /* Pin header to bottom on tablets and mobile for homepage */
     @media only screen and (max-width: 1024px) {
-        .second-bar-section .header {
-            position: fixed !important;
-            top: auto !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            border-radius: 0 !important;
-            z-index: 99999 !important;
-        }
-        
         .second-bar-section {
             width: 100%;
             margin: 0;
@@ -269,24 +223,9 @@
     }
 
     @media only screen and (max-width: 768px) {
-        .second-bar-section .header {
-            position: fixed !important;
-            top: auto !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            border-radius: 0 !important;
-            z-index: 99999 !important;
-        }
-        
         .second-bar-section {
             width: 100%;
-            margin-bottom: 80px;
-        }
-        
-        .home {
-            padding-bottom: 80px;
+            margin: 0;
         }
     }
 </style>

@@ -94,9 +94,9 @@
                     }
                 }
                 
-                // Desktop and non-mobile
-                const topPosition = isHomePage ? '0' : '80px';
-                const heightValue = isHomePage ? '100%' : 'calc(100% - 80px)';
+                // Desktop and non-mobile - header always at top
+                const topPosition = '80px';
+                const heightValue = 'calc(100% - 80px)';
                 
                 if(this.windowWidth <= 1500) {
                     return {
@@ -106,12 +106,13 @@
                         height: heightValue
                     };
                 }
-                // Desktop: no sidebar, full width minus chat
+                // Desktop: sidebar visible, adjust for sidebar and chat
                 const isDesktopChatOpen = this.generalDesktopChatOpen;
                 const chatWidth = isDesktopChatOpen ? 325 : 0;
+                const sidebarWidth = this.sidebarCollapsed ? 64 : 240;
                 return {
-                    left: '0',
-                    width: `calc(100% - ${chatWidth}px)`,
+                    left: `${sidebarWidth}px`,
+                    width: `calc(100% - ${sidebarWidth + chatWidth}px)`,
                     top: topPosition,
                     height: heightValue
                 };
@@ -176,8 +177,8 @@
         overflow-y: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;
-         background: #0D0D0D;
-        transition: right 0.3s ease, width 0.3s ease;
+         background: var(--bg-primary-blue);
+        transition: right 0.3s ease, width 0.3s ease, left 0.3s ease;
     }
 
     /*
