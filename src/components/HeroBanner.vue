@@ -1,8 +1,16 @@
 <template>
     <div class="hero-banner">
         <!-- Desert Landscape Background -->
-        <div class="hero-desert-bg">
-            <div class="desert-sun"></div>
+        <div class="hero-desert-bg-container">
+            <div 
+                v-for="(image, index) in carouselImages" 
+                :key="index"
+                class="hero-desert-bg"
+                :class="{ 'bg-active': index === currentImageIndex }"
+                :style="{ backgroundImage: `url(${image})` }"
+            >
+                <div class="desert-sun"></div>
+            </div>
         </div>
         
         <!-- Content Overlay -->
@@ -11,38 +19,72 @@
                 <div class="hero-left">
                     <div class="hero-glow-circle"></div>
                 </div>
-                <div class="hero-right" v-if="authUser.user === null">
-                    <button class="hero-play-button" @click="showSignupModal = true">
-                        REGISTER NOW
+                <div class="hero-right">
+                    <button class="hero-play-button" @click="handlePlayNowClick">
+                        PLAY NOW
                     </button>
                 </div>
             </div>
         </div>
         
-        <!-- Signup Modal -->
-        <SignupModal 
-            :show="showSignupModal" 
-            @close="showSignupModal = false" 
+        <!-- Sign In Modal -->
+        <SignInModal 
+            :show="showSignInModal" 
+            @close="showSignInModal = false" 
         />
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import SignupModal from '@/components/SignupModal.vue';
+import SignInModal from '@/components/SignInModal.vue';
 
 export default {
     name: 'HeroBanner',
     components: {
-        SignupModal
+        SignInModal
     },
     data() {
         return {
-            showSignupModal: false
+            showSignInModal: false,
+            currentImageIndex: 0,
+            carouselImages: [
+                require('@/assets/img/banner/theTitle.png'),
+                require('@/assets/img/banner/theTitle_001.png')
+            ],
+            carouselInterval: null
         }
     },
     computed: {
         ...mapGetters(['authUser'])
+    },
+    mounted() {
+        this.startCarousel();
+    },
+    beforeDestroy() {
+        this.stopCarousel();
+    },
+    methods: {
+        startCarousel() {
+            this.carouselInterval = setInterval(() => {
+                this.currentImageIndex = (this.currentImageIndex + 1) % this.carouselImages.length;
+            }, 5000);
+        },
+        stopCarousel() {
+            if (this.carouselInterval) {
+                clearInterval(this.carouselInterval);
+                this.carouselInterval = null;
+            }
+        },
+        handlePlayNowClick() {
+            // If user is not logged in, show sign in modal
+            if (this.authUser.user === null) {
+                this.showSignInModal = true;
+            } else {
+                // If user is logged in, navigate to Our Casino page
+                this.$router.push('/our-casino');
+            }
+        }
     }
 }
 </script>
@@ -58,6 +100,17 @@ export default {
     justify-content: center;
 }
 
+/* Desert Background Container */
+.hero-desert-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
 /* Desert Background */
 .hero-desert-bg {
     position: absolute;
@@ -65,12 +118,15 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('~@/assets/img/banner/theTitle.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 1;
-    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.hero-desert-bg.bg-active {
+    opacity: 1;
 }
 
 .desert-sun {
