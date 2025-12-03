@@ -125,6 +125,13 @@ export default {
     transition: opacity 1.5s ease-in-out;
 }
 
+@media only screen and (max-width: 768px) {
+    .hero-desert-bg {
+        background-size: cover;
+        background-position: center center;
+    }
+}
+
 .hero-desert-bg.bg-active {
     opacity: 1;
 }
@@ -199,6 +206,14 @@ export default {
     padding: 318px 77px 0 0;
 }
 
+@media only screen and (max-width: 1024px) {
+    .hero-right {
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 .hero-play-button {
     padding: var(--spacing-lg) var(--spacing-2xl);
     background: var(--accent-yellow-main);
@@ -247,13 +262,18 @@ export default {
 }
 
 @media only screen and (max-width: 1024px) {
+    .hero-banner {
+        min-height: 400px;
+    }
+    
     .hero-content {
         flex-direction: column;
-        gap: var(--spacing-xl);
+        gap: var(--spacing-lg);
+        justify-content: center;
     }
     
     .hero-left {
-        min-height: 200px;
+        min-height: 150px;
         justify-content: center;
         padding-left: 0;
     }
@@ -261,6 +281,7 @@ export default {
     .hero-right {
         align-items: center;
         text-align: center;
+        padding: 0;
     }
     
     .hero-glow-circle {
@@ -269,28 +290,106 @@ export default {
         left: 50%;
         transform: translateX(-50%);
     }
-}
-
-@media only screen and (max-width: 768px) {
-    .hero-overlay {
-        padding: var(--spacing-xl) var(--spacing-md);
-    }
-    
-    .hero-banner {
-        margin: var(--spacing-md);
-        min-height: 321px;
-    }
     
     .hero-play-button {
         padding: var(--spacing-md) var(--spacing-xl);
-        font-size: 18px;
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .hero-banner {
+        margin: 0;
+        min-height: 350px;
+        max-height: 500px;
+    }
+    
+    .hero-desert-bg-container {
+        min-height: 350px;
+    }
+    
+    .hero-overlay {
+        padding: var(--spacing-lg) var(--spacing-md);
+        min-height: 350px;
+    }
+    
+    .hero-content {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .hero-left {
+        min-height: 100px;
+        width: 100%;
+        justify-content: center;
+        padding-left: 0;
+    }
+    
+    .hero-right {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+    
+    .hero-play-button {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: 16px;
+        letter-spacing: 1px;
+        width: auto;
+        min-width: 140px;
+        margin-top: 47px;
     }
     
     .hero-glow-circle {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         left: 50%;
         transform: translateX(-50%);
+    }
+    
+    .desert-sun {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .hero-banner {
+        min-height: 300px;
+        max-height: 400px;
+    }
+    
+    .hero-desert-bg-container {
+        min-height: 300px;
+    }
+    
+    .hero-overlay {
+        padding: var(--spacing-md);
+        min-height: 300px;
+    }
+    
+    .hero-content {
+        gap: var(--spacing-sm);
+    }
+    
+    .hero-left {
+        min-height: 80px;
+    }
+    
+    .hero-play-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        min-width: 120px;
+        margin-top: 35px;
+    }
+    
+    .hero-glow-circle {
+        width: 100px;
+        height: 100px;
     }
 }
 
