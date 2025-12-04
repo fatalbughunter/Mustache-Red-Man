@@ -233,7 +233,7 @@
         font-size: 12px;
         font-weight: 700;
         color: #ffffff;
-        background: var(--bg-brown-medium);
+        background: var(--accent-yellow);
         border-radius: 14px;
     }
 
