@@ -14,7 +14,6 @@
                 </main>
 
                 <Modals />
-                <Notifications />
                 
                 <!-- Sign In Modal (for game pages) -->
                 <SignInModal 
@@ -22,6 +21,9 @@
                     @close="showSignInModal = false"
                     @switch-to-signup="handleSignUpRequest"
                 />
+                
+                <!-- Notifications - Placed last to ensure highest priority and visibility above modals -->
+                <Notifications />
             </div>
             <AppMaintenance v-else key="maintenance" />
         </transition>
