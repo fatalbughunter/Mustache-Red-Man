@@ -45,7 +45,7 @@
         width: 1160px;
         padding: 50px 40px 25px 40px;
         border-radius: var(--radius-lg);
-        background: var(--bg-primary);
+        background: var(--bg-blue-dark);
     }
 
     .profile .container-nav {

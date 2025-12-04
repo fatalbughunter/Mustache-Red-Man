@@ -76,8 +76,7 @@
         align-items: center;
         padding: 35px 30px 30px 30px;
         border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% 0%, rgba(0, 255, 194, 0.15) 0%, rgba(7, 38, 61, 0) 80%), 
-                    linear-gradient(256deg, #07263d 0%, #07243a 100%);
+        background: var(--bg-primary-blue);
     }
 
     .modal-admin-user .user-title {
@@ -108,8 +107,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #1a4f63;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        background-color: var(--accent-yellow);
+        border-radius: 15px;
         z-index: 0;
     }
 
@@ -120,13 +119,13 @@
         position: absolute;
         top: 1px;
         left: 1px;
-        background-color: #063543;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        background-color: var(--bg-blue-dark);
+        border-radius: 15px;
         z-index: 0;
     }
 
     .modal-admin-user .user-nav button.button-nav.button-active::before {
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #01e0a3 100%);
+        background: var(--accent-red);
     }
 
     .modal-admin-user .user-nav button.button-nav:last-of-type {
@@ -142,13 +141,13 @@
         justify-content: center;
         top: 1px;
         left: 1px;
-        background-color: #1a4f63;
-        clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 25%, 100% 75%, calc(100% - 11px) 100%, 11px 100%, 0 75%, 0 25%);
+        background-color: var(--bg-menu-sidebar);
+        border-radius: 15px;
         z-index: 1;
     }
 
     .modal-admin-user .user-nav button.button-nav.button-active .button-inner {
-        background: radial-gradient(81.75% 81.75% at 50% 50%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(256.23deg, rgba(0, 255, 194, 0.05) 0%, rgba(0, 170, 109, 0.05) 100%);
+        background: var(--bg-blue-dark);
     }
 
     .modal-admin-user .user-nav button.button-nav .button-inner span {
@@ -158,7 +157,7 @@
     }
 
     .modal-admin-user .user-nav button.button-nav.button-active .button-inner span {
-        background: linear-gradient(250deg, #00ffc2 0%, #00aa6d 100%), #a6cae8;
+        background: #ffffff;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -174,19 +173,48 @@
 
         .modal-admin-user {
             width: calc(100vw - 20px);
-            padding: 35px 10px 30px 10px;
+            max-width: calc(100vw - 20px);
+            padding: 25px 10px 20px 10px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .modal-admin-user .user-title {
+            font-size: 24px;
+        }
+
+        .modal-admin-user .user-nav {
+            margin-top: 25px;
+        }
+
+        .modal-admin-user .user-content {
+            margin-top: 25px;
+            width: 100%;
+            overflow-x: hidden;
         }
 
     }
 
     @media only screen and (max-width: 600px) {
 
+        .modal-admin-user {
+            width: calc(100vw - 10px);
+            max-width: calc(100vw - 10px);
+            padding: 20px 8px 15px 8px;
+        }
+
+        .modal-admin-user .user-title {
+            font-size: 20px;
+        }
+
         .modal-admin-user .user-nav {
             flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         .modal-admin-user .user-nav button.button-nav {
             width: calc(50% - 5px);
+            height: 48px;
             margin-top: 10px;
             margin-right: 10px;
         }
@@ -198,6 +226,14 @@
 
         .modal-admin-user .user-nav button.button-nav:nth-child(2n) {
             margin-right: 0;
+        }
+
+        .modal-admin-user .user-nav button.button-nav .button-inner span {
+            font-size: 11px;
+        }
+
+        .modal-admin-user .user-content {
+            margin-top: 20px;
         }
 
     }

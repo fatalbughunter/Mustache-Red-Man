@@ -100,9 +100,7 @@
                 cashierFiatAmount: 0,
                 availableCurrencies: [
                     { code: 'eth', name: 'ETH', icon: 'eth' },
-                    { code: 'bnb', name: 'BNB', icon: 'bnb' },
-                    { code: 'trx', name: 'TRX', icon: 'trx' },
-                    { code: 'sol', name: 'SOL', icon: 'sol' }
+                    { code: 'bnb', name: 'BNB', icon: 'bnb' }
                 ]
             }
         },

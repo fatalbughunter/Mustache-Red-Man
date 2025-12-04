@@ -27,7 +27,7 @@
         top: 0;
         left: 0;
         background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #9e9e9e 100%);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .box-level.level-blue::before {
@@ -58,7 +58,7 @@
         top: 1px;
         left: 1px;
         background: #063141;
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .chat-message-element .box-level::after {
@@ -78,7 +78,7 @@
         font-weight: 700;
         color: #9e9e9e;
         background: rgba(158, 158, 158, 0.05);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
         z-index: 1;
     }
 

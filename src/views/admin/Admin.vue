@@ -38,7 +38,7 @@
         width: 100%;
         padding: 30px;
         border-radius: 15px;
-        background: radial-gradient(285% 150% at 50% 50%, #001e37 0%, #000e1a 100%);
+        background: var(--bg-blue-dark);
         border: 1px solid #24435e;
     }
 

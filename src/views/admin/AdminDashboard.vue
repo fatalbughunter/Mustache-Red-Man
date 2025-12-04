@@ -209,7 +209,7 @@
         height: 250px;
         margin-top: 25px;
         border-radius: 15px;
-        background: radial-gradient(180% 125% at 50% 15%, rgba(3, 43, 79, 0) 0%, #00284b 100%);
+        background: var(--bg-blue-dark);
         border: 1px solid #123e62;
         overflow: hidden;
     }

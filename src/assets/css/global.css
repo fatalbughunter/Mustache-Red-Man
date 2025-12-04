@@ -66,6 +66,7 @@ a {
     /* Colors - Copper Theme */
     --bg-primary: #0D1318;
     --bg-primary-blue: #131F30;
+    --bg-blue-light: #559ee4;   /* Admin Title Color */
     --bg-blue-dark: #0A1320;
     --bg-primary-dark: #0D0D0D;
     --bg-primary: #0D1318;
@@ -192,7 +193,7 @@ a {
 }
 
 span.gradient-green {
-    background: var(--gradient-gold);
+    background: var(--bg-blue-light);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -230,7 +231,7 @@ span.gradient-purple {
 .text-green-gradient,
 .router-link-active .text-green-gradient-active,
 .router-link-exact-active .text-green-gradient-exact {
-    background: var(--gradient-green);
+    background: var(--bg-blue-light);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

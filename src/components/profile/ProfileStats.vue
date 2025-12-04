@@ -118,7 +118,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, rgba(184, 115, 51, 0.3) 0%, rgba(139, 111, 71, 0.4) 100%);
+        /*background: var (--accent-yellow-main); */
         border-radius: var(--radius-md);
     }
 
@@ -127,8 +127,8 @@
     }
 
     .profile-stats .stats-element.element-negative .element-amount::before {
-        background: linear-gradient(180deg, rgba(205, 127, 50, 0.3) 25%, rgba(139, 0, 0, 0.5) 100%);
-    }
+       /* background: linear-gradient(180deg, rgba(205, 127, 50, 0.3) 25%, rgba(139, 0, 0, 0.5) 100%);
+    */}
 
     .profile-stats .amount-inner {
         width: 100%;
@@ -136,18 +136,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(13, 13, 13, 0.8);
+        background-color: var(--bg-blue-dark);
         border-radius: var(--radius-md);
         border: 1px solid rgba(222, 184, 135, 0.3);
         z-index: 1;
     }
 
     .profile-stats .stats-element.element-profit .amount-inner {
-        background: radial-gradient(80% 80% at 50% 50%, rgba(222, 184, 135, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(13, 13, 13, 0.8);
+        background: radial-gradient(80% 80% at 50% 50%, rgba(222, 184, 135, 0.1) 0%, rgba(0, 0, 0, 0) 100%), var(--bg-blue-dark);
     }
 
     .profile-stats .stats-element.element-negative .amount-inner {
-        background: radial-gradient(80% 80% at 50% 50%, rgba(220, 20, 60, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(13, 13, 13, 0.8);
+        background: radial-gradient(80% 80% at 50% 50%, rgba(220, 20, 60, 0.1) 0%, rgba(0, 0, 0, 0) 100%), var(--bg-blue-dark);
     }
 
     .profile-stats .amount-inner img {

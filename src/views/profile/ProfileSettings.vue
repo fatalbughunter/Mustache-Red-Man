@@ -45,6 +45,7 @@
                         </button>
                     </div>
                 </ProfileSettingsElement>
+                <!--
                 <ProfileSettingsElement name="ROBLOX" v-bind:info="authUser.user.roblox === undefined ? 'warning' : 'success'">
                     <button v-if="authUser.user.roblox === undefined" v-on:click="modalsSetShow('LinkRoblox')" class="button-link button-roblox">
                         <div class="button-inner">
@@ -63,6 +64,7 @@
                         </button>
                     </div>
                 </ProfileSettingsElement>
+                -->
                 <!--
                 <ProfileSettingsElement name="GOOGLE" v-bind:info="authUser.user.google === undefined ? 'warning' : 'success'">
                     <button class="button-link button-google" v-bind:disabled="authUser.user.google !== undefined">
@@ -189,7 +191,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: rgba(13, 13, 13, 0.8);
+        background-color: var(--bg-blue-dark);
         border-radius: var(--radius-md);
         border: 1px solid rgba(222, 184, 135, 0.2);
     }
@@ -216,8 +218,10 @@
         height: 15px;
         position: relative;
         -webkit-appearance: none;
-        -moz-apperance: none;
+        -moz-appearance: none;
+        appearance: none;
         background-color: transparent;
+        z-index: 1;
     }
 
     .profile-settings .profile-settings-element input[type="range"]::before {
@@ -227,9 +231,19 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: rgba(13, 13, 13, 0.8);
+        background-color: var(--bg-blue-dark);
         border-radius: var(--radius-md);
         border: 1px solid rgba(222, 184, 135, 0.2);
+        z-index: -1;
+    }
+
+    /* Webkit track styling */
+    .profile-settings .profile-settings-element input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 15px;
+        -webkit-appearance: none;
+        background: transparent;
+        border: none;
     }
 
     .profile-settings .profile-settings-element input[type="range"]::-webkit-slider-thumb {
@@ -241,6 +255,17 @@
         border-radius: var(--radius-sm);
         cursor: pointer;
         border: 1px solid rgba(222, 184, 135, 0.3);
+        position: relative;
+        z-index: 2;
+        margin-top: -2px;
+    }
+
+    /* Firefox track styling */
+    .profile-settings .profile-settings-element input[type="range"]::-moz-range-track {
+        width: 100%;
+        height: 15px;
+        background: transparent;
+        border: none;
     }
 
     .profile-settings .profile-settings-element input[type="range"]::-moz-range-thumb {
@@ -250,6 +275,8 @@
         border-radius: var(--radius-sm);
         cursor: pointer;
         border: 1px solid rgba(222, 184, 135, 0.3);
+        position: relative;
+        z-index: 2;
     }
 
     .profile-settings .profile-settings-element button.button-link,
@@ -284,7 +311,7 @@
     
     .profile-settings .profile-settings-element button.button-link:hover .button-inner,
     .profile-settings .profile-settings-element button.button-verify:hover .button-inner {
-        background: rgba(184, 115, 51, 0.3);
+        background: var(--bg-blue-dark);
         border-color: rgba(222, 184, 135, 0.5);
     }
 
@@ -294,7 +321,7 @@
     }
     
     .profile-settings .profile-settings-element button.button-link.button-roblox:hover .button-inner {
-        background: rgba(65, 120, 202, 0.3);
+        background: var(--bg-blue-dark);
         border-color: rgba(65, 120, 202, 0.7);
     }
 
@@ -304,7 +331,7 @@
     }
     
     .profile-settings .profile-settings-element button.button-link.button-google:hover .button-inner {
-        background: rgba(239, 68, 68, 0.3);
+        background: var(--bg-blue-dark);
         border-color: rgba(239, 68, 68, 0.7);
     }
 

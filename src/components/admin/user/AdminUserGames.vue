@@ -221,7 +221,7 @@
         top: 0;
         left: 0;
         background: linear-gradient(180deg, #01fabd 0%, #01b376 100%);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
         z-index: -1;
     }
 
@@ -237,7 +237,7 @@
         top: 1px;
         left: 1px;
         background: #07253c;
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
         z-index: -1;
     }
 
@@ -248,11 +248,11 @@
         justify-content: center;
         align-items: center;
         background: linear-gradient(255deg, rgba(0, 255, 194, 0.1) 0%, rgba(0, 170, 109, 0.1) 100%), rgba(0, 0, 0, 0.1);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .admin-user-games .games-pagination button:disabled .button-inner {
-        background: rgba(3, 20, 34, 0.27);
+        background: var(--bg-blue-dark);
         box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.35);
     }
 
@@ -272,6 +272,12 @@
 
     @media only screen and (max-width: 725px) {
 
+        .admin-user-games {
+            width: 100%;
+            padding: 0 5px;
+            box-sizing: border-box;
+        }
+
         .admin-user-games .games-head {
             padding: 0;
         }
@@ -281,6 +287,38 @@
         .admin-user-games .head-id,
         .admin-user-games .head-amount {
             display: none;
+        }
+
+        .admin-user-games .games-content {
+            padding: 15px 0;
+        }
+
+        .admin-user-games .content-list {
+            height: 280px;
+            padding-right: 5px;
+        }
+
+        .admin-user-games .content-loading {
+            height: 280px;
+        }
+
+        .admin-user-games .content-empty {
+            height: 150px;
+            font-size: 11px;
+        }
+
+        .admin-user-games .games-pagination {
+            margin-top: 20px;
+            padding: 0 5px;
+        }
+
+        .admin-user-games .games-pagination button {
+            width: 48px;
+            height: 34px;
+        }
+
+        .admin-user-games .pagination-info {
+            font-size: 11px;
         }
 
     }

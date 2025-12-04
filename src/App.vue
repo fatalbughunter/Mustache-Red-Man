@@ -3,7 +3,7 @@
         <transition name="fade" mode="out-in">
             <AppLoader v-if="generalSettings === null || (authToken !== null && authUser.user === null)" key="loading" />
             <div v-else-if="generalSettings.general.maintenance.enabled === false || (authUser.user !== null && authUser.user.rank === 'admin')" class="app-page" key="page">
-                <Header v-if="appGetRouteName !== 'Home' && $route.path !== '/'" />
+                <Header />
                 <Chat />
                 <SidebarLeft v-on:collapsed-change="onSidebarCollapsed" />
                 <main v-bind:style="mainInlineStyle" v-bind:class="{ 'main-background': appHasBackground === true }" ref="mainContainer">
@@ -15,6 +15,13 @@
 
                 <Modals />
                 <Notifications />
+                
+                <!-- Sign In Modal (for game pages) -->
+                <SignInModal 
+                    :show="showSignInModal" 
+                    @close="showSignInModal = false"
+                    @switch-to-signup="handleSignUpRequest"
+                />
             </div>
             <AppMaintenance v-else key="maintenance" />
         </transition>
@@ -31,6 +38,7 @@
     import Footer from '@/components/footer/Footer';
     import Modals from '@/components/modals/Modals';
     import Notifications from '@/components/notifications/Notifications';
+    import SignInModal from '@/components/SignInModal.vue';
 
     export default {
         components: {
@@ -41,12 +49,14 @@
             Chat,
             Footer,
             Modals,
-            Notifications
+            Notifications,
+            SignInModal
         },
         data() {
             return {
                 sidebarCollapsed: false,
-                windowWidth: window.innerWidth
+                windowWidth: window.innerWidth,
+                showSignInModal: false
             };
         },
         methods: {
@@ -56,6 +66,13 @@
             },
             onResize() {
                 this.windowWidth = window.innerWidth;
+            },
+            handleSignInRequest() {
+                this.showSignInModal = true;
+            },
+            handleSignUpRequest() {
+                this.showSignInModal = false;
+                // Could open signup modal here if needed
             }
         },
         computed: {
@@ -138,9 +155,13 @@
             // Attempt socket connection
             this.socketConnectGeneral();
             window.addEventListener('resize', this.onResize);
+            
+            // Listen for sign in modal requests from Header (for game pages)
+            this.$root.$on('open-signin-modal-app', this.handleSignInRequest);
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.onResize);
+            this.$root.$off('open-signin-modal-app', this.handleSignInRequest);
         }
     }
 </script>

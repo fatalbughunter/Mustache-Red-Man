@@ -102,7 +102,7 @@
     }
 
     .admin-user-transactions-element:nth-child(odd) {
-        background-color: rgba(19, 66, 88, 0.25);
+        background-color: var(--bg-blue-dark);
     }
 
     .admin-user-transactions-element .element-section {

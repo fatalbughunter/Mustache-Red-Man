@@ -59,7 +59,7 @@
         font-size: 16px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
         border: 1px dashed rgba(46, 93, 119, 0.5);
     }
 
@@ -76,7 +76,7 @@
         font-size: 14px;
         font-weight: 800;
         color: #5e768e;
-        background: rgba(19, 66, 88, 0.45);
+        background: var(--bg-blue-dark);
     }
 
     .admin-item-element .element-info img {

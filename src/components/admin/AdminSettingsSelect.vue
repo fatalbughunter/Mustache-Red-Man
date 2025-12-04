@@ -63,7 +63,7 @@
         margin-top: 10px;
         padding: 0 10px;
         border-radius: 5px;
-        background-color: rgba(19, 66, 88, 0.3);
+        background-color: var(--bg-blue-dark);
     }
 
     .admin-settings-select .select-name {

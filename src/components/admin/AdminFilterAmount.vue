@@ -71,7 +71,7 @@
         align-items: center;
         padding: 0 20px;
         border-radius: 5px;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
     }
 
     .admin-filter-amount button.button-toggle svg {
@@ -128,6 +128,6 @@
     }
 
     .admin-filter-amount .menu-inner button:hover {
-        background: rgba(19, 66, 88, 0.15);
+        background: var(--bg-blue-dark);
     }
 </style>

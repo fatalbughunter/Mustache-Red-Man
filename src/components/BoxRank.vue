@@ -41,7 +41,7 @@
         top: 0;
         left: 0;
         background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #d0833f 100%);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .box-rank.rank-silver::before {
@@ -77,7 +77,7 @@
         top: 1px;
         left: 1px;
         background: #063141;
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .chat-message-element .box-rank:after {
@@ -98,7 +98,7 @@
         top: 1px;
         left: 1px;
         background: rgb(151, 119, 91, 0.05);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
         z-index: 1;
     }
 

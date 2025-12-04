@@ -141,7 +141,7 @@
         align-items: center;
         padding: 35px 20px 48px 20px;
         border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% -31.45%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(255deg, #07263d 0%, #07243a 100%);
+        background: var(--bg-primary-blue);
     }
 
     .modal-mute .mute-title {
@@ -159,7 +159,7 @@
     .modal-mute .date-loading {
         position: relative;
         overflow: hidden;
-        background-color: #072435;
+        background-color: var(--bg-blue-dark);
     }
 
     .modal-mute .avatar-loading {
@@ -313,8 +313,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #04131f 0%, #223a4e 100%);
-        clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 25%, 100% 75%, calc(100% - 14px) 100%, 14px 100%, 0 75%, 0 25%);
+        background: var(--bg-blue-dark);
+        border-radius: 15px;
     }
 
     .modal-mute .mute-reason select,
@@ -325,8 +325,10 @@
         font-size: 16px;
         font-weight: 600;
         color: #ffffff;
-        background-color: #072435;
-        clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 25%, 100% 75%, calc(100% - 14px) 100%, 14px 100%, 0 75%, 0 25%);
+        background-color: var(--bg-menu-sidebar);
+        border-radius: 15px;
+        position: relative;
+        z-index: 1;
     }
 
     .modal-mute button.button-mute {
@@ -346,7 +348,7 @@
         font-weight: 800;
         color: #ffffff;
         background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 75%);
-        clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 25%, 100% 75%, calc(100% - 7px) 100%, 7px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .modal-mute button.button-mute .button-loading.fade-leave-active {

@@ -70,7 +70,7 @@
         height: 47px;
         position: relative;
         border-radius: 5px;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
     }
 
     .admin-filter-search svg {

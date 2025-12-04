@@ -212,7 +212,7 @@
         position: absolute;
         top: 1px;
         left: 1px;
-        background: rgba(13, 13, 13, 0.9);
+        background: var(--bg-blue-dark);
         border-radius: var(--radius-md);
         z-index: -1;
     }
@@ -223,13 +223,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgba(184, 115, 51, 0.1);
+        background: var(--bg-blue-dark);
         border-radius: var(--radius-md);
         border: 1px solid rgba(222, 184, 135, 0.2);
     }
 
     .profile-games .games-pagination button:disabled .button-inner {
-        background: rgba(13, 13, 13, 0.5);
+        background: var(--bg-blue-dark);
         border-color: rgba(139, 111, 71, 0.2);
         box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.35);
     }

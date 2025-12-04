@@ -78,7 +78,7 @@
         font-size: 16px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
     }
 
     .admin-filter-item input::placeholder {
@@ -122,7 +122,7 @@
     }
   
     .admin-filter-item .menu-inner button:hover {
-        background: rgba(19, 66, 88, 0.15);
+        background: var(--bg-blue-dark);
     }
 
     .admin-filter-item .menu-inner button img {

@@ -17,6 +17,9 @@
                     Level {{navbarGetLevel}}
                 </div>
             </div>
+            <div class="button-arrow-mobile">
+                <IconDropdown />
+            </div>
         </button>
         <div class="dropdown-menu" v-bind:class="{ 'menu-admin': authUser.user.rank === 'admin' }">
             <div class="menu-inner">
@@ -24,14 +27,20 @@
                     <IconUser />
                     PROFILE
                 </router-link>
+                <button v-on:click="navbarBalanceButton()">
+                    <IconCashier />
+                    BALANCE
+                </button>
                 <button v-on:click="navbarVaultButton()">
                     <IconVault />
                     VAULT
                 </button>
+                <!--
                 <router-link v-on:click.native="navbarSetDropdown(false)" to="/rewards">
                     <IconRakeback />
                     REWARDS
                 </router-link>
+                -->
                 <router-link v-on:click.native="navbarSetDropdown(false)" to="/affiliates">
                     <IconAffiliates />
                     AFFILIATES
@@ -61,6 +70,7 @@
     import IconDropdown from '@/components/icons/IconDropdown';
     import IconSword from '@/components/icons/IconSword';
     import IconUser from '@/components/icons/IconUser';
+    import IconCashier from '@/components/icons/IconCashier';
     import IconVault from '@/components/icons/IconVault';
     import IconRakeback from '@/components/icons/IconRakeback';
     import IconAffiliates from '@/components/icons/IconAffiliates';
@@ -74,6 +84,7 @@
             IconDropdown,
             IconSword,
             IconUser,
+            IconCashier,
             IconVault,
             IconRakeback,
             IconAffiliates,
@@ -87,11 +98,17 @@
         },
         methods: {
             ...mapActions([
-                'modalsSetShow', 
+                'modalsSetShow',
+                'modalsSetData',
                 'authLogoutUser'
             ]),
             navbarSetDropdown(value) {
                 this.navbarDropdown = value;
+            },
+            navbarBalanceButton() {
+                this.modalsSetData({ typeCashier: 'deposit' });
+                this.modalsSetShow('Cashier');
+                this.navbarSetDropdown(false);
             },
             navbarVaultButton() {
                 this.modalsSetShow('Vault');
@@ -136,6 +153,8 @@
 <style scoped>
     .navbar-user-dropdown {
         position: relative;
+        z-index: 1000000;
+        overflow: visible;
     }
 
     .navbar-user-dropdown button.button-toggle {
@@ -184,7 +203,7 @@
     }
 
     .navbar-user-dropdown.dropdown-admin .button-avatar {
-        border: 2px solid #0dd4b1;
+        border: 2px solid var(--accent-yellow);
     }
 
     .navbar-user-dropdown .button-avatar .avatar-image {
@@ -192,8 +211,8 @@
         height: 49px;
     }
 
-    .navbar-user-dropdown .button-info {
-
+    .navbar-user-dropdown .button-arrow-mobile {
+        display: none;
     }
 
     .navbar-user-dropdown .info-username {
@@ -262,7 +281,7 @@
     }
 
     .navbar-user-dropdown.dropdown-admin .info-level {
-        color: #0dd4b1;
+        color: var(--accent-yellow);
     }
 
     .navbar-user-dropdown .rank-box {
@@ -303,21 +322,21 @@
         height: 0;
         position: absolute;
         top: 62px;
-        left: -10px;
         right: -10px;
+        width: 220px;
         padding: 0 10px;
         transition: height 0.2s ease;
         overflow: hidden;
-        z-index: 1;
+        z-index: 1000000;
     }
 
     .navbar-user-dropdown.dropdown-open .dropdown-menu {
-       height: 233px;
+       height: 270px;
        padding: 0 10px 10px 10px;
     }
 
     .navbar-user-dropdown.dropdown-open .dropdown-menu.menu-admin {
-         height: 269px;
+         height: 270px;
     }
 
     .navbar-user-dropdown .menu-inner {
@@ -328,8 +347,8 @@
         align-items: center;
         margin-top: 7px;
         border-radius: 10px 0 10px 10px;
-        background: radial-gradient(160% 160% at 50% -30%, rgba(0, 255, 194, 0.2) 0%, rgba(0, 0, 0, 0) 100%), 
-                    linear-gradient(255deg, #07263d 0%, #07243a 100%);
+        background: radial-gradient(160% 160% at 50% -30%, #131F30 0%, #0A1320 100%), 
+                    linear-gradient(255deg, #131F30 0%, #131F30 100%);
         box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
     }
 
@@ -341,7 +360,7 @@
         top: -7px;
         right: 0px;
         border-left: 11px solid transparent;
-        border-bottom: 7px solid #064550;
+        border-bottom: 7px solid var(--bg-primary-blue);
     }
 
     .navbar-user-dropdown .menu-inner button,
@@ -353,7 +372,7 @@
         padding: 0 15px;
         font-size: 12px;
         font-weight: 600;
-        color: #bbbfd0;
+        color: var(--accent-yellow);
         border-bottom: 1px solid rgba(24, 72, 109, 0.5);
         transition: color 0.3s ease;
     }
@@ -378,6 +397,88 @@
      .navbar-user-dropdown .menu-inner a svg {
          width: 13px;
          margin-right: 8px;
-         fill: #bbbfd0;
+         fill: var(--accent-yellow);
      }
+
+    /* Mobile styles - hide username/level, show only avatar and arrow */
+    @media only screen and (max-width: 1024px) {
+        .navbar-user-dropdown {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar-user-dropdown .button-toggle {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .navbar-user-dropdown .button-info {
+            display: none;
+        }
+
+        .navbar-user-dropdown .button-avatar {
+            width: 40px;
+            height: 40px;
+            margin-right: 0;
+        }
+
+        .navbar-user-dropdown .button-avatar .avatar-image {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navbar-user-dropdown .button-arrow-mobile {
+            display: flex;
+            align-items: center;
+            margin-left: 8px;
+        }
+
+        .navbar-user-dropdown .button-arrow-mobile svg {
+            width: 10px;
+            fill: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-user-dropdown.dropdown-open .button-arrow-mobile svg {
+            transform: rotate(180deg);
+        }
+
+        /* Position dropdown menu above on mobile */
+        .navbar-user-dropdown .dropdown-menu {
+            top: auto;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            width: 200px;
+        }
+
+        .navbar-user-dropdown .menu-inner {
+            border-radius: 10px 10px 0 10px;
+        }
+
+        .navbar-user-dropdown .menu-inner::before {
+            top: auto;
+            bottom: -7px;
+            border-bottom: none;
+            border-top: 7px solid var(--bg-primary-blue);
+            left: auto;
+            right: 0px;
+        }
+
+        .navbar-user-dropdown .menu-inner button:first-child,
+        .navbar-user-dropdown .menu-inner a:first-child {
+            border-radius: 10px 10px 0 0;
+        }
+    }
 </style>

@@ -31,13 +31,13 @@
         align-items: center;
         padding: 0 20px;
         border-radius: var(--radius-md);
-        background: rgba(13, 13, 13, 0.4);
+        background: var(--bg-blue-dark);
         border: 1px solid rgba(222, 184, 135, 0.1);
         margin-bottom: 8px;
     }
 
     .profile-settings-element:nth-child(odd) {
-        background: rgba(13, 13, 13, 0.6);
+        background: var(--bg-blue-dark);
         border-color: rgba(222, 184, 135, 0.2);
     }
 

@@ -211,8 +211,8 @@
         align-items: center;
         margin-top: 15px;
         padding: 0 20px;
-        border-radius: 5px;
-        background: rgba(19, 66, 88, 0.3);
+        border-radius: 15px;
+        background: var(--bg-blue-dark);
     }
 
     .admin-user-settings .settings-element:first-of-type {
@@ -246,7 +246,7 @@
         top: 0;
         left: 0;
         background-color: #072435;
-        clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 25%, 100% 75%, calc(100% - 4px) 100%, 4px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .admin-user-settings .settings-element.element-toggle button::after {
@@ -257,7 +257,7 @@
         top: -2px;
         left: 0;
         background: #1c5064;
-        clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 25%, 100% 75%, calc(100% - 3px) 100%, 3px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
         transition: all 0.3s ease;
     }
 
@@ -288,11 +288,11 @@
         height: 33px;
         margin-right: 20px;
         padding: 0 15px;
-        border-radius: 5px;
+        border-radius: 15px;
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(10, 36, 52, 0.5);
+        background: var(--bg-menu-sidebar);
     }
 
     .admin-user-settings .settings-element.element-number .element-input input {
@@ -320,8 +320,8 @@
         font-size: 12px;
         font-weight: 800;
         color: #ffffff;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
-        clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 25%, 100% 75%, calc(100% - 4px) 100%, 4px 100%, 0 75%, 0 25%);
+        background: var(--accent-yellow);
+        border-radius: 15px;
     }
 
    .admin-user-settings .settings-element.element-button button.button-red .button-inner {
@@ -331,7 +331,95 @@
    @media only screen and (max-width: 793px) {
 
         .admin-user-settings {
-            padding: 0 20px;
+            padding: 0 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .admin-user-settings .settings-element {
+            padding: 0 15px;
+            height: 44px;
+            margin-top: 12px;
+        }
+
+        .admin-user-settings .element-name {
+            font-size: 12px;
+        }
+
+        .admin-user-settings .settings-element.element-text .element-input input,
+        .admin-user-settings .settings-element.element-number .element-input input,
+        .admin-user-settings .settings-element.element-select .element-input select {
+            width: 180px;
+            height: 30px;
+            margin-right: 15px;
+            font-size: 11px;
+        }
+
+        .admin-user-settings .settings-element.element-button button,
+        .admin-user-settings .settings-element.element-text .element-input button,
+        .admin-user-settings .settings-element.element-number .element-input button,
+        .admin-user-settings .settings-element.element-select .element-input button {
+            width: 55px;
+            height: 28px;
+        }
+
+        .admin-user-settings .settings-element.element-button button .button-inner,
+        .admin-user-settings .settings-element.element-text .element-input button .button-inner,
+        .admin-user-settings .settings-element.element-number .element-input button .button-inner,
+        .admin-user-settings .settings-element.element-select .element-input button .button-inner {
+            font-size: 11px;
+        }
+
+    }
+
+    @media only screen and (max-width: 600px) {
+
+        .admin-user-settings {
+            padding: 0 5px;
+        }
+
+        .admin-user-settings .settings-element {
+            padding: 0 12px;
+            height: 42px;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .admin-user-settings .element-name {
+            font-size: 11px;
+            margin-bottom: 0px;
+        }
+
+        .admin-user-settings .settings-element.element-toggle {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-user-settings .settings-element.element-toggle .element-name {
+            margin-bottom: 0;
+        }
+
+        .admin-user-settings .settings-element.element-text .element-input,
+        .admin-user-settings .settings-element.element-number .element-input,
+        .admin-user-settings .settings-element.element-select .element-input {
+            width: 100%;
+            margin-top: 0px;
+        }
+
+        .admin-user-settings .settings-element.element-text .element-input input,
+        .admin-user-settings .settings-element.element-number .element-input input,
+        .admin-user-settings .settings-element.element-select .element-input select {
+            width: calc(100% - 75px);
+            margin-right: 10px;
+        }
+
+        .admin-user-settings .settings-element.element-button button,
+        .admin-user-settings .settings-element.element-text .element-input button,
+        .admin-user-settings .settings-element.element-number .element-input button,
+        .admin-user-settings .settings-element.element-select .element-input button {
+            width: 65px;
         }
 
     }

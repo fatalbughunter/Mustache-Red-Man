@@ -155,7 +155,7 @@
     }
 
     .profile-header.header-admin .user-avatar {
-        border: 2px solid #0dd4b1;
+        border: 2px solid var(--accent-yellow);
     }
 
     .profile-header .user-avatar .avatar-image {
@@ -168,7 +168,7 @@
         align-items: center;
         font-size: 16px;
         font-weight: 700;
-        color: var(--text-gold);
+        color: #ffffff;
     }
 
     .profile-header .info-username span {
@@ -218,7 +218,7 @@
     }
 
     .profile-header.header-admin .info-level {
-        color: #0dd4b1;
+        color: var(--accent-yellow);
     }
 
     .profile-header .header-level {
@@ -274,7 +274,7 @@
         font-weight: 700;
         font-size: 15px;
         color: var(--accent-copper);
-        background-color: rgba(13, 13, 13, 0.9);
+        background-color: var(--bg-blue-dark);
         border-radius: var(--radius-md);
         border: 1px solid rgba(222, 184, 135, 0.2);
     }
@@ -304,7 +304,7 @@
         height: 13px;
         position: relative;
         padding: 4px 0;
-        background-color: rgba(13, 13, 13, 0.8);
+        background-color: var(--bg-blue-dark);
         border-radius: var(--radius-sm);
         border: 1px solid rgba(222, 184, 135, 0.2);
     }
@@ -454,6 +454,23 @@
             width: 100%;
             grid-column: 2;
             grid-row: 1;
+        }
+
+        /* Hide username and level text on mobile */
+        .profile-header .user-info {
+            display: none;
+        }
+
+        /* Make avatar smaller to match icon size on mobile */
+        .profile-header .user-avatar {
+            width: 40px;
+            height: 40px;
+            margin-right: 0;
+        }
+
+        .profile-header .user-avatar .avatar-image {
+            width: 36px;
+            height: 36px;
         }
 
     }

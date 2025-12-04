@@ -84,7 +84,7 @@
         width: 100%;
         padding: 15px 10px;
         border-radius: 5px;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
     }
 
     .admin-settings .settings-section:nth-child(1) {

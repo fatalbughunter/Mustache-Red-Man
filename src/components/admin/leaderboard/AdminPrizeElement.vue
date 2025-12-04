@@ -49,7 +49,7 @@
         font-size: 16px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
         border: 1px dashed rgba(46, 93, 119, 0.5);
     }
 

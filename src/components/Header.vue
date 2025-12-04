@@ -101,62 +101,16 @@
                 
                 <!-- Show user info when logged in -->
                 <template v-else>
-                    <!-- Desktop: Hide user-info, show only profile icon -->
-                    <div class="user-info desktop-user-info">
-                        <div class="user-balance" @dblclick="handleBalanceDoubleClick">
-                            <span class="balance-label">Balance:</span>
-                            <span class="balance-amount">{{ formatBalance(authUser.user.balance) }}</span>
-                        </div>
-                        <div class="user-profile">
-                            <span class="username">{{ authUser.user.username }}</span>
-                        </div>
-                        <button class="btn-signout" @click="handleSignOut">Sign Out</button>
-                    </div>
-                    
-                    <!-- Desktop Profile Dropdown -->
-                    <div class="desktop-profile-dropdown">
-                        <button class="btn-profile btn-profile-desktop" @click="toggleDesktopProfileDropdown">
-                            <img src="@/assets/img/icons/mobileProfile.png" alt="Profile" class="profile-icon-desktop" />
-                        </button>
-                        <div v-if="showDesktopProfileDropdown" class="profile-dropdown-menu desktop-profile-dropdown-menu" ref="desktopProfileMenu">
-                            <div class="profile-menu-item" @click="handleBalanceDoubleClick">
-                                <div class="menu-item-label">Balance:</div>
-                                <div class="menu-item-value">{{ formatBalance(authUser.user.balance) }}</div>
-                            </div>
-                            <div class="profile-menu-item" @click="handleUserIDClick">
-                                <div class="menu-item-label">User ID:</div>
-                                <div class="menu-item-value">{{ authUser.user.username }}</div>
-                            </div>
-                            <div class="profile-menu-item profile-menu-item-signout" @click="handleSignOut">
-                                <div class="menu-item-label">Sign Out</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Mobile Profile Dropdown -->
-                    <div class="mobile-profile-dropdown">
-                        <button class="btn-profile" @click="toggleMobileProfileDropdown">
-                            <img src="@/assets/img/icons/mobileProfile.png" alt="Profile" class="profile-icon-mobile" />
-                        </button>
-                        <div v-if="showMobileProfileDropdown" class="profile-dropdown-menu" ref="mobileProfileMenu">
-                            <div class="profile-menu-item" @click="handleBalanceDoubleClick">
-                                <div class="menu-item-label">Balance:</div>
-                                <div class="menu-item-value">{{ formatBalance(authUser.user.balance) }}</div>
-                            </div>
-                            <div class="profile-menu-item" @click="handleUserIDClick">
-                                <div class="menu-item-label">User ID:</div>
-                                <div class="menu-item-value">{{ authUser.user.username }}</div>
-                            </div>
-                            <div class="profile-menu-item profile-menu-item-signout" @click="handleSignOut">
-                                <div class="menu-item-label">Sign Out</div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Use NavbarUserDropdown component like on game pages -->
+                    <NavbarUserDropdown />
                 </template>
                 
-                <button class="btn-chat" @click="toggleChat">
+                <button class="btn-chat" :class="{ 'chat-open': generalDesktopChatOpen }" @click="toggleChat">
                     <svg class="chat-icon-desktop" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <svg v-if="generalDesktopChatOpen" class="chat-slash-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="4" y1="4" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                     <img src="@/assets/img/icons/mobileChat.png" alt="Chat" class="chat-icon-mobile" />
                 </button>
@@ -171,65 +125,34 @@
             <router-link to="/" class="mobile-btn mobile-btn-home" @click.native="closeSidebarMobile">
                 <img src="@/assets/img/icons/mobileHome.png" alt="Home" class="mobile-btn-icon" />
             </router-link>
-            <div class="mobile-btn-wrapper mobile-btn-profile-wrapper">
-                <button class="mobile-btn mobile-btn-profile" @click="handleProfileButtonClick">
-                    <img src="@/assets/img/icons/mobileProfile.png" alt="Profile" class="mobile-btn-icon" />
-                </button>
-                <div v-if="authUser.user !== null && showMobileProfileDropdown" class="profile-dropdown-menu mobile-profile-dropdown-menu" ref="mobileProfileMenu">
-                    <div class="profile-menu-item" @click="handleBalanceDoubleClick">
-                        <div class="menu-item-label">Balance:</div>
-                        <div class="menu-item-value">{{ formatBalance(authUser.user.balance) }}</div>
-                    </div>
-                    <div class="profile-menu-item" @click="handleUserIDClick">
-                        <div class="menu-item-label">User ID:</div>
-                        <div class="menu-item-value">{{ authUser.user.username }}</div>
-                    </div>
-                    <div class="profile-menu-item profile-menu-item-signout" @click="handleSignOut">
-                        <div class="menu-item-label">Sign Out</div>
-                    </div>
-                </div>
+            <!-- Show Sign In button when not logged in -->
+            <button v-if="authUser.user === null" class="mobile-btn mobile-btn-signin" @click="handleSignInClick">
+                <img src="@/assets/img/icons/mobileProfile.png" alt="Sign In" class="mobile-btn-icon" />
+            </button>
+            <!-- Show user dropdown when logged in -->
+            <div class="mobile-btn-wrapper mobile-btn-profile-wrapper" v-if="authUser.user !== null">
+                <NavbarUserDropdown />
             </div>
             <button class="mobile-btn mobile-btn-chat" @click="toggleChat">
                 <img src="@/assets/img/icons/mobileChat.png" alt="Chat" class="mobile-btn-icon" />
             </button>
         </div>
         
-        <!-- Signup Modal (only show on non-homepage) -->
-        <SignupModal 
-            v-if="!isHomePage"
-            :show="showSignupModal" 
-            @close="showSignupModal = false" 
-            @switch-to-signin="switchToSignIn" 
-        />
-        
-        <!-- Sign In Modal (only show on non-homepage) -->
-        <SignInModal 
-            v-if="!isHomePage"
-            :show="showSignInModal" 
-            @close="showSignInModal = false" 
-            @switch-to-signup="switchToSignUp" 
-        />
     </header>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import SignupModal from '@/components/SignupModal.vue';
-import SignInModal from '@/components/SignInModal.vue';
+import NavbarUserDropdown from '@/components/navbar/NavbarUserDropdown';
 
 export default {
     name: 'Header',
     components: {
-        SignupModal,
-        SignInModal
+        NavbarUserDropdown
     },
     data() {
         return {
-            showSignupModal: false,
-            showSignInModal: false,
             showCasinoDropdown: false,
-            showMobileProfileDropdown: false,
-            showDesktopProfileDropdown: false,
             closeDropdownTimeout: null,
             dropdownPosition: {
                 top: '0px',
@@ -240,11 +163,11 @@ export default {
     methods: {
         ...mapActions(['generalSetSidebarMobile', 'generalSetDesktopChatOpen', 'authLogoutUser', 'modalsSetShow', 'modalsSetData']),
         handleSignInClick() {
-            // On homepage, emit event to Home component; otherwise use local state
+            // On homepage, emit event to Home component; otherwise emit to App level
             if (this.isHomePage) {
                 this.$root.$emit('open-signin-modal');
             } else {
-                this.showSignInModal = true;
+                this.$root.$emit('open-signin-modal-app');
             }
         },
         handleCasinoClick(event) {
@@ -446,24 +369,6 @@ export default {
             }
             this.showCasinoDropdown = false;
         },
-        switchToSignIn() {
-            this.showSignupModal = false;
-            // On homepage, emit event to Home component; otherwise use local state
-            if (this.isHomePage) {
-                this.$root.$emit('open-signin-modal');
-            } else {
-                this.showSignInModal = true;
-            }
-        },
-        switchToSignUp() {
-            this.showSignInModal = false;
-            // On homepage, emit event to Home component; otherwise use local state
-            if (this.isHomePage) {
-                this.$root.$emit('open-signup-modal');
-            } else {
-                this.showSignupModal = true;
-            }
-        },
         toggleChat() {
             // Check if we're on mobile (use mobile chat functionality)
             if (window.innerWidth <= 1024) {
@@ -478,47 +383,7 @@ export default {
             return parseFloat(balance / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
         handleSignOut() {
-            // Close dropdowns before signing out
-            this.showMobileProfileDropdown = false;
-            this.showDesktopProfileDropdown = false;
             this.authLogoutUser();
-        },
-        handleUserIDClick() {
-            // Navigate to profile page to show user details
-            this.$router.push('/profile');
-            // Close profile dropdowns if open
-            this.showMobileProfileDropdown = false;
-            this.showDesktopProfileDropdown = false;
-        },
-        handleBalanceDoubleClick() {
-            // Open Cashier modal with deposit tab
-            this.modalsSetData({ typeCashier: 'deposit' });
-            this.modalsSetShow('Cashier');
-            // Close profile dropdowns if open
-            this.showMobileProfileDropdown = false;
-            this.showDesktopProfileDropdown = false;
-        },
-        toggleMobileProfileDropdown(event) {
-            // Toggle dropdown on click
-            event.stopPropagation();
-            this.showMobileProfileDropdown = !this.showMobileProfileDropdown;
-        },
-        toggleDesktopProfileDropdown(event) {
-            // Toggle desktop dropdown on click
-            event.stopPropagation();
-            this.showDesktopProfileDropdown = !this.showDesktopProfileDropdown;
-        },
-        handleProfileButtonClick(event) {
-            // If user is logged in, show profile dropdown
-            if (this.authUser.user !== null) {
-                this.toggleMobileProfileDropdown(event);
-            } else {
-                // If user is logged out, open Sign In modal
-                this.handleSignInClick();
-            }
-        },
-        closeMobileProfileDropdown() {
-            this.showMobileProfileDropdown = false;
         },
         toggleSidebarMobile() {
             // Emit event to toggle sidebar menu
@@ -549,17 +414,6 @@ export default {
                 }
             }
             
-            // Close mobile profile dropdown when clicking outside
-            const mobileProfileDropdown = document.querySelector('.mobile-profile-dropdown');
-            if (mobileProfileDropdown && !mobileProfileDropdown.contains(event.target) && self.showMobileProfileDropdown === true) {
-                self.showMobileProfileDropdown = false;
-            }
-            
-            // Close desktop profile dropdown when clicking outside
-            const desktopProfileDropdown = document.querySelector('.desktop-profile-dropdown');
-            if (desktopProfileDropdown && !desktopProfileDropdown.contains(event.target) && self.showDesktopProfileDropdown === true) {
-                self.showDesktopProfileDropdown = false;
-            }
         });
     },
     mounted() {
@@ -633,10 +487,11 @@ export default {
 .header-right {
     position: relative;
     z-index: 2;
+    overflow: visible;
 }
 
 .header.header-below-banner {
-    overflow: visible;
+    overflow: visible !important;
     position: fixed !important;
     top: 0 !important;
 }
@@ -644,7 +499,7 @@ export default {
 .header-below-banner {
     position: fixed !important;
     top: 0 !important;
-    overflow: visible;
+    overflow: visible !important;
     min-height: 80px;
     height: 80px;
     z-index: 99998;
@@ -654,6 +509,12 @@ export default {
 .header-below-banner .header-container {
     overflow: visible;
     z-index: 99998;
+}
+
+/* Ensure header-right allows dropdown to extend on homepage */
+.header-below-banner .header-right {
+    overflow: visible !important;
+    position: relative !important;
 }
 
 .header-container {
@@ -1122,6 +983,8 @@ export default {
     align-items: center;
     gap: var(--spacing-md);
     flex-shrink: 0;
+    position: relative;
+    overflow: visible;
 }
 
 .btn-signin {
@@ -1146,17 +1009,18 @@ export default {
 }
 
 .btn-chat {
-    width: 40px;
-    height: 40px;
-    background: var(--bg-tertiary);
+    width: 55px;
+    height: 55px;
+    background: var(--bg-primary-blue);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--accent-copper-light);
     transition: all 0.3s ease;
-    border: 1px solid rgba(212, 165, 116, 0.3);
+    border: 1px solid var(--accent-yellow);
     padding: 0;
+    position: relative;
 }
 
 .chat-icon-desktop {
@@ -1170,12 +1034,38 @@ export default {
     object-fit: contain;
 }
 
+.chat-slash-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--accent-copper-light);
+    pointer-events: none;
+    z-index: 1;
+    display: none;
+}
+
+/* Show slash icon on desktop only when chat is open */
+@media only screen and (min-width: 1025px) {
+    .btn-chat.chat-open .chat-slash-icon {
+        display: block;
+    }
+}
+
+.btn-chat.chat-open .chat-slash-icon {
+    color: var(--accent-yellow-main);
+}
+
 .btn-chat:hover {
-    background: rgba(212, 165, 116, 0.15);
-    color: var(--accent-copper);
-    border-color: var(--accent-copper);
+    background: var(--bg-blue-dark);
+    color: var(--accent-yellow-main);
+    border-color: var(--accent-yellow);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(184, 115, 51, 0.4);
+    box-shadow: 0 4px 12px var(--accent-yellow-main);
+}
+
+.btn-chat.chat-open:hover .chat-slash-icon {
+    color: var(--accent-yellow-main);
 }
 
 .user-info {
@@ -1249,121 +1139,7 @@ export default {
 }
 
 
-/* Desktop Profile Dropdown */
-.desktop-profile-dropdown {
-    display: none;
-    position: relative;
-}
-
-/* Mobile Profile Dropdown */
-.mobile-profile-dropdown {
-    display: none;
-    position: relative;
-}
-
-.btn-profile {
-    width: 40px;
-    height: 40px;
-    background: var(--bg-tertiary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--accent-copper-light);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(212, 165, 116, 0.3);
-    padding: 0;
-    cursor: pointer;
-}
-
-.profile-icon-mobile,
-.profile-icon-desktop {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 8px;
-}
-
-.btn-profile:hover {
-    background: rgba(212, 165, 116, 0.15);
-    border-color: var(--accent-copper);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(184, 115, 51, 0.4);
-}
-
-.profile-dropdown-menu {
-    position: absolute;
-    bottom: calc(100% + 10px);
-    right: 0;
-    min-width: 200px;
-    /* Use menu sidebar background */
-    background: var(--bg-menu-sidebar);
-    backdrop-filter: blur(10px) saturate(120%);
-    border: 2px solid rgba(222, 184, 135, 0.6);
-    border-radius: 8px;
-    box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.9),
-        0 5px 20px rgba(184, 115, 51, 0.4),
-        inset 0 1px 0 rgba(222, 184, 135, 0.2);
-    padding: 10px 0;
-    z-index: 100000;
-    animation: dropdownFadeInUp 0.2s ease-out;
-}
-
-.profile-menu-item {
-    padding: 14px 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border-bottom: 1px solid rgba(212, 165, 116, 0.1);
-}
-
-.profile-menu-item:last-child {
-    border-bottom: none;
-}
-
-.profile-menu-item:hover {
-    background: var(--bg-tertiary);
-    padding-left: 24px;
-}
-
-.profile-menu-item-signout {
-    color: var(--accent-red);
-}
-
-.profile-menu-item-signout:hover {
-    color: var(--accent-deep-red);
-}
-
-.menu-item-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 500;
-    margin-bottom: 4px;
-}
-
-.menu-item-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--accent-copper-light);
-}
-
-.profile-menu-item-signout .menu-item-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: inherit;
-    margin-bottom: 0;
-}
-
-@keyframes dropdownFadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+/* NavbarUserDropdown is now used - styles are in NavbarUserDropdown.vue */
 
 /* Mobile Button Row - All buttons in single row */
 .mobile-button-row {
@@ -1468,8 +1244,8 @@ export default {
         max-width: 100% !important;
     }
     
-    /* Hide desktop profile dropdown on mobile */
-    .desktop-profile-dropdown {
+    /* Hide NavbarUserDropdown in header-right on mobile */
+    .header-right .navbar-user-dropdown {
         display: none !important;
     }
     
@@ -1491,24 +1267,12 @@ export default {
         display: none !important;
     }
     
-    
     /* Hide user-info on mobile */
     .user-info {
         display: none !important;
     }
     
-    /* Hide desktop profile dropdown on mobile */
-    .desktop-profile-dropdown {
-        display: none !important;
-    }
-    
-    /* Show mobile profile dropdown (but hidden when in row) */
-    .mobile-profile-dropdown {
-        display: block !important;
-    }
-    
     /* Hide individual buttons when mobile row is shown */
-    .mobile-profile-dropdown,
     .btn-chat {
         display: none !important;
     }
@@ -1516,28 +1280,6 @@ export default {
     /* Show mobile button row */
     .mobile-button-row {
         display: flex !important;
-    }
-    
-    /* Position profile dropdown correctly from button row - highest priority */
-    .mobile-profile-dropdown-menu {
-        position: fixed !important;
-        bottom: calc(80px + 10px) !important;
-        right: 50% !important;
-        transform: translateX(50%) !important;
-        z-index: 100001 !important;
-        /* Use menu sidebar background on tablet and mobile */
-        background: var(--bg-menu-sidebar) !important;
-        backdrop-filter: blur(10px) saturate(120%) !important;
-        border: 2px solid rgba(222, 184, 135, 0.6) !important;
-        box-shadow: 
-            0 10px 40px rgba(0, 0, 0, 0.9),
-            0 5px 20px rgba(184, 115, 51, 0.4),
-            inset 0 1px 0 rgba(222, 184, 135, 0.2) !important;
-    }
-    
-    /* Also update desktop profile dropdown on tablet */
-    .profile-dropdown-menu {
-        background: var(--bg-menu-sidebar) !important;
     }
     
     /* Ensure buttons in row are evenly spaced */

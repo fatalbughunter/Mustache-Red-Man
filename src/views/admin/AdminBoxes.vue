@@ -302,7 +302,7 @@
         position: absolute;
         top: 1px;
         left: 1px;
-        background: #001a2f;
+        background: var(--bg-blue-dark);
         clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
         z-index: -1;
     }
@@ -313,12 +313,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgba(3, 20, 34, 0.27);
+        background: var(--bg-blue-dark);
         clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
     }
 
     .admin-boxes .list-pagination button:disabled .button-inner {
-        background: rgba(3, 20, 34, 0.27);
+        background: var(--bg-blue-dark);
         box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.35);
     }
 
@@ -356,7 +356,7 @@
         font-size: 16px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
         border: 1px dashed rgba(46, 93, 119, 0.5);
     }
 

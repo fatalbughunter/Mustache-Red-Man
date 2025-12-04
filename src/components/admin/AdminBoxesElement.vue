@@ -73,11 +73,11 @@
         align-items: center;
         padding: 0 20px;
         border-radius: 5px;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
     }
 
     .admin-boxes-element:nth-child(even) {
-        background: rgba(19, 66, 88, 0.1);
+        background: var(--bg-blue-dark);
     }
 
     .admin-boxes-element .element-section {

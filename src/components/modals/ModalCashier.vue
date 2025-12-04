@@ -19,6 +19,13 @@
                     <span v-bind:class="{ 'gradient-green': modalTab === 'withdraw' }">WITHDRAW</span>
                 </div>
             </button>
+            <div class="header-balance">
+                <div class="balance-title">BALANCE</div>
+                <div class="balance-inner">
+                    <img src="@/assets/img/icons/coin.svg" alt="coin" />
+                    <AmountNumber v-bind:amount="authUser.user.balance" />
+                </div>
+            </div>
         </div>
 
         <CashierDeposit v-if="modalTab === 'deposit'" />
@@ -30,12 +37,14 @@
     import { mapGetters } from 'vuex';
     import CashierDeposit from '@/components/cashier/CashierDeposit';
     import CashierWithdraw from '@/components/cashier/CashierWithdraw';
+    import AmountNumber from '@/components/AmountNumber';
 
     export default {
         name: 'ModalCashier',
         components: {
             CashierDeposit,
-            CashierWithdraw
+            CashierWithdraw,
+            AmountNumber
         },
         data() {
             return {
@@ -49,7 +58,8 @@
         },
         computed: {
             ...mapGetters([ 
-                'modalsData'
+                'modalsData',
+                'authUser'
             ])
         },
         created() {
@@ -78,7 +88,7 @@
         align-items: center;
         padding-bottom: 25px;
         border-bottom: 1px solid #ffffff;
-        opacity: 0.3;
+        gap: 15px;
     }
 
     .modal-cashier button.button-nav {
@@ -150,6 +160,57 @@
         color: #ffffff !important;
         -webkit-text-fill-color: #ffffff !important;
         background: none !important;
+    }
+
+    /* Balance Display */
+    .modal-cashier .header-balance {
+        margin-left: 0;
+        width: 160px;
+        height: 50px;
+        position: relative;
+        padding: 1px;
+        filter: drop-shadow(0px 4px 25px #0f293f);
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .modal-cashier .header-balance:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: linear-gradient(180deg, #00cb8e 0%, #00aa6d 100%);
+        border-radius: 15px;
+    }
+
+    .modal-cashier .header-balance .balance-title {
+        position: absolute;
+        top: 3px;
+        left: 8px;
+        font-size: 10px;
+        font-weight: 800;
+        color: #00cb8e;
+        z-index: 1;
+    }
+
+    .modal-cashier .header-balance .balance-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 13px;
+        background: var(--bg-blue-dark);
+        border-radius: 15px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .modal-cashier .header-balance .balance-inner img {
+        width: 18px;
+        height: 18px;
     }
 
     @media only screen and (max-width: 840px) {

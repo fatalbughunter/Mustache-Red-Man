@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="header-title">
-                <span>ROLL</span> VAULT
+                <span>MUSTACHE</span> VAULT
             </div>
         </div>
         <div class="vault-stats">
@@ -167,8 +167,7 @@
         align-items: center;
         padding: 35px 30px 30px 30px;
         border-radius: 15px;
-        background: radial-gradient(100% 100% at 50% 0%, rgba(0, 255, 194, 0.25) 0%, rgba(7, 38, 61, 0) 80%), 
-                    linear-gradient(256deg, #07263d 0%, #07243a 100%);
+        background: var(--bg-primary-blue);
     }
 
     .modal-vault .vault-header {
@@ -183,7 +182,7 @@
         height: 88px;
         padding: 1px;
         border-radius: 50%;
-        background: linear-gradient(180deg, #01C689 0%, #056e67 50%);
+        background: var(--bg-primary-blue);
     }
 
     .modal-vault .icon-inner {
@@ -210,7 +209,7 @@
     }
 
     .modal-vault .header-title span {
-        color: #00cb8e;
+        color: var(--accent-yellow-main);
     }
 
     .modal-vault .vault-stats {
@@ -233,12 +232,12 @@
 
     .modal-vault .vault-stats:before {
         left: 0;
-        background: linear-gradient(270deg, #01c689 0%, rgba(217, 217, 217, 0) 100%);
+        background: var(--accent-yellow);
     }
 
     .modal-vault .vault-stats:after {
         right: 0;
-        background: linear-gradient(90deg, #01C689 0%, rgba(217, 217, 217, 0) 100%);
+        background: var(--accent-yellow);
     }
 
     .modal-vault .stats-balance,
@@ -248,6 +247,8 @@
         position: relative;
         padding: 1px;
         filter: drop-shadow(0px 4px 25px #0f293f);
+        border-radius: 15px;
+        overflow: hidden;
     }
 
     .modal-vault .stats-balance {
@@ -262,14 +263,14 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: rgba(1, 198, 137, 0.25);
-        clip-path: polygon(9px 0, calc(100% - 9px) 0, 100% 25%, 100% 75%, calc(100% - 9px) 100%, 9px 100%, 0 75%, 0 25%);
+    
+        border-radius: 15px;
     }
 
     .modal-vault .balance-title,
     .modal-vault .vaulted-title {
         position: absolute;
-        top: -7px;
+        top: 3px;
         left: 8px;
         font-size: 10px;
         font-weight: 800;
@@ -292,15 +293,15 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 13px;
-        clip-path: polygon(9px 0, calc(100% - 9px) 0, 100% 25%, 100% 75%, calc(100% - 9px) 100%, 9px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .modal-vault .balance-inner {
-        background: #071f2e;
+        background: var(--bg-blue-dark);
     }
 
     .modal-vault .vaulted-inner {
-        background: #064b50;
+        background: var(--bg-blue-dark);
     }
 
     .modal-vault .balance-inner img,
@@ -340,11 +341,11 @@
         width: 100%;
         height: 56px;
         padding: 0 20px 0 44px;
-        border-radius: 8px;
+        border-radius: 15px;
         font-size: 14px;
         font-weight: 600;
         color: #ffffff;
-        background: #071f2e;
+        background: var(--bg-blue-dark);
     }
 
     .modal-vault .vault-amount input::placeholder {
@@ -356,13 +357,18 @@
         width: 250px;
         height: 42px;
         margin-top: 30px;
+        border-radius: 15px;
+    }
+
+    .modal-vault button.button-deposit {
+        padding: 1px;
+        background: linear-gradient(250deg, #00ffc2 0%, #00aa6d 100%);
     }
 
     .modal-vault button.button-withdraw {
         margin-top: 15px;
         padding: 1px;
         background: linear-gradient(0deg, #ffe600 0%, #fca311 100%);
-        clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 25%, 100% 75%, calc(100% - 8px) 100%, 8px 100%, 0 75%, 0 25%);
     }
 
     .modal-vault button.button-deposit .button-inner,
@@ -375,7 +381,7 @@
         font-size: 15px;
         font-weight: 800;
         color: #ffffff;
-        clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 25%, 100% 75%, calc(100% - 8px) 100%, 8px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .modal-vault button.button-deposit .button-inner {
@@ -416,11 +422,11 @@
         width: calc(100% - 62px);
         height: 56px;
         padding: 0 15px;
-        border-radius: 8px;
+        border-radius: 15px;
         font-size: 14px;
         font-weight: 400;
         color: #bbbfcf;
-        background: #0b304a;
+        background: var(--bg-blue-dark);
         -webkit-appearance: none;
         -moz-appearance: none;
     }

@@ -64,6 +64,8 @@
         width: 250px;
         position: relative;
         z-index: 15;
+        border: 1px solid var(--accent-yellow);
+        border-radius: 5px;
     }
 
     .admin-filter-navbar button.button-toggle {
@@ -74,7 +76,7 @@
         align-items: center;
         padding: 0 20px;
         border-radius: 5px;
-        background: rgba(19, 66, 88, 0.25);
+        background: var(--bg-blue-dark);
     }
 
     .admin-filter-navbar button.button-toggle svg {
@@ -122,12 +124,12 @@
         border-radius: 5px;
         font-size: 14px;
         font-weight: 600;
-        color: #8bacc8;
+        color: var(--accent-yellow);
         transition: 0.3s ease;
     }
 
     .admin-filter-navbar .menu-inner a:hover {
-        background: rgba(19, 66, 88, 0.15);
+        background: var(--bg-blue-dark);
     }
 
     @media only screen and (max-width: 650px) {

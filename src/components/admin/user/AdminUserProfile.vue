@@ -168,7 +168,7 @@
     }
 
     .admin-user-profile .profile-avatar.avatar-admin {
-        border: 2px solid #0dd4b1;
+        border: 2px solid var(--accent-red);
     }
 
     .admin-user-profile .profile-avatar .avatar-image {
@@ -200,7 +200,7 @@
         top: 0;
         left: 0;
         background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #ffb703 100%);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .admin-user-profile .username-level::after {
@@ -211,7 +211,7 @@
         top: 1px;
         left: 1px;
         background: #063141;
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .admin-user-profile .level-inner {
@@ -226,7 +226,7 @@
         font-size: 12px;
         font-weight: 700;
         background-color: rgba(252, 163, 17, 0.05);
-        clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 25%, 100% 75%, calc(100% - 5px) 100%, 5px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
         z-index: 1;
     }
 
@@ -266,7 +266,7 @@
         font-weight: 800;
         color: #bbbfd0;
         background-color: #1a4f63;
-        clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 25%, 100% 75%, calc(100% - 7px) 100%, 7px 100%, 0 75%, 0 25%);
+        border-radius: 15px;
     }
 
     .admin-user-profile .profile-stats {
@@ -299,8 +299,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #04131f 0%, #223a4e 100%);
-        clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 25%, 100% 75%, calc(100% - 16px) 100%, 16px 100%, 0 75%, 0 25%);
+        background: var(--accent-yellow);
+        border-radius: 15px;
     }
 
     .admin-user-profile .stats-element.element-profit::before {
@@ -323,19 +323,12 @@
         padding: 0 16px;
         font-size: 12px;
         font-weight: 600;
-        color: #5e768e;
-        background-color: #072435;
-        clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 25%, 100% 75%, calc(100% - 16px) 100%, 16px 100%, 0 75%, 0 25%);
+        /*color: #5e768e;*/
+        background-color: var(--bg-menu-sidebar);
+        border-radius: 15px;
         z-index: 1;
     }
 
-    .admin-user-profile .stats-element.element-profit .element-inner {
-        background: radial-gradient(81.75% 81.75% at 50% 50%, rgba(0, 255, 194, 0.05) 0%, rgba(0, 0, 0, 0) 100%), #072435;
-    }
-
-    .admin-user-profile .stats-element.element-negative .element-inner {
-        background: radial-gradient(81.75% 81.75% at 50% 50%, rgba(207, 80, 72, 0.05) 0%, rgba(0, 0, 0, 0) 100%), #072435;
-    }
 
     .admin-user-profile .inner-amount {
         display: flex;
@@ -362,14 +355,74 @@
 
     @media only screen and (max-width: 650px) {
 
+        .admin-user-profile {
+            padding: 0 5px;
+            box-sizing: border-box;
+        }
+
+        .admin-user-profile .profile-avatar {
+            width: 80px;
+            height: 80px;
+        }
+
+        .admin-user-profile .profile-avatar .avatar-image {
+            width: 66px;
+            height: 66px;
+        }
+
+        .admin-user-profile .profile-username {
+            font-size: 18px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .admin-user-profile .profile-date,
+        .admin-user-profile .profile-id {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .admin-user-profile .profile-actions {
+            margin-top: 20px;
+        }
+
+        .admin-user-profile .profile-actions a.link-account {
+            width: 130px;
+            height: 44px;
+        }
+
+        .admin-user-profile .profile-stats {
+            margin-top: 35px;
+            width: 100%;
+        }
+
         .admin-user-profile .stats-element {
             width: 100%;
             margin-top: 15px!important;
+            margin-right: 0!important;
         }
 
         .admin-user-profile .stats-element:first-of-type {
             margin-top: 0!important;
-            margin-right: 0;
+            margin-right: 0!important;
+        }
+
+        .admin-user-profile .stats-element:last-of-type {
+            margin-top: 15px!important;
+        }
+
+        .admin-user-profile .element-inner {
+            padding: 0 12px;
+            font-size: 11px;
+        }
+
+        .admin-user-profile .amount-value {
+            font-size: 12px;
+        }
+
+        .admin-user-profile .amount-value span {
+            font-size: 16px;
         }
 
     }

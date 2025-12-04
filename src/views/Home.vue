@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-        <Header />
         <HeroBanner />
         
         <!-- Signup Modal -->
@@ -28,7 +27,6 @@
 <script>
     import { mapGetters } from 'vuex';
     import HeroBanner from '@/components/HeroBanner';
-    import Header from '@/components/Header';
     import SignupModal from '@/components/SignupModal.vue';
     import SignInModal from '@/components/SignInModal.vue';
     import PopularGames from '@/components/PopularGames';
@@ -43,7 +41,6 @@
         },
         components: {
             HeroBanner,
-            Header,
             SignupModal,
             SignInModal,
             PopularGames,
