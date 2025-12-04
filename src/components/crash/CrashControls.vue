@@ -364,7 +364,7 @@
         align-items: center;
         top: 1px;
         left: 1px;
-        background: var(--bg-brown-medium);
+        background: var(--accent-yellow);
         border-radius: 14px;
         z-index: 1;
     }
