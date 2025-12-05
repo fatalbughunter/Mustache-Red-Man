@@ -2,7 +2,7 @@
     <div class="cashier-crypto-withdraw">
         <div class="withdraw-amount">
             <div class="amount-header">
-                <img v-bind:src="require('@/assets/img/cashier/' + modalsData.currency + '.png')" />
+                <img v-bind:src="getCurrencyIcon(modalsData.currency)" />
                 {{cashierGetName}}
             </div>
             <p>Enter the amount of Robux you would like to withdraw. The network fees will be deducted from your withdraw amount. Average network fees are <span>${{ modalFormatValue(cashierGetFee) }}</span>.</p>
@@ -21,7 +21,7 @@
                     <transition name="fade" mode="out-in">
                         <div v-if="cashierCryptoData.loading === true" class="element-loading" key="loading"></div>
                         <div v-else class="element-content" key="data">
-                            <img v-bind:src="require('@/assets/img/cashier/' + modalsData.currency + '.png')" />
+                            <img v-bind:src="getCurrencyIcon(modalsData.currency)" />
                             <input v-model="cashierCryptoAmount" v-on:input="cashierCryptoInput" type="text" />
                         </div>
                     </transition>
@@ -78,6 +78,28 @@
                 'notificationShow',
                 'cashierSendCryptoWithdrawDepositSocket'
             ]),
+            getCurrencyIcon(currencyCode) {
+                try {
+                    // Map currency codes to crypto payment images
+                    const cryptoImageMap = {
+                        'eth': 'ether',
+                        'bnb': 'bnb',
+                        'trx': 'trx',
+                        'tron': 'trx',
+                        'sol': 'solana',
+                        'solana': 'solana'
+                    };
+                    
+                    if (cryptoImageMap[currencyCode]) {
+                        return require('@/assets/img/payments/crypto/' + cryptoImageMap[currencyCode] + '.png');
+                    }
+                    
+                    // Fallback to cashier directory
+                    return require('@/assets/img/cashier/' + currencyCode + '.png');
+                } catch (e) {
+                    return null;
+                }
+            },
             modalFormatValue(value) {
                 return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
@@ -120,6 +142,10 @@
                     name = 'Ethereum';
                 }  else if(this.modalsData.currency === 'ltc') {
                     name = 'Litecoin';
+                } else if(this.modalsData.currency === 'sol' || this.modalsData.currency === 'solana') {
+                    name = 'Solana';
+                } else if(this.modalsData.currency === 'trx' || this.modalsData.currency === 'tron') {
+                    name = 'TRON';
                 }
 
                 return name;

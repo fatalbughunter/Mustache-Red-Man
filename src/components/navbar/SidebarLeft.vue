@@ -12,9 +12,21 @@
                     <img src="@/assets/img/headerLogo.png" alt="Mustache Casino" class="sidebar-header-logo-img">
                 </div>
                 <button class="menu-toggle" v-on:click="toggleHeader">
-                    <svg width="18" height="12" viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="2" y="0"/><rect width="18" height="2" y="5"/><rect width="18" height="2" y="10"/></svg>
+                    <!-- Mobile version: simple hamburger -->
+                    <svg class="menu-toggle-icon-mobile" width="18" height="12" viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="2" y="0"/><rect width="18" height="2" y="5"/><rect width="18" height="2" y="10"/></svg>
+                    <!-- Desktop version: hamburger + chevron -->
+                    <svg class="menu-toggle-icon-desktop" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Three horizontal lines (hamburger menu) -->
+                        <rect x="0" y="0" width="12" height="2" fill="currentColor"/>
+                        <rect x="0" y="5" width="12" height="2" fill="currentColor"/>
+                        <rect x="0" y="10" width="12" height="2" fill="currentColor"/>
+                        <!-- Left-pointing chevron (when menu is open) -->
+                        <path class="chevron-left" d="M18 1L14 6L18 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <!-- Right-pointing chevron (when menu is closed) -->
+                        <path class="chevron-right" d="M14 1L18 6L14 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
                 </button>
-                <span>MENU</span>
+                <span class="sidebar-header-menu-text">MENU</span>
             </div>
 
             <nav class="sidebar-group">
@@ -98,14 +110,15 @@
                 </router-link>
             </nav>
 
-            <div class="sidebar-logo">
-                <img src="@/assets/img/lastLogo.png" alt="Logo" />
-            </div>
             <div class="sidebar-footer">
-                <!-- <button class="sidebar-link" v-on:click="openSupport">
-                    <IconInfo />
-                    <span>Support</span>
-                </button> -->
+                <button v-if="authUser && authUser.user !== null" class="sidebar-link" @click="handleLogout">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 2H4C3.46957 2 2.96086 2.21071 2.58579 2.58579C2.21071 2.96086 2 3.46957 2 4V18C2 18.5304 2.21071 19.0391 2.58579 19.4142C2.96086 19.7893 3.46957 20 4 20H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M15 16L20 11L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M20 11H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                    <span>LOG OUT</span>
+                </button>
             </div>
         </aside>
         <div v-if="mobileOpen" class="mobile-backdrop" v-on:click="closeMobile"></div>
@@ -113,7 +126,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import IconHome from '@/components/icons/IconHome';
     import IconLeaderboard from '@/components/icons/IconLeaderboard';
     import IconInfo from '@/components/icons/IconInfo';
@@ -122,8 +135,11 @@
         name: 'SidebarLeft',
         components: { IconHome, IconLeaderboard, IconInfo },
         data() { return { collapsed: false, mobileOpen: false, casinoMenuOpen: false }; },
+        computed: {
+            ...mapGetters(['authUser'])
+        },
         methods: {
-            ...mapActions(['modalsSetShow']),
+            ...mapActions(['modalsSetShow', 'authLogoutUser']),
             toggleCollapsed() { this.collapsed = !this.collapsed; this.$emit('collapsed-change', this.collapsed); },
             toggleMobile() { this.mobileOpen = !this.mobileOpen; },
             closeMobile() { this.mobileOpen = false; },
@@ -134,7 +150,15 @@
             toggleCasinoMenu() {
                 this.casinoMenuOpen = !this.casinoMenuOpen;
             },
-            openSupport() { this.modalsSetShow('Support'); this.closeMobile(); }
+            openSupport() { this.modalsSetShow('Support'); this.closeMobile(); },
+            handleLogout() {
+                this.authLogoutUser();
+                this.closeMobile();
+                // Navigate to home page after logout
+                if (this.$route.path !== '/') {
+                    this.$router.push('/');
+                }
+            }
         },
         watch: {
             '$route'(to) {
@@ -177,10 +201,10 @@
         left: 0;
         display: flex;
         flex-direction: column;
-        background: var(--bg-menu-sidebar);
+        background: var(--bg-blue-dark);
         backdrop-filter: blur(10px);
         z-index: 90;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, width 0.3s ease;
         padding-top: var(--spacing-md);
     }
 
@@ -191,11 +215,12 @@
         align-items: center; 
         height: 40px; 
         padding: 0 var(--spacing-lg); 
-        color: var(--text-secondary); 
+        color: #FFFFFF; 
         font-size: 12px; 
         font-weight: 800; 
         margin-bottom: var(--spacing-sm);
         flex-shrink: 0;
+        transition: padding 0.3s ease, justify-content 0.3s ease;
     }
     aside#sidebar-left.collapsed .sidebar-header {
         justify-content: center;
@@ -204,8 +229,62 @@
     aside#sidebar-left.collapsed .sidebar-header span {
         display: none;
     }
-    .sidebar-header .menu-toggle { margin-right: var(--spacing-sm); }
+    .sidebar-header .menu-toggle { 
+        margin-right: var(--spacing-sm);
+        display: none;
+    }
     .sidebar-header .menu-toggle svg { fill: var(--text-muted); }
+    
+    /* Menu toggle icons - show mobile by default, desktop on desktop */
+    .menu-toggle-icon-mobile {
+        display: block;
+    }
+    .menu-toggle-icon-desktop {
+        display: none;
+    }
+    
+    /* Desktop: show desktop icon, hide mobile icon */
+    @media only screen and (min-width: 1025px) {
+        .menu-toggle-icon-mobile {
+            display: none;
+        }
+        .menu-toggle-icon-desktop {
+            display: block;
+        }
+        
+        /* Hide MENU text on desktop */
+        .sidebar-header-menu-text {
+            display: none;
+        }
+        
+        /* Change menu button color to white on desktop */
+        .sidebar-header .menu-toggle svg {
+            fill: #FFFFFF;
+            color: #FFFFFF;
+        }
+        .sidebar-header .menu-toggle .menu-toggle-icon-desktop rect,
+        .sidebar-header .menu-toggle .menu-toggle-icon-desktop path {
+            fill: #FFFFFF;
+            stroke: #FFFFFF;
+        }
+        
+        /* Chevron behavior based on collapsed state */
+        /* When menu is open (not collapsed): show left-pointing chevron */
+        aside#sidebar-left:not(.collapsed) .chevron-left {
+            display: block;
+        }
+        aside#sidebar-left:not(.collapsed) .chevron-right {
+            display: none;
+        }
+        
+        /* When menu is closed (collapsed): show right-pointing chevron */
+        aside#sidebar-left.collapsed .chevron-left {
+            display: none;
+        }
+        aside#sidebar-left.collapsed .chevron-right {
+            display: block;
+        }
+    }
     
     .sidebar-header-logo {
         display: none;
@@ -228,6 +307,7 @@
         overflow-x: hidden;
         min-height: 0;
         max-height: 320px;
+        transition: padding 0.3s ease;
     }
     .sidebar-title { 
         font-size: 10px; 
@@ -244,12 +324,12 @@
         height: 36px; 
         padding: 0 var(--spacing-md); 
         border-radius: var(--radius-sm); 
-        color: var(--text-secondary); 
-        font-size: 14px; 
+        color: #FFFFFF; 
+        font-size: 16px; 
         font-weight: 500; 
         position: relative;
         margin-bottom: 2px;
-        transition: all 0.3s ease;
+        transition: all 0.3s ease, width 0.3s ease, padding 0.3s ease, justify-content 0.3s ease, margin 0.3s ease;
     }
     .sidebar-link::before { 
         content: ''; 
@@ -263,16 +343,23 @@
         transition: all 0.3s ease;
     }
     .sidebar-link:hover { 
-        background: rgba(212, 175, 55, 0.1); 
-        color: var(--accent-gold); 
+        background: var(--gradient-button-bg);
+        color: var(--accent-btn-txt-color);
     }
-    .sidebar-link:hover svg { fill: var(--accent-gold); }
+    .sidebar-link:hover svg,
+    .sidebar-link:hover svg path,
+    .sidebar-link:hover svg rect,
+    .sidebar-link:hover svg circle { 
+        fill: var(--accent-btn-txt-color);
+        stroke: var(--accent-btn-txt-color);
+    }
     .sidebar-link svg { 
-        width: 18px; 
-        height: 18px; 
+        width: 22px; 
+        height: 22px; 
         margin-right: var(--spacing-md); 
-        fill: var(--accent-yellow);
-        transition: fill 0.3s ease;
+        fill: #FFFFFF;
+        transition: fill 0.3s ease, stroke 0.3s ease, width 0.3s ease, height 0.3s ease, margin-right 0.3s ease;
+        flex-shrink: 0;
     }
     
     .sidebar-link-parent {
@@ -280,6 +367,12 @@
         background: transparent;
         border: none;
         cursor: pointer;
+        transition: justify-content 0.3s ease;
+    }
+    
+    .sidebar-link-parent > svg:first-child {
+        flex-shrink: 0;
+        transition: width 0.3s ease, height 0.3s ease, margin-right 0.3s ease;
     }
     
     .sidebar-link-parent .dropdown-arrow {
@@ -287,11 +380,16 @@
         height: 12px;
         margin-right: 0;
         margin-left: auto;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, stroke 0.3s ease, opacity 0.2s ease, visibility 0.2s ease;
+        flex-shrink: 0;
     }
     
     .sidebar-link-parent.expanded .dropdown-arrow {
         transform: rotate(180deg);
+    }
+    
+    .sidebar-link-parent:hover .dropdown-arrow {
+        stroke: var(--accent-btn-txt-color);
     }
     
     .sidebar-menu-item {
@@ -306,47 +404,64 @@
     
     .sidebar-submenu-link {
         height: 32px;
-        font-size: 13px;
+        font-size: 15px;
         padding-left: var(--spacing-sm);
+        color: #FFFFFF;
     }
     
     .sidebar-submenu-link svg {
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
+        fill: #FFFFFF;
     }
     
-    /* Casino game links - yellow by default, red on hover */
+    .sidebar-submenu-link:hover {
+        background: var(--gradient-button-bg);
+        color: var(--accent-btn-txt-color);
+    }
+    
+    .sidebar-submenu-link:hover svg,
+    .sidebar-submenu-link:hover svg path,
+    .sidebar-submenu-link:hover svg rect,
+    .sidebar-submenu-link:hover svg circle {
+        fill: var(--accent-btn-txt-color);
+        stroke: var(--accent-btn-txt-color);
+    }
+    
+    /* Casino game links - white */
     .sidebar-link-casino svg {
-        fill: var(--accent-yellow);
-       /* color: var(--accent-yellow); */
+        fill: #FFFFFF;
     }
     .sidebar-link-casino:hover {
-        color: var(--accent-red);
+        background: var(--gradient-button-bg);
+        color: var(--accent-btn-txt-color);
     }
     .sidebar-link-casino:hover svg {
-        fill: var(--accent-red);
-        color: var(--accent-red);
+        fill: var(--accent-btn-txt-color);
     }
     .router-link-exact-active.sidebar-link { 
         background: var(--bg-tertiary);
-        color: var(--accent-red); 
+        color: #FFFFFF; 
     }
     .router-link-exact-active.sidebar-link::before { 
         background: var(--gradient-gold); 
     }
     .router-link-exact-active.sidebar-link svg { 
-        fill: var(--accent-red); 
+        fill: #FFFFFF; 
     }
     .router-link-exact-active.sidebar-submenu-link {
         background: rgba(212, 175, 55, 0.15);
-        color: var(--accent-red);
+        color: #FFFFFF;
     }
     .router-link-exact-active.sidebar-submenu-link svg {
-        fill: var(--accent-red); 
+        fill: #FFFFFF; 
     }
 
     aside#sidebar-left.collapsed .sidebar-title, 
-    aside#sidebar-left.collapsed .sidebar-link span { display: none; }
+    aside#sidebar-left.collapsed .sidebar-link span { 
+        display: none; 
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
     aside#sidebar-left.collapsed .sidebar-link { 
         justify-content: center; 
         padding: 0; 
@@ -356,20 +471,40 @@
     }
     aside#sidebar-left.collapsed .sidebar-link svg {
         margin-right: 0;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
+    }
+    aside#sidebar-left.collapsed .sidebar-link-parent {
+        justify-content: center;
     }
     aside#sidebar-left.collapsed .sidebar-submenu {
         display: none !important;
     }
     aside#sidebar-left.collapsed .sidebar-link-parent .dropdown-arrow {
-        display: none;
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        margin: 0;
     }
     aside#sidebar-left.collapsed .sidebar-group {
         padding: var(--spacing-sm) var(--spacing-xs);
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    
+    /* Ensure smooth transitions for all sidebar elements */
+    .sidebar-link span {
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    
+    aside#sidebar-left.collapsed .sidebar-link span {
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
     }
 
     .sidebar-logo {

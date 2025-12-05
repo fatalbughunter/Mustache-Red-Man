@@ -237,9 +237,9 @@ export default {
     justify-content: center !important;
     z-index: 9999999 !important;
     backdrop-filter: blur(5px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     padding: 20px;
+    padding-top: 100px;
     box-sizing: border-box;
     margin: 0 !important;
 }
@@ -252,12 +252,12 @@ export default {
 }
 
 .modal-container {
-    background: var(--bg-secondary);
+    background: var(--bg-blue-dark);
     border-radius: var(--radius-xl);
     overflow: hidden;
     max-width: 800px;
     width: 100%;
-    max-height: calc(100vh - 40px);
+    max-height: calc(100vh - 120px);
     min-height: 600px;
     display: flex;
     box-shadow: var(--shadow-lg);
@@ -266,6 +266,18 @@ export default {
     z-index: 9999999;
     flex-shrink: 0;
     align-self: center;
+}
+
+@media only screen and (min-width: 1025px) {
+    .modal-overlay {
+        padding-top: 100px;
+    }
+    
+    .modal-container {
+        max-width: 650px;
+        min-height: 550px;
+        max-height: calc(100vh - 120px);
+    }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -281,9 +293,15 @@ export default {
     display: flex;
     width: 100%;
     min-height: 500px;
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    max-height: calc(100vh - 120px);
+    overflow: hidden;
+}
+
+@media only screen and (min-width: 1025px) {
+    .modal-content {
+        min-height: 450px;
+        max-height: calc(100vh - 120px);
+    }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -296,12 +314,12 @@ export default {
 /* Left Panel - Branding */
 .modal-left {
     flex: 1;
-    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(33, 30, 43, 0.9) 100%);
+    background: var(--bg-blue-dark);
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: var(--spacing-2xl);
+    padding: var(--spacing-lg);
 }
 
 .brand-section {
@@ -350,8 +368,8 @@ export default {
 /* Right Panel - Form */
 .modal-right {
     flex: 1;
-    background: var(--bg-primary);
-    padding: 12px 24px 0px 24px;
+    background: var(--bg-blue-dark);
+    padding: var(--spacing-md) var(--spacing-lg) 0 var(--spacing-lg);
     position: relative;
 }
 
@@ -375,41 +393,41 @@ export default {
 .form-container {
     max-width: 400px;
     margin: 0 auto;
-    padding-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-sm);
 }
 
 .form-title {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 700;
     color: white;
-    margin: 0 0 10px 0;
+    margin: 0 0 var(--spacing-xs) 0;
 }
 
 .signup-form {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-sm);
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: 4px;
 }
 
 .form-group label {
     color: white;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .form-group input {
-    padding: var(--spacing-md);
+    padding: 12px 21px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-md);
     background: var(--bg-tertiary);
     color: white;
-    font-size: 14px;
+    font-size: 13px;
     transition: border-color 0.3s ease;
 }
 
@@ -434,8 +452,8 @@ export default {
     color: var(----accent-yellow);
     text-align: left;
     cursor: pointer;
-    padding: var(--spacing-sm) 0;
-    font-size: 14px;
+    padding: 4px 0;
+    font-size: 12px;
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
@@ -452,46 +470,47 @@ export default {
 
 .referral-input input {
     width: 100%;
-    padding: var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-md);
     background: var(--bg-tertiary);
     color: white;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .checkbox-group {
     display: flex;
     align-items: flex-start;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-xs);
 }
 
 .checkbox-label {
     /* display: flex; */
     align-items: flex-start;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
     color: white;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 11px;
+    line-height: 1.4;
     cursor: pointer;
     text-align: left;
 }
 
 .checkbox-label input[type="checkbox"] {
     margin: 0;
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     accent-color: var(--accent-yellow);
+    flex-shrink: 0;
 }
 
 .signup-button {
-    padding: 15px 0 15px 0;
+    padding: var(--spacing-sm) var(--spacing-md);
     background: var(--gradient-red);
     border: none;
     border-radius: var(--radius-md);
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -510,12 +529,12 @@ export default {
 
 .signin-link {
     text-align: center;
-    margin-top: var(--spacing-lg);
+    margin-top: var(--spacing-xs);
 }
 
 .signin-link p {
     color: white;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .signin-link .highlight-orange {

@@ -336,12 +336,14 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--bg-brown-medium);
+        background: transparent;
+        border: 1px solid #ffffff;
         border-radius: 15px;
     }
 
     .crash-controls .controls-mode button.button-active::before {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
+        border: none;
     }
 
     .crash-controls .controls-mode button::after {
@@ -364,13 +366,13 @@
         align-items: center;
         top: 1px;
         left: 1px;
-        background: var(--accent-yellow);
+        background: transparent;
         border-radius: 14px;
         z-index: 1;
     }
 
     .crash-controls .controls-mode button.button-active .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .crash-controls .controls-mode button .button-inner span {
@@ -380,7 +382,7 @@
     }
 
     .crash-controls .controls-mode button.button-active .button-inner span  {
-        background: linear-gradient(255deg, #ffffff 0%, #cccccc 100%);
+        background: var(--accent-btn-txt-color);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -417,7 +419,7 @@
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--bg-blue-chat);
         border-radius: 14px;
         border: none;
     }
@@ -462,8 +464,8 @@
         align-items: center;
         font-size: 12px;
         font-weight: 800;
-        color: #ffffff;
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
         border-radius: 12px;
     }
 
@@ -509,14 +511,14 @@
         align-items: center;
         font-size: 16px;
         font-weight: 800;
-        color: #ffffff;
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
         border-radius: 15px;
         border: 1px solid var(--accent-yellow);
     }
 
     .crash-controls .controls-manual button.button-bet .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .crash-controls .manual-bets {
@@ -681,7 +683,7 @@
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--bg-blue-chat);
         border-radius: 14px;
         border: none;
     }
@@ -731,14 +733,14 @@
         align-items: center;
         font-size: 14px;
         font-weight: 800;
-        color: #ffffff;
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
         border-radius: 15px;
         border: 1px solid var(--accent-yellow);
     }
 
     .crash-controls .controls-auto button.button-stop .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     @media only screen and (max-width: 950px) {

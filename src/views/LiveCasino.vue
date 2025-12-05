@@ -44,7 +44,7 @@ export default {
     align-items: center;
     justify-content: center;
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background: var(--bg-primary-blue);
+    background: var(--bg-blue-dark);
     position: relative;
     overflow: hidden;
 }

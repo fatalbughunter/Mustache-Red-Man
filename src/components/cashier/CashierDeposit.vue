@@ -100,7 +100,9 @@
                 cashierFiatAmount: 0,
                 availableCurrencies: [
                     { code: 'eth', name: 'ETH', icon: 'eth' },
-                    { code: 'bnb', name: 'BNB', icon: 'bnb' }
+                    { code: 'bnb', name: 'BNB', icon: 'bnb' },
+                    { code: 'solana', name: 'SOL', icon: 'sol' },
+                    { code: 'tron', name: 'TRON', icon: 'trx' }
                 ]
             }
         },
@@ -139,7 +141,11 @@
                         'eth': 'ether',
                         'bnb': 'bnb',
                         'trx': 'trx',
-                        'sol': 'solana'
+                        'tron': 'trx',
+                        'sol': 'solana',
+                        'solana': 'solana',
+                        'usdt': 'usdt',
+                        'usdc': 'usdc'
                     };
                     
                     if (cryptoImageMap[iconName]) {
@@ -279,7 +285,7 @@
         width: 100%;
         height: 60px;
         border-radius: 8px;
-        background: var(--bg-tertiary);
+        background: var(--bg-blue-chat);
         border: 1px solid rgba(212, 165, 116, 0.3);
         position: relative;
     }
@@ -452,7 +458,7 @@
         position: relative;
         display: flex;
         align-items: center;
-        background: var(--bg-tertiary);
+        background: var(--bg-blue-chat);
         border: 1px solid rgba(212, 165, 116, 0.3);
         border-radius: 8px;
         padding: 0 12px 0 44px;

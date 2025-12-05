@@ -347,8 +347,7 @@
         align-items: center;
         margin-top: 7px;
         border-radius: 10px 0 10px 10px;
-        background: radial-gradient(160% 160% at 50% -30%, #131F30 0%, #0A1320 100%), 
-                    linear-gradient(255deg, #131F30 0%, #131F30 100%);
+        background: var(--bg-blue-dark);
         box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
     }
 
@@ -372,7 +371,7 @@
         padding: 0 15px;
         font-size: 12px;
         font-weight: 600;
-        color: var(--accent-yellow);
+        color: #ffffff;
         border-bottom: 1px solid rgba(24, 72, 109, 0.5);
         transition: color 0.3s ease;
     }
@@ -397,7 +396,7 @@
      .navbar-user-dropdown .menu-inner a svg {
          width: 13px;
          margin-right: 8px;
-         fill: var(--accent-yellow);
+         fill: #ffffff;
      }
 
     /* Mobile styles - hide username/level, show only avatar and arrow */

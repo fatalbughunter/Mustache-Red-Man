@@ -22,6 +22,13 @@
                     @switch-to-signup="handleSignUpRequest"
                 />
                 
+                <!-- Sign Up Modal (for game pages) -->
+                <SignupModal 
+                    :show="showSignupModal" 
+                    @close="showSignupModal = false"
+                    @switch-to-signin="handleSignInRequest"
+                />
+                
                 <!-- Notifications - Placed last to ensure highest priority and visibility above modals -->
                 <Notifications />
             </div>
@@ -41,6 +48,7 @@
     import Modals from '@/components/modals/Modals';
     import Notifications from '@/components/notifications/Notifications';
     import SignInModal from '@/components/SignInModal.vue';
+    import SignupModal from '@/components/SignupModal.vue';
 
     export default {
         components: {
@@ -52,13 +60,15 @@
             Footer,
             Modals,
             Notifications,
-            SignInModal
+            SignInModal,
+            SignupModal
         },
         data() {
             return {
                 sidebarCollapsed: false,
                 windowWidth: window.innerWidth,
-                showSignInModal: false
+                showSignInModal: false,
+                showSignupModal: false
             };
         },
         methods: {
@@ -70,11 +80,12 @@
                 this.windowWidth = window.innerWidth;
             },
             handleSignInRequest() {
+                this.showSignupModal = false;
                 this.showSignInModal = true;
             },
             handleSignUpRequest() {
                 this.showSignInModal = false;
-                // Could open signup modal here if needed
+                this.showSignupModal = true;
             }
         },
         computed: {
@@ -160,10 +171,13 @@
             
             // Listen for sign in modal requests from Header (for game pages)
             this.$root.$on('open-signin-modal-app', this.handleSignInRequest);
+            // Listen for sign up modal requests from Header (for game pages)
+            this.$root.$on('open-signup-modal-app', this.handleSignUpRequest);
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.onResize);
             this.$root.$off('open-signin-modal-app', this.handleSignInRequest);
+            this.$root.$off('open-signup-modal-app', this.handleSignUpRequest);
         }
     }
 </script>
@@ -200,7 +214,7 @@
         overflow-y: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;
-         background: var(--bg-primary-blue);
+         background: var(--bg-blue-dark);
         transition: right 0.3s ease, width 0.3s ease, left 0.3s ease;
     }
 

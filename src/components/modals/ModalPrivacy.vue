@@ -104,7 +104,7 @@
         align-items: center;
         padding: 30px 30px 0 30px;
         border-radius: 15px;
-        background: var(--bg-primary-blue);
+        background: var(--bg-blue-dark);
     }
 
     .modal-privacy .privacy-header {
