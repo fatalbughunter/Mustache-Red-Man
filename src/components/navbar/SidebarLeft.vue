@@ -306,7 +306,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         min-height: 0;
-        max-height: 320px;
+        max-height: 380px;
         transition: padding 0.3s ease;
     }
     .sidebar-title { 

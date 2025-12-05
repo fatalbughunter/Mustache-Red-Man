@@ -84,7 +84,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #072435;
+        background-color: var(--bg-blue-chat);
         clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 25%, 100% 75%, calc(100% - 4px) 100%, 4px 100%, 0 75%, 0 25%);
     }
 
@@ -95,13 +95,13 @@
         position: absolute;
         top: -2px;
         left: 0;
-        background: #1c5064;
+        background: var(--accent-blue-light);
         clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 25%, 100% 75%, calc(100% - 3px) 100%, 3px 100%, 0 75%, 0 25%);
         transition: all 0.3s ease;
     }
 
     .admin-settings-toggle button.button-active::after {
         transform: translate(20px, 0);
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
+        background: var(--gradient-button-bg);
     }
 </style>

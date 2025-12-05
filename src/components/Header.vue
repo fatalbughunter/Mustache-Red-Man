@@ -1320,10 +1320,53 @@ export default {
     min-width: 140px;
 }
 
+.user-balance-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at 0% 50%,
+        rgba(222, 199, 156, 0.1) 0%,
+        transparent 50%
+    );
+    opacity: 0;
+    animation: backgroundPulse 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.user-balance-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(222, 199, 156, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+}
+
 .user-balance-badge:hover {
-    border-color: var(--accent-yellow);
-    box-shadow: 0 4px 15px rgba(222, 199, 156, 0.4);
+    border-color: var(--accent-yellow-main);
+    box-shadow: 
+        0 4px 15px rgba(222, 199, 156, 0.4),
+        0 0 20px rgba(222, 199, 156, 0.2),
+        inset 0 0 15px rgba(222, 199, 156, 0.1);
     transform: translateY(-1px);
+}
+
+.user-balance-badge:hover::before {
+    animation: shimmer 1.5s infinite;
 }
 
 .balance-badge-coupon {
@@ -1334,6 +1377,8 @@ export default {
     width: 12px;
     height: 100%;
     border-right: 1px dashed var(--accent-yellow);
+    z-index: 2;
+    animation: couponPulse 2s ease-in-out infinite;
 }
 
 .balance-badge-coupon::before {
@@ -1346,6 +1391,48 @@ export default {
     height: 4px;
     background: var(--accent-yellow);
     border-radius: 50%;
+    box-shadow: 
+        0 0 8px var(--accent-yellow),
+        0 0 12px var(--accent-yellow-main),
+        0 0 16px rgba(222, 199, 156, 0.5);
+    animation: couponGlow 2s ease-in-out infinite;
+}
+
+.balance-badge-coupon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--accent-yellow-main) 20%,
+        var(--accent-yellow) 50%,
+        var(--accent-yellow-main) 80%,
+        transparent 100%
+    );
+    opacity: 0.6;
+    animation: couponShine 2.5s ease-in-out infinite;
+}
+
+.user-balance-badge:hover .balance-badge-coupon {
+    animation: couponPulse 1s ease-in-out infinite;
+}
+
+.user-balance-badge:hover .balance-badge-coupon::before {
+    animation: couponGlow 1s ease-in-out infinite;
+    box-shadow: 
+        0 0 12px var(--accent-yellow),
+        0 0 18px var(--accent-yellow-main),
+        0 0 24px rgba(222, 199, 156, 0.7);
+}
+
+.user-balance-badge:hover .balance-badge-coupon::after {
+    animation: couponShine 1.5s ease-in-out infinite;
+    opacity: 0.9;
 }
 
 .balance-badge-content {
@@ -1390,12 +1477,13 @@ export default {
 
 .balance-badge-sparkles .sparkle {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 3px;
+    height: 3px;
     background: var(--accent-yellow);
     border-radius: 50%;
-    opacity: 0.4;
+    opacity: 0.5;
     animation: sparkle 3s infinite;
+    box-shadow: 0 0 4px var(--accent-yellow-main);
 }
 
 .balance-badge-sparkles .sparkle:nth-child(1) {
@@ -1430,13 +1518,83 @@ export default {
 
 @keyframes sparkle {
     0%, 100% {
-        opacity: 0.2;
+        opacity: 0.3;
         transform: scale(0.8);
+        box-shadow: 0 0 2px var(--accent-yellow-main);
     }
     50% {
-        opacity: 0.6;
-        transform: scale(1.2);
+        opacity: 0.8;
+        transform: scale(1.4);
+        box-shadow: 0 0 6px var(--accent-yellow-main), 0 0 8px var(--accent-yellow);
     }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+@keyframes couponPulse {
+    0%, 100% {
+        border-color: var(--accent-yellow);
+        opacity: 1;
+    }
+    50% {
+        border-color: var(--accent-yellow-main);
+        opacity: 0.8;
+    }
+}
+
+@keyframes couponGlow {
+    0%, 100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 
+            0 0 8px var(--accent-yellow),
+            0 0 12px var(--accent-yellow-main),
+            0 0 16px rgba(222, 199, 156, 0.5);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.3);
+        box-shadow: 
+            0 0 12px var(--accent-yellow),
+            0 0 18px var(--accent-yellow-main),
+            0 0 24px rgba(222, 199, 156, 0.7);
+    }
+}
+
+@keyframes couponShine {
+    0% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(-100%);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateX(-50%) translateY(0%);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(100%);
+    }
+}
+
+@keyframes backgroundPulse {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.user-balance-badge:hover::after {
+    animation: backgroundPulse 1.5s ease-in-out infinite;
+    opacity: 0.5;
 }
 
 /* NavbarUserDropdown is now used - styles are in NavbarUserDropdown.vue */
@@ -1510,6 +1668,35 @@ export default {
     bottom: calc(100% + 10px);
     right: 0;
     min-width: 200px;
+}
+
+/* Desktop-only animations for balance badge */
+@media only screen and (min-width: 1025px) {
+    .user-balance-badge {
+        animation: badgeFloat 4s ease-in-out infinite;
+    }
+    
+    .user-balance-badge:hover {
+        animation: badgeFloatHover 2s ease-in-out infinite;
+    }
+    
+    @keyframes badgeFloat {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-1px);
+        }
+    }
+    
+    @keyframes badgeFloatHover {
+        0%, 100% {
+            transform: translateY(-1px);
+        }
+        50% {
+            transform: translateY(-3px);
+        }
+    }
 }
 
 /* Pin header to bottom on mobile - unified mobile menu */

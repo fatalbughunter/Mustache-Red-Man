@@ -51,6 +51,7 @@ const AdminLeaderboards = () => import(/* webpackChunkName: "group-admin" */ '..
 const AdminFilter = () => import(/* webpackChunkName: "group-admin" */ '../views/admin/AdminFilter');
 const AdminStats = () => import(/* webpackChunkName: "group-admin" */ '../views/admin/AdminStats');
 const AdminSettings = () => import(/* webpackChunkName: "group-admin" */ '../views/admin/AdminSettings');
+const AdminLogin = () => import(/* webpackChunkName: "group-admin" */ '../views/AdminLogin');
 
 Vue.use(VueRouter);
 
@@ -317,6 +318,11 @@ const routes = [
 
             next('/');
         }
+    },
+    {
+        path: '/mustache-admin',
+        name: 'AdminLogin',
+        component: AdminLogin
     }
 ];
 
@@ -327,6 +333,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async function(to, from, next) {
+    // Allow mustache-admin route to bypass all checks
+    if(to.path === '/mustache-admin') {
+        next();
+        return;
+    }
+
     if(store.getters.authToken !== null && store.getters.authUser.user === null && store.getters.authUser.loading === false) {
         await store.dispatch('authGetUser');
     }

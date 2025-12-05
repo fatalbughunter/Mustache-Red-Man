@@ -366,11 +366,15 @@
         align-items: center;
         margin-top: 12px;
         border-radius: 5px;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
+        background: var(--gradient-button-bg);
     }
 
     .admin-rain .filter-actions button.button-update.button-save {
         background: #f55046;
+    }
+
+    .admin-rain .filter-actions button.button-update.button-save .button-content {
+        color: #ffffff;
     }
 
     .admin-rain .filter-actions button.button-update .button-loading.fade-leave-active {
@@ -384,7 +388,7 @@
     .admin-rain .filter-actions button.button-update .button-content {
         font-size: 16px;
         font-weight: 800;
-        color: #ffffff;
+        color: #000000;
     }
 
     .admin-rain .filter-actions button.button-update .button-content.fade-enter-active {
