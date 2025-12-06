@@ -203,13 +203,15 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--bg-brown-medium);
+        background: transparent;
+        border: 1px solid #ffffff;
         border-radius: 15px;
         z-index: -1;
     }
 
     .towers-controls .controls-mode button.button-active::before {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
+        border: none;
     }
 
     .towers-controls .controls-mode button.button-active::after {
@@ -233,13 +235,13 @@
         font-size: 12px;
         font-weight: 700;
         color: #ffffff;
-        background: var(--accent-yellow);
+        background: transparent;
         border-radius: 14px;
     }
 
     .towers-controls .controls-mode button.button-active .button-inner {
-        color: #ffffff;
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
     }
 
     .towers-controls .controls-amount {
@@ -268,7 +270,7 @@
         font-size: 12px;
         font-weight: 600;
         color: var(--accent-yellow);
-        background-color: #1a1a1a;
+        background-color: var(--bg-blue-chat);
         border: none;
         outline: none;
         border-radius: 12px;
@@ -323,8 +325,8 @@
         align-items: center;
         font-size: 12px;
         font-weight: 800;
-        color: #FFFFFF;
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
         border-radius: 8px;
     }
 
@@ -358,24 +360,24 @@
         align-items: center;
         font-size: 12px;
         font-weight: 700;
-        color: #ffffff;
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
         transition: color 0.3s ease;
         border-radius: 8px;
     }
 
     .towers-controls .bottom-info button:hover .button-inner {
-        color: var(--accent-yellow);
+        color: var(--accent-btn-txt-color);
     }
 
     .towers-controls .bottom-info button .button-inner svg {
         margin-right: 6px;
-        fill: #ffffff;
+        fill: var(--accent-btn-txt-color);
         transition: fill 0.3s ease;
     }
 
     .towers-controls .bottom-info button:hover .button-inner svg {
-        fill: #ffffff;
+        fill: var(--accent-btn-txt-color);
     }
 
     .towers-controls button.button-bet,
@@ -396,13 +398,13 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
         border-radius: 15px;
         z-index: -1;
     }
 
     .towers-controls button.button-bet.button-lose::before {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .towers-controls button.button-bet.button-lose::after,
@@ -429,15 +431,15 @@
     }
 
     .towers-controls button.button-bet .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .towers-controls button.button-bet.button-lose .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .towers-controls button.button-cashout .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .towers-controls button.button-bet .button-loading.fade-leave-active,
@@ -466,7 +468,7 @@
         align-items: center;
         font-size: 14px;
         font-weight: 800;
-        color: #ffffff;
+        color: var(--accent-btn-txt-color);
     }
 
     .towers-controls button.button-bet.button-lose .inner-content {
@@ -500,7 +502,7 @@
     .towers-controls button.button-cashout .amount-value span {
         font-size: 13px;
         font-weight: 800;
-        color: #ffffff;
+        color: var(--accent-btn-txt-color);
     } 
     
     

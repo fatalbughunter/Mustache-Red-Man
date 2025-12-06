@@ -2,6 +2,12 @@
     <div class="popular-games">
         <div class="section-header">
             <h2 class="section-title">Popular Games</h2>
+            <router-link to="/our-casino" class="see-all-link">
+                <span>See All</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </router-link>
         </div>
         <div class="games-carousel-wrapper">
             <div class="games-carousel" :class="{ 'paused': isPaused }" @mouseenter="pauseCarousel" @mouseleave="resumeCarousel">
@@ -59,7 +65,7 @@ export default {
             ],
             carouselOffset: 0,
             isPaused: false,
-            cardWidth: 256, // max-width (240px) + gap (16px)
+            cardWidth: 196, // max-width (180px) + gap (16px)
             animationFrameId: null
         }
     },
@@ -131,7 +137,7 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     margin: 0 0 var(--spacing-xl) 0;
     padding: var(--spacing-lg) 0;
 }
@@ -139,17 +145,47 @@ export default {
 .section-title {
     font-size: 32px;
     font-weight: 900;
-    text-align: center;
+    text-align: left;
     margin: 0;
-    color: var(--accent-yellow-main);
-    text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.8),
-        0 0 20px rgba(222, 199, 156, 0.5),
-        0 0 40px rgba(222, 199, 156, 0.3);
+    background: var(--gradient-main-txt);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
     display: inline-block;
+}
+
+.see-all-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gradient-main-txt);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.see-all-link:hover {
+    color: var(--accent-yellow-main);
+    transform: translateX(2px);
+}
+
+.see-all-link svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    transition: transform 0.3s ease;
+}
+
+.see-all-link:hover svg {
+    transform: translateX(2px);
 }
 
 /* Copper bolts removed */
@@ -183,7 +219,7 @@ export default {
 .games-carousel-track .game-card {
     flex-shrink: 0;
     width: 100%;
-    max-width: 240px;
+    max-width: 180px;
 }
 
 /* Games Grid - now used in carousel */
@@ -197,15 +233,14 @@ export default {
 }
 
 .game-card {
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 12px;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
-    aspect-ratio: 16/10;
+    aspect-ratio: 1/1;
     width: 100%;
-    max-width: 240px;
+    max-width: 180px;
     display: flex;
     flex-direction: column;
     background: transparent;
@@ -213,7 +248,7 @@ export default {
         0 4px 15px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.2),
         inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-    border: none;
+    border: 1px solid var(--accent-yellow);
 }
 
 /* Corner bolts removed */
@@ -245,40 +280,45 @@ export default {
 .game-screen.casino-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/crash.png');
-    background-size: cover;
-    background-position: top;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
 }
 
 .game-screen.card2-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/mines.png');
-    background-size: cover;
-    background-position: bottom;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
 }
 
 .game-screen.card3-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/cases_battle.png');
-    background-size: cover;
-    background-position: bottom;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
 }
 
 .game-screen.card4-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/towers.png');
-    background-size: cover;
-    background-position: bottom;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
 }
 
 .game-screen.card5-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/black_jack.png');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     color: white;
 }
 
@@ -431,7 +471,7 @@ export default {
 }
 
 .play-button {
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
     border: none;
     border-radius: 0 0 4px 4px;
     color: #000000;
@@ -463,33 +503,34 @@ export default {
 }
 
 .game-card:nth-child(1) .play-button {
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
 }
 
 .game-card:nth-child(2) .play-button {
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
 }
 
 .game-card:nth-child(3) .play-button {
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
 }
 
 .game-card:nth-child(4) .play-button {
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
 }
 
 .game-card:nth-child(5) .play-button {
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
 }
 
 .game-card:nth-child(n+6) .play-button {
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
 }
 
 .play-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(222, 199, 156, 0.7);
-    background: rgba(222, 199, 156, 0.9);
+    background: var(--gradient-button-bg);
+    opacity: 0.9;
 }
 
 /* Game-specific styling - First card has casino background */

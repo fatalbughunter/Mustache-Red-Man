@@ -81,7 +81,7 @@
         align-items: center;
         padding: 35px 36px 0 0;
         border-radius: 15px;
-        background: var(--bg-primary);
+        background: var(--bg-blue-dark);
     }
 
     .modal-chat-rules::after {
@@ -92,7 +92,7 @@
         bottom: 0;
         left: 0;
         border-radius: 0 0 15px 15px;
-        background: linear-gradient(0deg, var(--bg-primary) 0%, rgba(13, 13, 13, 0) 100%);
+        background: linear-gradient(0deg, var(--bg-blue-dark) 0%, rgba(13, 13, 13, 0) 100%);
     }
 
     .modal-chat-rules .rules-title {

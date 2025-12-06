@@ -13,16 +13,29 @@
             </div>
         </div>
         
+        <!-- Text Overlay with Button (outside v-for for better event handling) -->
+        <div class="hero-banner-text-wrapper">
+            <div class="hero-banner-text" v-if="currentImageIndex === 0">
+                <h1 class="hero-title">Sign Up & Start Winning</h1>
+                <p class="hero-subtitle">Create your account today and receive instant rewards to begin your winning journey</p>
+                <button class="hero-play-button" @click="handlePlayNowClick">
+                    PLAY NOW
+                </button>
+            </div>
+            <div class="hero-banner-text" v-if="currentImageIndex === 1">
+                <h1 class="hero-title">Weekly Dream Bonus</h1>
+                <p class="hero-subtitle-2">Claim your exclusive weekly reward and boost your chances instantly</p>
+                <button class="hero-play-button" @click="handlePlayNowClick">
+                    PLAY NOW
+                </button>
+            </div>
+        </div>
+        
         <!-- Content Overlay -->
         <div class="hero-overlay">
             <div class="hero-content">
                 <div class="hero-left">
                     <div class="hero-glow-circle"></div>
-                </div>
-                <div class="hero-right">
-                    <button class="hero-play-button" @click="handlePlayNowClick">
-                        PLAY NOW
-                    </button>
                 </div>
             </div>
         </div>
@@ -92,12 +105,15 @@ export default {
 <style scoped>
 .hero-banner {
     position: relative;
-    margin: 0px;
+    margin: 12px 100px 12px 100px;
+    padding: var(--spacing-lg);
     overflow: hidden;
-    min-height: 600px;
+    min-height: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid var(--accent-blue-dark);
+    border-radius: 25px;
 }
 
 /* Desert Background Container */
@@ -136,6 +152,66 @@ export default {
     opacity: 1;
 }
 
+/* Hero Banner Text Overlay Wrapper */
+.hero-banner-text-wrapper {
+    position: absolute;
+    left: var(--spacing-2xl);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: auto;
+    max-width: 60%;
+}
+
+/* Hero Banner Text Overlay (with button) */
+.hero-banner-text-wrapper .hero-banner-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.hero-title {
+    color: var(--gradient-title-text);
+    font-family: 'Anton SC', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 64px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin: 0;
+    padding: 0;
+    background: var(--gradient-title-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: 0%;
+    margin: 0;
+    margin-top: var(--spacing-md);
+    padding: 0;
+}
+
+.hero-subtitle-2 {
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: 0%;
+    margin: 0;
+    margin-top: var(--spacing-md);
+    padding: 0;
+}
+
 .desert-sun {
     position: absolute;
     top: -100px;
@@ -171,15 +247,15 @@ export default {
     gap: var(--spacing-2xl);
 }
 
-.hero-left {
-    flex: 1;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 400px;
-    padding-left: var(--spacing-2xl);
-}
+    .hero-left {
+        flex: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 300px;
+        padding-left: var(--spacing-2xl);
+    }
 
 .hero-glow-circle {
     width: 300px;
@@ -216,7 +292,7 @@ export default {
 
 .hero-play-button {
     padding: var(--spacing-lg) var(--spacing-2xl);
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
     color: var(--bg-menu-sidebar);
     border: none;
     border-radius: var(--radius-md);
@@ -232,6 +308,11 @@ export default {
         inset 0 2px 10px rgba(255, 255, 255, 0.3);
     position: relative;
     overflow: hidden;
+    width: fit-content;
+    margin-top: var(--spacing-md);
+    align-self: flex-start;
+    pointer-events: auto;
+    z-index: 5;
 }
 
 .hero-play-button::before {
@@ -263,7 +344,7 @@ export default {
 
 @media only screen and (max-width: 1024px) {
     .hero-banner {
-        min-height: 400px;
+        min-height: 350px;
     }
     
     .hero-content {
@@ -278,12 +359,6 @@ export default {
         padding-left: 0;
     }
     
-    .hero-right {
-        align-items: center;
-        text-align: center;
-        padding: 0;
-    }
-    
     .hero-glow-circle {
         width: 200px;
         height: 200px;
@@ -295,22 +370,42 @@ export default {
         padding: var(--spacing-md) var(--spacing-xl);
         font-size: 20px;
     }
+    
+    .hero-title {
+        font-size: 48px;
+    }
+    
+    .hero-subtitle {
+        font-size: 14px;
+        line-height: 22px;
+    }
+    
+    .hero-subtitle-2 {
+        font-size: 14px;
+        line-height: 22px;
+    }
+    
+    .hero-banner-text {
+        left: var(--spacing-lg);
+        max-width: 70%;
+    }
 }
 
 @media only screen and (max-width: 768px) {
     .hero-banner {
-        margin: 0;
-        min-height: 350px;
-        max-height: 500px;
+        margin: var(--spacing-md);
+        padding: var(--spacing-md);
+        min-height: 280px;
+        max-height: 400px;
     }
     
     .hero-desert-bg-container {
-        min-height: 350px;
+        min-height: 280px;
     }
     
     .hero-overlay {
         padding: var(--spacing-lg) var(--spacing-md);
-        min-height: 350px;
+        min-height: 280px;
     }
     
     .hero-content {
@@ -328,20 +423,14 @@ export default {
         padding-left: 0;
     }
     
-    .hero-right {
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-    }
-    
     .hero-play-button {
         padding: var(--spacing-md) var(--spacing-lg);
         font-size: 16px;
         letter-spacing: 1px;
         width: auto;
         min-width: 140px;
-        margin-top: 47px;
+        margin-top: var(--spacing-md);
+        align-self: flex-start;
     }
     
     .hero-glow-circle {
@@ -351,6 +440,28 @@ export default {
         transform: translateX(-50%);
     }
     
+    .hero-title {
+        font-size: 36px;
+    }
+    
+    .hero-subtitle {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    
+    .hero-subtitle-2 {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    
+    .hero-banner-text {
+        left: var(--spacing-md);
+        max-width: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
     .desert-sun {
         display: none;
     }
@@ -358,17 +469,19 @@ export default {
 
 @media only screen and (max-width: 480px) {
     .hero-banner {
-        min-height: 300px;
-        max-height: 400px;
+        margin: var(--spacing-sm);
+        padding: var(--spacing-sm);
+        min-height: 250px;
+        max-height: 350px;
     }
     
     .hero-desert-bg-container {
-        min-height: 300px;
+        min-height: 250px;
     }
     
     .hero-overlay {
         padding: var(--spacing-md);
-        min-height: 300px;
+        min-height: 250px;
     }
     
     .hero-content {
@@ -390,6 +503,28 @@ export default {
     .hero-glow-circle {
         width: 100px;
         height: 100px;
+    }
+    
+    .hero-title {
+        font-size: 28px;
+    }
+    
+    .hero-subtitle {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    
+    .hero-subtitle-2 {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    
+    .hero-banner-text {
+        left: var(--spacing-sm);
+        max-width: 85%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
     }
 }
 

@@ -74,7 +74,7 @@
         align-items: center;
         padding: 35px 30px 30px 30px;
         border-radius: 20px;
-        background: var(--bg-primary-blue);
+        background: var(--bg-blue-dark);
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
     }

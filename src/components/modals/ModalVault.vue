@@ -167,7 +167,7 @@
         align-items: center;
         padding: 35px 30px 30px 30px;
         border-radius: 15px;
-        background: var(--bg-primary-blue);
+        background: var(--bg-blue-dark);
     }
 
     .modal-vault .vault-header {
@@ -345,7 +345,7 @@
         font-size: 14px;
         font-weight: 600;
         color: #ffffff;
-        background: var(--bg-blue-dark);
+        background: var(--bg-blue-chat);
     }
 
     .modal-vault .vault-amount input::placeholder {
@@ -426,7 +426,7 @@
         font-size: 14px;
         font-weight: 400;
         color: #bbbfcf;
-        background: var(--bg-blue-dark);
+        background: var(--bg-blue-chat);
         -webkit-appearance: none;
         -moz-appearance: none;
     }

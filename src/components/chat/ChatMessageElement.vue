@@ -194,7 +194,7 @@
 
     .chat-message-element.element-rain {     /* right side chat grid */
         padding: 15px 15px 15px 14px;
-        background: var(--bg-primary-blue);
+       /* background: var(--bg-primary-blue); */
     }
 
     .chat-message-element.element-system {
@@ -223,7 +223,7 @@
         top: -1px;
         left: 50%;
         transform: translate(-50%, 0);
-        background: linear-gradient(180deg, #1A1A1A 0%, #2A2A2A 100% );
+        background: var(--bg-blue-chat);
     }
 
     .chat-message-element.element-rain::after,
@@ -235,7 +235,7 @@
         bottom: -1px;
         left: 50%;
         transform: translate(-50%, 0);
-        background: linear-gradient(180deg, #1A1A1A 0%, #2A2A2A 100% );
+        background: var(--bg-blue-chat);
     }
 
     .chat-message-element:first-of-type {

@@ -123,8 +123,8 @@
     }
 
     .profile-stats .stats-element.element-profit .element-amount::before {
-        background: linear-gradient(180deg, rgba(222, 184, 135, 0.3) 25%, rgba(184, 115, 51, 0.5) 100%);
-    }
+       /* background: linear-gradient(180deg, rgba(222, 184, 135, 0.3) 25%, rgba(184, 115, 51, 0.5) 100%);
+    */}
 
     .profile-stats .stats-element.element-negative .element-amount::before {
        /* background: linear-gradient(180deg, rgba(205, 127, 50, 0.3) 25%, rgba(139, 0, 0, 0.5) 100%);
@@ -147,7 +147,7 @@
     }
 
     .profile-stats .stats-element.element-negative .amount-inner {
-        background: radial-gradient(80% 80% at 50% 50%, rgba(220, 20, 60, 0.1) 0%, rgba(0, 0, 0, 0) 100%), var(--bg-blue-dark);
+        background: var(--bg-blue-chat);
     }
 
     .profile-stats .amount-inner img {

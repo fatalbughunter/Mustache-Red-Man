@@ -274,7 +274,7 @@
         font-size: 12px;
         font-weight: 600;
         color: var(--accent-yellow);
-        background-color: #1a1a1a;
+        background-color: var(--bg-blue-chat);
         border: none;
         outline: none;
         border-radius: 12px;
@@ -329,8 +329,8 @@
         align-items: center;
         font-size: 12px;
         font-weight: 800;
-        color: #FFFFFF;
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
         border-radius: 8px;
     }
 
@@ -373,7 +373,7 @@
         height: 19px;
         -webkit-appearance: none;
         appearance: none;
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
         border-radius: 8px;
         border: none;
         cursor: pointer;
@@ -383,7 +383,7 @@
     .mines-controls .top-slider input::-moz-range-thumb {
         width: 25px;
         height: 19px;
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
         border-radius: 8px;
         border: none;
         cursor: pointer;
@@ -453,13 +453,13 @@
         justify-content: center;
         font-size: 12px;
         font-weight: 600;
-        color: #FFFFFF;
-        background-color: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background-color: var(--gradient-button-bg);
         border-radius: 8px;
     }
 
     .mines-controls .mines-content button.button-active .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .mines-controls .content-input {
@@ -538,27 +538,27 @@
         align-items: center;
         border-radius: 12px;
         border: 1px solid var(--accent-yellow);
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .mines-controls button.button-bet .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .mines-controls button.button-cashout .button-inner {
-        background: var(--bg-brown-medium);
+        background: var(--gradient-button-bg);
     }
 
     .mines-controls button.button-auto .button-inner {
         font-size: 14px;
         font-weight: 700;
-        color: var(--accent-yellow);
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
         transition: color 0.3s ease;
     }
 
     .mines-controls button.button-auto:enabled:hover .button-inner {
-        color: var(--accent-yellow);
+        color: var(--accent-btn-txt-color);
     }
 
     .mines-controls button.button-bet .button-loading.fade-leave-active,
@@ -587,7 +587,7 @@
         align-items: center;
         font-size: 15px;
         font-weight: 800;
-        color: var(--accent-yellow);
+        color: var(--accent-btn-txt-color);
     }
 
     .mines-controls button.button-cashout .content-amount {
@@ -611,7 +611,7 @@
     .mines-controls button.button-cashout .amount-value span {
         font-size: 13px;
         font-weight: 800;
-        color: var(--accent-yellow);
+        color: var(--accent-btn-txt-color);
     }
 
     .mines-controls .controls-info {
@@ -638,20 +638,20 @@
         align-items: center;
         font-size: 12px;
         font-weight: 700;
-        color: var(--accent-yellow);
-        background: var(--bg-brown-medium);
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
         border: 1px solid var(--accent-yellow);
         transition: color 0.3s ease;
         border-radius: 8px;
     }
 
     .mines-controls .controls-info button:hover .button-inner {
-        color: var(--accent-yellow);
+        color: var(--accent-btn-txt-color);
     }
 
     .mines-controls .controls-info button .button-inner svg {
         margin-right: 6px;
-        fill: var(--accent-yellow);
+        fill: var(--accent-btn-txt-color);
         transition: fill 0.3s ease;
     }
 

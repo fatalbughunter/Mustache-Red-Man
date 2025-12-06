@@ -181,9 +181,13 @@ export default {
 .section-title {
     font-size: 32px;
     font-weight: 900;
-    text-align: center;
+    text-align: left;
     margin: 0 0 var(--spacing-xl) 0;
-    color: var(--accent-yellow-main);
+    background: var(--gradient-main-txt);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
 }
 
 .feed-tabs {
@@ -215,7 +219,7 @@ export default {
 }
 
 .tab-button.active {
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
     color: #1a1a1a;
 }
 
@@ -224,7 +228,7 @@ export default {
 }
 
 .feed-table {
-    max-width: 1050px;
+   /* max-width: 1050px;*/
     margin: 0 auto;
     background: var(--bg-secondary);
     border-radius: var(--radius-lg);
@@ -240,7 +244,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 0 35px;
-    background: var(--bg-tertiary);
+    background: var(--accent-blue-dark);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -306,17 +310,6 @@ export default {
     position: relative;
 }
 
-.feed-table::after {
-    content: '';
-    width: 100%;
-    height: 28px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(0deg, rgba(26, 26, 26, 0.75) 0%, rgba(26, 26, 26, 0) 100%);
-    z-index: 1;
-    pointer-events: none;
-}
 
 .content-loading {
     width: 100%;

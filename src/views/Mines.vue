@@ -49,18 +49,11 @@
         flex-direction: column;
         align-items: center;
         padding: 45px 10px;
-        background: var(--bg-primary-blue);
+        background: var(--bg-blue-dark);
         min-height: 100vh;
-        justify-items: center;
-    }
-
-    @keyframes twinkle {
-        0% { opacity: 0.3; }
-        100% { opacity: 1; }
     }
 
     .mines .mines-container {
-       /* width: 100%; */
         display: flex;
         margin: 0 150px 0 150px;
         position: relative;
@@ -68,31 +61,25 @@
     }
 
     @media only screen and (max-width: 1150px) {
-
         .mines {
             padding: 25px 10px 45px 10px;
         }
 
         .mines .mines-container {
             width: 100%;
-            margin:0;
+            margin: 0;
         }
-
     }
 
     @media only screen and (max-width: 950px) {
-
         .mines {
             padding: 25px 10px 443px 10px;
         }
-
     }
 
     @media only screen and (max-width: 850px) {
-
         .mines .mines-container {
             flex-direction: column-reverse;
         }
-
     }
 </style>

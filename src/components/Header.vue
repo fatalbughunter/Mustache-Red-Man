@@ -1,10 +1,26 @@
 <template>
     <header class="header" :class="{ 'header-below-banner': isHomePage }">
         <div class="header-container">
-            <!-- Logo Image -->
-            <router-link to="/" class="header-logo-title">
-                <img src="@/assets/img/headerLogo.png" alt="Mustache Casino" class="header-logo-img">
-            </router-link>
+            <!-- Left Section: Menu Button and Logo -->
+            <div class="header-left-section">
+                <!-- Desktop Menu Button -->
+                <button class="header-menu-toggle-desktop" :class="{ 'sidebar-collapsed': sidebarCollapsed }" @click="toggleSidebarDesktop">
+                    <svg width="28" height="14" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Three horizontal lines (hamburger menu) -->
+                        <rect x="0" y="0" width="14" height="2.5" fill="currentColor"/>
+                        <rect x="0" y="5.5" width="14" height="2.5" fill="currentColor"/>
+                        <rect x="0" y="11" width="14" height="2.5" fill="currentColor"/>
+                        <!-- Left-pointing chevron (when menu is open) -->
+                        <path class="header-chevron-left" d="M20 1L16 6L20 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <!-- Right-pointing chevron (when menu is closed) -->
+                        <path class="header-chevron-right" d="M16 1L20 6L16 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </button>
+                <!-- Logo Image -->
+                <router-link to="/" class="header-logo-title">
+                    <img src="@/assets/img/headerLogo.png" alt="Mustache Casino" class="header-logo-img">
+                </router-link>
+            </div>
             <!-- Navigation Menu -->
             <nav class="header-nav" style="display: none;">
                 <router-link to="/" class="nav-link">HOME</router-link>
@@ -97,10 +113,26 @@
                 <!-- Show Sign In/Register when not logged in -->
                 <template v-if="authUser.user === null">
                     <button class="btn-signin" @click="handleSignInClick">Sign In</button>
+                    <button class="btn-signup" @click="handleSignUpClick">Sign Up</button>
                 </template>
                 
                 <!-- Show user info when logged in -->
                 <template v-else>
+                    <!-- User Balance Badge -->
+                    <div class="user-balance-badge" @click="handleBalanceClick">
+                        <div class="balance-badge-coupon"></div>
+                        <div class="balance-badge-content">
+                            <span class="balance-amount-text">${{ formatBalance(authUser.user.balance) }}</span>
+                            <span class="balance-label-text">BALANCE</span>
+                        </div>
+                        <div class="balance-badge-sparkles">
+                            <span class="sparkle"></span>
+                            <span class="sparkle"></span>
+                            <span class="sparkle"></span>
+                            <span class="sparkle"></span>
+                            <span class="sparkle"></span>
+                        </div>
+                    </div>
                     <!-- Use NavbarUserDropdown component like on game pages -->
                     <NavbarUserDropdown />
                 </template>
@@ -112,7 +144,7 @@
                     <svg v-if="generalDesktopChatOpen" class="chat-slash-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <line x1="4" y1="4" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
-                    <img src="@/assets/img/icons/mobileChat.png" alt="Chat" class="chat-icon-mobile" />
+                    <img src="@/assets/img/icons/live-chat.svg" alt="Chat" class="chat-icon-mobile" />
                 </button>
             </div>
         </div>
@@ -134,7 +166,7 @@
                 <NavbarUserDropdown />
             </div>
             <button class="mobile-btn mobile-btn-chat" @click="toggleChat">
-                <img src="@/assets/img/icons/mobileChat.png" alt="Chat" class="mobile-btn-icon" />
+                <img src="@/assets/img/icons/live-chat.svg" alt="Chat" class="mobile-btn-icon" />
             </button>
         </div>
         
@@ -157,17 +189,32 @@ export default {
             dropdownPosition: {
                 top: '0px',
                 left: '0px'
-            }
+            },
+            sidebarCollapsed: false
         }
     },
     methods: {
         ...mapActions(['generalSetSidebarMobile', 'generalSetDesktopChatOpen', 'authLogoutUser', 'modalsSetShow', 'modalsSetData']),
+        updateSidebarState() {
+            const sidebar = document.querySelector('aside#sidebar-left');
+            if (sidebar) {
+                this.sidebarCollapsed = sidebar.classList.contains('collapsed');
+            }
+        },
         handleSignInClick() {
             // On homepage, emit event to Home component; otherwise emit to App level
             if (this.isHomePage) {
                 this.$root.$emit('open-signin-modal');
             } else {
                 this.$root.$emit('open-signin-modal-app');
+            }
+        },
+        handleSignUpClick() {
+            // On homepage, emit event to Home component; otherwise emit to App level
+            if (this.isHomePage) {
+                this.$root.$emit('open-signup-modal');
+            } else {
+                this.$root.$emit('open-signup-modal-app');
             }
         },
         handleCasinoClick(event) {
@@ -382,6 +429,11 @@ export default {
             if (!balance) return '0.00';
             return parseFloat(balance / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
+        handleBalanceClick() {
+            // Open cashier modal with deposit tab
+            this.modalsSetData({ typeCashier: 'deposit' });
+            this.modalsSetShow('Cashier');
+        },
         handleSignOut() {
             this.authLogoutUser();
         },
@@ -392,6 +444,13 @@ export default {
         closeSidebarMobile() {
             // Emit event to close sidebar menu
             this.$root.$emit('close-sidebar-mobile');
+        },
+        toggleSidebarDesktop() {
+            // Toggle sidebar on desktop by finding and clicking the sidebar toggle button
+            const sidebarToggle = document.querySelector('.sidebar-header .menu-toggle');
+            if (sidebarToggle && window.innerWidth > 1024) {
+                sidebarToggle.click();
+            }
         }
     },
     computed: {
@@ -415,9 +474,33 @@ export default {
             }
             
         });
+        
+        // Listen for sidebar collapsed state changes
+        this.$root.$on('sidebar-collapsed-changed', (collapsed) => {
+            this.sidebarCollapsed = collapsed;
+        });
     },
     mounted() {
         console.log('Header mounted, showCasinoDropdown:', this.showCasinoDropdown);
+        // Check initial sidebar state
+        this.updateSidebarState();
+        // Watch for sidebar state changes by observing the DOM
+        this.sidebarObserver = new MutationObserver(() => {
+            this.updateSidebarState();
+        });
+        const sidebar = document.querySelector('aside#sidebar-left');
+        if (sidebar) {
+            this.sidebarObserver.observe(sidebar, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        }
+    },
+    beforeDestroy() {
+        if (this.sidebarObserver) {
+            this.sidebarObserver.disconnect();
+        }
+        this.$root.$off('sidebar-collapsed-changed');
     },
     watch: {
         showCasinoDropdown(newVal) {
@@ -467,7 +550,7 @@ export default {
     left: 0;
     right: 0;
     height: 80px;
-    background: var(--bg-menu-sidebar);
+    background: var(--bg-blue-dark);
     backdrop-filter: blur(10px) saturate(120%);
     z-index: 99998;
     display: flex;
@@ -519,10 +602,10 @@ export default {
 
 .header-container {
     width: 100%;
-    max-width: 1400px;
+   /* max-width: 1400px; */
     margin: 0 auto;
     /*padding: 0 var(--spacing-lg); */
-    padding: 0 75px;
+    padding: 0 75px 0 21px;   /* Header componet align */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -530,6 +613,67 @@ export default {
     position: relative;
     z-index: 99998;
     overflow: visible;
+}
+
+/* Left Section: Menu Button and Logo */
+.header-left-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    flex-shrink: 0;
+}
+
+/* Desktop Menu Toggle Button */
+.header-menu-toggle-desktop {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #FFFFFF;
+    transition: opacity 0.3s ease;
+    flex-shrink: 0;
+}
+
+.header-menu-toggle-desktop:hover {
+    opacity: 0.8;
+}
+
+.header-menu-toggle-desktop svg {
+    display: block;
+}
+
+/* Chevron visibility based on sidebar state */
+/* When sidebar is open (not collapsed): show left chevron */
+.header-menu-toggle-desktop .header-chevron-left {
+    display: block;
+}
+
+.header-menu-toggle-desktop .header-chevron-right {
+    display: none;
+}
+
+/* When sidebar is collapsed: show right chevron */
+.header-menu-toggle-desktop.sidebar-collapsed .header-chevron-left {
+    display: none;
+}
+
+.header-menu-toggle-desktop.sidebar-collapsed .header-chevron-right {
+    display: block;
+}
+
+/* Show on desktop and tablet */
+@media only screen and (min-width: 768px) {
+    .header-menu-toggle-desktop {
+        display: flex;
+    }
+    
+    /* Ensure left section is visible and positioned on far left */
+    .header-left-section {
+        display: flex;
+    }
 }
 
 .header-logo-title {
@@ -613,6 +757,7 @@ export default {
         font-size: 13px !important;
     }
     
+    .btn-signup,
     .btn-signin {
         font-size: 13px !important;
         padding: var(--spacing-xs) var(--spacing-md) !important;
@@ -987,9 +1132,9 @@ export default {
     overflow: visible;
 }
 
-.btn-signin {
+.btn-signup {
     padding: var(--spacing-sm) var(--spacing-lg);
-    background: var(--accent-yellow-main);
+    background: var(--gradient-button-bg);
     color: #000000;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -1000,18 +1145,38 @@ export default {
     letter-spacing: 0.5px;
 }
 
-.btn-signin:hover {
-    background: var(--accent-yellow-main);
+.btn-signup:hover {
+    background: var(--gradient-button-bg);
     opacity: 0.9;
     border-color: rgba(255, 255, 255, 0.4);
     color: #000000;
     box-shadow: 0 4px 15px rgba(222, 199, 156, 0.4);
 }
 
+.btn-signin {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: transparent;
+    color: #FFFFFF;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-signin:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #FFFFFF;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
 .btn-chat {
     width: 55px;
     height: 55px;
-    background: var(--bg-primary-blue);
+    background: var(--bg-blue-dark);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1139,6 +1304,299 @@ export default {
 }
 
 
+/* User Balance Badge */
+.user-balance-badge {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 16px 0 24px;
+    background: var(--bg-blue-dark);
+    border: 1px solid var(--accent-yellow);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    min-width: 140px;
+}
+
+.user-balance-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at 0% 50%,
+        rgba(222, 199, 156, 0.1) 0%,
+        transparent 50%
+    );
+    opacity: 0;
+    animation: backgroundPulse 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.user-balance-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(222, 199, 156, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+}
+
+.user-balance-badge:hover {
+    border-color: var(--accent-yellow-main);
+    box-shadow: 
+        0 4px 15px rgba(222, 199, 156, 0.4),
+        0 0 20px rgba(222, 199, 156, 0.2),
+        inset 0 0 15px rgba(222, 199, 156, 0.1);
+    transform: translateY(-1px);
+}
+
+.user-balance-badge:hover::before {
+    animation: shimmer 1.5s infinite;
+}
+
+.balance-badge-coupon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 100%;
+    border-right: 1px dashed var(--accent-yellow);
+    z-index: 2;
+    animation: couponPulse 2s ease-in-out infinite;
+}
+
+.balance-badge-coupon::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 4px;
+    background: var(--accent-yellow);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 8px var(--accent-yellow),
+        0 0 12px var(--accent-yellow-main),
+        0 0 16px rgba(222, 199, 156, 0.5);
+    animation: couponGlow 2s ease-in-out infinite;
+}
+
+.balance-badge-coupon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--accent-yellow-main) 20%,
+        var(--accent-yellow) 50%,
+        var(--accent-yellow-main) 80%,
+        transparent 100%
+    );
+    opacity: 0.6;
+    animation: couponShine 2.5s ease-in-out infinite;
+}
+
+.user-balance-badge:hover .balance-badge-coupon {
+    animation: couponPulse 1s ease-in-out infinite;
+}
+
+.user-balance-badge:hover .balance-badge-coupon::before {
+    animation: couponGlow 1s ease-in-out infinite;
+    box-shadow: 
+        0 0 12px var(--accent-yellow),
+        0 0 18px var(--accent-yellow-main),
+        0 0 24px rgba(222, 199, 156, 0.7);
+}
+
+.user-balance-badge:hover .balance-badge-coupon::after {
+    animation: couponShine 1.5s ease-in-out infinite;
+    opacity: 0.9;
+}
+
+.balance-badge-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2px;
+    z-index: 1;
+    position: relative;
+}
+
+.balance-amount-text {
+    font-size: 18px;
+    font-weight: 700;
+    background: var(--gradient-button-bg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    line-height: 1;
+}
+
+.balance-label-text {
+    font-size: 10px;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.balance-badge-sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.balance-badge-sparkles .sparkle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--accent-yellow);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: sparkle 3s infinite;
+    box-shadow: 0 0 4px var(--accent-yellow-main);
+}
+
+.balance-badge-sparkles .sparkle:nth-child(1) {
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.balance-badge-sparkles .sparkle:nth-child(2) {
+    top: 60%;
+    left: 25%;
+    animation-delay: 0.6s;
+}
+
+.balance-badge-sparkles .sparkle:nth-child(3) {
+    top: 30%;
+    right: 20%;
+    animation-delay: 1.2s;
+}
+
+.balance-badge-sparkles .sparkle:nth-child(4) {
+    top: 70%;
+    right: 15%;
+    animation-delay: 1.8s;
+}
+
+.balance-badge-sparkles .sparkle:nth-child(5) {
+    top: 45%;
+    left: 50%;
+    animation-delay: 2.4s;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+        box-shadow: 0 0 2px var(--accent-yellow-main);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.4);
+        box-shadow: 0 0 6px var(--accent-yellow-main), 0 0 8px var(--accent-yellow);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+@keyframes couponPulse {
+    0%, 100% {
+        border-color: var(--accent-yellow);
+        opacity: 1;
+    }
+    50% {
+        border-color: var(--accent-yellow-main);
+        opacity: 0.8;
+    }
+}
+
+@keyframes couponGlow {
+    0%, 100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 
+            0 0 8px var(--accent-yellow),
+            0 0 12px var(--accent-yellow-main),
+            0 0 16px rgba(222, 199, 156, 0.5);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.3);
+        box-shadow: 
+            0 0 12px var(--accent-yellow),
+            0 0 18px var(--accent-yellow-main),
+            0 0 24px rgba(222, 199, 156, 0.7);
+    }
+}
+
+@keyframes couponShine {
+    0% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(-100%);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateX(-50%) translateY(0%);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(100%);
+    }
+}
+
+@keyframes backgroundPulse {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.user-balance-badge:hover::after {
+    animation: backgroundPulse 1.5s ease-in-out infinite;
+    opacity: 0.5;
+}
+
 /* NavbarUserDropdown is now used - styles are in NavbarUserDropdown.vue */
 
 /* Mobile Button Row - All buttons in single row */
@@ -1212,6 +1670,35 @@ export default {
     min-width: 200px;
 }
 
+/* Desktop-only animations for balance badge */
+@media only screen and (min-width: 1025px) {
+    .user-balance-badge {
+        animation: badgeFloat 4s ease-in-out infinite;
+    }
+    
+    .user-balance-badge:hover {
+        animation: badgeFloatHover 2s ease-in-out infinite;
+    }
+    
+    @keyframes badgeFloat {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-1px);
+        }
+    }
+    
+    @keyframes badgeFloatHover {
+        0%, 100% {
+            transform: translateY(-1px);
+        }
+        50% {
+            transform: translateY(-3px);
+        }
+    }
+}
+
 /* Pin header to bottom on mobile - unified mobile menu */
 @media only screen and (max-width: 1024px) {
     .header {
@@ -1229,7 +1716,7 @@ export default {
             0 2px 10px rgba(0, 0, 0, 0.5),
             0 4px 20px rgba(184, 115, 51, 0.4),
             inset 0 1px 0 rgba(222, 184, 135, 0.2);
-        background: var(--bg-menu-sidebar) !important;
+        background: var(--bg-blue-dark) !important;
         backdrop-filter: blur(10px) saturate(120%) !important;
         border-bottom: 2px solid rgba(222, 184, 135, 0.4) !important;
     }
@@ -1242,6 +1729,11 @@ export default {
         gap: var(--spacing-sm) !important;
         width: 100% !important;
         max-width: 100% !important;
+    }
+    
+    /* Hide left section on mobile */
+    .header-left-section {
+        display: none !important;
     }
     
     /* Hide NavbarUserDropdown in header-right on mobile */
@@ -1262,13 +1754,19 @@ export default {
         display: none !important;
     }
     
-    /* Sign In button - hide on mobile */
+    /* Sign Up and Sign In buttons - hide on mobile */
+    .btn-signup,
     .btn-signin {
         display: none !important;
     }
     
     /* Hide user-info on mobile */
     .user-info {
+        display: none !important;
+    }
+    
+    /* Hide balance badge on mobile */
+    .user-balance-badge {
         display: none !important;
     }
     

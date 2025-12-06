@@ -356,7 +356,8 @@
 
     .admin-leaderboards .filters-create button.button-create {
         margin-top: 17px;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
+        background: var(--gradient-button-bg);
+        color: #000000;
     }
 
     @media only screen and (max-width: 1250px) {

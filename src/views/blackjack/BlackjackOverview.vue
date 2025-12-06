@@ -189,6 +189,11 @@
     .blackjack-overview .header-title span {
         font-size: 28px;
         font-weight: 900;
+        background: var(--gradient-main-txt);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
     }
 
     .blackjack-overview .title-limits {

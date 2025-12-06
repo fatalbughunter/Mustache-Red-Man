@@ -5,6 +5,7 @@
             :showTopBolts="false" 
             :showBottomBolts="false" 
             :showPlayButton="false"
+            :showSeeAll="false"
             :filteredGameNames="['Mines', 'Crash', 'BlackJack', 'Tower']"
             :largeCards="true"
         />
@@ -29,7 +30,7 @@ export default {
 .our-casino {
     width: 100%;
     min-height: 100vh;
-    background: var(--bg-primary-blue);
+    background: var(--bg-blue-dark);
     padding: var(--spacing-2xl) 0;
 }
 

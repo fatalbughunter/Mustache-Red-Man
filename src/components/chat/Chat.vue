@@ -292,7 +292,7 @@
         top: 0;
         right: 0;
         padding: 17px 0 20px 0;
-        background: var(--bg-menu-sidebar);
+        background: var(--bg-blue-chat);
         box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.07);
         z-index: 50;
         transition: transform 0.3s ease;
@@ -577,9 +577,9 @@
         height: 50px;
         position: relative;
         padding: 0;
-        background: #2A2A2A;
+        background: var(--gradient-chat-text-box);
         border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--accent-blue-light);
     }
 
     aside#chat .footer-input input {
@@ -609,7 +609,7 @@
         transform: translate(0, -50%);
         width: 34px;
         height: 34px;
-        background: var(--gradient-gold);
+        background: var(--gradient-button-bg);
         border-radius: 6px;
         border: none;
         cursor: pointer;

@@ -374,8 +374,8 @@
         border-radius: 5px;
         font-size: 16px;
         font-weight: 800;
-        color: #ffffff;
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
+        color: #000000;
+        background: var(--gradient-button-bg);
     }
 
     .admin-promo .filter-generate button.button-generate .button-loading.fade-leave-active {
@@ -389,7 +389,7 @@
     .admin-promo .filter-generate button.button-generate .button-content {
         font-size: 16px;
         font-weight: 800;
-        color: #ffffff;
+        color: #000000;
     }
 
     .admin-promo .filter-generate button.button-generate .button-content.fade-enter-active {

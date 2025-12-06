@@ -82,6 +82,6 @@
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(10, 36, 52, 0.5);
+        background: var(--bg-blue-chat);
     }
 </style>

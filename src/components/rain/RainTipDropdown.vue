@@ -214,8 +214,9 @@
         flex-direction: column;
         align-items: center;
         padding: 31px 14px 15px 14px;
+        border: 1px solid var(--accent-blue-light);
         border-radius: 15px;
-        background: radial-gradient(163.2% 163.2% at 50% -31.45%, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(256.23deg, #2a2a2a 0%, #000000 100%);
+        background: var(--bg-blue-dark);
         box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
     }
 
@@ -278,7 +279,7 @@
         font-weight: 600;
         color: #ffffff;
         border-radius: 15px;
-        background-color: #2a2a2a;
+        background-color: var(--bg-blue-chat);
         clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 25%, 100% 75%, calc(100% - 8px) 100%, 8px 100%, 0 75%, 0 25%);
     }
 

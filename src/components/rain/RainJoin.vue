@@ -160,7 +160,7 @@
         top: 0;
         left: 0;
         border-radius: 20px;
-        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        background: var(--bg-blue-dark);
         z-index: -1;
     }
 
@@ -194,7 +194,7 @@
         align-items: center;
         padding: 8px 0 16px 0;
         border-radius: 19px;
-        background: rgba(255, 255, 255, 0.08);
+       /* background: rgba(255, 255, 255, 0.08);*/
     }
 
     .rain-join .inner-type {
@@ -413,7 +413,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--accent-yellow);
+        background: var(--gradient-button-bg);
         border-radius: 15px;
         z-index: -1;
     }
@@ -436,7 +436,7 @@
         display: flex;
         justify-content: center;
         align-items: center;    
-        background: var(--accent-yellow);
+        background: var(--gradient-button-bg);
         border-radius: 14px;
     }
 

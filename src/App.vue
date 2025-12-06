@@ -1,8 +1,16 @@
 <template>
     <div id="app">
         <transition name="fade" mode="out-in">
-            <AppLoader v-if="generalSettings === null || (authToken !== null && authUser.user === null)" key="loading" />
-            <div v-else-if="generalSettings.general.maintenance.enabled === false || (authUser.user !== null && authUser.user.rank === 'admin')" class="app-page" key="page">
+            <!-- Admin Access Route - Always accessible, bypasses maintenance -->
+            <div v-if="$route.path === '/mustache-admin'" class="app-page" key="mustache-admin">
+                <router-view />
+                <Modals />
+                <Notifications />
+            </div>
+            <!-- Regular App Pages -->
+            <AppLoader v-else-if="generalSettings === null || (authToken !== null && authUser.user === null)" key="loading" />
+            <div v-else-if="(generalSettings && generalSettings.general && generalSettings.general.maintenance && generalSettings.general.maintenance.enabled === false) || (authUser.user !== null && authUser.user.rank === 'admin')" class="app-page" key="page">
+                <!-- Regular App Pages -->
                 <Header />
                 <Chat />
                 <SidebarLeft v-on:collapsed-change="onSidebarCollapsed" />
@@ -20,6 +28,13 @@
                     :show="showSignInModal" 
                     @close="showSignInModal = false"
                     @switch-to-signup="handleSignUpRequest"
+                />
+                
+                <!-- Sign Up Modal (for game pages) -->
+                <SignupModal 
+                    :show="showSignupModal" 
+                    @close="showSignupModal = false"
+                    @switch-to-signin="handleSignInRequest"
                 />
                 
                 <!-- Notifications - Placed last to ensure highest priority and visibility above modals -->
@@ -41,6 +56,7 @@
     import Modals from '@/components/modals/Modals';
     import Notifications from '@/components/notifications/Notifications';
     import SignInModal from '@/components/SignInModal.vue';
+    import SignupModal from '@/components/SignupModal.vue';
 
     export default {
         components: {
@@ -52,13 +68,15 @@
             Footer,
             Modals,
             Notifications,
-            SignInModal
+            SignInModal,
+            SignupModal
         },
         data() {
             return {
                 sidebarCollapsed: false,
                 windowWidth: window.innerWidth,
-                showSignInModal: false
+                showSignInModal: false,
+                showSignupModal: false
             };
         },
         methods: {
@@ -70,11 +88,12 @@
                 this.windowWidth = window.innerWidth;
             },
             handleSignInRequest() {
+                this.showSignupModal = false;
                 this.showSignInModal = true;
             },
             handleSignUpRequest() {
                 this.showSignInModal = false;
-                // Could open signup modal here if needed
+                this.showSignupModal = true;
             }
         },
         computed: {
@@ -160,10 +179,13 @@
             
             // Listen for sign in modal requests from Header (for game pages)
             this.$root.$on('open-signin-modal-app', this.handleSignInRequest);
+            // Listen for sign up modal requests from Header (for game pages)
+            this.$root.$on('open-signup-modal-app', this.handleSignUpRequest);
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.onResize);
             this.$root.$off('open-signin-modal-app', this.handleSignInRequest);
+            this.$root.$off('open-signup-modal-app', this.handleSignUpRequest);
         }
     }
 </script>
@@ -200,7 +222,7 @@
         overflow-y: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;
-         background: var(--bg-primary-blue);
+         background: var(--bg-blue-dark);
         transition: right 0.3s ease, width 0.3s ease, left 0.3s ease;
     }
 

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
 
 * {
     margin: 0;
@@ -14,7 +15,7 @@ html, body {
 }
 
 html {
-    background: var(--bg-primary-blue);
+    background: var(--bg-blue-dark);
     background-attachment: fixed;
     min-height: 100%;
 }
@@ -67,7 +68,8 @@ a {
     --bg-primary: #0D1318;
     --bg-primary-blue: #131F30;
     --bg-blue-light: #559ee4;   /* Admin Title Color */
-    --bg-blue-dark: #0A1320;
+    --bg-blue-dark: #131629;        /* Main Blue Color*/
+    --bg-blue-chat: #1E2444;        /* Chat Background Color*/
     --bg-primary-dark: #0D0D0D;
     --bg-primary: #0D1318;
     --bg-secondary: #1A1A1A;
@@ -83,11 +85,16 @@ a {
     /* Text Colors - Copper Theme */
     --text-primary: #D4A574;
     --text-secondary: #B87333;
-    --text-muted: #8B6F47;
+    --text-muted: #ffffff; /*#8B6F47;*/
     --text-gold: #D4A574;
     --text-gold-dark: #B87333;
+    --text-gray-hero: #939496;
+
     
     /* Accent Colors - Copper Theme */
+    --accent-blue-dark: #1E2444;
+    --accent-blue-light: #2A62D0;
+    --accent-btn-txt-color: #131629;
     --accent-yellow: #D4A574;
     --accent-yellow-main: #DEC79C;
     --accent-gold: #B87333;
@@ -116,7 +123,14 @@ a {
     --gradient-desert-sunset: linear-gradient(135deg, #FF8C00 0%, #FF6347 50%, #8B4513 100%);
     --gradient-copper: linear-gradient(135deg, #D4A574 0%, #B87333 50%, #8B6F47 100%);
     --gradient-copper-dark: linear-gradient(135deg, #B87333 0%, #8B6F47 50%, #654321 100%);
-    
+    --gradient-yellow-button: linear-gradient(134.74deg, #ECAD46 4.91%, #FFF173 95.49%);
+    --gradient-chat-text-box: linear-gradient(218.47deg, rgba(19, 22, 32, 0.5) 0%, rgba(19, 22, 32, 0) 100%);
+    --gradient-title-text: linear-gradient(90.72deg, #ECAD46 0.36%, #FFF173 99.73%);
+    --gradient-button-bg: linear-gradient(97.7deg, #ECAD46 4.42%, #FFF173 97.36%);
+    --gradient-card-border: linear-gradient(112.7deg, #ECAD46 3.62%, #FFF173 100%);
+    --gradient-main-txt: linear-gradient(93.93deg, #ECAD46 1.55%, #FFF173 98.57%);
+
+
     /* Spacing */
     --spacing-xs: 4px;
     --spacing-sm: 8px;

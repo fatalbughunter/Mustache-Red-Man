@@ -92,7 +92,7 @@
     .home {
         width: 100%;
         min-height: 100vh;
-        background: var(--bg-primary-blue) !important;
+        background: var(--bg-blue-dark) !important;
         background-size: cover;
         background-attachment: fixed;
     }
@@ -101,7 +101,7 @@
         display: flex;
         gap: var(--spacing-xl);
         padding: var(--spacing-2xl) 0 var(--spacing-2xl) 0;
-        margin: 0 150px 0 150px;
+        margin: 0 100px 0 100px;
         align-items: center;
     }
 
