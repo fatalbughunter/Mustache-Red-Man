@@ -124,8 +124,8 @@
         width: calc(50% - 9px);
         height: 400px;
         position: relative;
-        background: rgba(2, 21, 36, 0.35);
-        overflow: hidden;
+/*background: rgba(2, 21, 36, 0.35);
+*/        overflow: hidden;
     }
 
     .battles-game .loading-element:after,
@@ -140,7 +140,7 @@
         animation-duration: 1s;
         animation-timing-function: ease;
         animation-iteration-count: infinite;
-        background: linear-gradient(to right, #ffffff00 0%, rgba(255, 255, 255, 0.1) 50%, #ffffff00 100%);
+      /*  background: linear-gradient(to right, #ffffff00 0%, rgba(255, 255, 255, 0.1) 50%, #ffffff00 100%);*/
     }
 
     .battles-game .game-content {

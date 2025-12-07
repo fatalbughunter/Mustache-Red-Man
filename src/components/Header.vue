@@ -151,23 +151,38 @@
         
         <!-- Mobile Button Row - All buttons in one row -->
         <div class="mobile-button-row">
-            <button class="mobile-btn mobile-btn-menu" @click="toggleSidebarMobile">
-                <img src="@/assets/img/icons/mobileMenu.png" alt="Menu" class="mobile-btn-icon" />
-            </button>
-            <router-link to="/" class="mobile-btn mobile-btn-home" @click.native="closeSidebarMobile">
-                <img src="@/assets/img/icons/mobileHome.png" alt="Home" class="mobile-btn-icon" />
-            </router-link>
-            <!-- Show Sign In button when not logged in -->
-            <button v-if="authUser.user === null" class="mobile-btn mobile-btn-signin" @click="handleSignInClick">
-                <img src="@/assets/img/icons/mobileProfile.png" alt="Sign In" class="mobile-btn-icon" />
-            </button>
-            <!-- Show user dropdown when logged in -->
-            <div class="mobile-btn-wrapper mobile-btn-profile-wrapper" v-if="authUser.user !== null">
-                <NavbarUserDropdown />
+            <div class="mobile-btn-container">
+                <button class="mobile-btn mobile-btn-menu" @click="toggleSidebarMobile">
+                    <img src="@/assets/img/icons/mobileMenu.png" alt="Menu" class="mobile-btn-icon" />
+                </button>
+                <span class="mobile-btn-label">Menu</span>
             </div>
-            <button class="mobile-btn mobile-btn-chat" @click="toggleChat">
-                <img src="@/assets/img/icons/live-chat.svg" alt="Chat" class="mobile-btn-icon" />
-            </button>
+            <div class="mobile-btn-container">
+                <router-link to="/" class="mobile-btn mobile-btn-home" @click.native="closeSidebarMobile">
+                    <img src="@/assets/img/icons/mobileHome.png" alt="Home" class="mobile-btn-icon" />
+                </router-link>
+                <span class="mobile-btn-label">Home</span>
+            </div>
+            <!-- Show Sign In button when not logged in -->
+            <div class="mobile-btn-container" v-if="authUser.user === null">
+                <button class="mobile-btn mobile-btn-signin" @click="handleSignInClick">
+                    <img src="@/assets/img/icons/mobileProfile.png" alt="Sign In" class="mobile-btn-icon" />
+                </button>
+                <span class="mobile-btn-label">User</span>
+            </div>
+            <!-- Show user dropdown when logged in -->
+            <div class="mobile-btn-container mobile-btn-profile-wrapper" v-if="authUser.user !== null">
+                <div class="mobile-btn-wrapper">
+                    <NavbarUserDropdown />
+                </div>
+                <span class="mobile-btn-label">User</span>
+            </div>
+            <div class="mobile-btn-container">
+                <button class="mobile-btn mobile-btn-chat" @click="toggleChat">
+                    <img src="@/assets/img/icons/live-chat.svg" alt="Chat" class="mobile-btn-icon" />
+                </button>
+                <span class="mobile-btn-label">Chart</span>
+            </div>
         </div>
         
     </header>
@@ -1612,15 +1627,15 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    padding: 10px;
+    padding: 8px 10px;
     z-index: 100002;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
     gap: 10px;
 }
 
 .mobile-btn {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: transparent;
     border: none;
     padding: 0;
@@ -1629,8 +1644,7 @@ export default {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    flex: 1;
-    max-width: 60px;
+    flex-shrink: 0;
 }
 
 .mobile-btn-icon {
@@ -1658,9 +1672,26 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+.mobile-btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     flex: 1;
-    max-width: 60px;
-    min-width: 60px;
+    gap: 4px;
+}
+
+.mobile-btn-label {
+    font-size: 10px;
+    color: var(--text-gray-hero);
+    text-align: center;
+    line-height: 1;
+    margin-top: 2px;
 }
 
 .mobile-profile-dropdown-menu {

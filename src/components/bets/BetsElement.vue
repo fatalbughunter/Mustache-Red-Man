@@ -153,8 +153,8 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 35px;
-        background: var(--bg-primary);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--bg-blue-dark);
+        border: 1px solid var(--accent-blue-dark);
         transition: background 0.3s ease;
     }
 
@@ -332,7 +332,7 @@
             grid-template-rows: 42px 54px;
             grid-template-columns: 33.33% 33.33% 33.33%;
             padding: 0;
-            background: none;
+/*background: none;*/
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 

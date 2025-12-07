@@ -74,31 +74,6 @@
                     </div>
                 </div>
             </div>
-            <div class="payment-section">
-                <div class="payment-title">Our Deposit Methods</div>
-                <div class="payment-methods">
-                    <div class="payment-method" title="ETH" @click="openDepositModal">
-                        <div class="payment-card">
-                            <img src="@/assets/img/payments/crypto/ether.png" alt="ETH" />
-                        </div>
-                    </div>
-                    <div class="payment-method" title="BNB" @click="openDepositModal">
-                        <div class="payment-card">
-                            <img src="@/assets/img/payments/crypto/bnb.png" alt="BNB" />
-                        </div>
-                    </div>
-                    <div class="payment-method" title="TRX" @click="openDepositModal">
-                        <div class="payment-card">
-                            <img src="@/assets/img/payments/crypto/trx.png" alt="TRX" />
-                        </div>
-                    </div>
-                    <div class="payment-method" title="SOL" @click="openDepositModal">
-                        <div class="payment-card">
-                            <img src="@/assets/img/payments/crypto/solana.png" alt="SOL" />
-                        </div>
-                    </div>
-                </div>
-            </div>
         </footer>
         <div class="footer-bottom">
             <span class="gradient-yellowyellow">MUSTACHE-CASINO is a premium gaming platform committed to providing fair, secure, and exciting gaming experiences for all our users.</span>
@@ -123,13 +98,8 @@
         },
         methods: {
             ...mapActions([
-                'modalsSetShow',
-                'modalsSetData'
-            ]),
-            openDepositModal() {
-                this.modalsSetData({ typeCashier: 'deposit' });
-                this.modalsSetShow('Cashier');
-            }
+                'modalsSetShow'
+            ])
         }
     }
 </script>
@@ -289,86 +259,6 @@
         color: var(--gradient-main-txt);
     }
 
-    /* Payment Methods Section */
-    footer#footer .payment-section {
-        width: 1250px;
-        margin: 30px 0;
-        text-align: center;
-    }
-
-    footer#footer .payment-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--accent-blue-light);
-        margin-bottom: 25px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    footer#footer .payment-methods {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-        flex-wrap: nowrap;
-    }
-
-    footer#footer .payment-method {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        flex: 0 0 auto;
-    }
-
-    footer#footer .payment-method:hover {
-        transform: translateY(-5px);
-    }
-
-    footer#footer .payment-card {
-        width: 100%;
-        min-height: 60px;
-        padding: 12px 16px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        background: transparent;
-    }
-
-    footer#footer .payment-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        transition: left 0.5s ease;
-    }
-
-    footer#footer .payment-method:hover .payment-card::before {
-        left: 100%;
-    }
-
-    footer#footer .payment-method:hover .payment-card {
-        transform: scale(1.05);
-    }
-
-    footer#footer .payment-card img {
-        max-width: 100%;
-        max-height: 50px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        display: block;
-    }
-
     @media only screen and (max-width: 1600px) {
 
         footer#footer {
@@ -382,10 +272,6 @@
         }
 
         .footer-bottom {
-            width: 100%;
-        }
-
-        footer#footer .payment-section {
             width: 100%;
         }
 
@@ -430,19 +316,6 @@
             padding-left: 0;
         }
 
-        footer#footer .payment-methods {
-            gap: 15px;
-        }
-
-        footer#footer .payment-card {
-            min-height: 55px;
-            padding: 10px 12px;
-        }
-
-        footer#footer .payment-card img {
-            max-height: 45px;
-        }
-
     }
 
     @media only screen and (max-width: 700px) {
@@ -468,23 +341,6 @@
             display: none;
         }
 
-        footer#footer .payment-methods {
-            gap: 12px;
-        }
-
-        footer#footer .payment-card {
-            min-height: 50px;
-            padding: 8px 10px;
-        }
-
-        footer#footer .payment-card img {
-            max-height: 40px;
-        }
-
-        footer#footer .payment-title {
-            font-size: 14px;
-        }
-
     }
 
     @media only screen and (max-width: 450px) {
@@ -495,24 +351,6 @@
 
         footer#footer .links-section:nth-child(3) {
             margin-top: 25px;
-        }
-
-        footer#footer .payment-methods {
-            gap: 10px;
-        }
-
-        footer#footer .payment-card {
-            min-height: 45px;
-            padding: 6px 8px;
-        }
-
-        footer#footer .payment-card img {
-            max-height: 35px;
-        }
-
-        footer#footer .payment-title {
-            font-size: 12px;
-            margin-bottom: 15px;
         }
 
     }

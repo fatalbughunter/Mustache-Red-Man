@@ -112,7 +112,7 @@
         width: 100%;
         padding: 3px;
         border-radius: 5px;
-        background: #022038;
+        background: var(--accent-blue-dark);
     }
 
     .admin-filter-navbar .menu-inner a {
@@ -124,7 +124,7 @@
         border-radius: 5px;
         font-size: 14px;
         font-weight: 600;
-        color: var(--accent-yellow);
+        color: #ffffff;
         transition: 0.3s ease;
     }
 

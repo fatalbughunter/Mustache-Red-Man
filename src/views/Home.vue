@@ -18,9 +18,11 @@
         <PopularGames />
         <AllGames />
         <CasinoPanels v-if="false" />
+        <Payment />
         <div class="live-feed-section">
             <LiveFeed />
         </div>
+        <LuckyMustache />
     </div>
 </template>
 
@@ -33,6 +35,8 @@
     import AllGames from '@/components/AllGames';
     import CasinoPanels from '@/components/CasinoPanels';
     import LiveFeed from '@/components/LiveFeed';
+    import Payment from '@/components/Payment';
+    import LuckyMustache from '@/components/LuckyMustache';
 
     export default {
         name: 'Home',
@@ -46,7 +50,9 @@
             PopularGames,
             AllGames,
             CasinoPanels,
-            LiveFeed
+            LiveFeed,
+            Payment,
+            LuckyMustache
         },
         data() {
             return {

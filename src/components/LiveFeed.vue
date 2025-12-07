@@ -198,7 +198,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
     padding: 4px;
-    background: var(--bg-tertiary);
+    background: var(--accent-blue-dark);
     border-radius: 50px;
     position: relative;
 }
@@ -206,7 +206,7 @@ export default {
 .tab-button {
     padding: 10px 24px;
     background: transparent;
-    color: var(--text-secondary);
+    color: #ffffff;
     border: none;
     border-radius: 50px;
     font-weight: 600;
@@ -245,7 +245,7 @@ export default {
     align-items: center;
     padding: 0 35px;
     background: var(--accent-blue-dark);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--accent-blue-dark);
 }
 
 .head-game {

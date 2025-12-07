@@ -164,8 +164,8 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 35px;
-        background: var(--bg-tertiary);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--accent-blue-dark);
+        border: 1px solid var(--accent-blue-dark);
    }
 
    .bets .head-game {
