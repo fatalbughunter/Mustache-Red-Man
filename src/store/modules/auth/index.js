@@ -14,7 +14,9 @@ const getters = {
     authSendLoginLoading: state => state.authSendLoginLoading,
     authStep: state => state.authStep,
     authToken: state => state.authToken,
-    authUser: state => state.authUser
+    authUser: state => state.authUser,
+    authenticated: state => state.authUser.user !== null,
+    userId: state => state.authUser.user?._id || state.authUser.user?.id || null
 }
 
 const mutations = {

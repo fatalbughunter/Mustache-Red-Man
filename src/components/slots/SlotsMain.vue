@@ -128,8 +128,7 @@ export default {
     },
     computed: {
         ...mapGetters('slots', ['providers', 'games', 'currentProvider', 'currentGame', 'gameSession', 'loading', 'error', 'cryptoPrices']),
-        ...mapGetters('auth', ['authenticated']),
-        ...mapGetters(['socketGeneral'])
+        ...mapGetters(['authenticated', 'socketGeneral'])
     },
     methods: {
         ...mapActions('slots', ['fetchProviders', 'fetchGamesByProvider', 'fetchCryptoPrices', 'resetGameSession', 'clearError', 'fetchUserBalance', 'handleBalanceUpdate']),
@@ -206,6 +205,14 @@ export default {
         await this.loadProviders();
         await this.fetchCryptoPrices();
 
+        // Auto-load games from first provider if available
+        if (this.providers && this.providers.length > 0 && !this.currentProvider) {
+            const firstProvider = this.providers[0];
+            if (firstProvider && firstProvider.code) {
+                await this.selectProvider(firstProvider.code);
+            }
+        }
+
         // Load user balance if authenticated
         if (this.authenticated) {
             await this.fetchUserBalance();
@@ -224,6 +231,17 @@ export default {
             if (newVal) {
                 this.fetchUserBalance();
                 this.setupSocketListeners();
+            }
+        },
+        providers(newProviders) {
+            // Auto-load games from first provider when providers are loaded
+            if (newProviders && newProviders.length > 0 && !this.currentProvider && !this.gameLoading) {
+                const firstProvider = newProviders[0];
+                if (firstProvider && firstProvider.code) {
+                    this.$nextTick(() => {
+                        this.selectProvider(firstProvider.code);
+                    });
+                }
             }
         }
     }
@@ -360,8 +378,8 @@ export default {
 }
 
 .price-card {
-    background: rgba(212, 165, 116, 0.1);
-    border: 1px solid rgba(212, 165, 116, 0.3);
+    background: var(--bg-blue-chat);
+    border: 2px solid var(--accent-blue-dark);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     display: flex;

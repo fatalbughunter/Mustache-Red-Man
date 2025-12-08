@@ -130,17 +130,20 @@ const actions = {
         
         try {
             const response = await axios.get('/slots/providers');
+            console.log('Providers API response:', response.data);
             
             if (response.data.success) {
-                commit('slots_set_providers', response.data.data);
-                return response.data.data;
+                const providers = response.data.data || response.data;
+                commit('slots_set_providers', Array.isArray(providers) ? providers : []);
+                return Array.isArray(providers) ? providers : [];
             } else {
                 throw new Error(response.data.message || 'Failed to fetch providers');
             }
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to fetch providers';
             commit('slots_set_error', message);
-            dispatch('notificationShow', message);
+            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
+            console.error('Error fetching providers:', error);
             return [];
         } finally {
             commit('slots_set_loading', false);
@@ -154,7 +157,7 @@ const actions = {
         if (!providerCode) {
             const error = 'Provider code is required';
             commit('slots_set_error', error);
-            dispatch('notificationShow', error);
+            dispatch('notificationShow', { type: 'error', message: error }, { root: true });
             return [];
         }
 
@@ -163,18 +166,22 @@ const actions = {
         
         try {
             const response = await axios.get(`/slots/games/${providerCode}`);
+            console.log(`Games API response for ${providerCode}:`, response.data);
             
             if (response.data.success) {
-                commit('slots_set_games', response.data.data);
+                const games = response.data.data || response.data.games || [];
+                commit('slots_set_games', Array.isArray(games) ? games : []);
                 commit('slots_set_current_provider', providerCode);
-                return response.data.data;
+                console.log(`Loaded ${games.length} games for provider ${providerCode}`);
+                return Array.isArray(games) ? games : [];
             } else {
                 throw new Error(response.data.message || 'Failed to fetch games');
             }
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to fetch games';
             commit('slots_set_error', message);
-            dispatch('notificationShow', message);
+            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
+            console.error('Error fetching games:', error);
             return [];
         } finally {
             commit('slots_set_loading', false);
@@ -188,15 +195,16 @@ const actions = {
         if (!providerCode || !gameCode) {
             const error = 'Provider code and game code are required';
             commit('slots_set_error', error);
-            dispatch('notificationShow', error);
+            dispatch('notificationShow', { type: 'error', message: error }, { root: true });
             return null;
         }
 
-        const userId = getters['auth/userId'];
+        const authUser = getters['auth/authUser'];
+        const userId = authUser?.user?._id || authUser?.user?.id;
         if (!userId) {
             const error = 'User must be authenticated to launch a game';
             commit('slots_set_error', error);
-            dispatch('notificationShow', error);
+            dispatch('notificationShow', { type: 'error', message: error }, { root: true });
             return null;
         }
 
@@ -221,7 +229,7 @@ const actions = {
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to launch game';
             commit('slots_set_error', message);
-            dispatch('notificationShow', message);
+            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
             return null;
         } finally {
             commit('slots_set_loading', false);
@@ -351,7 +359,7 @@ const actions = {
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to fetch user balance';
             console.error('Error fetching balance:', message);
-            dispatch('notificationShow', message);
+            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
             return null;
         }
     },
@@ -363,15 +371,16 @@ const actions = {
         if (!providerCode || !gameCode) {
             const error = 'Provider code and game code are required';
             commit('slots_set_error', error);
-            dispatch('notificationShow', error);
+            dispatch('notificationShow', { type: 'error', message: error }, { root: true });
             return null;
         }
 
-        const userId = getters['auth/userId'];
+        const authUser = getters['auth/authUser'];
+        const userId = authUser?.user?._id || authUser?.user?.id;
         if (!userId) {
             const error = 'User must be authenticated to launch a game';
             commit('slots_set_error', error);
-            dispatch('notificationShow', error);
+            dispatch('notificationShow', { type: 'error', message: error }, { root: true });
             return null;
         }
 
@@ -396,7 +405,7 @@ const actions = {
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to launch game';
             commit('slots_set_error', message);
-            dispatch('notificationShow', message);
+            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
             return null;
         } finally {
             commit('slots_set_loading', false);
@@ -419,7 +428,7 @@ const actions = {
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to fetch transaction history';
             console.error('Error fetching transactions:', message);
-            dispatch('notificationShow', message);
+            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
             return null;
         }
     },
@@ -459,7 +468,7 @@ const actions = {
             }
         } catch (error) {
             console.error('Error adding favorite:', error);
-            dispatch('notificationShow', 'Failed to add favorite');
+            dispatch('notificationShow', { type: 'error', message: 'Failed to add favorite' }, { root: true });
             return false;
         }
     },
@@ -481,7 +490,7 @@ const actions = {
             }
         } catch (error) {
             console.error('Error removing favorite:', error);
-            dispatch('notificationShow', 'Failed to remove favorite');
+            dispatch('notificationShow', { type: 'error', message: 'Failed to remove favorite' }, { root: true });
             return false;
         }
     }

@@ -71,8 +71,8 @@ export default {
 
 <style scoped>
 .balance-display {
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(184, 115, 51, 0.1) 100%);
-    border: 2px solid rgba(212, 165, 116, 0.3);
+    background: var(--bg-blue-chat);
+    border: 2px solid var(--accent-blue-dark);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);

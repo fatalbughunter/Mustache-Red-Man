@@ -72,7 +72,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('auth', ['authenticated', 'userId']),
+        ...mapGetters(['authenticated', 'userId']),
         ...mapGetters('slots', ['gameSession', 'favorites']),
         isFavorite() {
             return this.favorites.includes(this.game.code);
