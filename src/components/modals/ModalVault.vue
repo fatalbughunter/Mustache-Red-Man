@@ -362,13 +362,13 @@
 
     .modal-vault button.button-deposit {
         padding: 1px;
-        background: linear-gradient(250deg, #00ffc2 0%, #00aa6d 100%);
+        background: var(--gradient-button-bg);
     }
 
     .modal-vault button.button-withdraw {
         margin-top: 15px;
         padding: 1px;
-        background: linear-gradient(0deg, #ffe600 0%, #fca311 100%);
+        background: var(--gradient-button-bg);
     }
 
     .modal-vault button.button-deposit .button-inner,
@@ -380,16 +380,16 @@
         align-items: center;
         font-size: 15px;
         font-weight: 800;
-        color: #ffffff;
+      /*  color: #ffffff;*/
         border-radius: 15px;
     }
 
     .modal-vault button.button-deposit .button-inner {
-        background: linear-gradient(250deg, #00ffc2 0%, #00aa6d 100%);
+        background: var(--gradient-button-bg);
     }
 
     .modal-vault button.button-withdraw .button-inner {
-        background: linear-gradient(250deg, #fca311 0%, #ffb703 100%);
+        background: var(--gradient-button-bg);
     }
 
     .modal-vault .vault-footer {

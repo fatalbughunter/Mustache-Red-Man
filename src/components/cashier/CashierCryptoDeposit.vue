@@ -257,7 +257,7 @@
         gap: 8px;
         padding: 10px 16px;
         border-radius: 8px;
-        background: var(--bg-tertiary);
+        background: var(--bg-blue-dark);
         border: 1px solid rgba(212, 165, 116, 0.3);
         color: var(--text-secondary);
         font-size: 14px;
