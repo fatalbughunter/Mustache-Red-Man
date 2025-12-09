@@ -194,6 +194,29 @@ export default {
             this.resetGameSession();
         },
 
+        launchGame(gameData) {
+            // Close sidebar if it's open (not collapsed)
+            // The game session is already set by the SlotsGameCard component
+            // We just need to close the sidebar if it's open
+            this.closeSidebarIfOpen();
+        },
+
+        closeSidebarIfOpen() {
+            // Check if sidebar is open (not collapsed)
+            const sidebar = document.querySelector('aside#sidebar-left');
+            if (sidebar && !sidebar.classList.contains('collapsed')) {
+                // Sidebar is open, close it by clicking the toggle button
+                // Only close on desktop (width > 1024px)
+                if (window.innerWidth > 1024) {
+                    const toggleButton = sidebar.querySelector('.menu-toggle');
+                    if (toggleButton) {
+                        toggleButton.click();
+                    }
+                }
+            }
+            // If sidebar is already collapsed (closed), do nothing
+        },
+
         // Setup real-time balance updates via Socket.io
         setupSocketListeners() {
             const socket = this.socketGeneral;
