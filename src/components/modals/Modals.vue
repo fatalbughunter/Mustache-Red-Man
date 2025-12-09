@@ -208,6 +208,7 @@
         position: relative;
         border-radius: 15px;
         box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+        overflow: visible;
     }
 
     .modals .body-modal button.button-close {
@@ -220,7 +221,7 @@
         top: 15px;
         right: 20px;
         filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1));
-        z-index: 1;
+        z-index: 10;
     }
 
     .modals .body-modal.modal-square button.button-close {

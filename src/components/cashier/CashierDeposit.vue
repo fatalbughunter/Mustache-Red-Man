@@ -62,7 +62,7 @@
             <transition name="fade" mode="out-in">
                 <div v-if="cashierCryptoData.loading === true" class="qrcode-loading" key="loading"></div>
                 <div v-else class="qrcode-content" key="data">
-                    <QRCode v-bind:value="depositAddress || cashierCryptoData.addresses[selectedCurrency]" v-bind:options="{ width: 180, height: 180, margin: 1 }" />
+                    <QRCode v-bind:value="depositAddress" v-bind:options="{ width: 200, height: 200, margin: 1 }" />
                 </div>
             </transition>
         </div>
@@ -162,7 +162,7 @@
             },
             modalCopyButton() {
                 const el = document.createElement('textarea');
-                el.value = this.depositAddress || this.cashierCryptoData.addresses[this.selectedCurrency];
+                el.value = this.depositAddress;
                 el.setAttribute('readonly', '');
                 el.style.position = 'absolute';
                 el.style.left = '-9999px';
@@ -359,7 +359,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 18px;
+        gap: 12px;
     }
 
     /* Currency Selection */
@@ -368,10 +368,10 @@
     }
 
     .currency-title {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
         color: var(--text-muted);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
     .currency-buttons-scroll {
@@ -498,10 +498,10 @@
     }
 
     .address-title {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
         color: var(--text-muted);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
         gap: 6px;
@@ -514,7 +514,7 @@
 
     .address-input {
         width: 100%;
-        height: 50px;
+        height: 45px;
         border-radius: 8px;
         background: var(--bg-blue-chat);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -571,12 +571,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 5px 0;
+        margin: 10px 0;
     }
 
     .qrcode-loading {
-        width: 180px;
-        height: 180px;
+        width: 200px;
+        height: 200px;
         position: relative;
         overflow: hidden;
         background: var(--bg-tertiary);
@@ -598,9 +598,9 @@
     }
 
     .qrcode-content {
-        width: 180px;
-        height: 180px;
-        padding: 8px;
+        width: 200px;
+        height: 200px;
+        padding: 10px;
         background: white;
         border-radius: 8px;
         display: flex;
@@ -616,29 +616,28 @@
 
     .rate-content {
         display: flex;
-        align-items: flex-end;
-        gap: 15px;
-        flex-wrap: nowrap;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
     .equals-sign {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         color: var(--text-secondary);
-        margin-bottom: 8px;
         flex-shrink: 0;
     }
 
     .content-element {
         flex: 1;
-        min-width: 0;
+        min-width: 140px;
     }
 
     .element-label {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
         color: var(--text-secondary);
-        margin-bottom: 8px;
+        margin-bottom: 6px;
     }
 
     .element-loading {
@@ -666,14 +665,14 @@
 
     .element-content {
         width: 100%;
-        height: 50px;
+        height: 45px;
         position: relative;
         display: flex;
         align-items: center;
         background: var(--bg-blue-chat);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 8px;
-        padding: 0 12px 0 44px;
+        padding: 0 12px 0 40px;
         overflow: hidden;
     }
 
@@ -682,7 +681,7 @@
         background: transparent;
         border: none;
         color: var(--text-primary);
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
         outline: none;
     }
@@ -690,15 +689,15 @@
     .element-content img,
     .element-content .currency-symbol {
         position: absolute;
-        left: 12px;
+        left: 10px;
         top: 50%;
         transform: translateY(-50%);
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
     }
 
     .element-content .currency-symbol {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 700;
         color: var(--accent-copper-light);
         width: auto;
@@ -708,23 +707,23 @@
     /* Notice Section */
     .deposit-notice {
         width: 100%;
-        padding: 15px 20px;
+        padding: 12px 15px;
         border-radius: 8px;
         background: rgba(255, 193, 7, 0.15);
         border: 1px solid rgba(255, 193, 7, 0.3);
     }
 
     .notice-title {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 700;
         color: #ffc107;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
     }
 
     .notice-content {
-        font-size: 12px;
+        font-size: 11px;
         color: #ffc107;
-        line-height: 1.5;
+        line-height: 1.4;
     }
 
     /* Remove amount conversion styles - no longer needed */
@@ -770,16 +769,23 @@
     }
 
     @media only screen and (max-width: 750px) {
+        .cashier-deposit {
+            gap: 12px;
+        }
+
         .rate-content {
-            gap: 8px;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
         }
 
         .equals-sign {
-            font-size: 14px;
+            display: none;
         }
 
         .content-element {
             min-width: 0;
+            width: 100%;
         }
 
         .element-content {
@@ -788,6 +794,16 @@
 
         .element-content input {
             font-size: 12px;
+        }
+
+        .qrcode-content,
+        .qrcode-loading {
+            width: 180px;
+            height: 180px;
+        }
+
+        .deposit-notice {
+            padding: 12px 15px;
         }
     }
 
