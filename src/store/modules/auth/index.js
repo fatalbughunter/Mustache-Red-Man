@@ -15,8 +15,8 @@ const getters = {
     authStep: state => state.authStep,
     authToken: state => state.authToken,
     authUser: state => state.authUser,
-    authenticated: state => state.authUser.user !== null,
-    userId: state => state.authUser.user?._id || state.authUser.user?.id || null
+    authenticated: state => state.authUser.user !== null && state.authUser.user !== undefined,
+    userId: state => state.authUser.user ? state.authUser.user._id : null
 }
 
 const mutations = {
@@ -47,6 +47,11 @@ const mutations = {
     },
     auth_set_user_loading(state, status) {
         state.authUser.loading = status;
+    },
+    authUpdateUserBalance(state, balance) {
+        if (state.authUser.user) {
+            state.authUser.user.balance = balance;
+        }
     }
 }
 

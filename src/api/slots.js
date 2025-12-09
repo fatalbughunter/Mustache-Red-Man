@@ -49,7 +49,7 @@ export const slotsApi = {
         try {
             const response = await axios.post('/slots/launch', {
                 userId,
-                gameType: 'slots',
+                gameType: 'slot',
                 providerCode,
                 gameCode
             });
