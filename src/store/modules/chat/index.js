@@ -1,8 +1,19 @@
+// Always use 'en' as the only chat room
+const getInitialRoom = () => {
+    const savedRoom = localStorage.getItem('chatRoom');
+    // If saved room is not 'en' or is a removed room, reset to 'en'
+    if (savedRoom !== 'en') {
+        localStorage.setItem('chatRoom', 'en');
+        return 'en';
+    }
+    return 'en';
+};
+
 const state = {
     chatLastMessage: null,
     chatScroll: true,
-    chatRoom: localStorage.getItem('chatRoom') === null ? 'en' : localStorage.getItem('chatRoom'),
-    chatOnline: { en: 0, tr: 0, de: 0, es: 0, beg: 0, whale: 0 },
+    chatRoom: getInitialRoom(),
+    chatOnline: { en: 0 },
     chatMessages: {
         data: null,
         loading: false

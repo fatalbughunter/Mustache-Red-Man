@@ -130,6 +130,24 @@ export default {
         ...mapGetters('slots', ['providers', 'games', 'currentProvider', 'currentGame', 'gameSession', 'loading', 'error', 'cryptoPrices']),
         ...mapGetters(['authenticated', 'socketGeneral'])
     },
+
+    async mounted() {
+        await this.loadProviders();
+        await this.fetchCryptoPrices();
+
+        // Load user balance if authenticated
+        if (this.authenticated) {
+            await this.fetchUserBalance();
+            this.setupSocketListeners();
+        }
+    },
+
+    beforeUnmount() {
+        if (this.socketUnsubscribe) {
+            this.socketUnsubscribe();
+        }
+    },
+
     methods: {
         ...mapActions('slots', ['fetchProviders', 'fetchGamesByProvider', 'fetchCryptoPrices', 'resetGameSession', 'clearError', 'fetchUserBalance', 'handleBalanceUpdate']),
         
@@ -193,23 +211,6 @@ export default {
             this.socketUnsubscribe = () => {
                 socket.off('casino:balance-update');
             };
-        }
-    },
-
-    async mounted() {
-        await this.loadProviders();
-        await this.fetchCryptoPrices();
-
-        // Load user balance if authenticated
-        if (this.authenticated) {
-            await this.fetchUserBalance();
-            this.setupSocketListeners();
-        }
-    },
-
-    beforeUnmount() {
-        if (this.socketUnsubscribe) {
-            this.socketUnsubscribe();
         }
     },
 
@@ -354,8 +355,8 @@ export default {
 }
 
 .price-card {
-    background: rgba(212, 165, 116, 0.1);
-    border: 1px solid rgba(212, 165, 116, 0.3);
+    background: var(--accent-blue-dark);
+    border: 1px solid var(--accent-yellow);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     display: flex;
@@ -375,38 +376,47 @@ export default {
 }
 
 .game-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
     background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
-    padding: var(--spacing-lg);
+    z-index: 9999999 !important;
+    padding: 80px var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
 }
 
 .game-modal {
-    background: var(--bg-primary-blue);
+    background: var(--accent-blue-dark);
     border: 2px solid var(--color-copper);
     border-radius: var(--radius-xl);
     width: 100%;
     height: 100%;
     max-width: 1200px;
-    max-height: 800px;
+    max-height: calc(100vh - 100px) !important;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
+    z-index: 10000000 !important;
 }
 
 .game-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-lg);
+    padding: 12px 24px 12px 24px !important;
     border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+    position: relative;
+    z-index: 10000001 !important;
+    flex-shrink: 0;
 }
 
 .game-modal-header h3 {

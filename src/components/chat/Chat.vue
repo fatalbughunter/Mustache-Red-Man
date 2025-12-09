@@ -22,7 +22,6 @@
                     <IconUsers />
                     <span style="color: #00FFC2;">{{chatGetOnline}}</span>
                 </div>
-                <ChatRoomDropdown />
                 <RainTipDropdown />
             </div>
             <div class="chat-content">
@@ -81,7 +80,6 @@
     import IconUsers from '@/components/icons/IconUsers';
     import IconMessage from '@/components/icons/IconMessage';
     import IconRules from '@/components/icons/IconRules';
-    import ChatRoomDropdown from '@/components/chat/ChatRoomDropdown';
     import ChatMessageElement from '@/components/chat/ChatMessageElement';
     import ChatEmojisDropdown from '@/components/chat/ChatEmojisDropdown';
     import RainTipDropdown from '@/components/rain/RainTipDropdown';
@@ -94,7 +92,6 @@
             IconUsers,
             IconMessage,
             IconRules,
-            ChatRoomDropdown,
             ChatMessageElement,
             ChatEmojisDropdown,
             RainTipDropdown,
