@@ -62,30 +62,9 @@
             <transition name="fade" mode="out-in">
                 <div v-if="cashierCryptoData.loading === true" class="qrcode-loading" key="loading"></div>
                 <div v-else class="qrcode-content" key="data">
-                    <QRCode v-bind:value="depositAddress" v-bind:options="{ width: 180, height: 180, margin: 1 }" />
+                    <QRCode v-bind:value="depositAddress || cashierCryptoData.addresses[selectedCurrency]" v-bind:options="{ width: 180, height: 180, margin: 1 }" />
                 </div>
             </transition>
-        </div>
-
-        <!-- Amount Conversion -->
-        <div class="deposit-rate">
-            <div class="rate-content">
-                <div class="content-element">
-                    <div class="element-label">Amount in USD</div>
-                    <div class="element-content">
-                        <span class="currency-symbol">$</span>
-                        <input :value="cashierFiatAmount" @input="handleFiatInput" @keypress="restrictToNumbers" type="text" />
-                    </div>
-                </div>
-                <span class="equals-sign">=</span>
-                <div class="content-element element-crypto">
-                    <div class="element-label">Amount in {{ selectedCurrency.toUpperCase() }}</div>
-                    <div class="element-content">
-                        <img v-bind:src="getCurrencyIcon(selectedCurrency)" />
-                        <input :value="cashierCryptoAmount" @input="handleCryptoInput" @keypress="restrictToNumbers" type="text" />
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Notice Section -->
@@ -93,6 +72,33 @@
             <div class="notice-title">NOTICE</div>
             <div class="notice-content">
                 Send only {{ selectedCurrency.toUpperCase() }} to this deposit address. Crypto will be deposited automatically after network confirmations. Smart contract addresses are not supported (Contact us).
+            </div>
+        </div>
+
+        <!-- Amount Conversion -->
+        <div class="deposit-rate">
+            <div class="rate-content">
+                <div class="content-element">
+                    <div class="element-label">Amount in USD</div>
+                    <transition name="fade" mode="out-in">
+                        <div v-if="cashierCryptoData.loading === true" class="element-loading" key="loading"></div>
+                        <div v-else class="element-content" key="data">
+                            <span class="currency-symbol">$</span>
+                            <input v-model="cashierFiatAmount" v-on:input="handleFiatAmountInput" @keypress="restrictToNumbers" type="text" />
+                        </div>
+                    </transition>
+                </div>
+                <span class="equals-sign">=</span>
+                <div class="content-element element-crypto">
+                    <div class="element-label">Amount in {{ selectedCurrency.toUpperCase() }}</div>
+                    <transition name="fade" mode="out-in">
+                        <div v-if="cashierCryptoData.loading === true" class="element-loading" key="loading"></div>
+                        <div v-else class="element-content" key="data">
+                            <img v-bind:src="getCurrencyIcon(selectedCurrency)" />
+                            <input v-model="cashierCryptoAmount" v-on:input="handleCryptoAmountInput" @keypress="restrictToNumbers" type="text" />
+                        </div>
+                    </transition>
+                </div>
             </div>
         </div>
 
@@ -112,17 +118,17 @@
             return {
                 selectedCurrency: 'usdt',
                 selectedNetwork: 'erc20',
-                cashierCryptoAmount: '',
-                cashierCoinAmount: '',
-                cashierFiatAmount: '',
+                cashierCryptoAmount: '100.00',
+                cashierCoinAmount: 0,
+                cashierFiatAmount: 0,
                 availableCurrencies: [
                     { code: 'usdt', name: 'USDT', icon: 'usdt' },
                     { code: 'usdc', name: 'USDC', icon: 'usdc' },
                     { code: 'eth', name: 'ETH', icon: 'eth' },
-                    { code: 'ltc', name: 'LTC', icon: 'ltc' },
                     { code: 'bnb', name: 'BNB', icon: 'bnb' },
                     { code: 'solana', name: 'SOL', icon: 'sol' },
-                    { code: 'tron', name: 'TRON', icon: 'trx' }
+                    { code: 'tron', name: 'TRON', icon: 'trx' },
+                    { code: 'ltc', name: 'LTC', icon: 'ltc' }
                 ],
                 availableNetworks: [
                     { code: 'erc20', name: 'ERC20' },
@@ -138,55 +144,12 @@
                 'modalsSetData',
                 'cashierGetCryptoDataSocket'
             ]),
-            fetchCryptoData() {
-                // Check if socket is available and connected
-                if (!this.socketCashier) {
-                    console.log('Deposit - Socket not available yet, will retry');
-                    // Retry after a short delay
-                    setTimeout(() => this.fetchCryptoData(), 500);
-                    return;
-                }
-                
-                if (!this.socketCashier.connected) {
-                    console.log('Deposit - Socket not connected yet, will retry. Connected:', this.socketCashier.connected);
-                    // Retry after a short delay
-                    setTimeout(() => this.fetchCryptoData(), 500);
-                    return;
-                }
-                
-                // Fetch prices if not loaded or if loading is false
-                if (!this.cashierCryptoData || !this.cashierCryptoData.prices || Object.keys(this.cashierCryptoData.prices || {}).length === 0) {
-                    if (this.cashierCryptoData && this.cashierCryptoData.loading === false) {
-                        console.log('Deposit - Fetching crypto data... Socket connected:', this.socketCashier.connected);
-                        const data = {};
-                        this.cashierGetCryptoDataSocket(data);
-                    } else if (this.cashierCryptoData && this.cashierCryptoData.loading === true) {
-                        console.log('Deposit - Crypto data is already loading...');
-                    } else {
-                        console.log('Deposit - Cannot fetch: cashierCryptoData:', this.cashierCryptoData);
-                    }
-                } else {
-                    console.log('Deposit - Prices already loaded:', Object.keys(this.cashierCryptoData.prices || {}));
-                }
-            },
             selectCurrency(currencyCode) {
                 this.selectedCurrency = currencyCode;
                 // Refresh crypto data for new currency
-                if(this.cashierCryptoData && this.cashierCryptoData.loading === false) {
+                if(this.cashierCryptoData.loading === false) {
                     const data = {};
                     this.cashierGetCryptoDataSocket(data);
-                }
-                // If user has entered amounts, recalculate with new currency
-                if (this.cashierCryptoAmount && this.cashierCryptoAmount !== '') {
-                    this.$nextTick(() => {
-                        const event = { target: { value: this.cashierCryptoAmount } };
-                        this.handleCryptoInput(event);
-                    });
-                } else if (this.cashierFiatAmount && this.cashierFiatAmount !== '') {
-                    this.$nextTick(() => {
-                        const event = { target: { value: this.cashierFiatAmount } };
-                        this.handleFiatInput(event);
-                    });
                 }
             },
             selectNetwork(networkCode) {
@@ -199,7 +162,7 @@
             },
             modalCopyButton() {
                 const el = document.createElement('textarea');
-                el.value = this.depositAddress;
+                el.value = this.depositAddress || this.cashierCryptoData.addresses[this.selectedCurrency];
                 el.setAttribute('readonly', '');
                 el.style.position = 'absolute';
                 el.style.left = '-9999px';
@@ -237,7 +200,7 @@
             handleImageError(event) {
                 event.target.style.display = 'none';
             },
-            handleFiatInput(event) {
+            handleFiatAmountInput(event) {
                 // Get the input value and clean it - allow only numbers and decimal point
                 let value = event.target.value.replace(/[^\d.]/g, '');
                 // Prevent multiple decimal points
@@ -246,68 +209,10 @@
                     value = parts[0] + '.' + parts.slice(1).join('');
                 }
                 this.cashierFiatAmount = value;
-                
-                if (!value || value === '' || value === '.') {
-                    this.cashierCryptoAmount = '';
-                    this.cashierCoinAmount = '';
-                    return;
-                }
-                
-                const fiatAmount = parseFloat(value);
-                if (isNaN(fiatAmount) || fiatAmount < 0) {
-                    this.cashierCryptoAmount = '';
-                    this.cashierCoinAmount = '';
-                    return;
-                }
-                
-                // Apply conversion using price data
-                // Check if prices are loaded and contain the selected currency
-                if (!this.cashierCryptoData || !this.cashierCryptoData.prices) {
-                    // Prices not loaded - try to fetch them
-                    if (this.cashierCryptoData && this.cashierCryptoData.loading === false) {
-                        const data = {};
-                        this.cashierGetCryptoDataSocket(data);
-                    }
-                    this.cashierCryptoAmount = '';
-                    this.cashierCoinAmount = '';
-                    return;
-                }
-
-                // Try different currency key formats
-                let priceData = this.cashierCryptoData.prices[this.selectedCurrency];
-                if (!priceData) {
-                    // Try lowercase
-                    priceData = this.cashierCryptoData.prices[this.selectedCurrency.toLowerCase()];
-                }
-                if (!priceData) {
-                    // Try uppercase
-                    priceData = this.cashierCryptoData.prices[this.selectedCurrency.toUpperCase()];
-                }
-                if (!priceData) {
-                    // Log available keys for debugging
-                    console.log('Deposit Fiat - Available price keys:', Object.keys(this.cashierCryptoData.prices));
-                    console.log('Deposit Fiat - Looking for currency:', this.selectedCurrency);
-                    this.cashierCryptoAmount = '';
-                    this.cashierCoinAmount = '';
-                    return;
-                }
-
-                if (priceData && priceData.price && !isNaN(priceData.price) && priceData.price > 0 && fiatAmount > 0) {
-                    const price = priceData.price / 1000;
-                    if (price > 0) {
-                        const cryptoAmount = parseFloat(fiatAmount / price);
-                        this.cashierCryptoAmount = cryptoAmount.toFixed(8);
-                        this.cashierCoinAmount = parseFloat((fiatAmount / 3) * 1000).toFixed(2);
-                    } else {
-                        this.cashierCryptoAmount = '';
-                        this.cashierCoinAmount = '';
-                    }
-                } else {
-                    this.cashierCryptoAmount = '';
-                    this.cashierCoinAmount = '';
-                }
+                // Trigger conversion
+                this.modalFiatInput();
             },
-            handleCryptoInput(event) {
+            handleCryptoAmountInput(event) {
                 // Get the input value and clean it - allow only numbers and decimal point
                 let value = event.target.value.replace(/[^\d.]/g, '');
                 // Prevent multiple decimal points
@@ -316,89 +221,56 @@
                     value = parts[0] + '.' + parts.slice(1).join('');
                 }
                 this.cashierCryptoAmount = value;
-                
-                if (!value || value === '' || value === '.') {
-                    this.cashierFiatAmount = '';
-                    this.cashierCoinAmount = '';
-                    return;
-                }
-                
-                const cryptoAmount = parseFloat(value);
-                if (isNaN(cryptoAmount) || cryptoAmount < 0) {
-                    this.cashierFiatAmount = '';
-                    this.cashierCoinAmount = '';
-                    return;
-                }
-                
-                // Apply conversion using price data
-                // Check if prices are loaded and contain the selected currency
-                if (!this.cashierCryptoData || !this.cashierCryptoData.prices) {
-                    // Prices not loaded - try to fetch them
-                    if (this.cashierCryptoData && this.cashierCryptoData.loading === false) {
-                        const data = {};
-                        this.cashierGetCryptoDataSocket(data);
-                    }
-                    this.cashierFiatAmount = '';
-                    this.cashierCoinAmount = '';
-                    return;
-                }
-
-                // Try different currency key formats
-                let priceData = this.cashierCryptoData.prices[this.selectedCurrency];
-                if (!priceData) {
-                    // Try lowercase
-                    priceData = this.cashierCryptoData.prices[this.selectedCurrency.toLowerCase()];
-                }
-                if (!priceData) {
-                    // Try uppercase
-                    priceData = this.cashierCryptoData.prices[this.selectedCurrency.toUpperCase()];
-                }
-                if (!priceData) {
-                    // Log available keys for debugging
-                    console.log('Deposit Crypto - Available price keys:', Object.keys(this.cashierCryptoData.prices));
-                    console.log('Deposit Crypto - Looking for currency:', this.selectedCurrency);
-                    this.cashierFiatAmount = '';
-                    this.cashierCoinAmount = '';
-                    return;
-                }
-
-                if (priceData && priceData.price !== undefined && priceData.price !== null && !isNaN(priceData.price) && priceData.price > 0 && cryptoAmount > 0) {
-                    const price = priceData.price / 1000;
-                    if (price > 0) {
-                        const fiatAmount = parseFloat(cryptoAmount * price);
-                        this.cashierFiatAmount = fiatAmount.toFixed(2);
-                        this.cashierCoinAmount = parseFloat((fiatAmount / 3) * 1000).toFixed(2);
-                    } else {
-                        this.cashierFiatAmount = '';
-                        this.cashierCoinAmount = '';
-                    }
-                } else {
-                    this.cashierFiatAmount = '';
-                    this.cashierCoinAmount = '';
-                }
+                // Trigger conversion
+                this.modalCryptoInput();
             },
-            modalFiatInput() {
-                // Keep for backward compatibility if needed
-                this.handleFiatInput({ target: { value: this.cashierFiatAmount } });
-            },
-            modalCryptoInput() {
-                // Keep for backward compatibility if needed
-                this.handleCryptoInput({ target: { value: this.cashierCryptoAmount } });
-            },
-            // Helper to restrict input to numbers only
             restrictToNumbers(event) {
                 const char = String.fromCharCode(event.which);
                 if (!/[0-9.]/.test(char)) {
                     event.preventDefault();
                 }
+            },
+            modalFiatInput() {
+                this.cashierCoinAmount = parseFloat((this.cashierFiatAmount / 3) * 1000).toFixed(2);
+                
+                // USDT has 1:1 conversion rate with USD
+                if (this.selectedCurrency === 'usdt') {
+                    this.cashierCryptoAmount = parseFloat(this.cashierFiatAmount).toFixed(8);
+                    return;
+                }
+                
+                // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
+                if (this.selectedCurrency === 'usdc') {
+                    this.cashierCryptoAmount = parseFloat(this.cashierFiatAmount / 1.001001).toFixed(8);
+                    return;
+                }
+                
+                this.cashierCryptoAmount = parseFloat(1 / (this.cashierCryptoData.prices[this.selectedCurrency].price / 1000) * this.cashierFiatAmount).toFixed(8);
+            },
+            modalCryptoInput() {
+                // USDT has 1:1 conversion rate with USD
+                if (this.selectedCurrency === 'usdt') {
+                    this.cashierFiatAmount = parseFloat(this.cashierCryptoAmount).toFixed(2);
+                    this.cashierCoinAmount = parseFloat((this.cashierFiatAmount / 3) * 1000).toFixed(2);
+                    return;
+                }
+                
+                // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
+                if (this.selectedCurrency === 'usdc') {
+                    this.cashierFiatAmount = parseFloat(this.cashierCryptoAmount * 1.001001).toFixed(2);
+                    this.cashierCoinAmount = parseFloat((this.cashierFiatAmount / 3) * 1000).toFixed(2);
+                    return;
+                }
+                
+                this.cashierFiatAmount = parseFloat(this.cashierCryptoAmount * (this.cashierCryptoData.prices[this.selectedCurrency].price / 1000)).toFixed(2);
+                this.cashierCoinAmount = parseFloat((this.cashierFiatAmount / 3) * 1000).toFixed(2);
             }
         },
         computed: {
             ...mapGetters([
                 'generalSettings',
                 'socketSendLoading',
-                'cashierCryptoData',
-                'socketCashier'
+                'cashierCryptoData'
             ]),
             depositAddress() {
                 if (!this.cashierCryptoData.addresses) {
@@ -429,43 +301,54 @@
             }
         },
         created() {
-            // Fetch crypto data on component creation
-            this.fetchCryptoData();
-        },
-        mounted() {
-            // Also fetch when component is mounted (in case socket wasn't ready in created)
-            this.$nextTick(() => {
-                this.fetchCryptoData();
-            });
+            // Initialize with default currency and fetch crypto data
+            // For USDT, initialize with 1:1 conversion
+            if (this.selectedCurrency === 'usdt') {
+                this.cashierCryptoAmount = '100.00';
+                this.cashierFiatAmount = '100.00';
+                this.cashierCoinAmount = parseFloat((100 / 3) * 1000).toFixed(2);
+            }
+            // For USDC, initialize with 1:1.001001 conversion (1 USDC = 1.001001 USD)
+            if (this.selectedCurrency === 'usdc') {
+                this.cashierCryptoAmount = '100.00';
+                this.cashierFiatAmount = parseFloat(100 * 1.001001).toFixed(2);
+                this.cashierCoinAmount = parseFloat((this.cashierFiatAmount / 3) * 1000).toFixed(2);
+            }
+            if(this.cashierCryptoData.loading === false) {
+                const data = {};
+                this.cashierGetCryptoDataSocket(data);
+            }
         },
         watch: {
             'cashierCryptoData.prices': {
-                handler(newPrices, oldPrices) {
-                    // Log when prices are loaded for debugging
-                    if (newPrices && Object.keys(newPrices || {}).length > 0) {
-                        console.log('Deposit - Prices loaded! Available keys:', Object.keys(newPrices));
-                        // If prices just loaded and user has entered amounts, recalculate
-                        if (this.cashierFiatAmount && this.cashierFiatAmount !== '') {
-                            this.$nextTick(() => {
-                                const event = { target: { value: this.cashierFiatAmount } };
-                                this.handleFiatInput(event);
-                            });
-                        } else if (this.cashierCryptoAmount && this.cashierCryptoAmount !== '') {
-                            this.$nextTick(() => {
-                                const event = { target: { value: this.cashierCryptoAmount } };
-                                this.handleCryptoInput(event);
-                            });
-                        }
+                handler() {
+                    this.cashierCoinAmount = parseFloat((100 / 3) * 1000).toFixed(2);
+                    this.cashierFiatAmount = parseFloat(100).toFixed(2);
+                    // USDT has 1:1 conversion rate with USD
+                    if (this.selectedCurrency === 'usdt') {
+                        this.cashierCryptoAmount = parseFloat(100).toFixed(2);
+                    } else if (this.selectedCurrency === 'usdc') {
+                        // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
+                        this.cashierCryptoAmount = parseFloat(100 / 1.001001).toFixed(8);
+                    } else if(this.cashierCryptoData.prices && this.cashierCryptoData.prices[this.selectedCurrency]) {
+                        this.cashierCryptoAmount = parseFloat(1 / (this.cashierCryptoData.prices[this.selectedCurrency].price / 1000) * 100).toFixed(8);
                     }
                 },
-                deep: true,
-                immediate: true
+                deep: true
             },
             selectedCurrency() {
-                // Clear amounts when currency changes so user can input fresh
-                this.cashierFiatAmount = '';
-                this.cashierCryptoAmount = '';
-                this.cashierCoinAmount = '';
+                // Update amounts when currency changes
+                this.cashierFiatAmount = parseFloat(100).toFixed(2);
+                this.cashierCoinAmount = parseFloat((100 / 3) * 1000).toFixed(2);
+                // USDT has 1:1 conversion rate with USD
+                if (this.selectedCurrency === 'usdt') {
+                    this.cashierCryptoAmount = parseFloat(100).toFixed(2);
+                } else if (this.selectedCurrency === 'usdc') {
+                    // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
+                    this.cashierCryptoAmount = parseFloat(100 / 1.001001).toFixed(8);
+                } else if(this.cashierCryptoData.prices && this.cashierCryptoData.prices[this.selectedCurrency]) {
+                    this.cashierCryptoAmount = parseFloat(1 / (this.cashierCryptoData.prices[this.selectedCurrency].price / 1000) * 100).toFixed(8);
+                }
             }
         }
     }
@@ -791,6 +674,7 @@
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 8px;
         padding: 0 12px 0 44px;
+        overflow: hidden;
     }
 
     .element-content input {

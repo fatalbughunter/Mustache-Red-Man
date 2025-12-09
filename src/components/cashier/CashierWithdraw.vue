@@ -49,7 +49,7 @@
             <div class="amount-input">
                 <div class="amount-content">
                     <img v-bind:src="getCurrencyIcon(selectedCurrency)" />
-                    <input v-model="withdrawAmount" type="text" placeholder="0.00" />
+                    <input v-model="withdrawAmount" @input="handleWithdrawAmountInput" @keypress="restrictToNumbers" type="text" placeholder="0.00" />
                 </div>
             </div>
         </div>
@@ -226,6 +226,18 @@
                     return;
                 }
                 
+                // USDT has 1:1 conversion rate with USD
+                if (this.selectedCurrency === 'usdt') {
+                    this.withdrawAmount = fiatAmount.toFixed(8);
+                    return;
+                }
+                
+                // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
+                if (this.selectedCurrency === 'usdc') {
+                    this.withdrawAmount = parseFloat(fiatAmount / 1.001001).toFixed(8);
+                    return;
+                }
+                
                 // Apply conversion using price data
                 // Check if prices are loaded and contain the selected currency
                 if (!this.cashierCryptoData || !this.cashierCryptoData.prices) {
@@ -249,9 +261,6 @@
                     priceData = this.cashierCryptoData.prices[this.selectedCurrency.toUpperCase()];
                 }
                 if (!priceData) {
-                    // Log available keys for debugging
-                    console.log('Withdraw Fiat - Available price keys:', Object.keys(this.cashierCryptoData.prices));
-                    console.log('Withdraw Fiat - Looking for currency:', this.selectedCurrency);
                     this.withdrawAmount = '';
                     return;
                 }
@@ -289,6 +298,18 @@
                     return;
                 }
                 
+                // USDT has 1:1 conversion rate with USD
+                if (this.selectedCurrency === 'usdt') {
+                    this.withdrawFiatAmount = cryptoAmount.toFixed(2);
+                    return;
+                }
+                
+                // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
+                if (this.selectedCurrency === 'usdc') {
+                    this.withdrawFiatAmount = parseFloat(cryptoAmount * 1.001001).toFixed(2);
+                    return;
+                }
+                
                 // Apply conversion using price data
                 // Check if prices are loaded and contain the selected currency
                 if (!this.cashierCryptoData || !this.cashierCryptoData.prices) {
@@ -312,9 +333,6 @@
                     priceData = this.cashierCryptoData.prices[this.selectedCurrency.toUpperCase()];
                 }
                 if (!priceData) {
-                    // Log available keys for debugging
-                    console.log('Withdraw - Available price keys:', Object.keys(this.cashierCryptoData.prices));
-                    console.log('Withdraw - Looking for currency:', this.selectedCurrency);
                     this.withdrawFiatAmount = '';
                     return;
                 }
@@ -338,6 +356,21 @@
             modalCryptoInput() {
                 // Keep for backward compatibility if needed
                 this.handleCryptoInput({ target: { value: this.withdrawAmount } });
+            },
+            handleWithdrawAmountInput(event) {
+                // Get the input value and clean it - allow only numbers and decimal point
+                let value = event.target.value.replace(/[^\d.]/g, '');
+                // Prevent multiple decimal points
+                const parts = value.split('.');
+                if (parts.length > 2) {
+                    value = parts[0] + '.' + parts.slice(1).join('');
+                }
+                this.withdrawAmount = value;
+                
+                // Trigger conversion to update USD amount
+                // Create a synthetic event to pass to handleCryptoInput
+                const syntheticEvent = { target: { value: value } };
+                this.handleCryptoInput(syntheticEvent);
             },
             // Helper to restrict input to numbers only
             restrictToNumbers(event) {
@@ -681,6 +714,7 @@
         border: 1px solid rgba(212, 165, 116, 0.3);
         border-radius: 8px;
         padding: 0 12px 0 44px;
+        overflow: hidden;
     }
 
     .element-content input {

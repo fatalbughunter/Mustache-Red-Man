@@ -480,6 +480,7 @@
         border: 1px solid rgba(212, 165, 116, 0.3);
         border-radius: 8px;
         padding: 0 12px 0 44px;
+        overflow: hidden;
     }
 
     .element-content input {
