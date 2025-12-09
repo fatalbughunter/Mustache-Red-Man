@@ -13,7 +13,7 @@
             <div class="balance-inner">
                 <img v-if="isWorldLock" src="@/assets/img/icons/coin.svg" alt="icon" />
                 <img v-else src="@/assets/img/icons/diamondlock.svg" alt="icon" />
-                <AmountNumber v-bind:amount="authUser.user.balance" :isWorldLock="isWorldLock" />
+                <AmountNumber v-bind:amount="authUser.user.realBalance || authUser.user.balance" :isWorldLock="isWorldLock" />
             </div>
         </div>
     </div>
@@ -48,7 +48,8 @@
                 'authUser'
             ]),
             navbarGetBalance() {
-               return parseFloat(Math.floor(this.authUser.user.balance / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+               const balance = this.authUser.user.realBalance || this.authUser.user.balance;
+               return parseFloat(Math.floor(balance / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
            }
         }
     }

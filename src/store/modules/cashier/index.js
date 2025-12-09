@@ -179,34 +179,13 @@ const actions = {
         });
     },
     cashierGetCryptoDataSocket({ getters, commit, dispatch }, data) {
-        if(getters.socketCashier === null || getters.cashierCryptoData.loading === true) { 
-            console.log('Store - Cannot fetch crypto data: socketCashier:', getters.socketCashier, 'loading:', getters.cashierCryptoData.loading);
-            return; 
-        }
+        if(getters.socketCashier === null || getters.cashierCryptoData.loading === true) { return; }
         commit('cashier_set_crypto_data_loading', true);
-        console.log('Store - Fetching crypto data via socket...');
 
         getters.socketCashier.emit('getCryptoData', data, (res) => {
-            console.log('Store - Received crypto data response:', res);
             if(res.success === true) {
-                console.log('Store - Crypto data success!');
-                console.log('Store - res.prices type:', typeof res.prices);
-                console.log('Store - res.prices value:', res.prices);
-                console.log('Store - res.prices keys:', Object.keys(res.prices || {}));
-                
-                // Check if prices is empty and log warning
-                if (!res.prices || Object.keys(res.prices || {}).length === 0) {
-                    console.warn('Store - WARNING: Prices object is empty! This may indicate a backend issue.');
-                    console.log('Store - Full response structure:', JSON.stringify(res, null, 2));
-                    console.log('Store - Response keys:', Object.keys(res));
-                    console.log('Store - Addresses keys:', Object.keys(res.addresses || {}));
-                } else {
-                    console.log('Store - Prices loaded successfully with keys:', Object.keys(res.prices));
-                }
-                
                 commit('cashier_set_crypto_data', res);
             } else {
-                console.log('Store - Crypto data error:', res.error);
                 dispatch('notificationShow', res.error);
             }
 

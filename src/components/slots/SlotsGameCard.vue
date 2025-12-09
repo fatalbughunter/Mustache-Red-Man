@@ -7,24 +7,18 @@
                 class="game-image"
                 @error="setDefaultGameImage"
             />
+            <!-- Always visible play button indicator -->
+            <div v-if="!launching" class="play-indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </div>
             <div v-if="launching" class="launching-overlay">
                 <div class="spinner"></div>
                 <p>Launching...</p>
             </div>
             <div v-else class="game-overlay">
                 <div class="play-controls">
-                    <ButtonGradient 
-                        text="Real Balance" 
-                        small
-                        :active="selectedBalance === 'realBalance'"
-                        @click.stop="selectBalance('realBalance')"
-                    />
-                    <ButtonGradient 
-                        text="Test Balance" 
-                        small
-                        :active="selectedBalance === 'testBalance'"
-                        @click.stop="selectBalance('testBalance')"
-                    />
                     <ButtonGradient 
                         text="Play Now" 
                         small
@@ -67,8 +61,7 @@ export default {
     },
     data() {
         return {
-            launching: false,
-            selectedBalance: 'realBalance'
+            launching: false
         };
     },
     computed: {
@@ -82,14 +75,12 @@ export default {
         ...mapActions('slots', ['launchGameSeamless', 'addFavorite', 'removeFavorite']),
         ...mapActions(['notificationShow']),
 
-        selectBalance(balanceType) {
-            this.selectedBalance = balanceType;
-        },
-
         async handleLaunch() {
             if (!this.authenticated) {
-                console.log('User not authenticated');
-                this.notificationShow({ type: 'error', message: 'Please login to play' });
+                this.notificationShow({ 
+                    type: 'error', 
+                    message: 'Please login to play' 
+                });
                 return;
             }
 
@@ -98,20 +89,27 @@ export default {
             try {
                 const session = await this.launchGameSeamless({
                     providerCode: this.providerCode,
-                    gameCode: this.game.code,
-                    balanceType: this.selectedBalance
+                    gameCode: this.game.code
                 });
 
                 if (session) {
                     this.$emit('launch', {
                         provider: this.providerCode,
                         game: this.game.code,
-                        session,
-                        balanceType: this.selectedBalance
+                        session
+                    });
+                } else {
+                    this.notificationShow({ 
+                        type: 'error', 
+                        message: 'Failed to launch game. Please try again.' 
                     });
                 }
             } catch (error) {
                 console.error('Failed to launch game:', error);
+                this.notificationShow({ 
+                    type: 'error', 
+                    message: error.message || 'Failed to launch game. Please try again.' 
+                });
             } finally {
                 this.launching = false;
             }
@@ -143,7 +141,7 @@ export default {
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 250px; /* fixed card height */
+    height: 320px; /* increased card height for better image display */
     width: 100%;
 }
 
@@ -157,8 +155,8 @@ export default {
 .game-image-container {
     position: relative;
     width: 100%;
-    /* fixed image area: 65% of card */
-    height: calc(100% * 0.65);
+    /* fixed image area: 70% of card for better image visibility */
+    height: calc(100% * 0.70);
     flex: 0 0 auto;
     overflow: hidden;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 100%);
@@ -170,7 +168,7 @@ export default {
 .game-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* ensure image fills container */
+    object-fit: contain; /* show full image without cropping */
     object-position: center;
     transition: transform 0.3s ease;
     display: block;
@@ -180,24 +178,51 @@ export default {
     transform: scale(1.05);
 }
 
+.play-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 60px;
+    height: 60px;
+    background: rgba(212, 165, 116, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+    transition: all 0.3s ease;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0; /* hidden by default */
+}
+
+.game-card:hover .play-indicator {
+    opacity: 1; /* show on hover */
+    transform: translate(-50%, -50%) scale(1);
+}
+
 .game-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease 0.5s; /* delay overlay appearance so play button shows first */
     padding: var(--spacing-md);
-    z-index: 5;
+    z-index: 10; /* higher z-index to cover play indicator when visible */
+    pointer-events: none;
 }
 
 .game-card:hover .game-overlay {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .play-controls {
@@ -247,7 +272,7 @@ export default {
     display: flex;
     flex-direction: column;
     position: relative;
-    height: calc(100% * 0.35); /* remaining card height */
+    height: calc(100% * 0.30); /* adjusted for new card proportions */
     box-sizing: border-box;
     overflow: hidden;
 }
