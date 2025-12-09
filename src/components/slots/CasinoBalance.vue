@@ -2,34 +2,8 @@
     <div class="balance-display">
         <div class="balance-container">
             <div class="balance-section">
-                <label class="balance-label">Real Balance</label>
-                <div class="balance-value">{{ formatBalance(userBalance.realBalance) }}</div>
-                <input 
-                    type="radio" 
-                    name="balance-type" 
-                    value="realBalance"
-                    :checked="selectedBalanceType === 'realBalance'"
-                    @change="selectBalance('realBalance')"
-                    class="balance-radio"
-                />
-            </div>
-            <div class="balance-divider"></div>
-            <div class="balance-section">
-                <label class="balance-label">Test Balance</label>
-                <div class="balance-value">{{ formatBalance(userBalance.testBalance) }}</div>
-                <input 
-                    type="radio" 
-                    name="balance-type" 
-                    value="testBalance"
-                    :checked="selectedBalanceType === 'testBalance'"
-                    @change="selectBalance('testBalance')"
-                    class="balance-radio"
-                />
-            </div>
-            <div class="balance-divider"></div>
-            <div class="balance-section">
-                <label class="balance-label">Total</label>
-                <div class="balance-value total">{{ formatBalance(userBalance.totalBalance) }}</div>
+                <label class="balance-label">Balance</label>
+                <div class="balance-value">{{ formatBalance(displayBalance) }}</div>
             </div>
         </div>
         <div v-if="lastTransaction" class="last-transaction">
@@ -48,11 +22,14 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
     name: 'CasinoBalance',
     computed: {
-        ...mapGetters('slots', ['userBalance', 'selectedBalanceType', 'lastTransaction'])
+        ...mapGetters('slots', ['lastTransaction']),
+        ...mapGetters(['authUser']),
+        displayBalance() {
+            // Always use main balance (seamless mode), converting from cents to dollars
+            return (this.authUser.user?.balance || 0) / 100;
+        }
     },
     methods: {
-        ...mapActions('slots', ['setSelectedBalanceType']),
-        
         formatBalance(amount) {
             return new Intl.NumberFormat('en-US', {
                 style: 'currency',
@@ -60,10 +37,6 @@ export default {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             }).format(amount || 0);
-        },
-        
-        selectBalance(balanceType) {
-            this.setSelectedBalanceType(balanceType);
         }
     }
 };
@@ -71,17 +44,16 @@ export default {
 
 <style scoped>
 .balance-display {
-    background: var(--bg-blue-chat);
-    border: 2px solid var(--accent-blue-dark);
+    background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(184, 115, 51, 0.1) 100%);
+    border: 2px solid rgba(212, 165, 116, 0.3);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
 }
 
 .balance-container {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr;
-    gap: var(--spacing-md);
+    display: flex;
+    justify-content: center;
     align-items: center;
     margin-bottom: var(--spacing-md);
 }
@@ -103,29 +75,10 @@ export default {
 }
 
 .balance-value {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--color-copper);
     font-family: 'Monaco', 'Courier New', monospace;
-}
-
-.balance-value.total {
-    font-size: 20px;
-    color: #2ecc71;
-    text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
-}
-
-.balance-radio {
-    cursor: pointer;
-    width: 18px;
-    height: 18px;
-    accent-color: var(--color-copper);
-}
-
-.balance-divider {
-    width: 1px;
-    height: 60px;
-    background: rgba(212, 165, 116, 0.2);
 }
 
 .last-transaction {

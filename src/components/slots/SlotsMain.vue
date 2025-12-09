@@ -176,27 +176,22 @@ export default {
             this.resetGameSession();
         },
 
-        launchGame(gameData) {
-            // Handle game launch event from SlotsGameCard
-            // The game session is already set by the launchGameSeamless action in the store
-            console.log('Game launched:', gameData);
-        },
-
         // Setup real-time balance updates via Socket.io
         setupSocketListeners() {
             const socket = this.socketGeneral;
-            if (!socket || !socket.connected) return;
+            if (!socket) return;
+
+            console.log('🔌 Setting up casino balance listener on general socket');
 
             // Listen for casino balance updates from backend callbacks
             socket.on('casino:balance-update', (update) => {
+                console.log('💰 Received balance update:', update);
                 this.handleBalanceUpdate(update);
             });
 
             // Store unsubscribe function for cleanup
             this.socketUnsubscribe = () => {
-                if (socket) {
-                    socket.off('casino:balance-update');
-                }
+                socket.off('casino:balance-update');
             };
         }
     },
@@ -204,14 +199,6 @@ export default {
     async mounted() {
         await this.loadProviders();
         await this.fetchCryptoPrices();
-
-        // Auto-load games from first provider if available
-        if (this.providers && this.providers.length > 0 && !this.currentProvider) {
-            const firstProvider = this.providers[0];
-            if (firstProvider && firstProvider.code) {
-                await this.selectProvider(firstProvider.code);
-            }
-        }
 
         // Load user balance if authenticated
         if (this.authenticated) {
@@ -232,17 +219,6 @@ export default {
                 this.fetchUserBalance();
                 this.setupSocketListeners();
             }
-        },
-        providers(newProviders) {
-            // Auto-load games from first provider when providers are loaded
-            if (newProviders && newProviders.length > 0 && !this.currentProvider && !this.gameLoading) {
-                const firstProvider = newProviders[0];
-                if (firstProvider && firstProvider.code) {
-                    this.$nextTick(() => {
-                        this.selectProvider(firstProvider.code);
-                    });
-                }
-            }
         }
     }
 };
@@ -253,7 +229,7 @@ export default {
     width: 100%;
     min-height: calc(100vh - 80px);
     padding: var(--spacing-lg);
-    background: var(--bg-blue-dark);
+    background: var(--bg-primary-blue);
 }
 
 .loading-state,
@@ -360,7 +336,7 @@ export default {
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: var(--spacing-lg);
 }
 
@@ -378,8 +354,8 @@ export default {
 }
 
 .price-card {
-    background: var(--bg-blue-chat);
-    border: 2px solid var(--accent-blue-dark);
+    background: rgba(212, 165, 116, 0.1);
+    border: 1px solid rgba(212, 165, 116, 0.3);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     display: flex;
@@ -460,7 +436,7 @@ export default {
 @media (max-width: 768px) {
     .providers-grid,
     .games-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 
     .section-title {

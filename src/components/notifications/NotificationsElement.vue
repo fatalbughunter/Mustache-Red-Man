@@ -67,11 +67,14 @@
 <style scoped>
     .notifications-element {
         width: 305px;
-        height: 73px;
+        min-height: 73px;
         position: relative;
         display: flex;
         margin-top: 10px;
         background-color: #1a1a1a;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .notifications-element:first-of-type {
@@ -84,10 +87,22 @@
         right: 12px;
     }
 
+    .notifications-element button.button-close {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+        z-index: 10;
+    }
+
+    .notifications-element button.button-close:hover {
+        opacity: 0.7;
+    }
+
     .notifications-element button.button-close svg {
         width: 10px;
         height: 9px;
-        fill: #75adc2;
+        fill: #ffffff;
     }
 
     .notifications-element .element-timer {
@@ -124,12 +139,16 @@
         align-items: center;
         padding: 0 27px 0 17px;
         font-size: 14px;
-        font-weight: 700;
-        color: #7a93ac;
+        font-weight: 600;
+        color: #ffffff;
+        line-height: 1.4;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .notifications-element .element-content svg {
-        margin-right: 22px;
+        margin-right: 15px;
+        flex-shrink: 0;
     }
 
     .notifications-element.element-success .element-content svg {
@@ -138,5 +157,15 @@
 
     .notifications-element.element-error .element-content svg {
         fill: #e94848;
+    }
+
+    /* Add success state styling */
+    .notifications-element.element-success {
+        border: 1px solid rgba(0, 170, 109, 0.3);
+    }
+
+    /* Add error state styling */
+    .notifications-element.element-error {
+        border: 1px solid rgba(233, 72, 72, 0.3);
     }
 </style>

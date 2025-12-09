@@ -16,11 +16,8 @@ const state = {
     gameHistory: [],
     // Seamless integration state
     userBalance: {
-        realBalance: 0,
-        testBalance: 0,
-        totalBalance: 0
+        realBalance: 0
     },
-    selectedBalanceType: 'realBalance', // 'realBalance' or 'testBalance'
     transactionHistory: [],
     favorites: [],
     lastTransaction: null
@@ -38,8 +35,7 @@ const getters = {
     gameHistory: state => state.gameHistory,
     // Seamless integration getters
     userBalance: state => state.userBalance,
-    selectedBalanceType: state => state.selectedBalanceType,
-    currentUserBalance: state => state.userBalance[state.selectedBalanceType] || 0,
+    currentUserBalance: state => state.userBalance.realBalance || 0,
     transactionHistory: state => state.transactionHistory,
     favorites: state => state.favorites,
     lastTransaction: state => state.lastTransaction
@@ -89,13 +85,8 @@ const mutations = {
     slots_set_user_balance(state, balance) {
         state.userBalance = balance;
     },
-    slots_update_balance(state, { balanceType, amount }) {
-        if (state.userBalance[balanceType] !== undefined) {
-            state.userBalance[balanceType] = amount;
-        }
-    },
-    slots_set_selected_balance_type(state, type) {
-        state.selectedBalanceType = type;
+    slots_update_balance(state, amount) {
+        state.userBalance.realBalance = amount;
     },
     slots_set_transaction_history(state, transactions) {
         state.transactionHistory = transactions;
@@ -130,20 +121,17 @@ const actions = {
         
         try {
             const response = await axios.get('/slots/providers');
-            console.log('Providers API response:', response.data);
             
             if (response.data.success) {
-                const providers = response.data.data || response.data;
-                commit('slots_set_providers', Array.isArray(providers) ? providers : []);
-                return Array.isArray(providers) ? providers : [];
+                commit('slots_set_providers', response.data.data);
+                return response.data.data;
             } else {
                 throw new Error(response.data.message || 'Failed to fetch providers');
             }
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to fetch providers';
             commit('slots_set_error', message);
-            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
-            console.error('Error fetching providers:', error);
+            dispatch('notificationShow', message);
             return [];
         } finally {
             commit('slots_set_loading', false);
@@ -157,7 +145,7 @@ const actions = {
         if (!providerCode) {
             const error = 'Provider code is required';
             commit('slots_set_error', error);
-            dispatch('notificationShow', { type: 'error', message: error }, { root: true });
+            dispatch('notificationShow', error);
             return [];
         }
 
@@ -166,22 +154,18 @@ const actions = {
         
         try {
             const response = await axios.get(`/slots/games/${providerCode}`);
-            console.log(`Games API response for ${providerCode}:`, response.data);
             
             if (response.data.success) {
-                const games = response.data.data || response.data.games || [];
-                commit('slots_set_games', Array.isArray(games) ? games : []);
+                commit('slots_set_games', response.data.data);
                 commit('slots_set_current_provider', providerCode);
-                console.log(`Loaded ${games.length} games for provider ${providerCode}`);
-                return Array.isArray(games) ? games : [];
+                return response.data.data;
             } else {
                 throw new Error(response.data.message || 'Failed to fetch games');
             }
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to fetch games';
             commit('slots_set_error', message);
-            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
-            console.error('Error fetching games:', error);
+            dispatch('notificationShow', message);
             return [];
         } finally {
             commit('slots_set_loading', false);
@@ -191,7 +175,7 @@ const actions = {
     /**
      * Launch a game session
      */
-    async launchGame({ commit, dispatch, getters }, { providerCode, gameCode }) {
+    async launchGame({ commit, dispatch, rootGetters }, { providerCode, gameCode }) {
         if (!providerCode || !gameCode) {
             const error = 'Provider code and game code are required';
             commit('slots_set_error', error);
@@ -199,8 +183,7 @@ const actions = {
             return null;
         }
 
-        const authUser = getters['auth/authUser'];
-        const userId = authUser?.user?._id || authUser?.user?.id;
+        const userId = rootGetters['userId'];
         if (!userId) {
             const error = 'User must be authenticated to launch a game';
             commit('slots_set_error', error);
@@ -229,7 +212,7 @@ const actions = {
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to launch game';
             commit('slots_set_error', message);
-            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
+            dispatch('notificationShow', { type: 'error', message }, { root: true });
             return null;
         } finally {
             commit('slots_set_loading', false);
@@ -359,24 +342,23 @@ const actions = {
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to fetch user balance';
             console.error('Error fetching balance:', message);
-            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
+            dispatch('notificationShow', message);
             return null;
         }
     },
 
     /**
-     * Launch game with balance type selection (Seamless integration)
+     * Launch game (Seamless integration)
      */
-    async launchGameSeamless({ commit, dispatch, getters }, { providerCode, gameCode, balanceType }) {
+    async launchGameSeamless({ commit, dispatch, rootGetters }, { providerCode, gameCode }) {
         if (!providerCode || !gameCode) {
             const error = 'Provider code and game code are required';
             commit('slots_set_error', error);
-            dispatch('notificationShow', { type: 'error', message: error }, { root: true });
+            dispatch('notificationShow', { type: 'error', message: error });
             return null;
         }
 
-        const authUser = getters['auth/authUser'];
-        const userId = authUser?.user?._id || authUser?.user?.id;
+        const userId = rootGetters['userId'];
         if (!userId) {
             const error = 'User must be authenticated to launch a game';
             commit('slots_set_error', error);
@@ -390,14 +372,12 @@ const actions = {
         try {
             const response = await axios.post('/casino/game-launch', {
                 provider_code: providerCode,
-                game_code: gameCode,
-                balanceType: balanceType || 'realBalance'
+                game_code: gameCode
             });
 
             if (response.data.success) {
                 commit('slots_set_game_session', response.data.data);
                 commit('slots_set_current_game', gameCode);
-                commit('slots_set_selected_balance_type', balanceType || 'realBalance');
                 return response.data.data;
             } else {
                 throw new Error(response.data.message || 'Failed to launch game');
@@ -405,7 +385,7 @@ const actions = {
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to launch game';
             commit('slots_set_error', message);
-            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
+            dispatch('notificationShow', { type: 'error', message }, { root: true });
             return null;
         } finally {
             commit('slots_set_loading', false);
@@ -428,24 +408,23 @@ const actions = {
         } catch (error) {
             const message = error.response?.data?.message || error.message || 'Failed to fetch transaction history';
             console.error('Error fetching transactions:', message);
-            dispatch('notificationShow', { type: 'error', message: message }, { root: true });
+            dispatch('notificationShow', message);
             return null;
         }
     },
 
     /**
-     * Set selected balance type
-     */
-    setSelectedBalanceType({ commit }, balanceType) {
-        commit('slots_set_selected_balance_type', balanceType);
-    },
-
-    /**
      * Handle real-time balance update (from Socket.io)
+     * Seamless mode - update main balance in auth store
      */
-    handleBalanceUpdate({ commit, state }, update) {
-        const { newBalance, balanceType } = update;
-        commit('slots_update_balance', { balanceType, amount: newBalance });
+    handleBalanceUpdate({ commit, dispatch, rootState }, update) {
+        const { newBalance } = update;
+        
+        // Update main auth balance (convert from dollars to cents)
+        const balanceInCents = Math.round(newBalance * 100);
+        commit('authUpdateUserBalance', balanceInCents, { root: true });
+        
+        // Add transaction to history
         commit('slots_add_transaction', update);
     },
 
@@ -468,7 +447,7 @@ const actions = {
             }
         } catch (error) {
             console.error('Error adding favorite:', error);
-            dispatch('notificationShow', { type: 'error', message: 'Failed to add favorite' }, { root: true });
+            dispatch('notificationShow', 'Failed to add favorite');
             return false;
         }
     },
@@ -490,7 +469,7 @@ const actions = {
             }
         } catch (error) {
             console.error('Error removing favorite:', error);
-            dispatch('notificationShow', { type: 'error', message: 'Failed to remove favorite' }, { root: true });
+            dispatch('notificationShow', 'Failed to remove favorite');
             return false;
         }
     }

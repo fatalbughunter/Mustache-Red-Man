@@ -3,10 +3,10 @@
         <div v-if="!session" class="no-session">
             <p>No active game session</p>
         </div>
-        <div v-else-if="session.game_url" class="iframe-wrapper">
+        <div v-else-if="session.launch_url" class="iframe-wrapper">
             <iframe
-                :src="session.game_url"
-                :key="session.game_url"
+                :src="session.launch_url"
+                :key="session.launch_url"
                 class="game-iframe"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
