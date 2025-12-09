@@ -427,6 +427,8 @@
     .currency-button img {
         width: 18px;
         height: 18px;
+        object-fit: contain;
+        flex-shrink: 0;
     }
 
     .currency-button:hover {
@@ -694,6 +696,7 @@
         transform: translateY(-50%);
         width: 20px;
         height: 20px;
+        object-fit: contain;
     }
 
     .element-content .currency-symbol {

@@ -115,6 +115,7 @@
         .live-feed-section {
             flex-direction: column;
             margin: 0 var(--spacing-lg);
+            display: block;
         }
     }
 
@@ -123,6 +124,7 @@
             margin: 0;
             padding: var(--spacing-xl) var(--spacing-md);
             gap: var(--spacing-lg);
+            display: block;
         }
     }
 

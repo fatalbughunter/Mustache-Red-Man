@@ -55,16 +55,16 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: var(--accent-yellow);
+        background: var(--accent-btn-txt-color);
         border-radius: 12px;
     }
 
     button.crash-history-element.element-high::before {
-        background: rgba(255, 107, 0, 0.5);
+        background: #ffffff;
     }
 
     button.crash-history-element.element-mid::before {
-        background: rgba(255, 107, 0, 0.4);
+        background: #ffffff;
     }
 
     button.crash-history-element.element-high::after,
@@ -75,7 +75,7 @@
         position: absolute;
         top: 1px;
         left: 1px;
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--accent-btn-txt-color);
         border-radius: 11px;
     }
 
@@ -88,17 +88,17 @@
         align-items: center;
         top: 1px;
         left: 1px;
-        background: var(--accent-yellow);
+        background: var(--gradient-button-bg);
         border-radius: 11px;
         z-index: 1;
     }
 
     button.crash-history-element.element-high .element-inner {
-        background: rgba(255, 107, 0, 0.5);
+        background: var(--gradient-button-bg);
     }
 
     button.crash-history-element.element-mid .element-inner {
-        background: rgba(255, 107, 0, 0.4);
+        background: var(--gradient-button-bg);
     }
 
     button.crash-history-element .element-inner span {
@@ -108,7 +108,7 @@
     }
 
     button.crash-history-element.element-high .element-inner span {
-        background: linear-gradient(255deg, #fca311 0%, #ffb703 100%);
+        background: var(--accent-btn-txt-color);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -116,7 +116,7 @@
     }
 
     button.crash-history-element.element-mid .element-inner span {
-        background: linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%);
+        background: var(--accent-btn-txt-color);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;

@@ -174,7 +174,7 @@
 
     .bets-element .element-game svg {
         margin-right: 10px;
-        fill: var(----accent-yellow);
+        fill: var(--accent-yellow);
     }
 
     .bets-element .element-game span {
@@ -332,12 +332,12 @@
             grid-template-rows: 42px 54px;
             grid-template-columns: 33.33% 33.33% 33.33%;
             padding: 0;
-/*background: none;*/
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-blue-dark);
+            border-top: 1px solid var(--accent-blue-dark);
         }
 
         .bets-element:nth-child(even) {
-            background: none;
+            background: var(--bg-blue-dark);
         }
 
         .bets-element .element-game,
@@ -346,7 +346,7 @@
             width: 100%;
             height: 100%;
             justify-content: center;
-            background-color: rgba(42, 42, 42, 0.35);
+            background-color: var(--accent-blue-dark);
         }
 
         .bets-element .element-game {
@@ -373,7 +373,7 @@
             width: 100%;
             height: 100%;
             justify-content: center;
-            background-color: rgba(26, 26, 26, 0.5);
+            background-color: var(--bg-blue-dark);
         }
 
         .bets-element .element-wager {
@@ -395,7 +395,7 @@
             top: 50%;
             left: 0;
             transform: translate(0, -50%);
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--bg-blue-dark);
         }
 
         .bets-element .element-multiplier::after {
@@ -406,7 +406,7 @@
             top: 50%;
             right: 0;
             transform: translate(0, -50%);
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--bg-blue-dark);
         }
 
         .bets-element .element-payout {

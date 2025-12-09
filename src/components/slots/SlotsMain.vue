@@ -229,7 +229,7 @@ export default {
     width: 100%;
     min-height: calc(100vh - 80px);
     padding: var(--spacing-lg);
-    background: var(--bg-primary-blue);
+    background: var(--bg-blue-dark);
 }
 
 .loading-state,

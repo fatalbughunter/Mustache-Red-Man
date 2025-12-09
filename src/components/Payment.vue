@@ -5,6 +5,16 @@
             <div class="payment-title">Fast & Secure Crypto Payments</div>
             <div class="payment-subtitle">Fund your account instantly using Ethereum, Binance Coin, Tron, or Solana.</div>
             <div class="payment-methods">
+                <div class="payment-method" title="USDT" @click="openDepositModal">
+                    <div class="payment-card">
+                        <img src="@/assets/img/payments/crypto/usdt.png" alt="USDT" />
+                    </div>
+                </div>
+                <div class="payment-method" title="USDC" @click="openDepositModal">
+                    <div class="payment-card">
+                        <img src="@/assets/img/payments/crypto/usdc.png" alt="USDC" />
+                    </div>
+                </div>
                 <div class="payment-method" title="ETH" @click="openDepositModal">
                     <div class="payment-card">
                         <img src="@/assets/img/payments/crypto/ether.png" alt="ETH" />
