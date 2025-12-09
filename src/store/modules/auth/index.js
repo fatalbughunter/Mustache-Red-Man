@@ -320,6 +320,30 @@ const actions = {
         localStorage.removeItem('token');
         delete axios.defaults.headers.common['x-auth-token'];
         location.reload();
+    },
+    async authUploadAvatar({ getters, commit, dispatch }, formData) {
+        if(getters.authSendLoginLoading === true) { return; }
+        commit('auth_set_send_login_loading', true);
+
+        try {
+            const res = await axios.post('/auth/profile/avatar', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if(res.data.success) {
+                commit('auth_set_user', res.data.user);
+                dispatch('notificationShow', { type: 'success', message: 'Avatar updated successfully.' });
+            }
+        } catch(err) {
+            if(err.response !== undefined && err.response !== null) {
+                dispatch('notificationShow', err.response.data.error || { type: 'error', message: 'Failed to upload avatar.' });
+            } else {
+                dispatch('notificationShow', { type: 'error', message: 'Failed to upload avatar.' });
+            }
+        }
+
+        commit('auth_set_send_login_loading', false);
     }
 }
 

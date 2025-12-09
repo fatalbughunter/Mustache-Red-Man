@@ -6,6 +6,17 @@
                 <div class="head-action">ACTION</div>
             </div>
             <div class="section-content">
+                <ProfileSettingsElement name="CHANGE AVATAR">
+                    <input ref="avatarInput" type="file" accept="image/*" style="display: none" @change="handleAvatarChange" />
+                    <button v-on:click="triggerAvatarUpload" class="button-link button-avatar" v-bind:disabled="authSendLoginLoading === true">
+                        <div class="button-inner">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                                <path d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/>
+                            </svg>
+                            CHANGE AVATAR
+                        </div>
+                    </button>
+                </ProfileSettingsElement>
                 <ProfileSettingsElement name="ANONYMOUS MODE">
                     <button v-on:click="userToggleAnonymous" class="button-toggle" v-bind:class="{ 
                         'button-active': authUser.user.anonymous === true 
@@ -105,7 +116,8 @@
                 'modalsSetShow',
                 'userSendUserAnonymousSocket',  
                 'userSendUserDiscordSocket',
-                'authSendCredentialsRequest'
+                'authSendCredentialsRequest',
+                'authUploadAvatar'
             ]),
             userToggleAnonymous() {
                 const data = { anonymous: !this.authUser.user.anonymous };
@@ -120,6 +132,37 @@
             userVerifyButton() {
                 const data = { type: 'verify', email: this.authUser.user.local.email };
                 this.authSendCredentialsRequest(data);
+            },
+            triggerAvatarUpload() {
+                this.$refs.avatarInput.click();
+            },
+            async handleAvatarChange(event) {
+                const file = event.target.files[0];
+                if (!file) {
+                    return;
+                }
+
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    this.notificationShow({ type: 'error', message: 'Please upload an image file.' });
+                    return;
+                }
+
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    this.notificationShow({ type: 'error', message: 'Image size must be less than 5MB.' });
+                    return;
+                }
+
+                // Create FormData
+                const formData = new FormData();
+                formData.append('avatar', file);
+
+                // Upload avatar
+                await this.authUploadAvatar(formData);
+
+                // Reset input
+                event.target.value = '';
             }
         },
         computed: {
@@ -333,6 +376,19 @@
     .profile-settings .profile-settings-element button.button-link.button-google:hover .button-inner {
         background: var(--bg-blue-dark);
         border-color: rgba(239, 68, 68, 0.7);
+    }
+
+    .profile-settings .profile-settings-element button.button-link.button-avatar {
+        width: 150px;
+    }
+
+    .profile-settings .profile-settings-element button.button-link.button-avatar:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .profile-settings .profile-settings-element button.button-link.button-avatar:disabled .button-inner {
+        background: rgba(13, 13, 13, 0.5);
     }
 
     .profile-settings .profile-settings-element button.button-link .button-inner svg {
