@@ -76,9 +76,16 @@ export default {
                 {
                     id: 2,
                     name: 'Mines',
-                    subtitle: 'RBXGOLD Original',
+                    subtitle: 'MUSTACHE Original',
                     route: '/mines',
                     bgClass: 'card2-bg'
+                },
+                {
+                    id: 4,
+                    name: 'Towers',
+                    subtitle: 'MUSTACHE Original',
+                    route: '/towers',
+                    bgClass: 'card4-bg'
                 },
                 {
                     id: 3,
@@ -86,13 +93,6 @@ export default {
                     subtitle: 'NOVA-CASINO Popular',
                     route: '/blackjack',
                     bgClass: 'card5-bg'
-                },
-                {
-                    id: 4,
-                    name: 'Towers',
-                    subtitle: 'RBXGOLD Original',
-                    route: '/towers',
-                    bgClass: 'card4-bg'
                 },
                 {
                     id: 5,
@@ -104,7 +104,7 @@ export default {
                 {
                     id: 6,
                     name: 'Duels',
-                    subtitle: 'RBXGOLD Original',
+                    subtitle: 'MUSTACHE Original',
                     route: '/duels',
                     bgClass: 'card6-bg'
                 },
@@ -118,7 +118,7 @@ export default {
                 {
                     id: 8,
                     name: 'Unbox',
-                    subtitle: 'RBXGOLD Original',
+                    subtitle: 'MUSTACHE Original',
                     route: '/unbox',
                     bgClass: 'card8-bg'
                 },
@@ -157,7 +157,7 @@ export default {
     },
     methods: {
         isGameDisabled(gameName) {
-            const disabledGames = ['Upgrader', 'Duels', 'Battles', 'Unbox', 'Roll'];
+            const disabledGames = ['Upgrader', 'Duels', 'Battles', 'Unbox', 'Roll', 'Blackjack'];
             return disabledGames.includes(gameName);
         },
         handleGameClick(game) {

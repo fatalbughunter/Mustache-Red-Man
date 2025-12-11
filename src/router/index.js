@@ -8,10 +8,7 @@ import store from '../store';
 import Home from '../views/Home';
 import Crash from '../views/Crash';
 import Roll from '../views/Roll';
-import Blackjack from '../views/blackjack/Blackjack';
-import BlackjackOverview from '../views/blackjack/BlackjackOverview';
-import BlackjackTables from '../views/blackjack/BlackjackTables';
-import BlackjackTable from '../views/blackjack/BlackjackTable';
+import BlackjackComingSoon from '../views/BlackjackComingSoon';
 import Duels from '../views/Duels';
 import Mines from '../views/Mines';
 import Towers from '../views/Towers';
@@ -73,24 +70,8 @@ const routes = [
     },
     {
         path: '/blackjack',
-        component: Blackjack,
-        children: [
-            {
-                path: '',
-                name: 'BlackjackOverview',
-                component: BlackjackOverview
-            },
-            {
-                path: 'tables',
-                name: 'BlackjackTables',
-                component: BlackjackTables
-            },
-            {
-                path: 'table/:tableId',
-                name: 'BlackjackTable',
-                component: BlackjackTable
-            }
-        ]
+        name: 'Blackjack',
+        component: BlackjackComingSoon
     },
     {
         path: '/duels',

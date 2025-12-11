@@ -37,7 +37,7 @@ export default {
                 {
                     id: 1,
                     name: 'Mines',
-                    subtitle: 'RBXGOLD Original',
+                    subtitle: 'MUSTACHE Original',
                     route: '/mines',
                     bgClass: 'card2-bg'
                 },
@@ -49,16 +49,9 @@ export default {
                     bgClass: 'casino-bg'
                 },
                 {
-                    id: 3,
-                    name: 'BlackJack',
-                    subtitle: 'NOVA-CASINO Popular',
-                    route: '/blackjack',
-                    bgClass: 'card5-bg'
-                },
-                {
                     id: 4,
                     name: 'Tower',
-                    subtitle: 'RBXGOLD Original',
+                    subtitle: 'MUSTACHE Original',
                     route: '/towers',
                     bgClass: 'card4-bg'
                 }
