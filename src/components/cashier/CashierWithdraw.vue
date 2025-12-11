@@ -57,20 +57,26 @@
         <!-- Amount Conversion -->
         <div class="withdraw-rate">
             <div class="rate-content">
-                <div class="content-element">
+                <div class="content-element element-crypto">
                     <div class="element-label">Amount in {{ selectedCurrency.toUpperCase() }}</div>
-                    <div class="element-content">
-                        <img v-bind:src="getCurrencyIcon(selectedCurrency)" />
-                        <input :value="withdrawAmount" @input="handleCryptoInput" @keypress="restrictToNumbers" type="text" />
-                    </div>
+                    <transition name="fade" mode="out-in">
+                        <div v-if="cashierCryptoData.loading === true" class="element-loading" key="loading"></div>
+                        <div v-else class="element-content" key="data">
+                            <img v-bind:src="getCurrencyIcon(selectedCurrency)" />
+                            <input v-model="withdrawAmount" v-on:input="handleCryptoInput" @keypress="restrictToNumbers" type="text" />
+                        </div>
+                    </transition>
                 </div>
                 <span class="equals-sign">=</span>
                 <div class="content-element">
                     <div class="element-label">Amount in USD</div>
-                    <div class="element-content">
-                        <span class="currency-symbol">$</span>
-                        <input :value="withdrawFiatAmount" @input="handleFiatInput" @keypress="restrictToNumbers" type="text" />
-                    </div>
+                    <transition name="fade" mode="out-in">
+                        <div v-if="cashierCryptoData.loading === true" class="element-loading" key="loading"></div>
+                        <div v-else class="element-content" key="data">
+                            <span class="currency-symbol">$</span>
+                            <input v-model="withdrawFiatAmount" v-on:input="handleFiatInput" @keypress="restrictToNumbers" type="text" />
+                        </div>
+                    </transition>
                 </div>
             </div>
         </div>
@@ -265,10 +271,16 @@
                     return;
                 }
 
-                if (priceData && priceData.price && !isNaN(priceData.price) && priceData.price > 0 && fiatAmount > 0) {
-                    const price = priceData.price / 1000;
-                    if (price > 0) {
-                        const cryptoAmount = parseFloat(fiatAmount / price);
+                // Use server rate for eth, bnb, solana, tron, ltc
+                if (priceData && priceData.rate !== undefined && priceData.rate !== null && !isNaN(priceData.rate) && priceData.rate > 0 && fiatAmount > 0) {
+                    // Use rate from server response: USD → Crypto: cryptoAmount = fiatAmount * rate
+                    const cryptoAmount = parseFloat(fiatAmount * priceData.rate);
+                    this.withdrawAmount = cryptoAmount.toFixed(8);
+                } else if (priceData && priceData.price && !isNaN(priceData.price) && priceData.price > 0 && fiatAmount > 0) {
+                    // Fallback to price calculation if rate is not available
+                    const rate = priceData.price / 1000;
+                    if (rate > 0) {
+                        const cryptoAmount = parseFloat(fiatAmount * rate);
                         this.withdrawAmount = cryptoAmount.toFixed(8);
                     } else {
                         this.withdrawAmount = '';
@@ -300,13 +312,13 @@
                 
                 // USDT has 1:1 conversion rate with USD
                 if (this.selectedCurrency === 'usdt') {
-                    this.withdrawFiatAmount = cryptoAmount.toFixed(2);
+                    this.withdrawFiatAmount = cryptoAmount.toFixed(8);
                     return;
                 }
                 
                 // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
                 if (this.selectedCurrency === 'usdc') {
-                    this.withdrawFiatAmount = parseFloat(cryptoAmount * 1.001001).toFixed(2);
+                    this.withdrawFiatAmount = parseFloat(cryptoAmount * 1.001001).toFixed(8);
                     return;
                 }
                 
@@ -337,11 +349,17 @@
                     return;
                 }
 
-                if (priceData && priceData.price !== undefined && priceData.price !== null && !isNaN(priceData.price) && priceData.price > 0 && cryptoAmount > 0) {
+                // Use server rate for eth, bnb, solana, tron, ltc
+                if (priceData && priceData.rate !== undefined && priceData.rate !== null && !isNaN(priceData.rate) && priceData.rate > 0 && cryptoAmount > 0) {
+                    // Use rate from server response
+                    const fiatAmount = parseFloat(cryptoAmount * priceData.rate);
+                    this.withdrawFiatAmount = fiatAmount.toFixed(8);
+                } else if (priceData && priceData.price !== undefined && priceData.price !== null && !isNaN(priceData.price) && priceData.price > 0 && cryptoAmount > 0) {
+                    // Fallback to price calculation if rate is not available
                     const price = priceData.price / 1000;
                     if (price > 0) {
                         const fiatAmount = parseFloat(cryptoAmount * price);
-                        this.withdrawFiatAmount = fiatAmount.toFixed(2);
+                        this.withdrawFiatAmount = fiatAmount.toFixed(8);
                     } else {
                         this.withdrawFiatAmount = '';
                     }
@@ -679,41 +697,63 @@
 
     .rate-content {
         display: flex;
-        align-items: flex-end;
-        gap: 15px;
-        flex-wrap: nowrap;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
     .equals-sign {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         color: var(--text-secondary);
-        margin-bottom: 8px;
         flex-shrink: 0;
     }
 
     .content-element {
         flex: 1;
-        min-width: 0;
+        min-width: 140px;
     }
 
     .element-label {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
         color: var(--text-secondary);
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+    }
+
+    .element-loading {
+        width: 100%;
+        height: 50px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        background: var(--bg-tertiary);
+    }
+
+    .element-loading::after {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        animation-name: loading_animation;
+        animation-duration: 1s;
+        animation-timing-function: ease;
+        animation-iteration-count: infinite;
+        background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
     }
 
     .element-content {
         width: 100%;
-        height: 50px;
+        height: 45px;
         position: relative;
         display: flex;
         align-items: center;
         background: var(--bg-blue-chat);
-        border: 1px solid rgba(212, 165, 116, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 8px;
-        padding: 0 12px 0 44px;
+        padding: 0 12px 0 40px;
         overflow: hidden;
     }
 
@@ -722,7 +762,7 @@
         background: transparent;
         border: none;
         color: var(--text-primary);
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
         outline: none;
     }
@@ -730,15 +770,16 @@
     .element-content img,
     .element-content .currency-symbol {
         position: absolute;
-        left: 12px;
+        left: 10px;
         top: 50%;
         transform: translateY(-50%);
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
     }
 
     .element-content .currency-symbol {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 700;
         color: var(--accent-copper-light);
         width: auto;
@@ -778,17 +819,40 @@
         cursor: not-allowed;
     }
 
+    @keyframes loading_animation {
+        0% { transform: translateX(-100%); }
+        50% { transform: translateX(100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
+    }
+
     @media only screen and (max-width: 750px) {
+        .cashier-withdraw {
+            gap: 12px;
+        }
+
         .rate-content {
-            gap: 8px;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
         }
 
         .equals-sign {
-            font-size: 14px;
+            display: none;
         }
 
         .content-element {
             min-width: 0;
+            width: 100%;
         }
 
         .element-content {

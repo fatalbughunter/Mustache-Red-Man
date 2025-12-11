@@ -71,6 +71,7 @@
         position: relative;
         border-radius: 5px;
         background: var(--bg-blue-dark);
+        border-bottom: 1px solid rgba(24, 72, 109, 0.5);
     }
 
     .admin-filter-search svg {

@@ -10,9 +10,9 @@
         </button>
         <div class="nav-menu">
             <div class="menu-inner">
-                <router-link to="/profile" v-on:click.native="profileToggleDropdown()">Transactions</router-link>
-                <router-link to="/profile/games" v-on:click.native="profileToggleDropdown()">Games</router-link>
-                <router-link to="/profile/settings" v-on:click.native="profileToggleDropdown()">Settings</router-link>
+                <router-link to="/profile" v-on:click.native="profileCloseDropdown()">Transactions</router-link>
+                <router-link to="/profile/games" v-on:click.native="profileCloseDropdown()">Games</router-link>
+                <router-link to="/profile/settings" v-on:click.native="profileCloseDropdown()">Settings</router-link>
             </div>
         </div>
     </div>
@@ -29,6 +29,9 @@
         methods: {
             profileToggleDropdown() {
                 this.profileDropdown = !this.profileDropdown;
+            },
+            profileCloseDropdown() {
+                this.profileDropdown = false;
             }
         },
         computed: {
@@ -134,11 +137,6 @@
 
     .profile-filter-nav .menu-inner a:hover {
         background: rgba(222, 184, 135, 0.1);
-        color: var(--text-gold);
-    }
-    
-    .profile-filter-nav .menu-inner a.router-link-active {
-        background: rgba(222, 184, 135, 0.15);
         color: var(--text-gold);
     }
 

@@ -245,7 +245,39 @@
                     return;
                 }
                 
-                this.cashierCryptoAmount = parseFloat(1 / (this.cashierCryptoData.prices[this.selectedCurrency].price / 1000) * this.cashierFiatAmount).toFixed(8);
+                // Use server rate for eth, bnb, solana, tron, ltc
+                // Check if prices are loaded
+                if (!this.cashierCryptoData || !this.cashierCryptoData.prices) {
+                    this.cashierCryptoAmount = '';
+                    return;
+                }
+
+                // Try different currency key formats
+                let priceData = this.cashierCryptoData.prices[this.selectedCurrency];
+                if (!priceData) {
+                    // Try lowercase
+                    priceData = this.cashierCryptoData.prices[this.selectedCurrency.toLowerCase()];
+                }
+                if (!priceData) {
+                    // Try uppercase
+                    priceData = this.cashierCryptoData.prices[this.selectedCurrency.toUpperCase()];
+                }
+                if (!priceData) {
+                    this.cashierCryptoAmount = '';
+                    return;
+                }
+
+                // Use server rate for eth, bnb, solana, tron, ltc
+                if (priceData && priceData.rate !== undefined && priceData.rate !== null && !isNaN(priceData.rate) && priceData.rate > 0) {
+                    // Use rate from server response: USD → Crypto: cryptoAmount = fiatAmount * rate
+                    this.cashierCryptoAmount = parseFloat(this.cashierFiatAmount * priceData.rate).toFixed(8);
+                } else if (priceData && priceData.price !== undefined && priceData.price !== null && !isNaN(priceData.price) && priceData.price > 0) {
+                    // Fallback to price calculation if rate is not available
+                    const rate = priceData.price / 1000;
+                    this.cashierCryptoAmount = parseFloat(this.cashierFiatAmount * rate).toFixed(8);
+                } else {
+                    this.cashierCryptoAmount = '';
+                }
             },
             modalCryptoInput() {
                 // USDT has 1:1 conversion rate with USD
@@ -262,7 +294,40 @@
                     return;
                 }
                 
-                this.cashierFiatAmount = parseFloat(this.cashierCryptoAmount * (this.cashierCryptoData.prices[this.selectedCurrency].price / 1000)).toFixed(2);
+                // Use server rate for eth, bnb, solana, tron, ltc
+                // Check if prices are loaded
+                if (!this.cashierCryptoData || !this.cashierCryptoData.prices) {
+                    this.cashierFiatAmount = '';
+                    this.cashierCoinAmount = 0;
+                    return;
+                }
+
+                // Try different currency key formats
+                let priceData = this.cashierCryptoData.prices[this.selectedCurrency];
+                if (!priceData) {
+                    // Try lowercase
+                    priceData = this.cashierCryptoData.prices[this.selectedCurrency.toLowerCase()];
+                }
+                if (!priceData) {
+                    // Try uppercase
+                    priceData = this.cashierCryptoData.prices[this.selectedCurrency.toUpperCase()];
+                }
+                if (!priceData) {
+                    this.cashierFiatAmount = '';
+                    this.cashierCoinAmount = 0;
+                    return;
+                }
+
+                // Use server rate for eth, bnb, solana, tron, ltc
+                if (priceData && priceData.rate !== undefined && priceData.rate !== null && !isNaN(priceData.rate) && priceData.rate > 0) {
+                    // Use rate from server response
+                    this.cashierFiatAmount = parseFloat(this.cashierCryptoAmount * priceData.rate).toFixed(2);
+                } else if (priceData && priceData.price !== undefined && priceData.price !== null && !isNaN(priceData.price) && priceData.price > 0) {
+                    // Fallback to price calculation if rate is not available
+                    this.cashierFiatAmount = parseFloat(this.cashierCryptoAmount * (priceData.price / 1000)).toFixed(2);
+                } else {
+                    this.cashierFiatAmount = '';
+                }
                 this.cashierCoinAmount = parseFloat((this.cashierFiatAmount / 3) * 1000).toFixed(2);
             }
         },
@@ -330,8 +395,26 @@
                     } else if (this.selectedCurrency === 'usdc') {
                         // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
                         this.cashierCryptoAmount = parseFloat(100 / 1.001001).toFixed(8);
-                    } else if(this.cashierCryptoData.prices && this.cashierCryptoData.prices[this.selectedCurrency]) {
-                        this.cashierCryptoAmount = parseFloat(1 / (this.cashierCryptoData.prices[this.selectedCurrency].price / 1000) * 100).toFixed(8);
+                    } else if(this.cashierCryptoData.prices) {
+                        // Try different currency key formats
+                        let priceData = this.cashierCryptoData.prices[this.selectedCurrency];
+                        if (!priceData) {
+                            priceData = this.cashierCryptoData.prices[this.selectedCurrency.toLowerCase()];
+                        }
+                        if (!priceData) {
+                            priceData = this.cashierCryptoData.prices[this.selectedCurrency.toUpperCase()];
+                        }
+                        if (priceData) {
+                            // Use server rate for eth, bnb, solana, tron, ltc
+                            // USD → Crypto: cryptoAmount = fiatAmount * rate
+                            if (priceData.rate !== undefined && priceData.rate !== null && !isNaN(priceData.rate) && priceData.rate > 0) {
+                                this.cashierCryptoAmount = parseFloat(100 * priceData.rate).toFixed(8);
+                            } else if (priceData.price !== undefined && priceData.price !== null && !isNaN(priceData.price) && priceData.price > 0) {
+                                // Fallback to price calculation if rate is not available
+                                const rate = priceData.price / 1000;
+                                this.cashierCryptoAmount = parseFloat(100 * rate).toFixed(8);
+                            }
+                        }
                     }
                 },
                 deep: true
@@ -346,8 +429,24 @@
                 } else if (this.selectedCurrency === 'usdc') {
                     // USDC has 1:1.001001 conversion rate with USD (1 USDC = 1.001001 USD)
                     this.cashierCryptoAmount = parseFloat(100 / 1.001001).toFixed(8);
-                } else if(this.cashierCryptoData.prices && this.cashierCryptoData.prices[this.selectedCurrency]) {
-                    this.cashierCryptoAmount = parseFloat(1 / (this.cashierCryptoData.prices[this.selectedCurrency].price / 1000) * 100).toFixed(8);
+                } else if(this.cashierCryptoData.prices) {
+                    // Try different currency key formats
+                    let priceData = this.cashierCryptoData.prices[this.selectedCurrency];
+                    if (!priceData) {
+                        priceData = this.cashierCryptoData.prices[this.selectedCurrency.toLowerCase()];
+                    }
+                    if (!priceData) {
+                        priceData = this.cashierCryptoData.prices[this.selectedCurrency.toUpperCase()];
+                    }
+                    if (priceData) {
+                        // Use server rate for eth, bnb, solana, tron, ltc
+                        if (priceData.rate !== undefined && priceData.rate !== null && !isNaN(priceData.rate) && priceData.rate > 0) {
+                            this.cashierCryptoAmount = parseFloat(100 / priceData.rate).toFixed(8);
+                        } else if (priceData.price !== undefined && priceData.price !== null && !isNaN(priceData.price) && priceData.price > 0) {
+                            // Fallback to price calculation if rate is not available
+                            this.cashierCryptoAmount = parseFloat(1 / (priceData.price / 1000) * 100).toFixed(8);
+                        }
+                    }
                 }
             }
         }
