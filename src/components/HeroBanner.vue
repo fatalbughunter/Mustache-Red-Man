@@ -14,21 +14,18 @@
                         alt="White Snow" 
                         class="hero-white-snow"
                     />
-                </div>
-            </transition>
-        </div>
-        
-        <!-- Text Overlay with Button (outside v-for for better event handling) -->
-        <div class="hero-banner-text-wrapper">
-            <transition name="slide-right-to-left">
-                <div class="hero-banner-text" :key="currentImageIndex">
-                    <h1 class="hero-title" v-if="currentImageIndex === 0">Sign Up & Start Winning</h1>
-                    <h1 class="hero-title" v-if="currentImageIndex === 1">Weekly Dream Bonus</h1>
-                    <p class="hero-subtitle" v-if="currentImageIndex === 0">Create your account today and receive instant rewards to begin your winning journey</p>
-                    <p class="hero-subtitle-2" v-if="currentImageIndex === 1">Claim your exclusive weekly reward and boost your chances instantly</p>
-                    <button class="hero-play-button" @click="handlePlayNowClick">
-                        PLAY NOW
-                    </button>
+                    <!-- Text Overlay with Button (fixed to each banner image) -->
+                    <div class="hero-banner-text-wrapper">
+                        <div class="hero-banner-text">
+                            <h1 class="hero-title" v-if="currentImageIndex === 0">Sign Up & Start Winning</h1>
+                            <h1 class="hero-title" v-if="currentImageIndex === 1">Weekly Dream Bonus</h1>
+                            <p class="hero-subtitle" v-if="currentImageIndex === 0">Create your account today and receive instant rewards to begin your winning journey</p>
+                            <p class="hero-subtitle-2" v-if="currentImageIndex === 1">Claim your exclusive weekly reward and boost your chances instantly</p>
+                            <button class="hero-play-button" @click="handlePlayNowClick">
+                                PLAY NOW
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </transition>
         </div>
@@ -107,9 +104,9 @@ export default {
 <style scoped>
 .hero-banner {
     position: relative;
-    margin: 12px 100px 12px 100px;
+    margin: 0 100px 12px 100px;
     padding: var(--spacing-lg);
-    overflow: hidden;
+    overflow: visible;
     min-height: 450px;
     display: flex;
     align-items: center;
@@ -125,7 +122,7 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 1;
-    overflow: hidden;
+    overflow: visible;
     border-radius: 25px;
 }
 
@@ -180,8 +177,8 @@ export default {
 /* White Snow Image */
 .hero-white-snow {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -15px;
+    left: 8px;
     z-index: 3;
     pointer-events: none;
     user-select: none;
@@ -196,6 +193,8 @@ export default {
     .hero-white-snow {
         max-width: 200px;
         max-height: 200px;
+        top: -10px;
+        left: 8px;
     }
 }
 
@@ -203,6 +202,8 @@ export default {
     .hero-white-snow {
         max-width: 150px;
         max-height: 150px;
+        top: -8px;
+        left: 12px;
     }
 }
 
@@ -447,7 +448,7 @@ export default {
 
 @media only screen and (max-width: 768px) {
     .hero-banner {
-        margin: var(--spacing-md);
+        margin: 40px var(--spacing-md) var(--spacing-md) var(--spacing-md);
         padding: var(--spacing-md);
         min-height: 280px;
         max-height: 400px;
@@ -523,7 +524,7 @@ export default {
 
 @media only screen and (max-width: 480px) {
     .hero-banner {
-        margin: var(--spacing-sm);
+        margin: 30px var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
         padding: var(--spacing-sm);
         min-height: 250px;
         max-height: 350px;

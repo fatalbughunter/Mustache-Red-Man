@@ -98,6 +98,7 @@
     .home {
         width: 100%;
         min-height: 100vh;
+        padding-top: 50px;
         background: url('../assets/img/mainSnowBk.png') no-repeat center center;
         background-size: cover;
         background-attachment: fixed;
@@ -120,11 +121,21 @@
     }
 
     @media only screen and (max-width: 768px) {
+        .home {
+            padding-top: 30px;
+        }
+
         .live-feed-section {
             margin: 0;
             padding: var(--spacing-xl) var(--spacing-md);
             gap: var(--spacing-lg);
             display: block;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        .home {
+            padding-top: 20px;
         }
     }
 
