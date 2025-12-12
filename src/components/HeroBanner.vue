@@ -2,7 +2,7 @@
     <div class="hero-banner">
         <!-- Desert Landscape Background -->
         <div class="hero-desert-bg-container">
-            <transition name="slide-right-to-left" mode="out-in">
+            <transition name="slide-right-to-left">
                 <div 
                     :key="currentImageIndex"
                     class="hero-desert-bg bg-active"
@@ -20,7 +20,7 @@
         
         <!-- Text Overlay with Button (outside v-for for better event handling) -->
         <div class="hero-banner-text-wrapper">
-            <transition name="slide-right-to-left" mode="out-in">
+            <transition name="slide-right-to-left">
                 <div class="hero-banner-text" :key="currentImageIndex">
                     <h1 class="hero-title" v-if="currentImageIndex === 0">Sign Up & Start Winning</h1>
                     <h1 class="hero-title" v-if="currentImageIndex === 1">Weekly Dream Bonus</h1>
@@ -83,7 +83,7 @@ export default {
         startCarousel() {
             this.carouselInterval = setInterval(() => {
                 this.currentImageIndex = (this.currentImageIndex + 1) % this.carouselImages.length;
-            }, 5000);
+            }, 8000);
         },
         stopCarousel() {
             if (this.carouselInterval) {
@@ -127,6 +127,11 @@ export default {
     z-index: 1;
     overflow: hidden;
     border-radius: 25px;
+}
+
+/* Ensure smooth continuous carousel transitions */
+.hero-desert-bg-container > * {
+    will-change: transform;
 }
 
 /* Desert Background */

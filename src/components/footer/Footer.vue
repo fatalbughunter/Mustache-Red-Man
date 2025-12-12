@@ -84,6 +84,9 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+        background: url('../../assets/img/mainSnowBk.png') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
     }
 
     footer#footer {
