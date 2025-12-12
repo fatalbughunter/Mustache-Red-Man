@@ -40,7 +40,7 @@
                 authUser.user !== null &&
                 crashGame !== null &&
                 crashGame.state !== 'completed' &&
-                crashBets.some((element) => element.user._id === authUser.user._id && element.multiplier === undefined) === true
+                crashHasActiveBet === true
             " v-on:click="crashBetCashout" class="button-cashout" v-bind:disabled="crashGame.state !== 'rolling'">
                 <div class="button-inner">{{ crashGame.state !== 'rolling' ? 'STARTING...' : 'CASHOUT' }}</div>
             </button>
@@ -232,10 +232,28 @@
                 this.crashSendBetSocket(data);
             },
             crashBetCashout() {
-                if(this.socketSendLoading !== null) { return; }
+                if(this.socketSendLoading !== null) { 
+                    return; 
+                }
 
                 if(this.authUser.user === null) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
+                    return;
+                }
+
+                if(this.socketCrash === null || this.socketCrash.connected === false) {
+                    this.notificationShow({ type: 'error', message: 'Socket connection is not established. Please wait...' });
+                    return;
+                }
+
+                if(this.crashGame === null || this.crashGame.state !== 'rolling') {
+                    this.notificationShow({ type: 'error', message: 'Game is not in rolling state. Cannot cash out.' });
+                    return;
+                }
+
+                const userBet = this.crashBets.find((element) => element.user._id === this.authUser.user._id && element.multiplier === undefined);
+                if(!userBet) {
+                    this.notificationShow({ type: 'error', message: 'No active bet found to cash out.' });
                     return;
                 }
 
@@ -244,7 +262,27 @@
             }
         },
         computed: {
-            ...mapGetters(['socketSendLoading', 'authUser', 'crashGame', 'crashBets']),
+            ...mapGetters(['socketSendLoading', 'authUser', 'crashGame', 'crashBets', 'socketCrash']),
+            crashHasActiveBet() {
+                if(this.authUser.user === null || !this.crashBets || this.crashBets.length === 0) {
+                    return false;
+                }
+                if(this.crashGame === null) {
+                    return false;
+                }
+                // Only show cashout button when game is rolling or created (betting phase)
+                // Don't show if game is completed
+                if(this.crashGame.state === 'completed') {
+                    return false;
+                }
+                return this.crashBets.some((element) => {
+                    if(!element || !element.user) {
+                        return false;
+                    }
+                    return element.user._id === this.authUser.user._id && 
+                           (element.multiplier === undefined || element.multiplier === null);
+                });
+            },
             crashGetPlayerCount() {
                 let players = [];
 

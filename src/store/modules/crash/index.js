@@ -26,7 +26,10 @@ const mutations = {
         state.crashBets.unshift(bet);
     },
     crash_update_bets(state, bet) {
-        state.crashBets.splice(state.crashBets.findIndex((element) => element._id === bet._id), 1, bet);
+        const index = state.crashBets.findIndex((element) => element._id === bet._id);
+        if(index !== -1) {
+            state.crashBets.splice(index, 1, bet);
+        }
     },
     crash_set_history(state, history) {
         state.crashHistory = history;
@@ -45,7 +48,10 @@ const actions = {
         commit('crash_set_bets', data.bets);
         commit('crash_set_history', data.history);
     },
-    crashSocketGame({ commit }, data) {
+    crashSocketGame({ getters, commit }, data) {
+        if(!data || !data.game) {
+            return;
+        }
         commit('crash_set_game', data.game);
 
         if(data.game.state === 'completed') {
@@ -54,13 +60,21 @@ const actions = {
 
             commit('crash_set_multiplier', 1);
         } else if(data.game.state === 'created') {
-            commit('crash_set_bets', []);
+            // Only clear bets that have been cashed out (have multipliers)
+            // Preserve active bets (no multiplier) as they belong to the current/upcoming game
+            const activeBets = getters.crashBets.filter((bet) => bet.multiplier === undefined || bet.multiplier === null);
+            commit('crash_set_bets', activeBets);
         }
     },
     crashSocketTick({ commit }, data) {
-        commit('crash_set_multiplier', data.multiplier);
+        if(data && data.multiplier !== undefined && data.multiplier !== null) {
+            commit('crash_set_multiplier', data.multiplier);
+        }
     },
     crashSocketBet({ getters, commit }, data) {
+        if(!data || !data.bet || !data.bet._id) {
+            return;
+        }
         if(getters.crashBets.some((element) => element._id === data.bet._id) === true) {
             commit('crash_update_bets', data.bet);
         } else {
@@ -72,10 +86,18 @@ const actions = {
         commit('socket_set_send_loading', 'CrashBet');
 
         getters.socketCrash.emit('sendBet', data, (res) => {
+            if(!res) {
+                dispatch('notificationShow', { type: 'error', message: 'No response from server.' });
+                commit('socket_set_send_loading', null);
+                return;
+            }
+
             if(res.success === true) {
-                commit('auth_update_user', res.user);
+                if(res.user) {
+                    commit('auth_update_user', res.user);
+                }
             } else {
-                dispatch('notificationShow', res.error);
+                dispatch('notificationShow', res.error || { type: 'error', message: 'Failed to place bet.' });
             }
 
             commit('socket_set_send_loading', null);
@@ -86,8 +108,18 @@ const actions = {
         commit('socket_set_send_loading', 'CrashCashout');
 
         getters.socketCrash.emit('sendCashout', data, (res) => {
-            if(res.success === false) {
-                dispatch('notificationShow', res.error);
+            if(!res) {
+                dispatch('notificationShow', { type: 'error', message: 'No response from server.' });
+                commit('socket_set_send_loading', null);
+                return;
+            }
+
+            if(res.success === true) {
+                if(res.user) {
+                    commit('auth_update_user', res.user);
+                }
+            } else {
+                dispatch('notificationShow', res.error || { type: 'error', message: 'Failed to cash out.' });
             }
 
             commit('socket_set_send_loading', null);

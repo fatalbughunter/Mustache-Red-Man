@@ -454,16 +454,10 @@ export default {
             this.authLogoutUser();
         },
         toggleSidebarMobile() {
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Header.vue:455',message:'toggleSidebarMobile called',data:{windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024,sidebarCollapsed:this.sidebarCollapsed},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'I'})}).catch(()=>{});
-            // #endregion
             // Emit event to toggle sidebar menu
             this.$root.$emit('toggle-sidebar-mobile');
         },
         closeSidebarMobile() {
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Header.vue:461',message:'closeSidebarMobile called',data:{windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024,sidebarCollapsed:this.sidebarCollapsed},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'J'})}).catch(()=>{});
-            // #endregion
             // Emit event to close sidebar menu
             this.$root.$emit('close-sidebar-mobile');
         },
@@ -504,19 +498,10 @@ export default {
     },
     mounted() {
         console.log('Header mounted, showCasinoDropdown:', this.showCasinoDropdown);
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Header.vue:498',message:'Header mounted',data:{windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024,sidebarCollapsed:this.sidebarCollapsed,mobileButtonRowVisible:window.innerWidth<=1024},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'K'})}).catch(()=>{});
-        // #endregion
         // Check initial sidebar state
         this.updateSidebarState();
         // Watch for sidebar state changes by observing the DOM
         this.sidebarObserver = new MutationObserver(() => {
-            // #region agent log
-            const sidebar = document.querySelector('aside#sidebar-left');
-            const hasCollapsed = sidebar?.classList.contains('collapsed');
-            const hasMobileOpen = sidebar?.classList.contains('mobile-open');
-            fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Header.vue:505',message:'Sidebar DOM class changed',data:{windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024,hasCollapsedClass:hasCollapsed,hasMobileOpenClass:hasMobileOpen,sidebarCollapsed:this.sidebarCollapsed},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'L'})}).catch(()=>{});
-            // #endregion
             this.updateSidebarState();
         });
         const sidebar = document.querySelector('aside#sidebar-left');
@@ -528,12 +513,6 @@ export default {
         }
         // Watch for viewport changes to ensure mobile menu bar is visible
         this.resizeHandler = () => {
-            // #region agent log
-            const mobileButtonRow = document.querySelector('.mobile-button-row');
-            const isMobile = window.innerWidth <= 1024;
-            const computedStyle = mobileButtonRow ? window.getComputedStyle(mobileButtonRow) : null;
-            fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Header.vue:520',message:'Header viewport resize',data:{windowWidth:window.innerWidth,isMobile:isMobile,sidebarCollapsed:this.sidebarCollapsed,mobileButtonRowDisplay:computedStyle?.display,mobileButtonRowVisible:computedStyle?.display==='flex'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'M'})}).catch(()=>{});
-            // #endregion
         };
         window.addEventListener('resize', this.resizeHandler);
     },

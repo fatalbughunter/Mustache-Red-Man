@@ -141,34 +141,16 @@
         methods: {
             ...mapActions(['modalsSetShow', 'authLogoutUser']),
             toggleCollapsed() { 
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:143',message:'toggleCollapsed called',data:{collapsedBefore:this.collapsed,windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                // #endregion
                 this.collapsed = !this.collapsed; 
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:147',message:'collapsed state changed',data:{collapsedAfter:this.collapsed,windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                // #endregion
                 this.$emit('collapsed-change', this.collapsed); 
             },
             toggleMobile() { 
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:152',message:'toggleMobile called',data:{mobileOpenBefore:this.mobileOpen,collapsed:this.collapsed,windowWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-                // #endregion
                 this.mobileOpen = !this.mobileOpen; 
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:155',message:'mobileOpen state changed',data:{mobileOpenAfter:this.mobileOpen,collapsed:this.collapsed,windowWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-                // #endregion
             },
             closeMobile() { 
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:160',message:'closeMobile called',data:{mobileOpenBefore:this.mobileOpen,collapsed:this.collapsed,windowWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-                // #endregion
                 this.mobileOpen = false; 
             },
             toggleHeader() {
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:166',message:'toggleHeader called',data:{windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024,collapsed:this.collapsed,mobileOpen:this.mobileOpen},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-                // #endregion
                 if(window.innerWidth <= 1024) { this.toggleMobile(); }
                 else { this.toggleCollapsed(); }
             },
@@ -195,9 +177,6 @@
             }
         },
         mounted() { 
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:172',message:'SidebarLeft mounted',data:{collapsed:this.collapsed,mobileOpen:this.mobileOpen,windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-            // #endregion
             this.$emit('collapsed-change', this.collapsed);
             // Auto-expand casino menu if on a casino submenu route
             const casinoRoutes = ['/mines', '/crash', '/blackjack', '/towers'];
@@ -206,26 +185,14 @@
             }
             // Listen for events from Header to toggle sidebar
             this.$root.$on('toggle-sidebar-mobile', () => {
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:185',message:'toggle-sidebar-mobile event received',data:{collapsed:this.collapsed,mobileOpenBefore:this.mobileOpen,windowWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-                // #endregion
                 this.toggleMobile();
             });
             this.$root.$on('close-sidebar-mobile', () => {
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:190',message:'close-sidebar-mobile event received',data:{collapsed:this.collapsed,mobileOpenBefore:this.mobileOpen,windowWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
-                // #endregion
                 this.closeMobile();
             });
             // Watch for viewport changes to reset collapsed state on mobile
             this.resizeHandler = () => {
-                // #region agent log
-                fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:197',message:'viewport resize detected',data:{windowWidth:window.innerWidth,isMobile:window.innerWidth<=1024,collapsed:this.collapsed,mobileOpen:this.mobileOpen},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H'})}).catch(()=>{});
-                // #endregion
                 if (window.innerWidth <= 1024 && this.collapsed) {
-                    // #region agent log
-                    fetch('http://127.0.0.1:7242/ingest/d77ce38f-641e-47b9-bce5-d825c0a8b6e2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'SidebarLeft.vue:200',message:'Resetting collapsed state on mobile',data:{collapsedBefore:this.collapsed,windowWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H'})}).catch(()=>{});
-                    // #endregion
                     this.collapsed = false;
                     this.$emit('collapsed-change', this.collapsed);
                 }
