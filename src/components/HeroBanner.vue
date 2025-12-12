@@ -242,6 +242,7 @@ export default {
     object-fit: contain;
 }
 
+
 @media only screen and (max-width: 1024px) {
     .hero-christmas-images {
         top: calc(50% - 160px);
@@ -290,9 +291,10 @@ export default {
     left: var(--spacing-2xl);
     top: 50%;
     transform: translateY(-50%);
-    z-index: 4;
+    z-index: 10;
     width: auto;
     max-width: 60%;
+    pointer-events: auto;
 }
 
 /* Hero Banner Text Overlay (with button) */
@@ -300,6 +302,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    pointer-events: auto;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -414,6 +417,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-2xl);
+    pointer-events: none;
 }
 
 .hero-content {
@@ -489,7 +493,7 @@ export default {
     margin-top: var(--spacing-md);
     align-self: flex-start;
     pointer-events: auto;
-    z-index: 5;
+    z-index: 15;
 }
 
 @media only screen and (max-width: 1024px) {
