@@ -98,7 +98,7 @@
     .home {
         width: 100%;
         min-height: 100vh;
-        background: var(--bg-blue-dark) !important;
+        background: url('../assets/img/mainSnowBk.png') no-repeat center center;
         background-size: cover;
         background-attachment: fixed;
     }

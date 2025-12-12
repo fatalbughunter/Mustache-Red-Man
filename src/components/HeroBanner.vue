@@ -2,33 +2,35 @@
     <div class="hero-banner">
         <!-- Desert Landscape Background -->
         <div class="hero-desert-bg-container">
-            <div 
-                v-for="(image, index) in carouselImages" 
-                :key="index"
-                class="hero-desert-bg"
-                :class="{ 'bg-active': index === currentImageIndex }"
-                :style="{ backgroundImage: `url(${image})` }"
-            >
-                <div class="desert-sun"></div>
-            </div>
+            <transition name="slide-right-to-left" mode="out-in">
+                <div 
+                    :key="currentImageIndex"
+                    class="hero-desert-bg bg-active"
+                    :style="{ backgroundImage: `url(${carouselImages[currentImageIndex]})` }"
+                >
+                    <div class="desert-sun"></div>
+                    <img 
+                        :src="require('@/assets/img/chrismas/whiteSnow.png')" 
+                        alt="White Snow" 
+                        class="hero-white-snow"
+                    />
+                </div>
+            </transition>
         </div>
         
         <!-- Text Overlay with Button (outside v-for for better event handling) -->
         <div class="hero-banner-text-wrapper">
-            <div class="hero-banner-text" v-if="currentImageIndex === 0">
-                <h1 class="hero-title">Sign Up & Start Winning</h1>
-                <p class="hero-subtitle">Create your account today and receive instant rewards to begin your winning journey</p>
-                <button class="hero-play-button" @click="handlePlayNowClick">
-                    PLAY NOW
-                </button>
-            </div>
-            <div class="hero-banner-text" v-if="currentImageIndex === 1">
-                <h1 class="hero-title">Weekly Dream Bonus</h1>
-                <p class="hero-subtitle-2">Claim your exclusive weekly reward and boost your chances instantly</p>
-                <button class="hero-play-button" @click="handlePlayNowClick">
-                    PLAY NOW
-                </button>
-            </div>
+            <transition name="slide-right-to-left" mode="out-in">
+                <div class="hero-banner-text" :key="currentImageIndex">
+                    <h1 class="hero-title" v-if="currentImageIndex === 0">Sign Up & Start Winning</h1>
+                    <h1 class="hero-title" v-if="currentImageIndex === 1">Weekly Dream Bonus</h1>
+                    <p class="hero-subtitle" v-if="currentImageIndex === 0">Create your account today and receive instant rewards to begin your winning journey</p>
+                    <p class="hero-subtitle-2" v-if="currentImageIndex === 1">Claim your exclusive weekly reward and boost your chances instantly</p>
+                    <button class="hero-play-button" @click="handlePlayNowClick">
+                        PLAY NOW
+                    </button>
+                </div>
+            </transition>
         </div>
         
         <!-- Content Overlay -->
@@ -112,7 +114,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--accent-blue-dark);
     border-radius: 25px;
 }
 
@@ -125,6 +126,7 @@ export default {
     height: 100%;
     z-index: 1;
     overflow: hidden;
+    border-radius: 25px;
 }
 
 /* Desert Background */
@@ -137,8 +139,8 @@ export default {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    border: 2px solid var(--accent-blue-dark);
+    border-radius: 25px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -148,8 +150,55 @@ export default {
     }
 }
 
-.hero-desert-bg.bg-active {
-    opacity: 1;
+/* Slide animation from right to left */
+.slide-right-to-left-enter-active,
+.slide-right-to-left-leave-active {
+    transition: transform 1.5s ease-in-out;
+}
+
+.slide-right-to-left-enter {
+    transform: translateX(100%);
+}
+
+.slide-right-to-left-enter-to {
+    transform: translateX(0);
+}
+
+.slide-right-to-left-leave {
+    transform: translateX(0);
+}
+
+.slide-right-to-left-leave-to {
+    transform: translateX(-100%);
+}
+
+/* White Snow Image */
+.hero-white-snow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+@media only screen and (max-width: 768px) {
+    .hero-white-snow {
+        max-width: 200px;
+        max-height: 200px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .hero-white-snow {
+        max-width: 150px;
+        max-height: 150px;
+    }
 }
 
 /* Hero Banner Text Overlay Wrapper */
