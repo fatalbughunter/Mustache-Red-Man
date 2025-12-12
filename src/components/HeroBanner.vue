@@ -10,10 +10,23 @@
                 >
                     <div class="desert-sun"></div>
                     <img 
-                        :src="require('@/assets/img/chrismas/whiteSnow.png')" 
+                        :src="require('@/assets/img/christmas/whiteSnow.png')" 
                         alt="White Snow" 
                         class="hero-white-snow"
                     />
+                    <!-- Christmas Tree and Text Images (fixed to each banner image) -->
+                    <div class="hero-christmas-images">
+                        <img 
+                            :src="require('@/assets/img/christmas/christmasTree.png')" 
+                            alt="Christmas Tree" 
+                            class="hero-christmas-tree"
+                        />
+                        <img 
+                            :src="require('@/assets/img/christmas/christmasText.png')" 
+                            alt="Christmas Text" 
+                            class="hero-christmas-text"
+                        />
+                    </div>
                     <!-- Text Overlay with Button (fixed to each banner image) -->
                     <div class="hero-banner-text-wrapper">
                         <div class="hero-banner-text">
@@ -207,6 +220,70 @@ export default {
     }
 }
 
+/* Christmas Images Container */
+.hero-christmas-images {
+    position: absolute;
+    left: var(--spacing-2xl);
+    top: calc(50% - 210px);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+}
+
+.hero-christmas-tree,
+.hero-christmas-text {
+    width: auto;
+    height: auto;
+    max-width: 120px;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+@media only screen and (max-width: 1024px) {
+    .hero-christmas-images {
+        top: calc(50% - 160px);
+        left: var(--spacing-xl);
+        gap: 10px;
+    }
+    
+    .hero-christmas-tree,
+    .hero-christmas-text {
+        max-width: 100px;
+        max-height: 65px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .hero-christmas-images {
+        top: calc(50% - 150px);
+        left: var(--spacing-lg);
+        gap: 8px;
+    }
+    
+    .hero-christmas-tree,
+    .hero-christmas-text {
+        max-width: 100px;
+        max-height: 70px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .hero-christmas-images {
+        top: calc(50% - 120px);
+        left: var(--spacing-md);
+        gap: 6px;
+    }
+    
+    .hero-christmas-tree,
+    .hero-christmas-text {
+        max-width: 80px;
+        max-height: 60px;
+    }
+}
+
 /* Hero Banner Text Overlay Wrapper */
 .hero-banner-text-wrapper {
     position: absolute;
@@ -223,6 +300,24 @@ export default {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+}
+
+@media only screen and (max-width: 1024px) {
+    .hero-banner-text-wrapper .hero-banner-text {
+        gap: var(--spacing-sm);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .hero-banner-text-wrapper .hero-banner-text {
+        gap: 4px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .hero-banner-text-wrapper .hero-banner-text {
+        gap: 2px;
+    }
 }
 
 .hero-title {
@@ -265,6 +360,33 @@ export default {
     margin: 0;
     margin-top: var(--spacing-md);
     padding: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+    .hero-subtitle,
+    .hero-subtitle-2 {
+        margin-top: var(--spacing-sm);
+        font-size: 13px;
+        line-height: 18px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .hero-subtitle,
+    .hero-subtitle-2 {
+        margin-top: 0;
+        font-size: 11px;
+        line-height: 16px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .hero-subtitle,
+    .hero-subtitle-2 {
+        margin-top: 0;
+        font-size: 10px;
+        line-height: 14px;
+    }
 }
 
 .desert-sun {
@@ -370,6 +492,24 @@ export default {
     z-index: 5;
 }
 
+@media only screen and (max-width: 1024px) {
+    .hero-play-button {
+        margin-top: var(--spacing-sm);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .hero-play-button {
+        margin-top: 4px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .hero-play-button {
+        margin-top: 2px;
+    }
+}
+
 .hero-play-button::before {
     content: '';
     position: absolute;
@@ -422,25 +562,28 @@ export default {
     }
     
     .hero-play-button {
-        padding: var(--spacing-md) var(--spacing-xl);
-        font-size: 20px;
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: 16px;
+        margin-top: var(--spacing-sm);
     }
     
     .hero-title {
-        font-size: 48px;
+        font-size: 36px;
     }
     
     .hero-subtitle {
-        font-size: 14px;
-        line-height: 22px;
+        font-size: 13px;
+        line-height: 18px;
+        margin-top: var(--spacing-sm);
     }
     
     .hero-subtitle-2 {
-        font-size: 14px;
-        line-height: 22px;
+        font-size: 13px;
+        line-height: 18px;
+        margin-top: var(--spacing-sm);
     }
     
-    .hero-banner-text {
+    .hero-banner-text-wrapper {
         left: var(--spacing-lg);
         max-width: 70%;
     }
@@ -479,12 +622,12 @@ export default {
     }
     
     .hero-play-button {
-        padding: var(--spacing-md) var(--spacing-lg);
-        font-size: 16px;
-        letter-spacing: 1px;
+        padding: 6px var(--spacing-md);
+        font-size: 12px;
+        letter-spacing: 0.5px;
         width: auto;
-        min-width: 140px;
-        margin-top: var(--spacing-md);
+        min-width: 100px;
+        margin-top: 4px;
         align-self: flex-start;
     }
     
@@ -496,25 +639,30 @@ export default {
     }
     
     .hero-title {
-        font-size: 36px;
+        font-size: 28px;
     }
     
     .hero-subtitle {
-        font-size: 14px;
-        line-height: 20px;
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: 0;
     }
     
     .hero-subtitle-2 {
-        font-size: 14px;
-        line-height: 20px;
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: 0;
+    }
+    
+    .hero-banner-text-wrapper {
+        left: var(--spacing-md);
+        max-width: 80%;
     }
     
     .hero-banner-text {
-        left: var(--spacing-md);
-        max-width: 80%;
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-sm);
+        gap: 2px;
     }
     
     .desert-sun {
@@ -548,11 +696,11 @@ export default {
     }
     
     .hero-play-button {
-        padding: var(--spacing-sm) var(--spacing-md);
-        font-size: 14px;
+        padding: 4px var(--spacing-sm);
+        font-size: 10px;
         letter-spacing: 0.5px;
-        min-width: 120px;
-        margin-top: 35px;
+        min-width: 80px;
+        margin-top: 2px;
     }
     
     .hero-glow-circle {
@@ -561,25 +709,30 @@ export default {
     }
     
     .hero-title {
-        font-size: 28px;
+        font-size: 22px;
     }
     
     .hero-subtitle {
-        font-size: 12px;
-        line-height: 18px;
+        font-size: 10px;
+        line-height: 14px;
+        margin-top: 0;
     }
     
     .hero-subtitle-2 {
-        font-size: 12px;
-        line-height: 18px;
+        font-size: 10px;
+        line-height: 14px;
+        margin-top: 0;
+    }
+    
+    .hero-banner-text-wrapper {
+        left: var(--spacing-sm);
+        max-width: 85%;
     }
     
     .hero-banner-text {
-        left: var(--spacing-sm);
-        max-width: 85%;
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-sm);
+        gap: 2px;
     }
 }
 
