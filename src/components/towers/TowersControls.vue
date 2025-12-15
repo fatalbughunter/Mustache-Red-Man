@@ -103,22 +103,22 @@
                 'towersSendCashoutSocket'
             ]),
             towersFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             towersValidateInput() {
                 this.towersAmount = this.towersAmount.replace(',', '.').replace(/[^\d.]/g, '');
                 this.towersAmount = this.towersAmount.indexOf('.') >= 0 ? this.towersAmount.substr(0, this.towersAmount.indexOf('.')) + '.' + this.towersAmount.substr((this.towersAmount.indexOf('.') + 1), 2).replace('.', '') : this.towersAmount;
             },
             towersSetAmount(action) {
-                let amount = Math.floor(this.towersAmount * 1000);
+                let amount = parseFloat(this.towersAmount) || 0;
 
                 if(action === '2x') {
-                    amount = Math.floor(amount * 2);
+                    amount = amount * 2;
                 } else if(action === 'max') {
-                    amount = this.authUser.user.balance <= 25000000 ? this.authUser.user.balance : 25000000;
+                    amount = this.authUser.user.balance || 0;
                 }
 
-                this.towersAmount = parseFloat(Math.floor(amount / 10) / 100).toFixed(2);
+                this.towersAmount = parseFloat(amount).toFixed(2);
             },
             towersBetButton() {
                 if(this.authUser.user === null) {
@@ -126,7 +126,7 @@
                     return;
                 }
 
-                const amount = Math.floor(this.towersAmount * 1000);
+                const amount = parseFloat(this.towersAmount) || 0;
 
                 if(isNaN(amount) === true || amount <= 0) {
                     this.notificationShow({type: 'error', message: 'Your entered bet amount is invalid.'});
@@ -166,7 +166,7 @@
             ]),
             towersGetCashoutAmount() {
                 const multiplierPerRow = this.towersGame.risk === 'easy' ? 1.425 : this.towersGame.risk === 'medium' ? 1.90 : 2.85;
-                return Math.floor(this.towersGame.amount * Math.pow(multiplierPerRow, this.towersGame.revealed.length));
+                return this.towersGame.amount * Math.pow(multiplierPerRow, this.towersGame.revealed.length);
             }
         }
     }
@@ -250,6 +250,8 @@
         position: relative;
         margin-top: 15px;
         padding: 1px;
+        border: 1px solid var(--accent-yellow);
+        border-radius: 15px;
     }
 
     .towers-controls .controls-amount::before {

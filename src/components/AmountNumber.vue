@@ -16,11 +16,8 @@
         },
         methods: {
             amountFormatValue(value) {
-                if(this.isWorldLock){
-                    return parseFloat(Math.floor(value)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                }else {
-                    return parseFloat(Math.floor(value / 100)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                }
+                // USDT 1:1 system - no division needed
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             }
         },
         watch: {

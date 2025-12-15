@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="top-slider">
-                <input v-model="minesAmount" type="range" min="0" v-bind:max="authUser.user !== null ? (authUser.user.balance / 1000) : 0" step="0.01" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'" />
+                <input v-model="minesAmount" type="range" min="0" v-bind:max="authUser.user !== null ? authUser.user.balance : 0" step="0.1" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'" />
             </div>
             <div class="top-mines">
                 <div class="mines-title">AMOUNT OF MINES</div>
@@ -114,7 +114,7 @@
                 'minesSendCashoutSocket'
             ]),
             minesFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             minesValidateInput() {
                 if(this.minesAmount === null || this.minesAmount === undefined) {
@@ -132,15 +132,15 @@
                 return Number(this.minesCount) === count;
             },
             minesSetAmount(action) {
-                let amount = this.minesAmount === null || this.minesAmount === '' ? 0 : Math.floor(parseFloat(this.minesAmount) * 1000);
+                let amount = this.minesAmount === null || this.minesAmount === '' ? 0 : parseFloat(this.minesAmount);
 
                 if(action === '2x') {
-                    amount = Math.floor(amount * 2);
+                    amount = amount * 2;
                 } else if(action === 'max') {
-                    amount = this.authUser.user !== null && this.authUser.user.balance <= 25000000 ? this.authUser.user.balance : 25000000;
+                    amount = this.authUser.user !== null ? this.authUser.user.balance : 0;
                 }
 
-                this.minesAmount = parseFloat(Math.floor(amount / 10) / 100).toFixed(2);
+                this.minesAmount = parseFloat(amount).toFixed(2);
             },
             minesSetCount(value) {
                 this.minesCount = value;
@@ -151,7 +151,7 @@
                     return;
                 }
 
-                const amount = this.minesAmount === null || this.minesAmount === '' ? 0 : Math.floor(parseFloat(this.minesAmount) * 1000);
+                const amount = this.minesAmount === null || this.minesAmount === '' ? 0 : Math.floor(parseFloat(this.minesAmount));  /* * 1000 */
                 const minesCount = Math.floor(this.minesCount);
 
                 if(isNaN(amount) === true || amount <= 0) {
@@ -227,7 +227,7 @@
                     multiplier = Math.round(multiplier * 100) / 100;
                 }
 
-                return Math.floor(this.minesGame.amount * multiplier);
+                return this.minesGame.amount * multiplier;
             }
         }
     }
@@ -254,6 +254,8 @@
         height: 50px;
         position: relative;
         padding: 1px;
+        border: 1px solid var(--accent-yellow);
+        border-radius: 15px;
     }
 
     .mines-controls .top-amount::before {

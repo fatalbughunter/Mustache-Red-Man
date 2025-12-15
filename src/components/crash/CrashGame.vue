@@ -30,7 +30,7 @@
             </div>
             <div v-else-if="crashGame.state === 'rolling'" class="inner-rolling">
                 <div class="rolling-multiplier">
-                    <span class="gradient-green">{{ parseFloat(Math.floor(crashMultiplier / 1000) / 100).toFixed(2)}}</span>
+                    <span class="gradient-green">{{ parseFloat(crashMultiplier / 100000).toFixed(2)}}</span>
                 </div>
                 <div class="rolling-payout">CURRENT PAYOUT</div>
                 <transition name="fade">
@@ -78,7 +78,7 @@ export default {
     },
     methods: {
         crashFormatValue(value) {
-            return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString();
+            return parseFloat(value).toFixed(2).toString();
         },
         crashSetProfitInfo(value) {
             this.crashProfitInfo = value;
@@ -114,7 +114,9 @@ export default {
             'crashBets'
         ]),
         crashGetPayoutAmount() {
-            return Math.floor(this.crashBets[this.crashBets.findIndex((element) => element.user._id === this.authUser.user._id)].amount * (this.crashMultiplier / 100000));
+            const bet = this.crashBets.find((element) => element.user._id === this.authUser.user._id);
+            if (!bet) return 0;
+            return bet.amount * (this.crashMultiplier / 100000);
         }
     },
     watch: {

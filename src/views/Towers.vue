@@ -56,7 +56,9 @@
         flex-direction: column;
         align-items: center;
         padding: 45px 10px;
-        background: var(--bg-blue-dark);
+        background: url('../assets/img/mainSnowBk.png') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
         min-height: 100vh;
     }
 
@@ -64,7 +66,7 @@
         width: 525px;
         padding: 20px 0;
         border-radius: 20px;
-        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        background: var(--gradient-hero);
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
         position: relative;

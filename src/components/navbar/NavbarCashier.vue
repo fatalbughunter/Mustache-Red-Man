@@ -49,7 +49,7 @@
             ]),
             navbarGetBalance() {
                const balance = this.authUser.user.realBalance || this.authUser.user.balance;
-               return parseFloat(Math.floor(balance / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+               return parseFloat(balance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
            }
         }
     }

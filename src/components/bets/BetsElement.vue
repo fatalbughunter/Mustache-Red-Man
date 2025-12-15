@@ -81,7 +81,7 @@
         ],
         methods: {
             betsFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             betsGetRank(user) {
                 let rank = user.rakeback;

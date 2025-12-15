@@ -443,7 +443,7 @@ export default {
         },
         formatBalance(balance) {
             if (!balance) return '0.00';
-            return parseFloat(balance / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parseFloat(balance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
         handleBalanceClick() {
             // Open cashier modal with deposit tab

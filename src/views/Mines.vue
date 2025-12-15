@@ -49,7 +49,9 @@
         flex-direction: column;
         align-items: center;
         padding: 45px 10px;
-        background: var(--bg-blue-dark);
+        background: url('../assets/img/mainSnowBk.png') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
         min-height: 100vh;
     }
 

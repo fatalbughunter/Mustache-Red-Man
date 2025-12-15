@@ -69,7 +69,7 @@
             <div class="element-input">
                 <img src="@/assets/img/icons/coin.svg" alt="icon" />
                 <input v-model="adminVault" type="text" />
-                <button v-on:click="adminValueButton('vault.amount', Math.floor(adminVault * 1000))" v-bind:disabled="socketSendLoading !== null">
+                <button v-on:click="adminValueButton('vault.amount', parseFloat(adminVault))" v-bind:disabled="socketSendLoading !== null">
                     <div class="button-inner">UPDATE</div>
                 </button>
             </div>
@@ -79,7 +79,7 @@
             <div class="element-input">
                 <img src="@/assets/img/icons/coin.svg" alt="icon" />
                 <input v-model="adminDeposit" type="text" />
-                <button v-on:click="adminValueButton('stats.deposit', Math.floor(adminDeposit * 1000))" v-bind:disabled="socketSendLoading !== null">
+                <button v-on:click="adminValueButton('stats.deposit', parseFloat(adminDeposit))" v-bind:disabled="socketSendLoading !== null">
                     <div class="button-inner">UPDATE</div>
                 </button>
             </div>
@@ -89,7 +89,7 @@
             <div class="element-input">
                 <img src="@/assets/img/icons/coin.svg" alt="icon" />
                 <input v-model="adminWithdraw" type="text" />
-                <button v-on:click="adminValueButton('stats.withdraw', Math.floor(adminWithdraw * 1000))" v-bind:disabled="socketSendLoading !== null">
+                <button v-on:click="adminValueButton('stats.withdraw', parseFloat(adminWithdraw))" v-bind:disabled="socketSendLoading !== null">
                     <div class="button-inner">UPDATE</div>
                 </button>
             </div>
@@ -142,7 +142,7 @@
                 this.adminSendUserValueSocket(data);
             },
             adminBalanceButton() {
-                const balance = Math.floor(this.adminBalance * 1000);
+                const balance = parseFloat(this.adminBalance);
 
                 if(balance === null || isNaN(balance) === true || balance < 0) {
                     this.notificationShow({type: 'error', message: 'Your entered user balance is invalid.'});
@@ -176,10 +176,10 @@
                 handler(data, oldData) {
                     this.adminLimitTip = (Math.floor(this.modalsData.user.limits.limitTip / 10) / 100).toFixed(2);
                     this.adminRank = this.modalsData.user.rank;
-                    this.adminBalance = (Math.floor(this.modalsData.user.balance / 10) / 100).toFixed(2);
-                    this.adminVault = (Math.floor(this.modalsData.user.vault.amount / 10) / 100).toFixed(2);
-                    this.adminDeposit = (Math.floor(this.modalsData.user.stats.deposit / 10) / 100).toFixed(2);
-                    this.adminWithdraw = (Math.floor(this.modalsData.user.stats.withdraw / 10) / 100).toFixed(2);
+                    this.adminBalance = parseFloat(this.modalsData.user.balance).toFixed(2);
+                    this.adminVault = parseFloat(this.modalsData.user.vault.amount).toFixed(2);
+                    this.adminDeposit = parseFloat(this.modalsData.user.stats.deposit).toFixed(2);
+                    this.adminWithdraw = parseFloat(this.modalsData.user.stats.withdraw).toFixed(2);
                 },
                 deep: true
             }
@@ -187,10 +187,10 @@
         created() {
             this.adminLimitTip = (Math.floor(this.modalsData.user.limits.limitTip / 10) / 100).toFixed(2);
             this.adminRank = this.modalsData.user.rank;
-            this.adminBalance = (Math.floor(this.modalsData.user.balance / 10) / 100).toFixed(2);
-            this.adminVault = (Math.floor(this.modalsData.user.vault.amount / 10) / 100).toFixed(2);
-            this.adminDeposit = (Math.floor(this.modalsData.user.stats.deposit / 10) / 100).toFixed(2);
-            this.adminWithdraw = (Math.floor(this.modalsData.user.stats.withdraw / 10) / 100).toFixed(2);
+            this.adminBalance = parseFloat(this.modalsData.user.balance).toFixed(2);
+            this.adminVault = parseFloat(this.modalsData.user.vault.amount).toFixed(2);
+            this.adminDeposit = parseFloat(this.modalsData.user.stats.deposit).toFixed(2);
+            this.adminWithdraw = parseFloat(this.modalsData.user.stats.withdraw).toFixed(2);
         }
     }
 </script>

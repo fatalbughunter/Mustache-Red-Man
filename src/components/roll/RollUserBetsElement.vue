@@ -15,7 +15,7 @@
                 PAYOUT:
                 <img src="@/assets/img/icons/coin.svg" alt="icon" />
                 <div class="payout-value">
-                    <span>{{rollFormatValue(Math.floor(bet.amount * (bet.multiplier / 100))).split('.')[0]}}</span>.{{rollFormatValue(Math.floor(bet.amount * (bet.multiplier / 100))).split('.')[1]}}
+                    <span>{{rollFormatValue(bet.amount * (bet.multiplier / 100)).split('.')[0]}}</span>.{{rollFormatValue(bet.amount * (bet.multiplier / 100)).split('.')[1]}}
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
         props: ['bet'],
         methods: {
             rollFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             }
         }
     }

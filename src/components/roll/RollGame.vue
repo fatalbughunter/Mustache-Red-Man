@@ -117,7 +117,7 @@
                 if(this.authUser.user !== null && this.rollGame.outcome !== undefined) {
                     for(const bet of this.rollBets.filter((element) => element.user._id === this.authUser.user._id)) {
                         if(this.rollGame.outcome >= bet.multiplier) {
-                            win = win + Math.floor(bet.amount * (bet.multiplier / 100));
+                            win = win + (bet.amount * (bet.multiplier / 100));
                         }
                     }
                 }

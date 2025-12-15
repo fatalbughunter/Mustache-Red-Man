@@ -55,7 +55,7 @@
                 console.log('hahahahahha');
             },
             rainFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             rainStartTimer() {
                 if (!this.generalRain || !this.generalRain.site || !this.generalRain.site.updatedAt) {

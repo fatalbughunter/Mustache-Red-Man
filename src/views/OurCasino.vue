@@ -30,7 +30,9 @@ export default {
 .our-casino {
     width: 100%;
     min-height: 100vh;
-    background: var(--bg-blue-dark);
+    background: url('../assets/img/mainSnowBk.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
     padding: var(--spacing-2xl) 0;
 }
 

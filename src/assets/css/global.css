@@ -73,6 +73,7 @@ a {
     --bg-blue-light: #559ee4;   /* Admin Title Color */
     --bg-blue-dark: #131629;        /* Main Blue Color*/
     --bg-blue-chat: #1E2444;        /* Chat Background Color*/
+    --bg-games-container: #11215B;
     --bg-primary-dark: #0D0D0D;
     --bg-primary: #0D1318;
     --bg-secondary: #1A1A1A;
@@ -98,6 +99,7 @@ a {
     --accent-blue-dark: #1E2444;
     --accent-blue-light: #2A62D0;
     --accent-btn-txt-color: #131629;
+    --accent-towers-btn-bk: #1987F2;
     --accent-yellow: #D4A574;
     --accent-yellow-main: #DEC79C;
     --accent-gold: #B87333;
@@ -133,7 +135,7 @@ a {
     --gradient-card-border: linear-gradient(112.7deg, #ECAD46 3.62%, #FFF173 100%);
     --gradient-main-txt: linear-gradient(93.93deg, #ECAD46 1.55%, #FFF173 98.57%);
     --gradient-subtitle-txt: linear-gradient(90.72deg, #ECAD46 0.36%, #FFF173 99.73%);
-
+    
     /* Spacing */
     --spacing-xs: 4px;
     --spacing-sm: 8px;

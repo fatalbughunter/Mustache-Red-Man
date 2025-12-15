@@ -136,7 +136,7 @@
                 if(this.authUser.user !== null) {
                     for(const bet of this.rollBets.filter((element) => element.user._id === this.authUser.user._id)) {
                         if(this.multiplier >= (bet.multiplier / 100)) {
-                            potential = potential + Math.floor(bet.amount * (bet.multiplier / 100));
+                            potential = potential + (bet.amount * (bet.multiplier / 100));
                         }
                     }
                 }

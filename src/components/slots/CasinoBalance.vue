@@ -25,8 +25,8 @@ export default {
         ...mapGetters('slots', ['lastTransaction']),
         ...mapGetters(['authUser']),
         displayBalance() {
-            // Always use main balance (seamless mode), converting from cents to dollars
-            return (this.authUser.user?.balance || 0) / 100;
+            // Always use main balance (USDT 1:1)
+            return this.authUser.user?.balance || 0;
         }
     },
     methods: {

@@ -59,7 +59,7 @@
                 'towersSendRevealSocket'
             ]),
             towersFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             towersRevealButton(tile) {
                 const data = { tile: tile };
@@ -85,7 +85,7 @@
                 const multiplierPerRow = this.towersRisk === 'easy' ? 1.425 : this.towersRisk === 'medium' ? 1.90 : 2.85;
                 const amount = this.towersGame !== null ? this.towersGame.amount : 0;
 
-                return Math.floor(amount * Math.pow(multiplierPerRow, this.row + 1));
+                return amount * Math.pow(multiplierPerRow, this.row + 1);
             }
         }
     }
@@ -113,7 +113,7 @@
         position: absolute;
         top: 0;
         border-radius: 3px;
-        background: var(--accent-yellow);
+        background: var(--accent-towers-btn-bk);
     }
 
     .towers-row.row-active::before {
@@ -139,7 +139,7 @@
         height: 100%;
         position: relative;
         padding: 1px;
-        opacity: 0.25;
+     /*   opacity: 0.25; */
         z-index: 1;
     }
 
@@ -161,11 +161,11 @@
     }
 
     .towers-row  .tile-coin::before {
-        background: var(--accent-yellow);
+        background: var(--accent-towers-btn-bk);
     }
 
     .towers-row  .tile-lose::before {
-        background: var(--accent-yellow);
+        background: var(--accent-towers-btn-bk);
     }
 
     .towers-row  .tile-coin::after,
@@ -176,7 +176,7 @@
         position: absolute;
         top: 1px;
         left: 1px;
-        background: rgba(255, 255, 255, 0.05);
+     /*   background: rgba(255, 255, 255, 0.05);  */
         border-radius: 11px;
         z-index: -1;
     }
@@ -196,11 +196,11 @@
     }
 
     .towers-row .coin-inner {
-        background: rgba(255, 107, 0, 0.15);
+        background: var(--accent-towers-btn-bk);
     }
 
     .towers-row .lose-inner {
-        background: rgba(255, 107, 0, 0.15);
+        background: var(--bg-blue-dark);
     }
 
     .towers-row button.button-reveal {
@@ -227,7 +227,7 @@
 
     .towers-row.row-active button.button-reveal .button-inner,
     .towers-row.row-revealed button.button-reveal .button-inner {
-        background: rgba(255, 107, 0, 0.15);
+        background: var(--bg-blue-dark);    /* Tile color after betting */
     }
 
     .towers-row.row-revealed button.button-reveal .button-inner {

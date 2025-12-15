@@ -253,7 +253,9 @@ export default {
     width: 100%;
     min-height: calc(100vh - 80px);
     padding: var(--spacing-lg);
-    background: var(--bg-blue-dark);
+    background: url('../../assets/img/mainSnowBk.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .loading-state,
@@ -294,37 +296,31 @@ export default {
 .dropdown-label {
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .provider-dropdown {
     padding: var(--spacing-md) var(--spacing-lg);
-    border: 2px solid var(--color-copper);
+    border: 2px solid var(--text-primary);
     border-radius: var(--radius-lg);
-    background: rgba(0, 0, 0, 0.3);
-    color: #fff;
+    background: var(--bg-blue-dark);
+    color: #ffffff;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
     min-width: 250px;
-}
-
-.provider-dropdown:hover {
-    border-color: rgba(212, 165, 116, 0.8);
-    background: rgba(0, 0, 0, 0.4);
 }
 
 .provider-dropdown:focus {
     outline: none;
-    border-color: var(--color-copper);
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 15px rgba(212, 165, 116, 0.3);
+    border-color: var(--text-primary);
+    background: var(--bg-blue-dark);
+    box-shadow: none;
 }
 
 .provider-dropdown option {
-    background: #1a1a2e;
-    color: #fff;
+    background: var(--bg-blue-dark);
+    color: var(--text-primary);
 }
 
 .provider-info {
@@ -423,7 +419,7 @@ export default {
     width: 100%;
     height: 100%;
     max-width: 1200px;
-    max-height: calc(100vh - 100px) !important;
+    max-height: calc(100vh - 50px) !important;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -464,6 +460,12 @@ export default {
 .game-modal-content {
     flex: 1;
     overflow: auto;
+}
+
+@media (max-width: 1024px) {
+    .game-modal-overlay {
+        padding: 0 var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) !important;
+    }
 }
 
 @media (max-width: 768px) {

@@ -35,7 +35,7 @@
                 'minesSendRevealSocket'
             ]),
             minesFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             minesRevealTile() {
                 if(this.authUser.user === null) {
@@ -86,7 +86,7 @@
                 let multiplier = 0.95 * (first / second);
                 multiplier = multiplier < 1 ? 1 : multiplier;
 
-                return Math.floor(this.minesGame.amount * multiplier);
+                return this.minesGame.amount * multiplier;
             }
         }
     }

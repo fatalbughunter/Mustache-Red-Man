@@ -275,6 +275,7 @@ export default {
     height: calc(100% * 0.30); /* adjusted for new card proportions */
     box-sizing: border-box;
     overflow: hidden;
+    background: var(--bg-blue-dark);
 }
 
 .game-name {

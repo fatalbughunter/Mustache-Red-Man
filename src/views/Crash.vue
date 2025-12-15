@@ -63,14 +63,16 @@
         flex-direction: column;
         align-items: center;
         padding: 45px 10px;
-        background: var(--bg-blue-dark);
+        background: url('../assets/img/mainSnowBk.png') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
         min-height: 100vh;
     }
 
     .crash .crash-container {
         width: 1120px;
         border-radius: 20px;
-        background: radial-gradient(163.2% 163.2% at 50% -31.45%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%), linear-gradient(255deg, #0a0a0a 0%, #1a1a1a 100%);
+        background: var(--bg-primary-dark);
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8), inset 0px 1px 0px rgba(255, 255, 255, 0.1);
         border: 1px solid var(--accent-yellow);
         position: relative;

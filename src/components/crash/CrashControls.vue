@@ -136,7 +136,7 @@
                 'crashSendCashoutSocket'
             ]),
             crashFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString();
+                return parseFloat(value).toFixed(2).toString();
             },
             crashSetMode(mode) {
                 if(mode === 'manual') { this.crashAutoStopButton(); }
@@ -150,17 +150,17 @@
                 this.crashAmount = Number(this.crashAmount).toFixed(2);
             },
             crashSetInput(value, action) {
-                let amount = Math.floor(this[value] * 1000);
+                let amount = parseFloat(this[value]) || 0;
 
                 if(action === '2x') {
-                    amount = Math.floor(amount * 2);
+                    amount = amount * 2;
                 } else if(action === '10x') {
-                    amount = Math.floor(amount * 10);
+                    amount = amount * 10;
                 } else if(action === 'max') {
-                    amount = this.authUser.user.balance <= 25000000 ? this.authUser.user.balance : 25000000;
+                    amount = this.authUser.user.balance || 0;
                 }
 
-                this[value] = parseFloat(Math.floor(amount / 10) / 100).toFixed(2);
+                this[value] = parseFloat(amount).toFixed(2);
             },
             crashAutoStartButton() {
                 const percentageWin = Math.floor(this.crashAutoPercentageWin);
@@ -213,16 +213,16 @@
                     return;
                 }
 
-                const amount = Math.floor(this.crashAmount * 1000);
-                const autoCashout = this.crashAutoCashout === null || this.crashAutoCashout.trim() === '' ? 0 : Math.round(this.crashAutoCashout * 100);
+                const amount = parseFloat(this.crashAmount) || 0;
+                const autoCashout = this.crashAutoCashout === null || this.crashAutoCashout.trim() === '' ? 0 : Math.round(parseFloat(this.crashAutoCashout) * 100);
 
-                if(amount === null || isNaN(amount) === true || amount <= 0) {
+                if(isNaN(amount) === true || amount <= 0) {
                     this.notificationShow({type: 'error', message: 'Your entered bet amount is invalid.'});
                     this.crashAutoStopButton();
                     return;
                 }
 
-                if(autoCashout === null || isNaN(autoCashout) === true || ((autoCashout !== 0 || this.crashMode === 'auto') && autoCashout <= 100)) {
+                if(isNaN(autoCashout) === true || ((autoCashout !== 0 || this.crashMode === 'auto') && autoCashout <= 100)) {
                     this.notificationShow({type: 'error', message: 'Your entered bet auto cashout is invalid.'});
                     this.crashAutoStopButton();
                     return;
@@ -296,7 +296,7 @@
                 let amount = 0;
 
                 for(const bet of this.crashBets) {
-                    amount = Math.floor(amount + bet.amount)
+                    amount = amount + (bet.amount || 0);
                 }
 
                 return amount;
@@ -329,10 +329,10 @@
                         const bet = data[index];
 
                         if(bet.payout !== undefined) {
-                            this.crashAutoTotalWon = Math.floor(this.crashAutoTotalWon + bet.payout);
+                            this.crashAutoTotalWon = this.crashAutoTotalWon + bet.payout;
                         } else {
                             if(Math.floor(this.crashAutoBetCount) > 0) { this.crashAutoBetCount = this.crashAutoBetCount - 1; }
-                            this.crashAutoTotalBet = Math.floor(this.crashAutoTotalBet + bet.amount);
+                            this.crashAutoTotalBet = this.crashAutoTotalBet + bet.amount;
                         } 
                     }
                 }

@@ -34,7 +34,9 @@
     .blackjack {
         width: 100%;
         position: relative;
-        background: var(--bg-blue-dark);
+        background: url('../../assets/img/mainSnowBk.png') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
         min-height: 100vh;
     }
 

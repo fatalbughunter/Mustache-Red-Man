@@ -53,7 +53,7 @@ export default {
     methods: {
         ...mapActions(['modalsSetShow', 'modalsSetData']),
         adminFormatValue(value) {
-            return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
         adminViewButton() {
             this.modalsSetData({ affiliate: this.affiliate });

@@ -31,10 +31,11 @@
         props: ['bet'],
         computed: {
             crashGetAmount() {
-                let amount = parseFloat(Math.floor(this.bet.amount / 10) / 100).toFixed(2).toString();
+                let amount = parseFloat(this.bet.amount).toFixed(2).toString();
 
                 if(this.bet.multiplier !== undefined) {
-                    amount = '+' + parseFloat(Math.floor((this.bet.amount * (this.bet.multiplier / 100)) / 10) / 100).toFixed(2).toString();
+                    // Multiplier is already in decimal format (e.g., 2.5 for 2.5x)
+                    amount = '+' + parseFloat(this.bet.amount * (this.bet.multiplier / 100)).toFixed(2).toString();
                 }
 
                 return amount;
