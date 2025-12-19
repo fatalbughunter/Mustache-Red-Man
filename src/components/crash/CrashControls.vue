@@ -136,6 +136,12 @@
                 'crashSendBetSocket', 
                 'crashSendCashoutSocket'
             ]),
+            handleAutoCashout() {
+                // This will be called when multiplier reaches auto cashout in manual mode
+                if (this.crashMode === 'manual' && this.crashGame && this.crashGame.state === 'rolling') {
+                    this.crashBetCashout();
+                }
+            },
             crashFormatValue(value) {
                 return parseFloat(value).toFixed(2).toString();
             },
@@ -338,6 +344,14 @@
                     }
                 }
             }
+        },
+        mounted() {
+            // Listen for auto cashout event from CrashGame
+            this.$root.$on('crash-auto-cashout', this.handleAutoCashout);
+        },
+        beforeDestroy() {
+            // Clean up event listeners
+            this.$root.$off('crash-auto-cashout', this.handleAutoCashout);
         }
     }
 </script>

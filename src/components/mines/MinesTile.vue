@@ -2,20 +2,10 @@
     <div class="mines-tile">
         <transition name="fade" mode="out-in">
             <div v-if="minesGame !== null && minesGetRevealedTile === 'coin'" class="tile-coin">
-                <div class="coin-box">
-                    <div class="box-inner">
-                        <div class="inner-payout">
-                            <img src="@/assets/img/icons/coin.svg" alt="icon" />
-                            <div class="payout-value">
-                                <span>{{ minesFormatValue(minesGetTilePayout).split('.')[0] }}</span>.{{ minesFormatValue(minesGetTilePayout).split('.')[1] }}
-                            </div>
-                        </div>
-                        <img src="@/assets/img/knight.png" />
-                    </div>
-                </div>
+                <img src="@/assets/img/mines/minecardSuccess.png" alt="Success" class="tile-success-image" />
             </div>
             <div v-else-if="minesGame !== null && minesGetRevealedTile === 'mine'" class="tile-mine">
-                <img src="@/assets/img/mines/mine.png" />
+                <img src="@/assets/img/mines/mineBomb.png" alt="Bomb" class="tile-bomb-image" />
             </div>
             <button v-else v-on:click="minesRevealTile()" class="button-reveal" v-bind:disabled="socketSendLoading !== null || minesGame === null || minesGame.state === 'completed'">
             </button>
@@ -97,11 +87,20 @@
         width: 95px;
         height: 95px;
         border-radius: 7px;
-        background-image: url('~@/assets/img/mines/minecardBack.png');
+        background-image: url('../../assets/img/mines/minecardBack.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         box-shadow: 0px 2px 5px rgba(7, 26, 41, 0.25);
+    }
+    
+    .mines-tile button.button-reveal {
+        background-image: url('../../assets/img/mines/minecardBack.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
     }
 
     .mines-tile .tile-coin.fade-enter-active,
@@ -130,106 +129,15 @@
         justify-content: center;
         align-items: center;
         border-radius: 7px;
-        padding: 9px;
-        border-radius: 7px;
+        padding: 0;
     }
 
-    .mines-tile .tile-coin {
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.29), rgba(0, 0, 0, 0.29)), linear-gradient(255deg, #07263d 0%, #07243a 100%);
-        box-shadow: 0px 4px 25px rgba(1, 230, 169, 0.15), 0px 4px 25px rgba(15, 41, 63, 0.35), inset 0px -1px 5px rgba(61, 230, 179, 0.43);
-    }
-
-    .mines-tile .tile-mine {
-        background: radial-gradient(230% 105% at 50% 15%, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.28) 30%, rgba(0, 0, 0, 0.26) 65%, rgba(0, 0, 0, 0) 100%), 
-                    linear-gradient(0deg, rgba(222, 35, 35, 0.39) -30%, rgba(222, 68, 34, 0.39) -16%, rgba(167, 43, 35, 0.22) 30%, rgba(0, 0, 0, 0) 100%), rgba(0, 0, 0, 0.02);
-        border: 1px solid rgba(222, 68, 34, 0.5);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15), 0px 2px 5px rgba(7, 26, 41, 0.25), inset 0px 0px 56px rgba(146, 25, 25, 0.6);
-    }
-
-    .mines-tile .coin-box {
+    .mines-tile .tile-success-image,
+    .mines-tile .tile-bomb-image {
         width: 100%;
         height: 100%;
-        position: relative;
-        padding: 1px;
+        object-fit: cover;
         border-radius: 7px;
-        box-shadow: 0px 2px 5px rgba(7, 26, 41, 0.25);
-        z-index: 1;
-    }
-
-    .mines-tile .coin-box::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 7px;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #01e0a3 100%);
-        z-index: -1;
-    }
-
-    .mines-tile .coin-box::after {
-        content: '';
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        border-radius: 7px;
-        background: #07243a;
-        z-index: -1;
-    }
-
-    .mines-tile .box-inner {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding-top: 4px;
-        border-radius: 7px;
-        background: radial-gradient(80% 80% at 50% 50%, rgba(1, 231, 169, 0.4) 0%, rgba(0, 0, 0, 0) 100%), 
-                    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
-                    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
-                    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
-                    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
-                    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
-                    radial-gradient(163% 163% at 50% -31%, rgba(0, 194, 255, 0.32) 0%, rgba(0, 0, 0, 0) 100%), 
-                    linear-gradient(255deg, #07263d 0%, #07243a 100%);
-        overflow: hidden;
-    }
-
-    .mines-tile .box-inner img {
-        width: 70px;
-        transform: scaleX(-1);
-    }
-
-    .mines-tile .inner-payout {
-        display: flex;
-        align-items: center;
-    }
-
-    .mines-tile .inner-payout img {
-        width: 11px;
-        height: 11px;
-        margin-right: 4px;
-    }
-
-    .mines-tile .payout-value {
-        font-size: 9px;
-        font-weight: 600;
-        color: #bbbfd0;
-    }
-
-    .mines-tile .payout-value span {
-        font-size: 11px;
-        font-weight: 800;
-        color: #ffffff;
-    }
-
-    .mines-tile .tile-mine img {
-        width: 100%;
     }
 
     .mines-tile button.button-reveal {
@@ -238,6 +146,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 7px;
     }
 
 
@@ -250,24 +159,7 @@
 
         .mines-tile .tile-coin,
         .mines-tile .tile-mine {
-            padding: 6px;
-        }
-
-        .mines-tile .box-inner img {
-            width: 46px;
-        }
-
-        .mines-tile .inner-payout img {
-            width: 9px;
-            height: 9px;
-        }
-
-        .mines-tile .payout-value {
-            font-size: 8px;
-        }
-
-        .mines-tile .payout-value span {
-            font-size: 10px;
+            padding: 0;
         }
 
 
@@ -278,23 +170,6 @@
         .mines-tile {
             width: 60px;
             height: 60px;
-        }
-
-        .mines-tile .box-inner img {
-            width: 42px;
-        }
-
-        .mines-tile .inner-payout img {
-            width: 7px;
-            height: 7px;
-        }
-
-        .mines-tile .payout-value {
-            font-size: 6px;
-        }
-
-        .mines-tile .payout-value span {
-            font-size: 8px;
         }
 
 

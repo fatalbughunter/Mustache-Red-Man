@@ -90,14 +90,15 @@
                     <img src="@/assets/img/icons/leftSideMenu/Jackports.png" alt="Jackpots" />
                     <span>JACKPOTS</span>
                 </router-link>
-                <router-link to="/affiliates" class="sidebar-link" v-on:click.native="closeMobile">
+                <!-- Temporarily hidden -->
+                <!-- <router-link to="/affiliates" class="sidebar-link" v-on:click.native="closeMobile">
                     <img src="@/assets/img/icons/leftSideMenu/Affiliates.png" alt="Affiliates" />
                     <span>AFFILIATES</span>
                 </router-link>
                 <router-link to="/rewards" class="sidebar-link" v-on:click.native="closeMobile">
                     <img src="@/assets/img/icons/leftSideMenu/Rewards.png" alt="Rewards" />
                     <span>REWARDS</span>
-                </router-link>
+                </router-link> -->
             </nav>
 
             <div class="sidebar-footer">

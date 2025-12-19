@@ -74,7 +74,8 @@ export default {
             crashWidth: 0,
             crashProfitInfo: false,
             crashText: 'STARTING IN 20.00s',
-            crashMultiplier: 1.0001
+            crashMultiplier: 1.0001,
+            crashAutoCashoutTriggered: false
         }
     },
     methods: {
@@ -112,12 +113,20 @@ export default {
             'authUser', 
             'generalTimeDiff', 
             'crashGame', 
-            'crashBets'
+            'crashBets',
+            'socketSendLoading'
         ]),
         crashGetPayoutAmount() {
             const bet = this.crashBets.find((element) => element.user._id === this.authUser.user._id);
             if (!bet) return 0;
             return bet.amount * (this.crashMultiplier / 100000);
+        },
+        crashGetActiveBet() {
+            if (!this.authUser.user || !this.crashBets) return null;
+            return this.crashBets.find((element) => 
+                element.user._id === this.authUser.user._id && 
+                (element.multiplier === undefined || element.multiplier === null)
+            );
         }
     },
     watch: {
@@ -133,15 +142,40 @@ export default {
                     CrashGraph.Engine.gameState = 'IN_PROGRESS';
 
                     this.crashMultiplier = 1.0001;
+                    this.crashAutoCashoutTriggered = false;
                     this.crashStartMutiplier();
                 } else if (data.state === 'completed') {
                     CrashGraph.Engine.multi = 1.0001;
                     CrashGraph.Engine.gameState = 'ENDED';
 
                     cancelAnimationFrame(this.crashRunRepeater);
+                    this.crashAutoCashoutTriggered = false;
                 }
             },
             deep: true
+        },
+        crashMultiplier: {
+            handler(newMultiplier, oldMultiplier) {
+                // Check if we need to auto cashout in manual mode
+                if (this.crashGame && this.crashGame.state === 'rolling' && this.crashGetActiveBet && !this.crashAutoCashoutTriggered) {
+                    const bet = this.crashGetActiveBet;
+                    // autoCashout is stored as integer (multiplied by 100), e.g., 2.00x = 200
+                    // crashMultiplier is stored as integer (multiplied by 100000), e.g., 2.00x = 200000
+                    if (bet.autoCashout && bet.autoCashout > 0) {
+                        // Convert autoCashout to same scale as crashMultiplier (multiply by 1000)
+                        const autoCashoutMultiplier = bet.autoCashout * 1000;
+                        // Check if current multiplier has reached or exceeded auto cashout
+                        // Only trigger once when crossing the threshold
+                        if (oldMultiplier < autoCashoutMultiplier && newMultiplier >= autoCashoutMultiplier && this.socketSendLoading === null) {
+                            // Mark as triggered to prevent multiple cashouts
+                            this.crashAutoCashoutTriggered = true;
+                            // Trigger auto cashout
+                            this.$root.$emit('crash-auto-cashout');
+                        }
+                    }
+                }
+            },
+            immediate: false
         }
     },
     mounted() {
