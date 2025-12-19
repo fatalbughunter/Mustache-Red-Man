@@ -6,7 +6,7 @@
             :showBottomBolts="false" 
             :showPlayButton="false"
             :showSeeAll="false"
-            :filteredGameNames="['Mines', 'Crash', 'BlackJack', 'Tower']"
+            :filteredGameNames="['Mines', 'Crash', 'Tower', 'BlackJack']"
             :largeCards="true"
         />
     </div>

@@ -27,7 +27,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
-    color: var(--text-primary);
+    color: var(--gradient-main-txt);
 }
 
 input,

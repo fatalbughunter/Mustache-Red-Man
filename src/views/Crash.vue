@@ -1,5 +1,8 @@
 <template>
     <div class="crash">
+        <div class="crash-banner-section">
+            <img src="@/assets/img/christmas/crashBanners.png" alt="Crash Banner" class="crash-banner" />
+        </div>
         <div class="crash-container">
             <transition name="fade" mode="out-in">
                 <div v-if="socketCrash.connected === false" class="container-loading" key="loading">
@@ -7,17 +10,24 @@
                     <div class="loading-element"></div>
                 </div>
                 <div v-else class="container-data" key="data">
+                    <CrashControls />
                     <div class="data-left">
                         <CrashGame />
                         <CrashHistory />
                     </div>
-
-                    <CrashControls />
                 </div>
             </transition>
         </div>
 
+        <div class="crash-payment-content">
+            <Payment />
+        </div>
+
         <Bets />
+
+        <div class="crash-lucky-mustache-section">
+            <LuckyMustache />
+        </div>
     </div>
 </template>
 
@@ -27,6 +37,8 @@
     import CrashGame from '@/components/crash/CrashGame';
     import CrashHistory from '@/components/crash/CrashHistory';
     import CrashControls from '@/components/crash/CrashControls';
+    import Payment from '@/components/Payment';
+    import LuckyMustache from '@/components/LuckyMustache';
 
     export default {
         name: 'Crash',
@@ -37,7 +49,9 @@
             Bets,
             CrashGame,
             CrashHistory,
-            CrashControls
+            CrashControls,
+            Payment,
+            LuckyMustache
         },
         methods: {
             ...mapActions(['socketConnectCrash', 'socketDisconnectCrash'])
@@ -62,27 +76,74 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 45px 10px;
+/*padding: 45px 10px;*/
         background: url('../assets/img/mainSnowBk.png') no-repeat center center;
         background-size: cover;
         background-attachment: fixed;
         min-height: 100vh;
     }
 
-    .crash .crash-container {
-        width: 1120px;
-        border-radius: 20px;
-        background: var(--bg-primary-dark);
-        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8), inset 0px 1px 0px rgba(255, 255, 255, 0.1);
-        border: 1px solid var(--accent-yellow);
+    .crash-banner-section {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .crash-banner {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
         position: relative;
         z-index: 1;
+    }
+
+    .crash .crash-container {
+        width: 1120px;
+        max-width: 100%;
+        border-radius: 20px;
+       /* background: var(--bg-primary-dark);*/
+       /* box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8), inset 0px 1px 0px rgba(255, 255, 255, 0.1);*/
+       /* border: 1px solid var(--accent-yellow);*/
+        position: relative;
+        z-index: 1;
+        margin: 0 auto;
+    }
+
+    .crash-payment-content {
+        width: 1120px;
+        max-width: 100%;
+        margin: 20px auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .crash-payment-content :deep(.payment-section) {
+        margin: 0;
+        width: 100%;
+    }
+
+    .crash-lucky-mustache-section {
+        width: 1120px;
+        max-width: 100%;
+        margin: 20px 150px 0 150px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .crash-lucky-mustache-section :deep(.lucky-mustache-section) {
+        margin: 0;
+        width: 100%;
     }
 
     .crash .container-loading {
         display: flex;
         justify-content: space-between;
         padding: 15px;
+        flex-direction: row-reverse;
     }
 
     .crash .loading-element {
@@ -95,11 +156,11 @@
     }
 
     .crash .loading-element:nth-child(1) {
-        width: calc(100% - 290px);
+        width: 275px;
     }
 
     .crash .loading-element:nth-child(2) {
-        width: 275px;
+        width: calc(100% - 290px);
     }
 
     .crash .loading-element::after {
@@ -128,6 +189,7 @@
         display: flex;
         justify-content: space-between;
         padding: 15px;
+        gap: 20px;
     }
 
     .crash .container-data.fade-enter-active {
@@ -139,7 +201,16 @@
     }
 
     .crash .data-left {
+        flex: 1;
         width: calc(100% - 290px);
+        position: relative;
+        background: url('../assets/img/crash/crashSpace.jpg') no-repeat center center;
+        background-size: cover;
+        background-position: center;
+        border-radius: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+        min-height: 510px;
     }
 
     @keyframes loading_animation {
@@ -149,14 +220,50 @@
     }
 
     @media only screen and (max-width: 1140px) {
-        
-        .crash .crash-container {
-            width: 100%;
+        .crash-banner-section {
+            margin-bottom: 15px;
         }
 
+        .crash .crash-container {
+            width: 100%;
+            margin: 0 10px;
+        }
+
+        .crash-payment-content {
+            width: 100%;
+            margin: 15px 10px;
+        }
+
+        .crash-lucky-mustache-section {
+            width: 100%;
+            margin: 15px 10px 0 10px;
+        }
     }
 
     @media only screen and (max-width: 950px) {
+        .crash-payment-content {
+            margin: 15px 10px;
+        }
+
+        .crash-lucky-mustache-section {
+            margin: 15px 10px;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        .crash-payment-content {
+            margin: 10px 0;
+        }
+
+        .crash-lucky-mustache-section {
+            margin: 10px 0;
+        }
+    }
+
+    @media only screen and (max-width: 950px) {
+        .crash-banner-section {
+            margin-bottom: 10px;
+        }
 
         .crash {
             padding: 25px 10px 443px 10px;
@@ -164,21 +271,35 @@
 
         .crash .container-loading,
         .crash .container-data {
-            flex-direction: column;
+            flex-direction: column-reverse;
             padding: 10px;
+            gap: 15px;
         }
 
         .crash .loading-element {
             width: 100%!important;
         }
 
-        .crash .loading-element:nth-child(2) {
+        .crash .loading-element:nth-child(1) {
             height: 200px;
-            margin-top: 15px;
+            margin-top: 0;
+        }
+
+        .crash .loading-element:nth-child(2) {
+            height: 510px;
+            margin-top: 0;
         }
 
         .crash .data-left {
             width: 100%;
+            padding: 15px;
+        }
+
+    }
+
+    @media only screen and (max-width: 480px) {
+        .crash-banner-section {
+            margin-bottom: 8px;
         }
 
     }

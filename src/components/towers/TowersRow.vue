@@ -6,12 +6,11 @@
         <div v-for="tile in towersGetTilesCount" v-bind:key="tile" class="row-tile">
             <transition name="fade" mode="out-in">
                 <div v-if="towersGame !== null && towersGame.revealed[row] !== undefined && towersGame.revealed[row].tile === (tile - 1) && towersGame.revealed[row].row[tile - 1] === 'coin'" class="tile-coin">
+                    <img src="@/assets/img/towers/gem_coin.png" alt="Gem" class="gem-image" />
                     <div class="coin-inner">
-                        <img src="@/assets/img/icons/coin.svg" alt="icon" />
-                        <div class="inner-value">
+                        <div class="coin-value">
                             <span>{{ towersFormatValue(towersGetRowCashout).split('.')[0] }}</span>.{{ towersFormatValue(towersGetRowCashout).split('.')[1] }}
                         </div>
-                        <img class="image-knight" src="@/assets/img/knight.png" />
                     </div>
                 </div>
                 <div v-else-if="
@@ -20,6 +19,7 @@
                             (towersGame.revealed[row] !== undefined && towersGame.revealed[row].tile === (tile - 1) && towersGame.revealed[row].row[tile - 1] === 'lose') ||
                             (towersGame.state === 'completed' && towersGame.revealed.length <= row && towersGame.deck[row][tile - 1] === 'lose')
                         )" class="tile-lose">
+                    <img src="@/assets/img/towers/gem_broken.png" alt="Broken Gem" class="gem-image" />
                     <div class="lose-inner">
                         <IconSkull />
                     </div>
@@ -30,11 +30,8 @@
                     class="button-reveal" 
                     v-bind:disabled="socketSendLoading !== null || towersGame === null || towersGame.state === 'completed' || towersGame.revealed.length !== row"
                 >
+                    <img src="@/assets/img/towers/gem.png" alt="Gem" class="gem-image" />
                     <div class="button-inner">
-                        <img src="@/assets/img/icons/coin.svg" alt="icon" />
-                        <div class="inner-value">
-                            <span>{{ towersFormatValue(towersGetRowCashout).split('.')[0] }}</span>.{{ towersFormatValue(towersGetRowCashout).split('.')[1] }}
-                        </div>
                     </div>
                 </button>
             </transition>
@@ -96,10 +93,13 @@
         width: 100%;
         position: relative;
         display: flex;
-        justify-content: space-between;
-        margin-top: 18px;
-        padding: 0 30px;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 5px;
+        padding: 0;
+        gap: 15px;
     }
+
 
     .towers-row:last-child {
         margin-top: 0;
@@ -125,11 +125,27 @@
     }
 
     .towers-row .row-tile {
-        width: calc(33.33% - 12px);
+        width: calc(50% - 8px);
         height: 45px;
+        position: relative;
+    }
+
+    .towers-row .row-tile .gem-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
     }
 
     .container-game.game-medium .towers-row .row-tile {
+        width: calc(50% - 8px);
+    }
+
+    .container-game.game-easy .towers-row .row-tile,
+    .container-game.game-hard .towers-row .row-tile {
         width: calc(50% - 8px);
     }
 
@@ -143,6 +159,17 @@
         z-index: 1;
     }
 
+    .towers-row .tile-coin .gem-image,
+    .towers-row .tile-lose .gem-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
     .towers-row.row-active  .tile-coin,
     .towers-row.row-active  .tile-lose {
         opacity: 1;
@@ -150,22 +177,7 @@
 
     .towers-row  .tile-coin::before,
     .towers-row  .tile-lose::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 12px;
-        z-index: -1;
-    }
-
-    .towers-row  .tile-coin::before {
-        background: var(--accent-towers-btn-bk);
-    }
-
-    .towers-row  .tile-lose::before {
-        background: var(--accent-towers-btn-bk);
+        display: none;
     }
 
     .towers-row  .tile-coin::after,
@@ -189,18 +201,22 @@
         justify-content: center;
         align-items: center;
         border-radius: 11px;
+        position: relative;
+        z-index: 1;
     }
 
     .towers-row .coin-inner {
-        padding: 0 52px 0 10px;
-    }
-
-    .towers-row .coin-inner {
-        background: var(--accent-towers-btn-bk);
+        padding: 0;
+        background: transparent;
+        justify-content: center;
     }
 
     .towers-row .lose-inner {
-        background: var(--bg-blue-dark);
+        background: transparent;
+    }
+
+    .towers-row .lose-inner svg {
+        display: none;
     }
 
     .towers-row button.button-reveal {
@@ -216,6 +232,10 @@
         transform: scale(1.05);
     }
 
+    .towers-row button.button-reveal {
+        position: relative;
+    }
+
     .towers-row button.button-reveal .button-inner {
         width: 100%;
         height: 100%;
@@ -223,67 +243,70 @@
         justify-content: center;
         align-items: center;
         border-radius: 11px;
+        position: relative;
+        z-index: 1;
+        background: transparent;
     }
 
     .towers-row.row-active button.button-reveal .button-inner,
     .towers-row.row-revealed button.button-reveal .button-inner {
-        background: var(--bg-blue-dark);    /* Tile color after betting */
+        background: transparent;
     }
 
     .towers-row.row-revealed button.button-reveal .button-inner {
         opacity: 0.25;
     }
 
-    .towers-row button.button-reveal .button-inner img,
-    .towers-row .coin-inner img {
-        width: 16px;
-        height: 16px;
-        margin-right: 6px;
+    .towers-row.row-revealed button.button-reveal .gem-image {
+        opacity: 0.25;
     }
 
-    .towers-row button.button-reveal .button-inner .inner-value,
-    .towers-row .coin-inner .inner-value  {
+
+    .towers-row .coin-inner .coin-value {
         font-size: 11px;
         font-weight: 600;
         color: #ffffff;
+        display: none; /* Temporarily hidden */
+        align-items: baseline;
+        justify-content: center;
     }
 
-    .towers-row button.button-reveal .button-inner .inner-value span,
-    .towers-row .coin-inner .inner-value span {
+    .towers-row .coin-inner .coin-value span {
         font-size: 15px;
         font-weight: 800;
         color: #ffffff;
-    }
-
-    .towers-row .coin-inner img.image-knight {
-        width: 46px;
-        height: auto;
-        position: absolute;
-        top: 4px;
-        right: -3px;
-        transform: scaleX(-1);
     }
 
     @media only screen and (max-width: 550px) {
 
         .towers-row {
             padding: 0 15px;
+            gap: 10px;
         }
 
         .towers-row .row-tile {
-            width: calc(33.33% - 6px);
+            width: calc(50% - 6px);
+        }
+
+        .towers-row .coin-inner .coin-value {
+            font-size: 10px;
+        }
+
+        .towers-row .coin-inner .coin-value span {
+            font-size: 13px;
         }
 
     }
 
     @media only screen and (max-width: 500px) {
 
-        .towers-row .coin-inner {
-            padding: 0;
+
+        .towers-row .coin-inner .coin-value {
+            font-size: 9px;
         }
 
-        .towers-row .coin-inner img.image-knight {
-            display: none;
+        .towers-row .coin-inner .coin-value span {
+            font-size: 12px;
         }
 
     }

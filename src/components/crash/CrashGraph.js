@@ -141,6 +141,16 @@ function Graph() {
     this.imageObj.src = require('@/assets/img/rocket.png');
 };
 
+Graph.prototype.getAccentYellow = function() {
+	// Get --accent-yellow CSS variable value, fallback to #D4A574
+	if (typeof window !== 'undefined' && window.getComputedStyle) {
+		var root = document.documentElement;
+		var value = getComputedStyle(root).getPropertyValue('--accent-yellow').trim();
+		return value || '#D4A574';
+	}
+	return '#D4A574';
+};
+
 Graph.prototype.startRendering = function(canvasNode, config) {
 	console.assert(!this.canvas && !this.ctx);
 	if (!canvasNode.getContext) {
@@ -235,8 +245,10 @@ Graph.prototype.drawGraph = function() {
   
     ctx.lineWidth = 5;
     var grad = ctx.createLinearGradient(25, 25, 125, 5);
-    grad.addColorStop(0, '#C8CDFF');
-    grad.addColorStop(1, '#C8CDFF');
+    // Use --accent-yellow CSS variable color
+    var accentYellow = this.getAccentYellow();
+    grad.addColorStop(0, accentYellow);
+    grad.addColorStop(1, accentYellow);
   
     ctx.strokeStyle = grad;
   

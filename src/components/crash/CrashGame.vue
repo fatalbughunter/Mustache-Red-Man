@@ -1,5 +1,6 @@
 <template>
     <div class="crash-game">
+        <img src="@/assets/img/christmas/whiteSnowRight.png" alt="Snow" class="crash-game-snow" />
         <div class="game-graph" ref="crashGraph">
             <canvas id="canvas-graph"></canvas>
         </div>
@@ -179,14 +180,25 @@ export default {
         width: 100%;
         height: 460px;
         position: relative;
-        border-radius: 20px;
-        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%),
-            radial-gradient(100% 100% at 50% 50%,
-                rgba(0, 0, 0, 0.8) 0%,
-                rgba(0, 0, 0, 0.9) 100%);
+        background: transparent;
+        /*border-radius: 20px;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: inset 0px 0px 35px rgba(0, 0, 0, 0.8), 0px 4px 20px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);*/
+        overflow: visible;
+    }
+
+    .crash-game .crash-game-snow {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: auto;
+        height: auto;
+        max-width: 300px;
+        max-height: 200px;
+        object-fit: contain;
+        z-index: 2;
+        pointer-events: none;
+        margin: -35px -10px 0 0;
     }
 
     .crash-game::before {
@@ -341,10 +353,10 @@ export default {
         justify-content: center;
         align-items: center;
         border-radius: 20px;
-        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%),
-            radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
+        background: transparent;
         overflow: hidden;
-        z-index: -1;
+        z-index: 1;
+        position: relative;
     }
 
     .crash-game .inner-completed,
@@ -427,11 +439,45 @@ export default {
         text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
     }
 
+    @media only screen and (max-width: 850px) {
+        .crash-game {
+            overflow: visible;
+        }
+
+        .crash-game .crash-game-snow {
+            max-width: 250px;
+            max-height: 150px;
+            margin: -25px -5px 0 0;
+        }
+    }
+
+    @media only screen and (max-width: 575px) {
+        .crash-game .crash-game-snow {
+            max-width: 200px;
+            max-height: 120px;
+            margin: -23px 0 0 0;
+        }
+    }
+
     @media only screen and (max-width: 550px) {
 
         .crash-game .info-network span {
             display: none;
         }
 
+        .crash-game .crash-game-snow {
+            max-width: 150px;
+            max-height: 100px;
+            margin: -21px 0 0 0;
+        }
+
+    }
+
+    @media only screen and (max-width: 425px) {
+        .crash-game .crash-game-snow {
+            max-width: 120px;
+            max-height: 80px;
+            margin: -21px 0 0 0;
+        }
     }
 </style>

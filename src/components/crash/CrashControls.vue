@@ -1,5 +1,6 @@
 <template>
     <div class="crash-controls">
+        <img src="@/assets/img/christmas/whiteSnow.png" alt="Snow" class="crash-controls-snow" />
         <div class="controls-mode">
             <button v-on:click="crashSetMode('manual')" v-bind:class="{ 'button-active': crashMode === 'manual' }">
                 <div class="button-inner">
@@ -344,12 +345,28 @@
 <style scoped>
     .crash-controls {
         width: 275px;
-        height: 510px;
+        height: auto;
         padding: 15px;
         border-radius: 20px;
-        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5), inset 0px 1px 0px rgba(255, 255, 255, 0.1);
+        background: var(--accent-blue-dark);
+       /* border: 1px solid rgba(255, 255, 255, 0.1);*/
+       /* box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5), inset 0px 1px 0px rgba(255, 255, 255, 0.1);*/
+        position: relative;
+        overflow: visible;
+    }
+
+    .crash-controls .crash-controls-snow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: auto;
+        max-width: 120px;
+        max-height: 80px;
+        object-fit: contain;
+        z-index: 2;
+        pointer-events: none;
+        margin: -4px 0 0 10px;
     }
 
     .crash-controls .controls-mode {
@@ -457,7 +474,7 @@
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
-        background: var(--bg-blue-chat);
+        background: var(--bg-blue-dark);
         border-radius: 14px;
         border: none;
     }
@@ -638,7 +655,6 @@
         position: absolute;
         bottom: 0;
         left: 0;
-        background: linear-gradient(180deg, rgba(26, 26, 26, 0) 0%, #1a1a1a 100%);
         z-index: 1;
     }
 
@@ -721,7 +737,7 @@
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
-        background: var(--bg-blue-chat);
+        background: var(--bg-blue-dark);
         border-radius: 14px;
         border: none;
     }
@@ -789,5 +805,35 @@
             margin-top: 15px;
         }
 
+        .crash-controls .crash-controls-snow {
+            max-width: 100px;
+            max-height: 65px;
+            margin: -4px 0 0 10px;
+        }
+
+    }
+
+    @media only screen and (max-width: 575px) {
+        .crash-controls .crash-controls-snow {
+            max-width: 80px;
+            max-height: 55px;
+            margin: -3px 0 0 12px;
+        }
+    }
+
+    @media only screen and (max-width: 425px) {
+        .crash-controls .crash-controls-snow {
+            max-width: 60px;
+            max-height: 40px;
+            margin: -2px 0 0 8px;
+        }
+    }
+
+    @media only screen and (max-width: 350px) {
+        .crash-controls .crash-controls-snow {
+            max-width: 50px;
+            max-height: 35px;
+            margin: -2px 0 0 10px;
+        }
     }
 </style>

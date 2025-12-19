@@ -31,14 +31,13 @@
 
             <nav class="sidebar-group">
                 <router-link to="/" class="sidebar-link" v-on:click.native="closeMobile">
-                    <IconHome />
+                    <img src="@/assets/img/icons/leftSideMenu/Home.png" alt="Home" />
                     <span>HOME</span>
                 </router-link>
                 <div class="sidebar-menu-item">
                     <button class="sidebar-link sidebar-link-parent" :class="{ 'expanded': casinoMenuOpen }" @click="toggleCasinoMenu">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 0L11.5 6.5L18 9L11.5 11.5L9 18L6.5 11.5L0 9L6.5 6.5L9 0Z" fill="currentColor"/>
-                        </svg>
+                        <img v-if="casinoMenuOpen" src="@/assets/img/icons/leftSideMenu/Casino_Open.png" alt="Casino" />
+                        <img v-else src="@/assets/img/icons/leftSideMenu/Casino_Close.png" alt="Casino" />
                         <span>CASINO</span>
                         <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -76,37 +75,28 @@
                     </div>
                 </div>
                 <router-link to="/slots" class="sidebar-link" v-on:click.native="closeMobile">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="1" y="1" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-                        <circle cx="5" cy="5" r="1.5" fill="currentColor"/>
-                        <circle cx="9" cy="5" r="1.5" fill="currentColor"/>
-                        <circle cx="13" cy="5" r="1.5" fill="currentColor"/>
-                        <circle cx="5" cy="9" r="1.5" fill="currentColor"/>
-                        <circle cx="9" cy="9" r="1.5" fill="currentColor"/>
-                        <circle cx="13" cy="9" r="1.5" fill="currentColor"/>
-                        <circle cx="5" cy="13" r="1.5" fill="currentColor"/>
-                        <circle cx="9" cy="13" r="1.5" fill="currentColor"/>
-                        <circle cx="13" cy="13" r="1.5" fill="currentColor"/>
-                    </svg>
+                    <img src="@/assets/img/icons/leftSideMenu/Slots.png" alt="Slots" />
                     <span>SLOTS</span>
                 </router-link>
                 <router-link to="/leaderboard" class="sidebar-link" v-on:click.native="closeMobile">
-                    <IconLeaderboard />
+                    <img src="@/assets/img/icons/leftSideMenu/Leaderboard.png" alt="Leaderboard" />
                     <span>LEADERBOARD</span>
                 </router-link>
                 <router-link to="/live-casino" class="sidebar-link" v-on:click.native="closeMobile">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 1C4.58 1 1 4.58 1 9C1 13.42 4.58 17 9 17C13.42 17 17 13.42 17 9C17 4.58 13.42 1 9 1ZM9 15.5C5.41 15.5 2.5 12.59 2.5 9C2.5 5.41 5.41 2.5 9 2.5C12.59 2.5 15.5 5.41 15.5 9C15.5 12.59 12.59 15.5 9 15.5Z" fill="currentColor"/>
-                        <circle cx="9" cy="9" r="3" fill="currentColor"/>
-                    </svg>
+                    <img src="@/assets/img/icons/leftSideMenu/Live casino.png" alt="Live Casino" />
                     <span>LIVE CASINO</span>
                 </router-link>
                 <router-link to="/jackpots" class="sidebar-link" v-on:click.native="closeMobile">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 0L11.5 6.5L18 9L11.5 11.5L9 18L6.5 11.5L0 9L6.5 6.5L9 0Z" fill="currentColor"/>
-                        <circle cx="9" cy="9" r="3" fill="var(--bg-menu-sidebar)"/>
-                    </svg>
+                    <img src="@/assets/img/icons/leftSideMenu/Jackports.png" alt="Jackpots" />
                     <span>JACKPOTS</span>
+                </router-link>
+                <router-link to="/affiliates" class="sidebar-link" v-on:click.native="closeMobile">
+                    <img src="@/assets/img/icons/leftSideMenu/Affiliates.png" alt="Affiliates" />
+                    <span>AFFILIATES</span>
+                </router-link>
+                <router-link to="/rewards" class="sidebar-link" v-on:click.native="closeMobile">
+                    <img src="@/assets/img/icons/leftSideMenu/Rewards.png" alt="Rewards" />
+                    <span>REWARDS</span>
                 </router-link>
             </nav>
 
@@ -127,13 +117,11 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import IconHome from '@/components/icons/IconHome';
-    import IconLeaderboard from '@/components/icons/IconLeaderboard';
     import IconInfo from '@/components/icons/IconInfo';
 
     export default {
         name: 'SidebarLeft',
-        components: { IconHome, IconLeaderboard, IconInfo },
+        components: { IconInfo },
         data() { return { collapsed: false, mobileOpen: false, casinoMenuOpen: false, resizeHandler: null }; },
         computed: {
             ...mapGetters(['authUser'])
@@ -324,7 +312,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         min-height: 0;
-        max-height: 380px;
+        max-height: 450px;
         transition: padding 0.3s ease;
     }
     .sidebar-title { 
@@ -367,17 +355,32 @@
     .sidebar-link:hover svg,
     .sidebar-link:hover svg path,
     .sidebar-link:hover svg rect,
-    .sidebar-link:hover svg circle { 
+    .sidebar-link:hover svg circle,
+    .sidebar-link:hover img { 
         fill: var(--accent-btn-txt-color);
         stroke: var(--accent-btn-txt-color);
+        filter: brightness(0) saturate(100%) invert(77%) sepia(89%) saturate(1352%) hue-rotate(1deg) brightness(105%) contrast(101%);
     }
-    .sidebar-link svg { 
-        width: 22px; 
-        height: 22px; 
+    .sidebar-link svg,
+    .sidebar-link img { 
+        width: 36px; 
+        height: 36px; 
         margin-right: var(--spacing-md); 
         fill: #FFFFFF;
-        transition: fill 0.3s ease, stroke 0.3s ease, width 0.3s ease, height 0.3s ease, margin-right 0.3s ease;
+        transition: fill 0.3s ease, stroke 0.3s ease, width 0.3s ease, height 0.3s ease, margin-right 0.3s ease, opacity 0.3s ease;
         flex-shrink: 0;
+        object-fit: contain;
+    }
+    
+    /* Keep submenu icons smaller (Mines, Crash, Towers, Blackjack) */
+    .sidebar-submenu-link svg,
+    .sidebar-submenu-link img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .sidebar-link img {
+        filter: brightness(0) invert(1);
     }
     
     .sidebar-link-parent {
@@ -388,7 +391,8 @@
         transition: justify-content 0.3s ease;
     }
     
-    .sidebar-link-parent > svg:first-child {
+    .sidebar-link-parent > svg:first-child,
+    .sidebar-link-parent > img:first-child {
         flex-shrink: 0;
         transition: width 0.3s ease, height 0.3s ease, margin-right 0.3s ease;
     }
@@ -427,10 +431,16 @@
         color: #FFFFFF;
     }
     
-    .sidebar-submenu-link svg {
+    .sidebar-submenu-link svg,
+    .sidebar-submenu-link img {
         width: 20px;
         height: 20px;
         fill: #FFFFFF;
+        object-fit: contain;
+    }
+    
+    .sidebar-submenu-link img {
+        filter: brightness(0) invert(1);
     }
     
     .sidebar-submenu-link:hover {
@@ -441,9 +451,11 @@
     .sidebar-submenu-link:hover svg,
     .sidebar-submenu-link:hover svg path,
     .sidebar-submenu-link:hover svg rect,
-    .sidebar-submenu-link:hover svg circle {
+    .sidebar-submenu-link:hover svg circle,
+    .sidebar-submenu-link:hover img {
         fill: var(--accent-btn-txt-color);
         stroke: var(--accent-btn-txt-color);
+        filter: brightness(0) saturate(100%) invert(77%) sepia(89%) saturate(1352%) hue-rotate(1deg) brightness(105%) contrast(101%);
     }
     
     /* Casino game links - white */
@@ -464,15 +476,19 @@
     .router-link-exact-active.sidebar-link::before { 
         background: var(--gradient-gold); 
     }
-    .router-link-exact-active.sidebar-link svg { 
-        fill: #FFFFFF; 
+    .router-link-exact-active.sidebar-link svg,
+    .router-link-exact-active.sidebar-link img { 
+        fill: #FFFFFF;
+        filter: brightness(0) invert(1);
     }
     .router-link-exact-active.sidebar-submenu-link {
         background: rgba(212, 175, 55, 0.15);
         color: #FFFFFF;
     }
-    .router-link-exact-active.sidebar-submenu-link svg {
-        fill: #FFFFFF; 
+    .router-link-exact-active.sidebar-submenu-link svg,
+    .router-link-exact-active.sidebar-submenu-link img {
+        fill: #FFFFFF;
+        filter: brightness(0) invert(1);
     }
 
     aside#sidebar-left.collapsed .sidebar-title, 
@@ -487,10 +503,11 @@
         width: 40px;
         height: 36px;
     }
-    aside#sidebar-left.collapsed .sidebar-link svg {
+    aside#sidebar-left.collapsed .sidebar-link svg,
+    aside#sidebar-left.collapsed .sidebar-link img {
         margin-right: 0;
-        width: 24px;
-        height: 24px;
+        width: 36px;
+        height: 36px;
     }
     aside#sidebar-left.collapsed .sidebar-link-parent {
         justify-content: center;

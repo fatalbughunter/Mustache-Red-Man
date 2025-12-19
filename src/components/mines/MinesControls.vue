@@ -1,5 +1,6 @@
 <template>
     <div class="mines-controls">
+        <img src="@/assets/img/christmas/whiteSnow.png" alt="Snow" class="mines-controls-snow" />
         <div class="controls-top">
             <div class="top-amount">
                 <input v-model="minesAmount" v-on:input="minesValidateInput" type="text" placeholder="BET AMOUNT" v-bind:disabled="isInputDisabled" />
@@ -240,9 +241,26 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 20px 15px;
-        background: var(--bg-blue-dark);
+        background: var(--accent-blue-dark);
         border-radius: 15px;
-        border: 1px solid var(--accent-yellow);
+      /*  border: 1px solid var(--accent-yellow);
+      */
+        position: relative;
+        overflow: visible;
+    }
+
+    .mines-controls .mines-controls-snow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: auto;
+        max-width: 120px;
+        max-height: 80px;
+        object-fit: contain;
+        z-index: 2;
+        pointer-events: none;
+        margin: -5px 0 0 8px;
     }
 
     .mines-controls .controls-top {
@@ -254,7 +272,7 @@
         height: 50px;
         position: relative;
         padding: 1px;
-        border: 1px solid var(--accent-yellow);
+/* border: 1px solid var(--accent-yellow); */
         border-radius: 15px;
     }
 
@@ -275,8 +293,8 @@
         padding: 0 100px 0 43px;
         font-size: 12px;
         font-weight: 600;
-        color: var(--accent-yellow);
-        background-color: var(--bg-blue-chat);
+        color: #ffffff;
+        background-color: var(--bg-blue-dark);
         border: none;
         outline: none;
         border-radius: 12px;
@@ -399,7 +417,7 @@
     .mines-controls .mines-title {
         font-size: 12px;
         font-weight: 600;
-        color: #5e768e;
+        color: #ffffff;
     }
 
     .mines-controls .mines-content {
@@ -455,8 +473,8 @@
         justify-content: center;
         font-size: 12px;
         font-weight: 600;
-        color: var(--accent-btn-txt-color);
-        background-color: var(--gradient-button-bg);
+       /* color: var(--accent-btn-txt-color); */
+        background-color: var(--bg-blue-dark);
         border-radius: 8px;
     }
 
@@ -486,15 +504,15 @@
         height: 100%;
         padding: 0 5px;
         text-align: center;
-        font-size: 12px;
+        font-size: 24px;
         font-weight: 600;
-        color: var(--accent-yellow);
-        background-color: #2a2a2a;
+        color: #ffffff;
+        background-color: transparent;
         border-radius: 8px;
     } 
     
     .mines-controls .content-input input::placeholder {
-        color: #5e768e;
+        color: #ffffff;
     }
 
     .mines-controls button.button-bet,
@@ -668,8 +686,44 @@
             margin-top: 8px;
         }
 
+        .mines-controls .mines-controls-snow {
+            max-width: 100px;
+            max-height: 65px;
+            margin: -4px 0 0 10px;
+        }
+
         .mines-controls .controls-info {
             margin-top: 18px;
+        }
+
+    }
+
+    @media only screen and (max-width: 575px) {
+
+        .mines-controls .mines-controls-snow {
+            max-width: 80px;
+            max-height: 55px;
+            margin: -3px 0 0 12px;
+        }
+
+    }
+
+    @media only screen and (max-width: 425px) {
+
+        .mines-controls .mines-controls-snow {
+            max-width: 60px;
+            max-height: 40px;
+            margin: -2px 0 0 8px;
+        }
+
+    }
+
+    @media only screen and (max-width: 350px) {
+
+        .mines-controls .mines-controls-snow {
+            max-width: 50px;
+            max-height: 35px;
+            margin: -2px 0 0 10px;
         }
 
     }

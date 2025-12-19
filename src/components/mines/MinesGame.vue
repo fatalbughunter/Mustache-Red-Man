@@ -1,5 +1,6 @@
 <template>
     <div class="mines-game">
+        <img src="@/assets/img/christmas/whiteSnowRight.png" alt="Snow" class="mines-game-snow" />
         <transition name="slide-fade">
             <div v-if="minesGame !== null && minesGame.state === 'completed' && minesGame.payout > 0" class="game-win">
                 <div class="win-inner">
@@ -75,9 +76,24 @@
         margin-left: 16px;
         padding: 20px 0;
         border-radius: 25px;
-        background: var(--bg-blue-dark);
-        border: 1px solid var(--accent-yellow);
-        box-shadow: 0px 4px 10px rgba(7, 26, 41, 0.25);
+        background: var(--accent-blue-dark);
+       /* border: 1px solid var(--accent-yellow);
+        box-shadow: 0px 4px 10px rgba(7, 26, 41, 0.25); */
+        overflow: visible;
+    }
+
+    .mines-game .mines-game-snow {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: auto;
+        height: auto;
+        max-width: 300px;
+        max-height: 200px;
+        object-fit: contain;
+        z-index: 2;
+        pointer-events: none;
+        margin: -14px 10px 0 0;
     }
 
     .mines-game .game-win {
@@ -186,6 +202,12 @@
             margin-left: 0;
         }
 
+        .mines-game .mines-game-snow {
+            max-width: 250px;
+            max-height: 150px;
+            margin: -12px 10px 0 0;
+        }
+
     }
 
     @media only screen and (max-width: 575px) {
@@ -193,6 +215,12 @@
         .mines-game .game-inner {
             width: 370px;
             height: 370px;
+        }
+
+        .mines-game .mines-game-snow {
+            max-width: 200px;
+            max-height: 120px;
+            margin: -10px 12px 0 0;
         }
 
     }
@@ -204,6 +232,12 @@
             height: 320px;
         }
 
+        .mines-game .mines-game-snow {
+            max-width: 150px;
+            max-height: 100px;
+            margin: -8px 14px 0 0;
+        }
+
     }
 
     @media only screen and (max-width: 350px) {
@@ -211,7 +245,13 @@
         .mines-game .game-inner {
             width: 270px;
             height: 270px;
-        }   
+        }
+
+        .mines-game .mines-game-snow {
+            max-width: 120px;
+            max-height: 80px;
+            margin: -6px 15px 0 0;
+        }
 
     }
 </style>
