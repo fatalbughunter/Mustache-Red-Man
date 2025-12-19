@@ -124,7 +124,7 @@
                 'authUser'
             ]),
             navbarGetLevel() {
-                let level = Math.floor(Math.pow(this.authUser.user.xp / 1000 / 100, 1 / 3));
+                let level = Math.floor(Math.pow(this.authUser.user.xp / 10, 1 / 3));
                 return level >= 100 ? 100 : level; 
             },
             navbarGetLevelColor() {
