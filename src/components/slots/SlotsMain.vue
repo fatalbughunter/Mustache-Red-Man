@@ -29,7 +29,7 @@
                     >
                         <option value="">-- Choose a Provider --</option>
                         <option 
-                            v-for="provider in providers"
+                            v-for="provider in filteredProviders"
                             :key="provider.code"
                             :value="provider.code"
                         >
@@ -123,12 +123,21 @@ export default {
         return {
             gameLoading: false,
             socketUnsubscribe: null,
-            selectedProvider: ''
+            selectedProvider: '',
+            allowedProviders: ['HABANERO', 'PRAGMATIC', 'INOUT', 'SPRIBE', 'PLAYSTAR', 'NAGA']
         };
     },
     computed: {
         ...mapGetters('slots', ['providers', 'games', 'currentProvider', 'currentGame', 'gameSession', 'loading', 'error', 'cryptoPrices']),
-        ...mapGetters(['authenticated', 'socketGeneral'])
+        ...mapGetters(['authenticated', 'socketGeneral']),
+        filteredProviders() {
+            return this.providers.filter(provider => 
+                this.allowedProviders.some(allowed => 
+                    provider.code.toUpperCase().includes(allowed) || 
+                    provider.name.toUpperCase().includes(allowed)
+                )
+            );
+        }
     },
 
     async mounted() {

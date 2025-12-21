@@ -410,7 +410,7 @@ export default {
         line-height: 88px;
         font-size: 84px;
         font-weight: 700;
-        color: #ffffff;
+        color: #f55046;
         text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.3);
     }
 

@@ -134,10 +134,12 @@
 
     .notifications-element .element-content {
         width: calc(100% - 3px);
-        height: 100%;
+        min-height: 73px;
         display: flex;
         align-items: center;
-        padding: 0 27px 0 17px;
+        justify-content: center;
+        text-align: center;
+        padding: 15px 30px;
         font-size: 14px;
         font-weight: 600;
         color: #ffffff;

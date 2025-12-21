@@ -103,7 +103,7 @@
         padding-bottom: 23px;
         font-size: 16px;
         font-weight: 600;
-        color: var(--gradient-yellow);
+        color: white;
         transition: all 0.3s ease;
         background: transparent;
         border: none;

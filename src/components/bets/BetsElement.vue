@@ -180,6 +180,7 @@
     .bets-element .element-game span {
         font-size: 14px;
         font-weight: 700;
+        color: var(--text-muted);
     }
 
     .bets-element .element-user {

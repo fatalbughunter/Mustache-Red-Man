@@ -17,7 +17,7 @@
         methods: {
             amountFormatValue(value) {
                 // USDT 1:1 system - no division needed
-                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(3).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             }
         },
         watch: {

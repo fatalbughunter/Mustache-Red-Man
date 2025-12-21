@@ -60,10 +60,7 @@ const actions = {
 
             commit('crash_set_multiplier', 1);
         } else if(data.game.state === 'created') {
-            // Only clear bets that have been cashed out (have multipliers)
-            // Preserve active bets (no multiplier) as they belong to the current/upcoming game
-            const activeBets = getters.crashBets.filter((bet) => bet.multiplier === undefined || bet.multiplier === null);
-            commit('crash_set_bets', activeBets);
+            commit('crash_set_bets', []);
         }
     },
     crashSocketTick({ commit }, data) {

@@ -135,6 +135,7 @@ a {
     --gradient-card-border: linear-gradient(112.7deg, #ECAD46 3.62%, #FFF173 100%);
     --gradient-main-txt: linear-gradient(93.93deg, #ECAD46 1.55%, #FFF173 98.57%);
     --gradient-subtitle-txt: linear-gradient(90.72deg, #ECAD46 0.36%, #FFF173 99.73%);
+    --gradient-yellow: linear-gradient(135deg, #ECAD46 0%, #FFF173 100%);
     
     /* Spacing */
     --spacing-xs: 4px;

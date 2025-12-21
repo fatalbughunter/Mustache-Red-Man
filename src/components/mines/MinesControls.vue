@@ -435,6 +435,7 @@
         padding: 1px;
         filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.15));
         z-index: 1;
+        color: white;
     }
 
     .mines-controls .mines-content button::before {
@@ -449,8 +450,13 @@
         z-index: -1;
     }
 
+    .mines-controls .mines-content button.button-active {
+        color: var(--accent-btn-txt-color) !important;
+    }
+
     .mines-controls .mines-content button.button-active::before {
         background: var(--accent-yellow);
+        
     }
 
     .mines-controls .mines-content button.button-active::after {
