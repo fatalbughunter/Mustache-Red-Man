@@ -1,32 +1,23 @@
 <template>
     <div class="rewards">
-        <div class="rewards-banner">
-            <RewardsCode />
-            <RewardsRakeback />
-        </div>
-        <div class="rewards-boxes">
-            <div class="boxes-title">DAILY CASES</div>
-            <div class="boxes-content">
-                <transition name="fade" mode="out-in">
-                    <div v-if="rakebackData.loading === true" class="content-loading" key="loading">
 
-                        <div class="loading-placeholder"></div>
-                        <div class="loading-placeholder"></div>
-                        <div class="loading-placeholder"></div>
-                        <div class="loading-placeholder"></div>
-                        <div class="loading-placeholder"></div>
-                        <div class="loading-placeholder"></div>
-                        <div class="loading-placeholder"></div>
+        <div class="rewards-hero">
+            <img src="@/assets/img/reward-top.png" width="100%" height="auto" alt="Rewards" class="hero-image" />
 
-                    </div>
-                    <div v-else-if="rakebackData.boxes.length > 0" class="content-list" key="data">
-
-                        <RewardsBoxElement v-for="box of rakebackData.boxes" v-bind:key="box._id" v-bind:box="box" />
-
-                    </div>
-                    <div v-else class="content-empty" key="empty">There are no cases.</div>
-                </transition>
+            <div class="hero-text">
+                <h1 class="hero-title">REWARDS</h1>
+                <p class="hero-subtitle">Get Rewards Back For Playing</p>
             </div>
+        </div>
+        <RewardsDrops />
+
+        <div class="rewards-codes-section">
+            <RewardsPromoCode />
+            <RewardsAffiliateCode />
+        </div>
+
+        <div class="rewards-payment-section">
+            <Payment />
         </div>
     </div>
 </template>
@@ -35,7 +26,11 @@
     import { mapGetters, mapActions } from 'vuex';
     import RewardsCode from '@/components/rewards/RewardsCode';
     import RewardsRakeback from '@/components/rewards/RewardsRakeback';
+    import RewardsAffiliateCode from '@/components/rewards/RewardsAffiliateCode';
+    import RewardsPromoCode from '@/components/rewards/RewardsPromoCode';
+    import RewardsDrops from '@/components/rewards/RewardsDrops';
     import RewardsBoxElement from '@/components/rewards/RewardsBoxElement';
+    import Payment from '@/components/Payment';
 
     export default {
         name: 'Rewards',
@@ -45,7 +40,11 @@
         components: {
             RewardsCode,
             RewardsRakeback,
-            RewardsBoxElement
+            RewardsAffiliateCode,
+            RewardsPromoCode,
+            RewardsDrops,
+            RewardsBoxElement,
+            Payment
         },
         methods: {
             ...mapActions([
@@ -73,13 +72,70 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 45px 10px;
+        padding: 0 10px 45px 10px;
+    }
+
+    .rewards .rewards-hero {
+        width: 100%;
+        max-width: 1250px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .rewards .rewards-hero .hero-image {
+        width: 100%;
+        max-width: 900px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .rewards .rewards-hero .hero-text {
+        text-align: center;
+        margin-top: -20px;
+    }
+
+    .rewards .rewards-hero .hero-title {
+        font-size: 48px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        background: linear-gradient(180deg, #ffd700 0%, #ffa500 50%, #cc8400 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0;
+        font-family: Rubik, sans-serif;
+    }
+
+    .rewards .rewards-hero .hero-subtitle {
+        font-size: 24px;
+        font-weight: 600;
+        font-style: italic;
+        color: #5ba3d4;
+        margin: 10px 0 0 0;
+        font-family: Rubik, sans-serif;
     }
 
     .rewards .rewards-banner {
         width: 1250px;
         display: flex;
         font-family: Rubik;
+    }
+
+    .rewards .rewards-codes-section {
+        width: 1250px;
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+        font-family: Rubik;
+    }
+
+    .rewards .rewards-payment-section {
+        width: 100%;
+        margin-top: 40px;
     }
 
     .rewards .rewards-boxes {
@@ -199,8 +255,20 @@
             width: 100%;
         }
 
+        .rewards .rewards-codes-section {
+            width: 100%;
+        }
+
         .rewards .rewards-boxes {
             width: 100%;
+        }
+
+        .rewards .rewards-hero .hero-title {
+            font-size: 36px;
+        }
+
+        .rewards .rewards-hero .hero-subtitle {
+            font-size: 18px;
         }
 
     }
@@ -209,6 +277,27 @@
 
         .rewards .rewards-banner {
             flex-direction: column;
+        }
+
+        .rewards .rewards-codes-section {
+            flex-direction: column;
+        }
+
+    }
+
+    @media only screen and (max-width: 768px) {
+
+        .rewards .rewards-hero .hero-title {
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+
+        .rewards .rewards-hero .hero-subtitle {
+            font-size: 16px;
+        }
+
+        .rewards .rewards-hero .hero-text {
+            margin-top: -10px;
         }
 
     }
