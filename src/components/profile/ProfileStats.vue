@@ -1,46 +1,60 @@
 <template>
     <div class="profile-stats">
         <div class="stats-element">
-            <div class="element-title">TOTAL DEPOSITED</div>
-            <div class="element-amount">
-                <div class="amount-inner">
+            <div class="element-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="element-content">
+                <div class="element-title">Total Deposited</div>
+                <div class="element-value">
                     <img src="@/assets/img/icons/coin.svg" alt="icon" />
-                    <div class="inner-value">
-                        <span>{{profileFormatValue(authUser.user.stats.deposit).split('.')[0]}}</span>.{{profileFormatValue(authUser.user.stats.deposit).split('.')[1]}}
-                    </div>
+                    <span class="value-main">{{profileFormatValue(authUser.user.stats.deposit).split('.')[0]}}</span><span class="value-decimal">.{{profileFormatValue(authUser.user.stats.deposit).split('.')[1]}}</span>
                 </div>
             </div>
         </div>
         <div class="stats-element">
-            <div class="element-title">TOTAL WITHDRAWN</div>
-            <div class="element-amount">
-                <div class="amount-inner">
+            <div class="element-icon icon-withdraw">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="element-content">
+                <div class="element-title">Total Withdrawn</div>
+                <div class="element-value">
                     <img src="@/assets/img/icons/coin.svg" alt="icon" />
-                    <div class="inner-value">
-                        <span>{{profileFormatValue(authUser.user.stats.withdraw).split('.')[0]}}</span>.{{profileFormatValue(authUser.user.stats.withdraw).split('.')[1]}}
-                    </div>
+                    <span class="value-main">{{profileFormatValue(authUser.user.stats.withdraw).split('.')[0]}}</span><span class="value-decimal">.{{profileFormatValue(authUser.user.stats.withdraw).split('.')[1]}}</span>
                 </div>
             </div>
         </div>
         <div class="stats-element">
-            <div class="element-title">TOTAL WAGERED</div>
-            <div class="element-amount">
-                <div class="amount-inner">
+            <div class="element-icon icon-wagered">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="element-content">
+                <div class="element-title">Total Wagered</div>
+                <div class="element-value">
                     <img src="@/assets/img/icons/coin.svg" alt="icon" />
-                    <div class="inner-value">
-                        <span>{{profileFormatValue(authUser.user.stats.bet).split('.')[0]}}</span>.{{profileFormatValue(authUser.user.stats.bet).split('.')[1]}}
-                    </div>
+                    <span class="value-main">{{profileFormatValue(authUser.user.stats.bet).split('.')[0]}}</span><span class="value-decimal">.{{profileFormatValue(authUser.user.stats.bet).split('.')[1]}}</span>
                 </div>
             </div>
         </div>
         <div class="stats-element element-profit" v-bind:class="{ 'element-negative': (authUser.user.stats.withdraw - authUser.user.stats.deposit) < 0 }">
-            <div class="element-title">TOTAL PROFIT</div>
-            <div class="element-amount">
-                <div class="amount-inner">
+            <div class="element-icon icon-profit">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23 6l-9.5 9.5-5-5L1 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17 6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="element-content">
+                <div class="element-title">Total Profit</div>
+                <div class="element-value">
                     <img src="@/assets/img/icons/coin.svg" alt="icon" />
-                    <div class="inner-value">
-                        <span>{{profileFormatValue(authUser.user.stats.withdraw - authUser.user.stats.deposit).split('.')[0]}}</span>.{{profileFormatValue(authUser.user.stats.withdraw - authUser.user.stats.deposit).split('.')[1]}}
-                    </div>
+                    <span class="value-main">{{profileFormatValue(authUser.user.stats.withdraw - authUser.user.stats.deposit).split('.')[0]}}</span><span class="value-decimal">.{{profileFormatValue(authUser.user.stats.withdraw - authUser.user.stats.deposit).split('.')[1]}}</span>
                 </div>
             </div>
         </div>
@@ -68,133 +82,142 @@
 <style scoped>
     .profile-stats {
         width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 35px;
-        padding-top: 30px;
-        border-top: 1px solid rgba(222, 184, 135, 0.2);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-top: 24px;
     }
 
     .profile-stats .stats-element {
-        width: calc(25% - 15px);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px;
+        background: linear-gradient(135deg, rgba(26, 41, 66, 0.5) 0%, rgba(15, 25, 35, 0.7) 100%);
+        border-radius: 14px;
+        border: 1px solid rgba(184, 115, 51, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .profile-stats .stats-element:hover {
+        border-color: rgba(184, 115, 51, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .profile-stats .element-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(184, 115, 51, 0.2) 0%, rgba(139, 90, 43, 0.1) 100%);
+        border-radius: 12px;
+        color: #b87333;
+        flex-shrink: 0;
+    }
+
+    .profile-stats .element-icon.icon-withdraw {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.1) 100%);
+        color: #10b981;
+    }
+
+    .profile-stats .element-icon.icon-wagered {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.1) 100%);
+        color: #3b82f6;
+    }
+
+    .profile-stats .element-icon.icon-profit {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.1) 100%);
+        color: #10b981;
+    }
+
+    .profile-stats .element-negative .element-icon.icon-profit {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.1) 100%);
+        color: #ef4444;
+    }
+
+    .profile-stats .element-content {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
     }
 
     .profile-stats .element-title {
-        text-align: center;
         font-size: 12px;
         font-weight: 600;
-        color: var(--accent-copper-light);
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    .profile-stats .stats-element.element-profit .element-title {
-        background: var(--gradient-copper);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
+    .profile-stats .element-profit .element-title {
+        color: #10b981;
     }
 
-    .profile-stats .stats-element.element-negative .element-title {
-        background: var(--gradient-red);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
+    .profile-stats .element-negative .element-title {
+        color: #ef4444;
     }
 
-    .profile-stats .element-amount {
-        width: 100%;
-        height: 70px;
-        position: relative;
-        margin-top: 12px;
-        padding: 1px;
-    }
-
-    .profile-stats .element-amount::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        /*background: var (--accent-yellow-main); */
-        border-radius: var(--radius-md);
-    }
-
-    .profile-stats .stats-element.element-profit .element-amount::before {
-       /* background: linear-gradient(180deg, rgba(222, 184, 135, 0.3) 25%, rgba(184, 115, 51, 0.5) 100%);
-    */}
-
-    .profile-stats .stats-element.element-negative .element-amount::before {
-       /* background: linear-gradient(180deg, rgba(205, 127, 50, 0.3) 25%, rgba(139, 0, 0, 0.5) 100%);
-    */}
-
-    .profile-stats .amount-inner {
-        width: 100%;
-        height: 100%;
+    .profile-stats .element-value {
         display: flex;
-        justify-content: center;
         align-items: center;
-        background-color: var(--bg-blue-dark);
-        border-radius: var(--radius-md);
-        border: 1px solid rgba(222, 184, 135, 0.3);
-        z-index: 1;
+        gap: 8px;
     }
 
-    .profile-stats .stats-element.element-profit .amount-inner {
-        background: radial-gradient(80% 80% at 50% 50%, rgba(222, 184, 135, 0.1) 0%, rgba(0, 0, 0, 0) 100%), var(--bg-blue-dark);
+    .profile-stats .element-value img {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
     }
 
-    .profile-stats .stats-element.element-negative .amount-inner {
-        background: var(--bg-blue-chat);
+    .profile-stats .value-main {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
     }
 
-    .profile-stats .amount-inner img {
-        width: 17px;
-        height: 17px;
-        margin-right: 8px;
-    }
-
-    .profile-stats .inner-value {
+    .profile-stats .value-decimal {
         font-size: 14px;
         font-weight: 600;
-        color: var(--accent-copper-light);
+        color: rgba(255, 255, 255, 0.5);
     }
 
-    .profile-stats .inner-value span {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--text-gold);
+    .profile-stats .element-profit .value-main {
+        color: #10b981;
     }
 
-    @media only screen and (max-width: 950px) {
+    .profile-stats .element-negative .value-main {
+        color: #ef4444;
+    }
 
+    @media only screen and (max-width: 1100px) {
         .profile-stats {
-            flex-wrap: wrap;
+            grid-template-columns: repeat(2, 1fr);
         }
-
-        .profile-stats .stats-element {
-            width: calc(33.33% - 10px);
-        }
-
-        .profile-stats .stats-element.element-profit {
-            width: 100%;
-            margin-top: 20px;
-        }
-
     }
 
-    @media only screen and (max-width: 650px) {
+    @media only screen and (max-width: 600px) {
+        .profile-stats {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
 
         .profile-stats .stats-element {
-            width: calc(50% - 7.5px);
+            padding: 16px;
         }
 
-        .profile-stats .stats-element:nth-child(3) {
-            width: 100%;
-            margin-top: 20px;
+        .profile-stats .element-icon {
+            width: 40px;
+            height: 40px;
         }
 
+        .profile-stats .value-main {
+            font-size: 16px;
+        }
+
+        .profile-stats .value-decimal {
+            font-size: 12px;
+        }
     }
 </style>

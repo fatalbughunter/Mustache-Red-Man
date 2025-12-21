@@ -35,7 +35,7 @@
     export default {
         name: 'Rewards',
         metaInfo: {
-            title: 'Rewards - RBLXRoll.com'
+            title: 'Rewards'
         },
         components: {
             RewardsCode,

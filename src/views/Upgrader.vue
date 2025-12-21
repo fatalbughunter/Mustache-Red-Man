@@ -14,7 +14,7 @@
     export default {
         name: 'Upgrader',
         metaInfo: {
-            title: 'Upgrader - RBLXRoll.com'
+            title: 'Upgrader'
         },
         components: {
             LoadingAnimation,

@@ -8,7 +8,7 @@
                 </div>
                 <div class="inner-input">
                     <input v-model="affiliateCode" type="text" placeholder="Enter Affiliate Code" />
-                    <button v-on:click="affiliateClaimButton()" class="button-claim">
+                    <button v-on:click="affiliateClaimButton()" class="button-claim" disabled>
                         <span>CLAIM</span>
                     </button>
                 </div>
@@ -153,9 +153,16 @@
         letter-spacing: 1px;
     }
 
-    .rewards-affiliate button.button-claim:hover {
+    .rewards-affiliate button.button-claim:hover:not(:disabled) {
         background: linear-gradient(180deg, #ffe44d 0%, #ffb833 50%, #ffa500 100%);
         transform: translateY(-1px);
+    }
+
+    .rewards-affiliate button.button-claim:disabled {
+        background: linear-gradient(180deg, rgba(128, 128, 128, 0.5) 0%, rgba(100, 100, 100, 0.5) 100%);
+        color: rgba(255, 255, 255, 0.4);
+        cursor: not-allowed;
+        transform: none;
     }
 
     .rewards-affiliate .inner-image {

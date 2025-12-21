@@ -54,8 +54,8 @@
     export default {
         name: 'Blackjack',
         metaInfo: {
-            title: 'Blackjack - RBLXRoll.com',
-            meta: [{ name: 'description', content: 'RBLXRoll.com the leading roblox gambling experience.' }]
+            title: 'Blackjack',
+            meta: [{ name: 'description', content: '' }]
         },
         components: {
             IconInfo,

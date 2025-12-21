@@ -9,7 +9,7 @@
         <aside id="sidebar-left" v-bind:class="{ 'collapsed': collapsed, 'mobile-open': mobileOpen }">
             <div class="sidebar-header">
                 <div class="sidebar-header-logo">
-                    <img src="@/assets/img/headerLogo.png" alt="Mustache Casino" class="sidebar-header-logo-img">
+                    <img src="@/assets/img/tacheLogo.png" alt="Mustache Casino" class="sidebar-header-logo-img">
                 </div>
                 <button class="menu-toggle" v-on:click="toggleHeader">
                     <!-- Mobile version: simple hamburger -->

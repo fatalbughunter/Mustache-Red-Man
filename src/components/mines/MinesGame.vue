@@ -187,12 +187,10 @@
     }
 
     .mines-game .game-inner {
-        width: 507px;
-        height: 507px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(5, 95px);
+        grid-template-rows: repeat(5, 95px);
+        gap: 6px;
     }
 
     @media only screen and (max-width: 850px) {
@@ -213,8 +211,9 @@
     @media only screen and (max-width: 575px) {
 
         .mines-game .game-inner {
-            width: 370px;
-            height: 370px;
+            grid-template-columns: repeat(5, 68px);
+            grid-template-rows: repeat(5, 68px);
+            gap: 5px;
         }
 
         .mines-game .mines-game-snow {
@@ -228,8 +227,9 @@
     @media only screen and (max-width: 425px) {
 
         .mines-game .game-inner {
-            width: 320px;
-            height: 320px;
+            grid-template-columns: repeat(5, 58px);
+            grid-template-rows: repeat(5, 58px);
+            gap: 4px;
         }
 
         .mines-game .mines-game-snow {
@@ -243,8 +243,9 @@
     @media only screen and (max-width: 350px) {
 
         .mines-game .game-inner {
-            width: 270px;
-            height: 270px;
+            grid-template-columns: repeat(5, 50px);
+            grid-template-rows: repeat(5, 50px);
+            gap: 3px;
         }
 
         .mines-game .mines-game-snow {

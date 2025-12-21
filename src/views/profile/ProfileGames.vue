@@ -16,22 +16,29 @@
                     <ProfileGamesElement v-for="bet in userBetsData.bets" v-bind:key="bet._id" v-bind:bet="bet" />
 
                 </div>
-                <div v-else class="content-empty" key="empty">No bets found.</div>
+                <div v-else class="content-empty" key="empty">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>No bets found</span>
+                </div>
             </transition>
         </div>
         <div class="games-pagination">
             <button v-on:click="profileSetPage(userBetsData.page - 1)" class="button-prev" v-bind:disabled="userBetsData.page <= 1">
-                <div class="button-inner">
-                    <IconLeftGradient />
-                </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
             <div class="pagination-info">
-                PAGE <span class="gradient-green">{{userBetsData.page}}</span> / {{Math.ceil(userBetsData.count / 8) <= 0 ? '1' : Math.ceil(userBetsData.count / 8)}}
+                <span class="page-current">{{userBetsData.page}}</span>
+                <span class="page-separator">/</span>
+                <span class="page-total">{{Math.ceil(userBetsData.count / 8) <= 0 ? '1' : Math.ceil(userBetsData.count / 8)}}</span>
             </div>
             <button v-on:click="profileSetPage(userBetsData.page + 1)" class="button-next" v-bind:disabled="userBetsData.page >= Math.ceil(userBetsData.count / 8)">
-                <div class="button-inner">
-                    <IconRightGradient />
-                </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
         </div>
     </div>
@@ -88,43 +95,51 @@
         width: 100%;
         display: flex;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 24px 16px 24px;
+        border-bottom: 1px solid rgba(184, 115, 51, 0.2);
+        margin-bottom: 16px;
     }
 
     .profile-games .head-date {
         width: 35%;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: var(--accent-copper-light);
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .profile-games .head-game {
         width: 25%;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: var(--accent-copper-light);
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .profile-games .head-verify {
         width: 20%;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: var(--accent-copper-light);
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .profile-games .head-amount {
         width: 20%;
         text-align: right;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: var(--accent-copper-light);
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .profile-games .games-content {
         width: 100%;
-        margin-top: 15px;
-        padding-bottom: 25px;
-        border-bottom: 1px solid rgba(222, 184, 135, 0.2);
+        min-height: 200px;
     }
 
     .profile-games .content-loading {
@@ -149,14 +164,24 @@
 
     .profile-games .content-empty {
         width: 100%;
-        height: 192px;
+        height: 200px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap: 16px;
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    .profile-games .content-empty svg {
+        opacity: 0.5;
+    }
+
+    .profile-games .content-empty span {
+        font-size: 14px;
+        font-weight: 500;
         text-transform: uppercase;
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--accent-copper-light);
+        letter-spacing: 1px;
     }
 
     .profile-games .content-list.fade-enter-active,
@@ -172,105 +197,88 @@
     .profile-games .games-pagination {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        margin-top: 25px;
+        gap: 16px;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(184, 115, 51, 0.15);
     }
 
     .profile-games .games-pagination button {
-        width: 52px;
-        height: 37px;
-        position: relative;
-        padding: 1px;
-        z-index: 1;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, rgba(26, 41, 66, 0.6) 0%, rgba(15, 25, 35, 0.8) 100%);
+        border: 1px solid rgba(184, 115, 51, 0.2);
+        border-radius: 10px;
+        color: #b87333;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .profile-games .games-pagination button:hover:not(:disabled) {
+        background: linear-gradient(135deg, rgba(184, 115, 51, 0.2) 0%, rgba(139, 90, 43, 0.1) 100%);
+        border-color: rgba(184, 115, 51, 0.4);
+        transform: translateY(-2px);
     }
 
     .profile-games .games-pagination button:disabled {
         cursor: not-allowed;
-    }
-
-    .profile-games .games-pagination button:before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: var(--gradient-copper);
-        border-radius: var(--radius-md);
-        z-index: -1;
-    }
-
-    .profile-games .games-pagination button:disabled:before {
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(139, 111, 71, 0.2) 100%);
-    }
-
-    .profile-games .games-pagination button:after {
-        content: '';
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        background: var(--bg-blue-dark);
-        border-radius: var(--radius-md);
-        z-index: -1;
-    }
-
-    .profile-games .games-pagination button .button-inner {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: var(--bg-blue-dark);
-        border-radius: var(--radius-md);
-        border: 1px solid rgba(222, 184, 135, 0.2);
-    }
-
-    .profile-games .games-pagination button:disabled .button-inner {
-        background: var(--bg-blue-dark);
-        border-color: rgba(139, 111, 71, 0.2);
-        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.35);
-    }
-
-    .profile-games .games-pagination button.button-prev .button-inner svg {
-        fill: url(#icon-left-gradient-1);
-    }
-
-    .profile-games .games-pagination button.button-next .button-inner svg {
-        fill: url(#icon-right-gradient-1);
-    }
-
-    .profile-games .games-pagination button:disabled .button-inner svg {
-        fill: var(--text-muted);
-    }
-
-    .profile-games .games-pagination button:not(:disabled) .button-inner svg {
-        fill: var(--accent-copper-light);
+        opacity: 0.4;
+        color: rgba(255, 255, 255, 0.3);
     }
 
     .profile-games .pagination-info {
-        font-size: 12px;
-        font-weight: 800;
-        color: var(--accent-copper-light);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+    }
+
+    .profile-games .page-current {
+        font-size: 16px;
+        font-weight: 700;
+        color: #b87333;
+    }
+
+    .profile-games .page-separator {
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    .profile-games .page-total {
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
     }
 
     @media only screen and (max-width: 725px) {
 
         .profile-games .games-head {
-            padding-bottom: 0;
-        }
-
-        .profile-games .head-date,
-        .profile-games .head-game,
-        .profile-games .head-verify,
-        .profile-games .head-amount {
             display: none;
         }
 
         .profile-games .games-content {            
             margin-top: 0;
+        }
+
+        .profile-games .games-pagination {
+            gap: 12px;
+        }
+
+        .profile-games .games-pagination button {
+            width: 40px;
+            height: 40px;
+        }
+
+        .profile-games .pagination-info {
+            padding: 8px 16px;
         }
     } 
 </style>

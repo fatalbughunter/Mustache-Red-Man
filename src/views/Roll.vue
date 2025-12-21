@@ -22,7 +22,7 @@
     export default {
         name: 'Roll',
         metaInfo: {
-            title: 'Roll - RBLXRoll.com'
+            title: 'Roll'
         },
         components: {
             RollBets,

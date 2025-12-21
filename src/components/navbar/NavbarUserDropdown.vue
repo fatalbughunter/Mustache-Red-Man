@@ -495,21 +495,33 @@
             transform: rotate(180deg);
         }
 
-        /* Position dropdown menu above on mobile */
+        /* Position dropdown menu above on mobile - fixed to bottom bar */
         .navbar-user-dropdown .dropdown-menu {
+            position: fixed;
             top: auto;
-            bottom: calc(100% + 15px);
+            bottom: 90px;
             left: 50%;
             right: auto;
             transform: translateX(-50%);
-            width: 200px;
+            width: 220px;
+            z-index: 100010;
+        }
+
+        .navbar-user-dropdown.dropdown-open .dropdown-menu {
+            height: auto;
+            padding: 0 10px 10px 10px;
+        }
+
+        .navbar-user-dropdown.dropdown-open .dropdown-menu.menu-admin {
+            height: auto;
         }
 
         .navbar-user-dropdown .menu-inner::before {
             top: auto;
             bottom: -7px;
-            right: 50%;
-            transform: translateX(50%);
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
             border-bottom: none;
             border-top: 7px solid var(--bg-blue-dark);
         }

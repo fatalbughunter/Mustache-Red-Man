@@ -526,10 +526,35 @@
     
     
     @media only screen and (max-width: 850px) {
+        .towers-controls {
+            display: flex;
+            flex-direction: column;
+        }
+
         .towers-controls .towers-controls-snow {
             max-width: 100px;
             max-height: 65px;
             margin: -4px 0 0 10px;
+        }
+
+        /* Reorder elements on mobile: bet button first */
+        .towers-controls .controls-mode {
+            order: 2;
+        }
+
+        .towers-controls .controls-amount {
+            order: 3;
+        }
+
+        .towers-controls button.button-bet,
+        .towers-controls button.button-cashout {
+            order: 1;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .towers-controls .controls-bottom {
+            order: 4;
         }
     }
 

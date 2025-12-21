@@ -12,7 +12,7 @@
     export default {
         name: 'Blackjack',
         metaInfo: {
-            title: 'Blackjack - RBLXRoll.com'
+            title: 'Blackjack'
         },
         methods: {
             ...mapActions([

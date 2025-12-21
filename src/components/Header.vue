@@ -18,7 +18,7 @@
                 </button>
                 <!-- Logo Image -->
                 <router-link to="/" class="header-logo-title">
-                    <img src="@/assets/img/headerLogo.png" alt="Mustache Casino" class="header-logo-img">
+                    <img src="@/assets/img/tacheLogo.png" alt="Mustache Casino" class="header-logo-img">
                 </router-link>
             </div>
             <!-- Navigation Menu -->
@@ -159,20 +159,20 @@
         <div class="mobile-button-row">
             <div class="mobile-btn-container">
                 <button class="mobile-btn mobile-btn-menu" @click="toggleSidebarMobile">
-                    <img src="@/assets/img/icons/mobileMenu.png" alt="Menu" class="mobile-btn-icon" />
+                    <img src="@/assets/img/icons/menu.svg" alt="Menu" class="mobile-btn-icon" />
                 </button>
                 <span class="mobile-btn-label">Menu</span>
             </div>
             <div class="mobile-btn-container">
                 <router-link to="/" class="mobile-btn mobile-btn-home" @click.native="closeSidebarMobile">
-                    <img src="@/assets/img/icons/mobileHome.png" alt="Home" class="mobile-btn-icon" />
+                    <img src="@/assets/img/icons/home.svg" alt="Home" class="mobile-btn-icon" />
                 </router-link>
                 <span class="mobile-btn-label">Home</span>
             </div>
             <!-- Show Sign In button when not logged in -->
             <div class="mobile-btn-container" v-if="authUser.user === null">
                 <button class="mobile-btn mobile-btn-signin" @click="handleSignInClick">
-                    <img src="@/assets/img/icons/mobileProfile.png" alt="Sign In" class="mobile-btn-icon" />
+                    <img src="@/assets/img/icons/user.svg" alt="Sign In" class="mobile-btn-icon" />
                 </button>
                 <span class="mobile-btn-label">User</span>
             </div>
@@ -185,9 +185,9 @@
             </div>
             <div class="mobile-btn-container">
                 <button class="mobile-btn mobile-btn-chat" @click="toggleChat">
-                    <img src="@/assets/img/icons/live-chat.svg" alt="Chat" class="mobile-btn-icon" />
+                    <img src="@/assets/img/icons/message.svg" alt="Chat" class="mobile-btn-icon" />
                 </button>
-                <span class="mobile-btn-label">Chart</span>
+                <span class="mobile-btn-label">Chat</span>
             </div>
         </div>
         
@@ -796,8 +796,8 @@ export default {
     
     .btn-signup,
     .btn-signin {
-        font-size: 13px !important;
-        padding: var(--spacing-xs) var(--spacing-md) !important;
+        font-size: 12px !important;
+        padding: 10px 20px !important;
     }
     
     .username {
@@ -1170,44 +1170,88 @@ export default {
 }
 
 .btn-signup {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background: var(--gradient-button-bg);
-    color: #000000;
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    font-size: 14px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #E6A817 100%);
+    color: #1a1a2e;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13px;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: none;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.35);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-signup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-signup:hover::before {
+    left: 100%;
 }
 
 .btn-signup:hover {
-    background: var(--gradient-button-bg);
-    opacity: 0.9;
-    border-color: rgba(255, 255, 255, 0.4);
-    color: #000000;
-    box-shadow: 0 4px 15px rgba(222, 199, 156, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
+    background: linear-gradient(135deg, #FFE44D 0%, #FFB833 50%, #F0B81C 100%);
+}
+
+.btn-signup:active {
+    transform: translateY(0);
 }
 
 .btn-signin {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background: transparent;
-    color: #FFFFFF;
-    border-radius: var(--radius-sm);
+    padding: 12px 28px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-radius: 10px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-signin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(184, 115, 51, 0.2) 0%, rgba(184, 115, 51, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-signin:hover::before {
+    opacity: 1;
 }
 
 .btn-signin:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-    color: #FFFFFF;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    border-color: rgba(184, 115, 51, 0.5);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(184, 115, 51, 0.2);
+}
+
+.btn-signin:active {
+    transform: translateY(0);
 }
 
 /* Header Balance Group */

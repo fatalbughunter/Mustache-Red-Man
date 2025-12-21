@@ -1,7 +1,7 @@
 <template>
     <div class="modal-login">
         <div class="login-sidebar">
-            <img src="@/assets/img/logo_small.png" />
+            <img src="@/assets/img/tacheLogo.png" />
             <div class="sidebar-text">
                 <span class="gradient-green">WELCOME TO THE MOST INNOVATIVE ROBLOX CASINO</span>
             </div>
