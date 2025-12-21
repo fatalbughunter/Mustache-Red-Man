@@ -4,9 +4,29 @@
         <CasinoBalance v-if="authenticated" />
 
         <!-- Loading State -->
-        <div v-if="loading && providers.length === 0" class="loading-state">
-            <LoadingAnimation />
-            <p>Loading slot providers...</p>
+        <div v-if="loading && providers.length === 0" class="loading-state providers-loading">
+            <div class="loading-content">
+                <div class="slot-spinner">
+                    <div class="spinner-reel">
+                        <span>🎰</span>
+                    </div>
+                    <div class="spinner-reel delay-1">
+                        <span>💎</span>
+                    </div>
+                    <div class="spinner-reel delay-2">
+                        <span>🍀</span>
+                    </div>
+                </div>
+                <div class="loading-text">
+                    <span class="loading-title">Loading Providers</span>
+                    <div class="loading-dots">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+                <p class="loading-hint">Connecting to game providers...</p>
+            </div>
         </div>
 
         <!-- Error State -->
@@ -44,21 +64,62 @@
                 <div class="section-header">
                     <div class="provider-info">
                         <h2 class="section-title">{{ getCurrentProviderName() }}</h2>
-                        <span class="game-count">{{ games.length }} Games Available</span>
+                        <span class="game-count">{{ filteredGames.length }} of {{ games.length }} Games</span>
                     </div>
                     <ButtonGradient @click="clearProvider" text="Clear Selection" small />
                 </div>
 
-                <div v-if="gameLoading" class="loading-state">
-                    <LoadingAnimation />
-                    <p>Loading games...</p>
+                <!-- Search Input -->
+                <div class="search-section">
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <input 
+                            v-model="searchQuery" 
+                            type="text" 
+                            placeholder="Search games..." 
+                            class="search-input"
+                        />
+                        <button v-if="searchQuery" @click="searchQuery = ''" class="search-clear">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <div v-else-if="games.length === 0" class="no-games">
-                    <p>No games available for this provider</p>
+
+                <div v-if="gameLoading" class="loading-state games-loading">
+                    <div class="loading-content">
+                        <div class="slot-spinner">
+                            <div class="spinner-reel">
+                                <span>🎰</span>
+                            </div>
+                            <div class="spinner-reel delay-1">
+                                <span>💎</span>
+                            </div>
+                            <div class="spinner-reel delay-2">
+                                <span>🍀</span>
+                            </div>
+                        </div>
+                        <div class="loading-text">
+                            <span class="loading-title">Loading Games</span>
+                            <div class="loading-dots">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <p class="loading-hint">Please wait while we fetch the best games for you</p>
+                    </div>
+                </div>
+                <div v-else-if="filteredGames.length === 0" class="no-games">
+                    <p v-if="searchQuery">No games found matching "{{ searchQuery }}"</p>
+                    <p v-else>No games available for this provider</p>
                 </div>
                 <div v-else class="games-grid">
                     <SlotsGameCard
-                        v-for="game in games"
+                        v-for="game in filteredGames"
                         :key="game.code"
                         :game="game"
                         :provider-code="currentProvider"
@@ -67,24 +128,6 @@
                 </div>
             </div>
 
-            <!-- Crypto Prices -->
-            <div class="prices-section">
-                <h3 class="section-title">Crypto Prices</h3>
-                <div class="prices-grid">
-                    <div class="price-card">
-                        <span class="price-label">Bitcoin</span>
-                        <span class="price-value">{{ formatPrice(cryptoPrices.bitcoin) }}</span>
-                    </div>
-                    <div class="price-card">
-                        <span class="price-label">Ethereum</span>
-                        <span class="price-value">{{ formatPrice(cryptoPrices.ethereum) }}</span>
-                    </div>
-                    <div class="price-card">
-                        <span class="price-label">Solana</span>
-                        <span class="price-value">{{ formatPrice(cryptoPrices.solana) }}</span>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Payment Section -->
@@ -104,6 +147,18 @@
                 </div>
             </div>
         </div>
+
+        <!-- Scroll to Top Button -->
+        <button 
+            v-show="showScrollTop" 
+            @click="scrollToTop" 
+            class="scroll-to-top"
+            title="Back to Top"
+        >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
     </div>
 </template>
 
@@ -131,7 +186,10 @@ export default {
             gameLoading: false,
             socketUnsubscribe: null,
             selectedProvider: '',
-            allowedProviders: ['HABANERO', 'PRAGMATIC', 'INOUT', 'SPRIBE', 'PLAYSTAR', 'NAGA']
+            allowedProviders: ['INOUT', 'SPRIBE', 'HABANERO', 'PGSOFT', 'PRAGMATIC', 'NAGA'],
+            searchQuery: '',
+            showScrollTop: false,
+            mainElement: null
         };
     },
     computed: {
@@ -143,6 +201,16 @@ export default {
                     provider.code.toUpperCase().includes(allowed) || 
                     provider.name.toUpperCase().includes(allowed)
                 )
+            );
+        },
+        filteredGames() {
+            if (!this.searchQuery.trim()) {
+                return this.games;
+            }
+            const query = this.searchQuery.toLowerCase().trim();
+            return this.games.filter(game => 
+                game.name.toLowerCase().includes(query) || 
+                (game.code && game.code.toLowerCase().includes(query))
             );
         }
     },
@@ -159,11 +227,32 @@ export default {
             await this.fetchUserBalance();
             this.setupSocketListeners();
         }
+
+        // Add scroll event listener for scroll to top button
+        // Listen on both window and main element
+        window.addEventListener('scroll', this.handleScroll);
+        this.mainElement = document.querySelector('main');
+        if (this.mainElement) {
+            this.mainElement.addEventListener('scroll', this.handleScroll);
+        }
+        // Check initial scroll position
+        this.handleScroll();
     },
 
     beforeUnmount() {
         if (this.socketUnsubscribe) {
             this.socketUnsubscribe();
+        }
+        window.removeEventListener('scroll', this.handleScroll);
+        if (this.mainElement) {
+            this.mainElement.removeEventListener('scroll', this.handleScroll);
+        }
+    },
+
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.handleScroll);
+        if (this.mainElement) {
+            this.mainElement.removeEventListener('scroll', this.handleScroll);
         }
     },
 
@@ -208,7 +297,34 @@ export default {
 
         clearProvider() {
             this.selectedProvider = '';
+            this.searchQuery = '';
             this.$store.commit('slots_set_current_provider', null);
+        },
+
+        handleScroll() {
+            // Check both window and main element scroll
+            const mainElement = document.querySelector('main');
+            const mainScrollTop = mainElement ? mainElement.scrollTop : 0;
+            const windowScrollTop = window.scrollY || window.pageYOffset || 0;
+            this.showScrollTop = mainScrollTop > 100 || windowScrollTop > 100;
+        },
+
+        scrollToTop() {
+            // Scroll the main element (which contains the page content)
+            const mainElement = document.querySelector('main');
+            if (mainElement) {
+                mainElement.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            // Also try window scroll as fallback
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
         },
 
         formatPrice(price) {
@@ -300,6 +416,129 @@ export default {
     justify-content: center;
     min-height: 400px;
     gap: var(--spacing-lg);
+}
+
+.loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px;
+    background: linear-gradient(145deg, rgba(30, 35, 50, 0.9), rgba(20, 25, 35, 0.95));
+    border-radius: 24px;
+    border: 2px solid rgba(212, 165, 116, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.slot-spinner {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px;
+    background: linear-gradient(180deg, #1a1f2e, #0d1015);
+    border-radius: 16px;
+    border: 3px solid rgba(212, 165, 116, 0.4);
+    box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.spinner-reel {
+    width: 60px;
+    height: 70px;
+    background: linear-gradient(180deg, #2a2f3e, #1a1f2e);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    animation: slotSpin 1.5s ease-in-out infinite;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.spinner-reel.delay-1 {
+    animation-delay: 0.2s;
+}
+
+.spinner-reel.delay-2 {
+    animation-delay: 0.4s;
+}
+
+@keyframes slotSpin {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-8px);
+    }
+    50% {
+        transform: translateY(4px);
+    }
+    75% {
+        transform: translateY(-4px);
+    }
+}
+
+.loading-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.loading-title {
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fca311, #d4a574, #fca311);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.loading-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.loading-dots .dot {
+    width: 8px;
+    height: 8px;
+    background: #fca311;
+    border-radius: 50%;
+    animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.loading-dots .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+    0%, 80%, 100% {
+        transform: scale(0.6);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.loading-hint {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    margin: 0;
 }
 
 .error-message {
@@ -515,6 +754,122 @@ export default {
 
     .section-title {
         font-size: 22px;
+    }
+}
+
+/* Search Section */
+.search-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.search-input-wrapper {
+    position: relative;
+    max-width: 400px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7c8a;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 48px 0 48px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: var(--color-copper);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-input::placeholder {
+    color: #6b7c8a;
+}
+
+.search-clear {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-clear:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #ffd700 0%, #fca311 50%, #e69500 100%);
+    color: #000000;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(252, 163, 17, 0.5);
+    transition: all 0.3s ease;
+    z-index: 99999999 !important;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(252, 163, 17, 0.6);
+}
+
+.scroll-to-top svg {
+    width: 28px;
+    height: 28px;
+}
+
+@media (max-width: 768px) {
+    .search-input-wrapper {
+        max-width: 100%;
+    }
+
+    .scroll-to-top {
+        bottom: 90px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 450px) {
+    .scroll-to-top {
+        bottom: 100px;
+        right: 15px;
+        width: 48px;
+        height: 48px;
     }
 }
 </style>
