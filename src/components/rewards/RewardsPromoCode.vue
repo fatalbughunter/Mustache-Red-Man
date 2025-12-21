@@ -41,7 +41,7 @@
                     return;
                 }
 
-                this.modalsSetData({ typeCaptcha: 'promoClaim', data: { code: this.promoCode } });
+                this.modalsSetData({ typeCaptcha: 'promoClaim', data: { code: this.promoCode.trim() } });
                 this.modalsSetShow('Captcha');
             }
         }
