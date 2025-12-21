@@ -104,7 +104,7 @@
     button.crash-history-element .element-inner span {
         font-size: 14px;
         font-weight: 700;
-        color: #ffffff;
+        color: #f72020;
     }
 
     button.crash-history-element.element-high .element-inner span {

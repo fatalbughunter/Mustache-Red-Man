@@ -111,7 +111,7 @@
                 this.adminChange = value;
             },
             adminUpdateButton() {
-                const amount = Math.floor(this.adminAmount * 1000);
+                const amount = parseFloat(this.adminAmount);
 
                 if(amount === null || isNaN(amount) === true || amount < 0) {
                     this.notificationShow({type: 'error', message: 'Your entered amount is invalid.'});
@@ -132,13 +132,13 @@
                 deep: true,
                 handler(data, dataOld) {
                     if(this.adminChange === false) { 
-                        this.adminAmount = parseFloat(Math.floor(this.generalRain.site.amount / 10) / 100).toFixed(2); 
+                        this.adminAmount = parseFloat(this.generalRain.site.amount).toFixed(2); 
                     }
                 }
             }
         },
         created() {
-            this.adminAmount = parseFloat(Math.floor(this.generalRain.site.amount / 10) / 100).toFixed(2);
+            this.adminAmount = parseFloat(this.generalRain.site.amount).toFixed(2);
 
             if(this.adminRainList.loading === false) {
                 const data = { page: this.adminRainList.page, search: this.adminFilterSearch };
