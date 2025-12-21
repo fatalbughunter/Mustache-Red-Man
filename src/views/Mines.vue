@@ -31,7 +31,7 @@
     export default {
         name: 'Mines',
         metaInfo: {
-            title: 'Mines - RBLXRoll.com'
+            title: 'Mines'
         },
         components: {
             Bets,

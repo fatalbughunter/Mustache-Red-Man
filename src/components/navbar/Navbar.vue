@@ -56,18 +56,18 @@
                     <IconUser />
                     Profile
                 </router-link>
-                <button v-on:click="navbarVaultButton()">
+                <!-- <button v-on:click="navbarVaultButton()">
                     <IconVault />
                     Vault
-                </button>
+                </button> -->
                 <router-link  v-on:click.native="generalSetSidebarMobile(null)" to="/rewards">
                     <IconRakeback />
                     Rewards
                 </router-link>
-                <router-link v-on:click.native="generalSetSidebarMobile(null)" to="/affiliates">
+                <!-- <router-link v-on:click.native="generalSetSidebarMobile(null)" to="/affiliates">
                     <IconAffiliates />
                     <span class="text-green-gradient-exact">Affiliates</span>
-                </router-link>
+                </router-link> -->
                 <router-link v-on:click.native="generalSetSidebarMobile(null)" to="/leaderboard">
                     <IconLeaderboard />
                     <span class="text-green-gradient-exact">Leaderboard</span>
