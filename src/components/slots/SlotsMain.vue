@@ -87,6 +87,11 @@
             </div>
         </div>
 
+        <!-- Payment Section -->
+        <div class="slots-payment-section">
+            <Payment />
+        </div>
+
         <!-- Game Modal -->
         <div v-if="gameSession" class="game-modal-overlay" @click="closeGame">
             <div class="game-modal" @click.stop>
@@ -109,6 +114,7 @@ import ButtonGradient from '@/components/ButtonGradient.vue';
 import CasinoBalance from './CasinoBalance.vue';
 import SlotsGameCard from './SlotsGameCard.vue';
 import SlotsGameFrame from './SlotsGameFrame.vue';
+import Payment from '@/components/Payment.vue';
 
 export default {
     name: 'SlotsMain',
@@ -117,7 +123,8 @@ export default {
         ButtonGradient,
         CasinoBalance,
         SlotsGameCard,
-        SlotsGameFrame
+        SlotsGameFrame,
+        Payment
     },
     data() {
         return {
@@ -144,6 +151,9 @@ export default {
         await this.loadProviders();
         await this.fetchCryptoPrices();
 
+        // Auto-select Pragmatic as default provider
+        await this.selectDefaultProvider();
+
         // Load user balance if authenticated
         if (this.authenticated) {
             await this.fetchUserBalance();
@@ -162,6 +172,21 @@ export default {
         
         async loadProviders() {
             await this.fetchProviders();
+        },
+
+        async selectDefaultProvider() {
+            // Find Pragmatic provider from filtered providers
+            const pragmaticProvider = this.filteredProviders.find(provider => 
+                provider.code.toUpperCase().includes('PRAGMATIC') || 
+                provider.name.toUpperCase().includes('PRAGMATIC')
+            );
+            
+            if (pragmaticProvider) {
+                await this.selectProvider(pragmaticProvider.code);
+            } else if (this.filteredProviders.length > 0) {
+                // Fallback to first available provider if Pragmatic not found
+                await this.selectProvider(this.filteredProviders[0].code);
+            }
         },
 
         async selectProvider(providerCode) {
@@ -286,6 +311,11 @@ export default {
 .slots-content {
     max-width: 1400px;
     margin: 0 auto;
+}
+
+.slots-payment-section {
+    width: 100%;
+    margin-top: 40px;
 }
 
 .providers-section,

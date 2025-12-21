@@ -179,9 +179,6 @@ const routes = [
     {
         path: '/rewards',
         name: 'Rewards',
-        meta: {
-            auth: true
-        },
         component: Rewards
     },
     {

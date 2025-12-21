@@ -34,6 +34,10 @@
                 </transition>
             </div>
         </div>
+
+        <div class="leaderboard-payment-section">
+            <Payment />
+        </div>
     </div>
 </template>
 
@@ -43,6 +47,7 @@
     import LoadingAnimation from '@/components/LoadingAnimation';
     import LeaderboardBanner from '@/components/leaderboard/LeaderboardBanner';
     import LeaderboardUserElement from '@/components/leaderboard/LeaderboardUserElement';
+    import Payment from '@/components/Payment';
 
     export default {
         name: 'Leaderboard',
@@ -53,7 +58,8 @@
             IconTimer,
             LoadingAnimation,
             LeaderboardBanner,
-            LeaderboardUserElement
+            LeaderboardUserElement,
+            Payment
         },
         data() {
             return {
@@ -246,6 +252,11 @@
     .leaderboard .content-list.fade-enter-from,
     .leaderboard .content-empty.fade-enter-from {
         opacity: 0;
+    }
+
+    .leaderboard .leaderboard-payment-section {
+        width: 100%;
+        margin-top: 40px;
     }
 
     @media only screen and (max-width: 975px) {
