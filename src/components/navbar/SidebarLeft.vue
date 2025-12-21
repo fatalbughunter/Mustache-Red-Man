@@ -78,10 +78,6 @@
                     <img src="@/assets/img/icons/leftSideMenu/Slots.png" alt="Slots" />
                     <span>SLOTS</span>
                 </router-link>
-                <router-link to="/leaderboard" class="sidebar-link" v-on:click.native="closeMobile">
-                    <img src="@/assets/img/icons/leftSideMenu/Leaderboard.png" alt="Leaderboard" />
-                    <span>LEADERBOARD</span>
-                </router-link>
                 <router-link to="/live-casino" class="sidebar-link" v-on:click.native="closeMobile">
                     <img src="@/assets/img/icons/leftSideMenu/Live casino.png" alt="Live Casino" />
                     <span>LIVE CASINO</span>
@@ -89,6 +85,14 @@
                 <router-link to="/jackpots" class="sidebar-link" v-on:click.native="closeMobile">
                     <img src="@/assets/img/icons/leftSideMenu/Jackports.png" alt="Jackpots" />
                     <span>JACKPOTS</span>
+                </router-link>  
+                <router-link to="/rewards" class="sidebar-link" v-on:click.native="closeMobile">
+                    <img src="@/assets/img/icons/leftSideMenu/Rewards.png" alt="Leaderboard" />
+                    <span>Rewards</span>
+                </router-link>    
+                <router-link to="/leaderboard" class="sidebar-link" v-on:click.native="closeMobile">
+                    <img src="@/assets/img/icons/leftSideMenu/Leaderboard.png" alt="Leaderboard" />
+                    <span>LEADERBOARD</span>
                 </router-link>
                 <!-- Temporarily hidden -->
                 <!-- <router-link to="/affiliates" class="sidebar-link" v-on:click.native="closeMobile">
@@ -335,7 +339,7 @@
         font-size: 16px; 
         font-weight: 500; 
         position: relative;
-        margin-bottom: 2px;
+        margin-bottom: 8px;
         transition: all 0.3s ease, width 0.3s ease, padding 0.3s ease, justify-content 0.3s ease, margin 0.3s ease;
     }
     .sidebar-link::before { 
@@ -416,13 +420,13 @@
     }
     
     .sidebar-menu-item {
-        margin-bottom: 2px;
+        margin-bottom: 8px;
     }
     
     .sidebar-submenu {
         padding-left: calc(var(--spacing-md) + 18px + var(--spacing-md));
-        margin-top: 2px;
-        margin-bottom: 2px;
+        margin-top: 6px;
+        margin-bottom: 6px;
     }
     
     .sidebar-submenu-link {

@@ -137,8 +137,8 @@
         min-height: 73px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        text-align: center;
+        justify-content: start;
+        text-align: start;
         padding: 15px 30px;
         font-size: 14px;
         font-weight: 600;
