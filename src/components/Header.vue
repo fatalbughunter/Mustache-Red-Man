@@ -18,7 +18,7 @@
                 </button>
                 <!-- Logo Image -->
                 <router-link to="/" class="header-logo-title">
-                    <img src="@/assets/img/headerLogo.png" alt="Mustache Casino" class="header-logo-img">
+                    <img src="@/assets/img/tacheLogo.png" alt="Mustache Casino" class="header-logo-img">
                 </router-link>
             </div>
             <!-- Navigation Menu -->
@@ -118,33 +118,39 @@
                 
                 <!-- Show user info when logged in -->
                 <template v-else>
-                    <!-- User Balance Badge -->
-                    <div class="user-balance-badge" @click="handleBalanceClick">
-                        <div class="balance-badge-coupon"></div>
-                        <div class="balance-badge-content">
-                            <span class="balance-amount-text">${{ formatBalance(authUser.user.balance) }}</span>
-                            <span class="balance-label-text">BALANCE</span>
+                    <!-- User Balance with Coin and Plus Button -->
+                    <div class="header-balance-group">
+                        <div class="header-coin-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="11" fill="url(#coinGradient)" stroke="#B8860B" stroke-width="1"/>
+                                <text x="12" y="16" text-anchor="middle" fill="#1a1a2e" font-size="12" font-weight="bold">$</text>
+                                <defs>
+                                    <linearGradient id="coinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#FFD700"/>
+                                        <stop offset="50%" style="stop-color:#FFA500"/>
+                                        <stop offset="100%" style="stop-color:#FFD700"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                         </div>
-                        <div class="balance-badge-sparkles">
-                            <span class="sparkle"></span>
-                            <span class="sparkle"></span>
-                            <span class="sparkle"></span>
-                            <span class="sparkle"></span>
-                            <span class="sparkle"></span>
-                        </div>
+                        <span class="header-balance-amount" @click="handleBalanceClick">{{ formatBalance(authUser.user.balance) }}</span>
+                        <button class="header-plus-btn" @click="handleBalanceClick">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                            </svg>
+                        </button>
                     </div>
-                    <!-- Use NavbarUserDropdown component like on game pages -->
+                    
+                    <!-- User Avatar/Profile -->
                     <NavbarUserDropdown />
+                    
                 </template>
                 
-                <button class="btn-chat" :class="{ 'chat-open': generalDesktopChatOpen }" @click="toggleChat">
-                    <svg class="chat-icon-desktop" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Chat Button -->
+                <button class="header-icon-btn header-chat-btn" :class="{ 'chat-open': generalDesktopChatOpen }" @click="toggleChat">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <svg v-if="generalDesktopChatOpen" class="chat-slash-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="4" y1="4" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <img src="@/assets/img/icons/live-chat.svg" alt="Chat" class="chat-icon-mobile" />
                 </button>
             </div>
         </div>
@@ -153,20 +159,20 @@
         <div class="mobile-button-row">
             <div class="mobile-btn-container">
                 <button class="mobile-btn mobile-btn-menu" @click="toggleSidebarMobile">
-                    <img src="@/assets/img/icons/mobileMenu.png" alt="Menu" class="mobile-btn-icon" />
+                    <img src="@/assets/img/icons/menu.svg" alt="Menu" class="mobile-btn-icon" />
                 </button>
                 <span class="mobile-btn-label">Menu</span>
             </div>
             <div class="mobile-btn-container">
                 <router-link to="/" class="mobile-btn mobile-btn-home" @click.native="closeSidebarMobile">
-                    <img src="@/assets/img/icons/mobileHome.png" alt="Home" class="mobile-btn-icon" />
+                    <img src="@/assets/img/icons/home.svg" alt="Home" class="mobile-btn-icon" />
                 </router-link>
                 <span class="mobile-btn-label">Home</span>
             </div>
             <!-- Show Sign In button when not logged in -->
             <div class="mobile-btn-container" v-if="authUser.user === null">
                 <button class="mobile-btn mobile-btn-signin" @click="handleSignInClick">
-                    <img src="@/assets/img/icons/mobileProfile.png" alt="Sign In" class="mobile-btn-icon" />
+                    <img src="@/assets/img/icons/user.svg" alt="Sign In" class="mobile-btn-icon" />
                 </button>
                 <span class="mobile-btn-label">User</span>
             </div>
@@ -179,9 +185,9 @@
             </div>
             <div class="mobile-btn-container">
                 <button class="mobile-btn mobile-btn-chat" @click="toggleChat">
-                    <img src="@/assets/img/icons/live-chat.svg" alt="Chat" class="mobile-btn-icon" />
+                    <img src="@/assets/img/icons/message.svg" alt="Chat" class="mobile-btn-icon" />
                 </button>
-                <span class="mobile-btn-label">Chart</span>
+                <span class="mobile-btn-label">Chat</span>
             </div>
         </div>
         
@@ -449,6 +455,14 @@ export default {
             // Open cashier modal with deposit tab
             this.modalsSetData({ typeCashier: 'deposit' });
             this.modalsSetShow('Cashier');
+        },
+        openSearch() {
+            // Open search modal or toggle search functionality
+            this.modalsSetShow('Search');
+        },
+        openNotifications() {
+            // Open notifications panel or modal
+            this.modalsSetShow('Notifications');
         },
         handleSignOut() {
             this.authLogoutUser();
@@ -782,8 +796,8 @@ export default {
     
     .btn-signup,
     .btn-signin {
-        font-size: 13px !important;
-        padding: var(--spacing-xs) var(--spacing-md) !important;
+        font-size: 12px !important;
+        padding: 10px 20px !important;
     }
     
     .username {
@@ -1156,104 +1170,196 @@ export default {
 }
 
 .btn-signup {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background: var(--gradient-button-bg);
-    color: #000000;
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    font-size: 14px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #E6A817 100%);
+    color: #1a1a2e;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13px;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: none;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.35);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-signup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-signup:hover::before {
+    left: 100%;
 }
 
 .btn-signup:hover {
-    background: var(--gradient-button-bg);
-    opacity: 0.9;
-    border-color: rgba(255, 255, 255, 0.4);
-    color: #000000;
-    box-shadow: 0 4px 15px rgba(222, 199, 156, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
+    background: linear-gradient(135deg, #FFE44D 0%, #FFB833 50%, #F0B81C 100%);
+}
+
+.btn-signup:active {
+    transform: translateY(0);
 }
 
 .btn-signin {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background: transparent;
-    color: #FFFFFF;
-    border-radius: var(--radius-sm);
+    padding: 12px 28px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-radius: 10px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-signin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(184, 115, 51, 0.2) 0%, rgba(184, 115, 51, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-signin:hover::before {
+    opacity: 1;
 }
 
 .btn-signin:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-    color: #FFFFFF;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    border-color: rgba(184, 115, 51, 0.5);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(184, 115, 51, 0.2);
 }
 
-.btn-chat {
-    width: 55px;
-    height: 55px;
+.btn-signin:active {
+    transform: translateY(0);
+}
+
+/* Header Balance Group */
+.header-balance-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     background: var(--bg-blue-dark);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+    padding: 8px 8px 8px 12px;
+    height: 48px;
+}
+
+.header-coin-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.header-coin-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.header-balance-amount {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 0 8px;
+    min-width: 60px;
+    transition: color 0.3s ease;
+}
+
+.header-balance-amount:hover {
+    color: var(--accent-yellow);
+}
+
+.header-plus-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--gradient-button-bg);
+    border: none;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--accent-copper-light);
+    cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid var(--accent-yellow);
-    padding: 0;
-    position: relative;
+    flex-shrink: 0;
+    color: #1a1a2e;
 }
 
-.chat-icon-desktop {
-    display: block;
+.header-plus-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }
 
-.chat-icon-mobile {
-    display: none;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.header-plus-btn svg {
+    width: 16px;
+    height: 16px;
 }
 
-.chat-slash-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--accent-copper-light);
-    pointer-events: none;
-    z-index: 1;
-    display: none;
-}
-
-/* Show slash icon on desktop only when chat is open */
-@media only screen and (min-width: 1025px) {
-    .btn-chat.chat-open .chat-slash-icon {
-        display: block;
-    }
-}
-
-.btn-chat.chat-open .chat-slash-icon {
-    color: var(--accent-yellow-main);
-}
-
-.btn-chat:hover {
+/* Header Icon Buttons (Search, Notifications, Chat) */
+.header-icon-btn {
+    width: 48px;
+    height: 48px;
     background: var(--bg-blue-dark);
-    color: var(--accent-yellow-main);
-    border-color: var(--accent-yellow);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--accent-yellow-main);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    flex-shrink: 0;
 }
 
-.btn-chat.chat-open:hover .chat-slash-icon {
-    color: var(--accent-yellow-main);
+.header-icon-btn:hover {
+    border-color: var(--accent-yellow);
+    color: var(--accent-yellow);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.header-icon-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.notification-dot {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background: #ff4444;
+    border-radius: 50%;
+    border: 2px solid var(--bg-blue-dark);
+}
+
+.header-chat-btn.chat-open {
+    border-color: var(--accent-yellow);
+    color: var(--accent-yellow);
 }
 
 .user-info {
@@ -1809,8 +1915,13 @@ export default {
         display: none !important;
     }
     
-    /* Hide individual buttons when mobile row is shown */
-    .btn-chat {
+    /* Hide header balance group on mobile */
+    .header-balance-group {
+        display: none !important;
+    }
+    
+    /* Hide header icon buttons on mobile */
+    .header-icon-btn {
         display: none !important;
     }
     

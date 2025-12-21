@@ -19,7 +19,7 @@
     export default {
         name: 'Duels',
         metaInfo: {
-            title: 'Dice Duels - RBLXRoll.com'
+            title: 'Dice Duels'
         },
         components: {
             Bets,

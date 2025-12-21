@@ -42,7 +42,7 @@
     export default {
         name: 'Towers',
         metaInfo: {
-            title: 'Towers - RBLXRoll.com'
+            title: 'Towers'
         },
         components: {
             Bets,

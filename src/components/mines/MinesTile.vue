@@ -84,8 +84,8 @@
 
 <style scoped>
     .mines-tile {
-        width: 95px;
-        height: 95px;
+        width: 100%;
+        height: 100%;
         border-radius: 7px;
         background-image: url('../../assets/img/mines/minecardBack.png');
         background-size: cover;
@@ -153,33 +153,54 @@
     @media only screen and (max-width: 575px) {
 
         .mines-tile {
-           width: 70px;
-           height: 70px;
+            border-radius: 6px;
         }
 
         .mines-tile .tile-coin,
         .mines-tile .tile-mine {
             padding: 0;
+            border-radius: 6px;
         }
 
+        .mines-tile .tile-success-image,
+        .mines-tile .tile-bomb-image {
+            border-radius: 6px;
+        }
+
+        .mines-tile button.button-reveal {
+            border-radius: 6px;
+        }
 
     }
 
     @media only screen and (max-width: 425px) {
 
         .mines-tile {
-            width: 60px;
-            height: 60px;
+            border-radius: 5px;
         }
 
+        .mines-tile .tile-coin,
+        .mines-tile .tile-mine,
+        .mines-tile .tile-success-image,
+        .mines-tile .tile-bomb-image,
+        .mines-tile button.button-reveal {
+            border-radius: 5px;
+        }
 
     }
 
     @media only screen and (max-width: 350px) {
 
         .mines-tile {
-            width: 50px;
-            height: 50px;
+            border-radius: 4px;
+        }
+
+        .mines-tile .tile-coin,
+        .mines-tile .tile-mine,
+        .mines-tile .tile-success-image,
+        .mines-tile .tile-bomb-image,
+        .mines-tile button.button-reveal {
+            border-radius: 4px;
         }
 
     }

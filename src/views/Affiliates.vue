@@ -17,7 +17,7 @@
     export default {
         name: 'Affiliates',
         metaInfo: {
-            title: 'Affiliates - RBLXRoll.com'
+            title: 'Affiliates'
         },
         components: {
             AffiliatesBanner,

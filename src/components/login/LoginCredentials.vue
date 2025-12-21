@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="credentials-info">
-            By accessing RBLXRoll.com, I attest that I am at least 18 years old and have read and agree with the <button v-on:click="loginTermsButton()" class="button-terms">Terms of Service</button>.
+            I attest that I am at least 18 years old and have read and agree with the <button v-on:click="loginTermsButton()" class="button-terms">Terms of Service</button>.
         </div>
         <div class="credentials-buttons">
             <button v-on:click="$parent.modalSetTab(tab === 'login' ? 'register' : 'login')" class="button-toggle" v-bind:class="{ 'button-active': tab === 'register' }">

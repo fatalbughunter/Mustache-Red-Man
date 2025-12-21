@@ -25,20 +25,21 @@
 <style scoped>
     .profile-settings-element {
         width: 100%;
-        height: 47px;
+        min-height: 60px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
-        border-radius: var(--radius-md);
-        background: var(--bg-blue-dark);
-        border: 1px solid rgba(222, 184, 135, 0.1);
-        margin-bottom: 8px;
+        padding: 16px 24px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(26, 41, 66, 0.6) 0%, rgba(15, 25, 35, 0.8) 100%);
+        border: 1px solid rgba(184, 115, 51, 0.15);
+        margin-bottom: 12px;
+        transition: all 0.3s ease;
     }
 
-    .profile-settings-element:nth-child(odd) {
-        background: var(--bg-blue-dark);
-        border-color: rgba(222, 184, 135, 0.2);
+    .profile-settings-element:hover {
+        border-color: rgba(184, 115, 51, 0.3);
+        background: linear-gradient(135deg, rgba(26, 41, 66, 0.8) 0%, rgba(15, 25, 35, 0.9) 100%);
     }
 
     .profile-settings-element:first-of-type {
@@ -49,17 +50,20 @@
         display: flex;
         align-items: center;
         font-size: 14px;
-        font-weight: 700;
-        color: var(--accent-copper-light);
+        font-weight: 600;
+        color: #ffffff;
+        letter-spacing: 0.5px;
     }
 
     .profile-settings-element .element-name svg {
-        margin-right: 9px;
-        fill: var(--accent-copper);
+        width: 18px;
+        height: 18px;
+        margin-right: 12px;
+        fill: #b87333;
     }
 
     .profile-settings-element.element-success .element-name svg {
-        fill: var(--accent-copper-light);
+        fill: #10b981;
     }
 
     .profile-settings-element .element-action {

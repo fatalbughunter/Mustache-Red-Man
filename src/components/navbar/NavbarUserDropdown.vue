@@ -31,20 +31,20 @@
                     <IconCashier />
                     BALANCE
                 </button>
-                <button v-on:click="navbarVaultButton()">
+                <!-- <button v-on:click="navbarVaultButton()">
                     <IconVault />
                     VAULT
-                </button>
+                </button> -->
                 <!--
                 <router-link v-on:click.native="navbarSetDropdown(false)" to="/rewards">
                     <IconRakeback />
                     REWARDS
                 </router-link>
                 -->
-                <router-link v-on:click.native="navbarSetDropdown(false)" to="/affiliates">
+                <!-- <router-link v-on:click.native="navbarSetDropdown(false)" to="/affiliates">
                     <IconAffiliates />
                     AFFILIATES
-                </router-link>
+                </router-link> -->
                 <router-link v-on:click.native="navbarSetDropdown(false)" to="/leaderboard">
                     <IconLeaderboard />
                     LEADERBOARD
@@ -160,55 +160,86 @@
     .navbar-user-dropdown button.button-toggle {
         display: flex;
         align-items: center;
+        background: transparent;
+        border: none;
+        padding: 8px 16px 8px 8px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-user-dropdown button.button-toggle:hover {
+        background: rgba(255, 255, 255, 0.05);
     }
 
     .navbar-user-dropdown .button-avatar {
-        width: 59px;
-        height: 59px;
+        width: 48px;
+        height: 48px;
         display: flex;
         justify-content: center;
-        align-items: flex-end;
-        margin-right: 20px;
+        align-items: center;
+        margin-right: 12px;
         border-radius: 50%;
-        border: 2px solid #9e9e9e;
+        border: 3px solid #b87333;
         overflow: hidden;
+        background: linear-gradient(135deg, #2a1f1a 0%, #1a1520 100%);
+        box-shadow: 
+            0 0 0 2px rgba(184, 115, 51, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.3);
+        flex-shrink: 0;
     }
 
     .navbar-user-dropdown.dropdown-blue .button-avatar {
-        border: 2px solid #559ee4;
+        border-color: #559ee4;
+        box-shadow: 0 0 0 2px rgba(85, 158, 228, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .navbar-user-dropdown.dropdown-green .button-avatar {
-        border: 2px solid #b8e92d;
+        border-color: #b8e92d;
+        box-shadow: 0 0 0 2px rgba(184, 233, 45, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .navbar-user-dropdown.dropdown-orange .button-avatar {
-        border: 2px solid #fca311;
+        border-color: #fca311;
+        box-shadow: 0 0 0 2px rgba(252, 163, 17, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .navbar-user-dropdown.dropdown-red .button-avatar {
-        border: 2px solid #ff4e4e;
+        border-color: #ff4e4e;
+        box-shadow: 0 0 0 2px rgba(255, 78, 78, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .navbar-user-dropdown.dropdown-purple .button-avatar {
-        border: 2px solid #6953f1;
+        border-color: #6953f1;
+        box-shadow: 0 0 0 2px rgba(105, 83, 241, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
     } 
 
     .navbar-user-dropdown.dropdown-partner .button-avatar {
-        border: 2px solid #eca822;
+        border-color: #eca822;
+        box-shadow: 0 0 0 2px rgba(236, 168, 34, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     
     .navbar-user-dropdown.dropdown-mod .button-avatar {
-        border: 2px solid #ffb703;
+        border-color: #ffb703;
+        box-shadow: 0 0 0 2px rgba(255, 183, 3, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .navbar-user-dropdown.dropdown-admin .button-avatar {
-        border: 2px solid var(--accent-yellow);
+        border-color: var(--accent-yellow);
+        box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .navbar-user-dropdown .button-avatar .avatar-image {
-        width: 49px;
-        height: 49px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+    }
+
+    .navbar-user-dropdown .button-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
     }
 
     .navbar-user-dropdown .button-arrow-mobile {
@@ -218,14 +249,14 @@
     .navbar-user-dropdown .info-username {
         display: flex;
         align-items: center;
-        font-size: 16px;
-        font-weight: 700;
+        font-size: 15px;
+        font-weight: 600;
         color: #ffffff;
+        line-height: 1.2;
     }
 
     .navbar-user-dropdown .info-username span {
-        width: 80px;
-        max-width: 80px;
+        max-width: 100px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -233,23 +264,27 @@
 
     .navbar-user-dropdown .info-username svg {
         width: 10px;
-        margin-left: 12px;
+        height: 10px;
+        margin-left: 8px;
         fill: #ffffff;
+        opacity: 0.7;
         transition: all 0.3s ease;
     }
 
+    .navbar-user-dropdown:hover .info-username svg {
+        opacity: 1;
+    }
+
     .navbar-user-dropdown.dropdown-open .info-username svg {
-         transform: rotate(180deg);
+        transform: rotate(180deg);
+        opacity: 1;
     }
 
     .navbar-user-dropdown .info-level {
-        height: 17px;
-        margin-top: 2px;
-        display: flex;
-        align-items: center;
         font-size: 12px;
-        font-weight: 700;
-        color: #9e9e9e;
+        font-weight: 600;
+        color: #fca311;
+        line-height: 1.2;
     }
 
     .navbar-user-dropdown.dropdown-blue .info-level {
@@ -321,8 +356,8 @@
     .navbar-user-dropdown .dropdown-menu {
         height: 0;
         position: absolute;
-        top: 62px;
-        right: -10px;
+        top: 60px;
+        right: 0;
         width: 220px;
         padding: 0 10px;
         transition: height 0.2s ease;
@@ -331,12 +366,12 @@
     }
 
     .navbar-user-dropdown.dropdown-open .dropdown-menu {
-       height: 270px;
-       padding: 0 10px 10px 10px;
+        height: 270px;
+        padding: 0 10px 10px 10px;
     }
 
     .navbar-user-dropdown.dropdown-open .dropdown-menu.menu-admin {
-         height: 270px;
+        height: 310px;
     }
 
     .navbar-user-dropdown .menu-inner {
@@ -346,9 +381,11 @@
         flex-direction: column;
         align-items: center;
         margin-top: 7px;
-        border-radius: 10px 0 10px 10px;
+        border-radius: 12px;
         background: var(--bg-blue-dark);
-        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
     }
 
     .navbar-user-dropdown .menu-inner::before {
@@ -357,47 +394,52 @@
         height: 0;
         position: absolute;
         top: -7px;
-        right: 0px;
-        border-left: 11px solid transparent;
-        border-bottom: 7px solid var(--bg-primary-blue);
+        right: 20px;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 7px solid var(--bg-blue-dark);
     }
 
     .navbar-user-dropdown .menu-inner button,
     .navbar-user-dropdown .menu-inner a {
         width: 100%;
-        height: 36px;
+        height: 42px;
         display: flex;
         align-items: center;
-        padding: 0 15px;
-        font-size: 12px;
+        padding: 0 16px;
+        font-size: 13px;
         font-weight: 600;
         color: #ffffff;
-        border-bottom: 1px solid rgba(24, 72, 109, 0.5);
-        transition: color 0.3s ease;
-    }
-
-    .navbar-user-dropdown .menu-inner button:first-child,
-    .navbar-user-dropdown .menu-inner a:first-child {
-        border-radius: 10px 0 0 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        transition: all 0.2s ease;
+        background: transparent;
     }
 
     .navbar-user-dropdown .menu-inner button:last-child,
     .navbar-user-dropdown .menu-inner a:last-child {
-        border-radius: 0 0 10px 10px;
         border-bottom: none;
     }
 
     .navbar-user-dropdown .menu-inner button:hover,
     .navbar-user-dropdown .menu-inner a:hover {
-        color: #ffffff;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--accent-yellow);
     }
 
-     .navbar-user-dropdown .menu-inner button svg,
-     .navbar-user-dropdown .menu-inner a svg {
-         width: 13px;
-         margin-right: 8px;
-         fill: #ffffff;
-     }
+    .navbar-user-dropdown .menu-inner button svg,
+    .navbar-user-dropdown .menu-inner a svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 12px;
+        fill: currentColor;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+    }
+
+    .navbar-user-dropdown .menu-inner button:hover svg,
+    .navbar-user-dropdown .menu-inner a:hover svg {
+        opacity: 1;
+    }
 
     /* Mobile styles - hide username/level, show only avatar and arrow */
     @media only screen and (max-width: 1024px) {
@@ -429,11 +471,12 @@
             width: 40px;
             height: 40px;
             margin-right: 0;
+            border-width: 2px;
         }
 
         .navbar-user-dropdown .button-avatar .avatar-image {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
         }
 
         .navbar-user-dropdown .button-arrow-mobile {
@@ -452,32 +495,35 @@
             transform: rotate(180deg);
         }
 
-        /* Position dropdown menu above on mobile */
+        /* Position dropdown menu above on mobile - fixed to bottom bar */
         .navbar-user-dropdown .dropdown-menu {
+            position: fixed;
             top: auto;
-            bottom: calc(100% + 10px);
+            bottom: 90px;
             left: 50%;
             right: auto;
             transform: translateX(-50%);
-            width: 200px;
+            width: 220px;
+            z-index: 100010;
         }
 
-        .navbar-user-dropdown .menu-inner {
-            border-radius: 10px 10px 0 10px;
+        .navbar-user-dropdown.dropdown-open .dropdown-menu {
+            height: auto;
+            padding: 0 10px 10px 10px;
+        }
+
+        .navbar-user-dropdown.dropdown-open .dropdown-menu.menu-admin {
+            height: auto;
         }
 
         .navbar-user-dropdown .menu-inner::before {
             top: auto;
             bottom: -7px;
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
             border-bottom: none;
-            border-top: 7px solid var(--bg-primary-blue);
-            left: auto;
-            right: 0px;
-        }
-
-        .navbar-user-dropdown .menu-inner button:first-child,
-        .navbar-user-dropdown .menu-inner a:first-child {
-            border-radius: 10px 10px 0 0;
+            border-top: 7px solid var(--bg-blue-dark);
         }
     }
 </style>

@@ -9,7 +9,7 @@
         <aside id="sidebar-left" v-bind:class="{ 'collapsed': collapsed, 'mobile-open': mobileOpen }">
             <div class="sidebar-header">
                 <div class="sidebar-header-logo">
-                    <img src="@/assets/img/headerLogo.png" alt="Mustache Casino" class="sidebar-header-logo-img">
+                    <img src="@/assets/img/tacheLogo.png" alt="Mustache Casino" class="sidebar-header-logo-img">
                 </div>
                 <button class="menu-toggle" v-on:click="toggleHeader">
                     <!-- Mobile version: simple hamburger -->
@@ -518,7 +518,28 @@
         justify-content: center;
     }
     aside#sidebar-left.collapsed .sidebar-submenu {
-        display: none !important;
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+    aside#sidebar-left.collapsed .sidebar-submenu-link {
+        justify-content: center;
+        padding: 0;
+        margin: 0 auto 4px auto;
+        width: 40px;
+        height: 36px;
+    }
+    aside#sidebar-left.collapsed .sidebar-submenu-link span {
+        display: none;
+    }
+    aside#sidebar-left.collapsed .sidebar-submenu-link svg,
+    aside#sidebar-left.collapsed .sidebar-submenu-link img {
+        margin-right: 0;
+        width: 24px;
+        height: 24px;
     }
     aside#sidebar-left.collapsed .sidebar-link-parent .dropdown-arrow {
         opacity: 0;
@@ -529,6 +550,12 @@
     }
     aside#sidebar-left.collapsed .sidebar-group {
         padding: var(--spacing-sm) var(--spacing-xs);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    aside#sidebar-left.collapsed .sidebar-menu-item {
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;

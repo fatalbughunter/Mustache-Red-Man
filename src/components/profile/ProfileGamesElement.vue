@@ -9,23 +9,30 @@
         <div class="element-game">
             <div class="game-title">GAME</div>
             <div class="game-content">
-                {{bet.method.charAt(0).toUpperCase() + bet.method.slice(1)}}
+                <span class="game-badge" :class="'badge-' + bet.method">
+                    {{bet.method.charAt(0).toUpperCase() + bet.method.slice(1)}}
+                </span>
             </div>
         </div>
         <div class="element-verify">
             <div class="verify-title">VERIFY</div>
             <div class="verify-content">
-                <button v-on:click="profileVerifyButton()">
-                    <div class="button-inner">VERIFY</div>
+                <button v-on:click="profileVerifyButton()" class="verify-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    VERIFY
                 </button>
             </div>
         </div>
         <div class="element-amount">
             <div class="amount-title">AMOUNT</div>
-            <div class="amount-content">
-                <img src="@/assets/img/icons/coin.svg" alt="icon" />
-                <div class="content-value" v-bind:class="{ 'value-positive': (bet.payout - profileGetAmount) >= 0 }">
-                    <span>{{profileFormatValue(bet.payout - profileGetAmount).split('.')[0]}}</span>.{{profileFormatValue(bet.payout - profileGetAmount).split('.')[1]}}
+            <div class="amount-content" v-bind:class="{ 'amount-positive': (bet.payout - profileGetAmount) >= 0, 'amount-negative': (bet.payout - profileGetAmount) < 0 }">
+                <div class="coin-icon">
+                    <img src="@/assets/img/icons/coin.svg" alt="icon" />
+                </div>
+                <div class="content-value">
+                    <span class="value-main">{{profileFormatValue(bet.payout - profileGetAmount).split('.')[0]}}</span><span class="value-decimal">.{{profileFormatValue(bet.payout - profileGetAmount).split('.')[1]}}</span>
                 </div>
             </div>
         </div>
@@ -47,7 +54,7 @@
                 return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             profileVerifyButton() {
-                this.modalsSetData({ game: (['mines', 'mines', 'unbox'].includes(this.bet.method) === true ? this.bet : this.bet.game) });
+                this.modalsSetData({ game: (['mines', 'towers', 'unbox'].includes(this.bet.method) === true ? this.bet : this.bet.game) });
                 this.modalsSetShow('FairGame');
             }
         },
@@ -69,19 +76,21 @@
 <style scoped>
     .profile-games-element {
         width: 100%;
-        height: 47px;
+        min-height: 56px;
         display: flex;
         align-items: center;
-        padding: 0 20px;
-        border-radius: var(--radius-md);
-        background: var(--bg-blue-dark);
-        border: 1px solid rgba(222, 184, 135, 0.1);
-        margin-bottom: 8px;
+        padding: 12px 24px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(26, 41, 66, 0.5) 0%, rgba(15, 25, 35, 0.7) 100%);
+        border: 1px solid rgba(184, 115, 51, 0.1);
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
     }
 
-    .profile-games-element:nth-child(odd) {
-        background: var(--bg-blue-dark);
-        border-color: rgba(222, 184, 135, 0.2);
+    .profile-games-element:hover {
+        border-color: rgba(184, 115, 51, 0.25);
+        background: linear-gradient(135deg, rgba(26, 41, 66, 0.7) 0%, rgba(15, 25, 35, 0.8) 100%);
+        transform: translateX(2px);
     }
 
     .profile-games-element .element-date {
@@ -114,81 +123,156 @@
     .profile-games-element .verify-title,
     .profile-games-element .amount-title {
         display: none;
-        font-size: 13px;
+        font-size: 11px;
         font-weight: 600;
-        color: var(--accent-copper-light);
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
     }
 
     .profile-games-element .date-content {
-        font-size: 14px;
-        font-weight: 400;
-        color: var(--accent-copper-light);
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
     }
 
     .profile-games-element .game-content {
-        font-size: 14px;
-        font-weight: 400;
-        color: var(--accent-copper-light);
-    }
-
-    .profile-games-element .verify-content button {
-        width: 68px;
-        height: 29px;
-    }
-
-    .profile-games-element .verify-content button .button-inner {
-        width: 100%;
-        height: 100%;
         display: flex;
-        justify-content: center;
         align-items: center;
+    }
+
+    .game-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 12px;
+        border-radius: 6px;
         font-size: 12px;
-        font-weight: 800;
-        color: var(--text-gold);
-        background: var(--gradient-copper);
-        border-radius: var(--radius-md);
-        border: 1px solid rgba(222, 184, 135, 0.3);
+        font-weight: 600;
+        text-transform: capitalize;
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .game-badge.badge-crash {
+        background: rgba(239, 68, 68, 0.15);
+        border-color: rgba(239, 68, 68, 0.3);
+        color: #f87171;
+    }
+
+    .game-badge.badge-mines {
+        background: rgba(16, 185, 129, 0.15);
+        border-color: rgba(16, 185, 129, 0.3);
+        color: #34d399;
+    }
+
+    .game-badge.badge-towers {
+        background: rgba(59, 130, 246, 0.15);
+        border-color: rgba(59, 130, 246, 0.3);
+        color: #60a5fa;
+    }
+
+    .game-badge.badge-blackjack {
+        background: rgba(168, 85, 247, 0.15);
+        border-color: rgba(168, 85, 247, 0.3);
+        color: #c084fc;
+    }
+
+    .profile-games-element .verify-content .verify-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, rgba(184, 115, 51, 0.2) 0%, rgba(139, 90, 43, 0.1) 100%);
+        border: 1px solid rgba(184, 115, 51, 0.3);
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #b87333;
+        cursor: pointer;
         transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .profile-games-element .verify-content .verify-btn svg {
+        color: #b87333;
     }
     
-    .profile-games-element .verify-content button:hover .button-inner {
-        background: var(--gradient-copper-dark);
-        border-color: rgba(222, 184, 135, 0.5);
+    .profile-games-element .verify-content .verify-btn:hover {
+        background: linear-gradient(135deg, rgba(184, 115, 51, 0.3) 0%, rgba(139, 90, 43, 0.2) 100%);
+        border-color: rgba(184, 115, 51, 0.5);
+        transform: translateY(-1px);
     }
 
     .profile-games-element .amount-content {
         display: flex;
         align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
     }
 
-    .profile-games-element .amount-content img {
-        width: 18px;
-        height: 18px;
-        margin-right: 10px;
+    .profile-games-element .amount-content.amount-positive {
+        background: rgba(16, 185, 129, 0.1);
+    }
+
+    .profile-games-element .amount-content.amount-negative {
+        background: rgba(239, 68, 68, 0.1);
+    }
+
+    .profile-games-element .coin-icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-games-element .coin-icon img {
+        width: 100%;
+        height: 100%;
     }
 
     .profile-games-element .content-value {
-        font-size: 10px;
-        font-weight: 600;
-        color: var(--accent-copper-light);
+        display: flex;
+        align-items: baseline;
     }
 
-    .profile-games-element .content-value span {
+    .profile-games-element .value-main {
         font-size: 14px;
-        font-weight: 800;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.9);
     }
 
-    .profile-games-element .content-value.value-positive span {
-        color: var(--text-gold);
+    .profile-games-element .value-decimal {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .profile-games-element .amount-content.amount-positive .value-main {
+        color: #10b981;
+    }
+
+    .profile-games-element .amount-content.amount-negative .value-main {
+        color: #ef4444;
     }
 
     @media only screen and (max-width: 725px) {
 
         .profile-games-element {
-            height: auto;
             flex-direction: column;
             align-items: flex-start;
-            padding: 10px 20px;
+            padding: 16px 20px;
+            gap: 12px;
+        }
+
+        .profile-games-element:hover {
+            transform: none;
         }
 
         .profile-games-element .element-date,
@@ -198,24 +282,11 @@
             width: 100%;
         }
 
-        .profile-games-element .element-game,
-        .profile-games-element .element-verify,
-        .profile-games-element .element-amount {
-            margin-top: 10px;
-        }
-
         .profile-games-element .date-title,
         .profile-games-element .game-title,
         .profile-games-element .verify-title,
         .profile-games-element .amount-title {
             display: block;
-        }
-
-        .profile-games-element .date-content,
-        .profile-games-element .game-content,
-        .profile-games-element .verify-content,
-        .profile-games-element .amount-content {
-            margin-top: 5px;
         }
 
         .profile-games-element .element-amount {

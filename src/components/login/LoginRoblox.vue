@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="roblox-info">
-            By accessing RBLXRoll.com, I attest that I am at least 18 years old and have read and agree with the <button v-on:click="loginTermsButton()" class="button-terms">Terms of Service</button>.
+           I attest that I am at least 18 years old and have read and agree with the <button v-on:click="loginTermsButton()" class="button-terms">Terms of Service</button>.
         </div>
         <div class="roblox-buttons">
             <button v-on:click="$parent.modalSetTab(tab === 'roblox login' ? 'roblox cookie' : 'roblox login')" class="button-toggle" v-bind:class="{ 'button-active': tab === 'roblox cookie' }" v-bind:disabled="authSendLoginLoading === true || authStep !== 'login'">

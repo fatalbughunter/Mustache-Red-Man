@@ -998,12 +998,38 @@ export default {
     width: 100%;
     height: auto;
     margin-top: 15px;
+    display: flex;
+    flex-direction: column;
   }
 
   .crash-controls .crash-controls-snow {
     max-width: 100px;
     max-height: 65px;
     margin: -4px 0 0 10px;
+  }
+
+  /* Reorder elements on mobile: PLACE BET first, then inputs, then MANUAL/AUTO */
+  .crash-controls .controls-bet {
+    order: 1;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+
+  .crash-controls .controls-amount {
+    order: 2;
+  }
+
+  .crash-controls .controls-cashout {
+    order: 3;
+  }
+
+  .crash-controls .controls-auto {
+    order: 4;
+  }
+
+  .crash-controls .controls-mode {
+    order: 5;
+    margin-top: 15px;
   }
 }
 

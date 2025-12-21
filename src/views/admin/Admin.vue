@@ -20,7 +20,7 @@
     export default {
         name: 'Admin',
         metaInfo: {
-            title: 'Admin - RBLXRoll.com'
+            title: 'Admin'
         },
         components: {
             AdminFilterNavbar

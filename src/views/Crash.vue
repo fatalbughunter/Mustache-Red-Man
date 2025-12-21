@@ -43,7 +43,7 @@
     export default {
         name: 'Crash',
         metaInfo: {
-            title: 'Crash - RBLXRoll.com'
+            title: 'Crash'
         },
         components: {
             Bets,

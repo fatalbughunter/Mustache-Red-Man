@@ -20,76 +20,24 @@
                 <ProfileSettingsElement name="ANONYMOUS MODE">
                     <button v-on:click="userToggleAnonymous" class="button-toggle" v-bind:class="{ 
                         'button-active': authUser.user.anonymous === true 
-                    }" v-bind:disabled="socketSendLoading !== null"></button>
+                    }" v-bind:disabled="socketSendLoading !== null">
+                        <span class="toggle-slider"></span>
+                    </button>
                 </ProfileSettingsElement>
                 <ProfileSettingsElement name="SOUND VOLUME">
-                    <input v-model="userVolume" v-on:input="soundSetVolume(userVolume)" type="range" min="0" max="1" step="0.01" v-bind:style="{ 
-                        '--thumbColor': userVolume < 0.01 ? '#1c5064' : 'linear-gradient(255deg, #00ffc2 0%, #00aa6d 100%)'  
-                    }">
+                    <div class="volume-control">
+                        <svg class="volume-icon" :class="{ 'muted': userVolume < 0.01 }" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path v-if="userVolume >= 0.5" d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path v-else-if="userVolume >= 0.01" d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path v-else d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <input v-model="userVolume" v-on:input="soundSetVolume(userVolume)" type="range" min="0" max="1" step="0.01" class="volume-slider">
+                        <span class="volume-value">{{ Math.round(userVolume * 100) }}%</span>
+                    </div>
                 </ProfileSettingsElement>
             </div>
         </div>
 
-        <div class="settings-section">
-            <div class="section-head">
-                <div class="head-name">LINK ACCOUNTS</div>
-            </div>
-            <div class="section-content">
-                <ProfileSettingsElement name="EMAIL" v-bind:info="authUser.user.local === undefined || authUser.user.local.emailVerified === undefined ? 'warning' : 'success'">
-                    <button v-if="authUser.user.local === undefined" v-on:click="modalsSetShow('Link')" class="button-link button-email">
-                        <div class="button-inner">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
-                                <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
-                            </svg>
-                            LINK EMAIL
-                        </div>
-                    </button>
-                    <button v-else-if="authUser.user.local.emailVerified === undefined" v-on:click="userVerifyButton()" class="button-verify" v-bind:disabled="authSendLoginLoading === true">
-                        <div class="button-inner">VERIFY</div>
-                    </button>
-                    <div v-if="authUser.user.local !== undefined" class="element-info">
-                        <span>{{ userShowEmail === false ? '\u2022'.repeat(authUser.user.local.email.length) : authUser.user.local.email }}</span>
-                        <button v-on:click="userToggleShowEmail()">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
-                                <path d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </ProfileSettingsElement>
-                <!--
-                <ProfileSettingsElement name="ROBLOX" v-bind:info="authUser.user.roblox === undefined ? 'warning' : 'success'">
-                    <button v-if="authUser.user.roblox === undefined" v-on:click="modalsSetShow('LinkRoblox')" class="button-link button-roblox">
-                        <div class="button-inner">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4 0L0 16L15.5 20L20 4L4 0ZM7.5 11L8.5 8L12 9L11 12L7.5 11Z" />
-                            </svg>
-                            LINK ROBLOX
-                        </div>
-                    </button>
-                    <div v-else class="element-info">
-                        <span>{{ userShowRoblox === false ? '\u2022'.repeat(authUser.user.roblox.id.length) : authUser.user.roblox.id }}</span>
-                        <button v-on:click="userToggleShowRoblox()">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
-                                <path d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </ProfileSettingsElement>
-                -->
-                <!--
-                <ProfileSettingsElement name="GOOGLE" v-bind:info="authUser.user.google === undefined ? 'warning' : 'success'">
-                    <button class="button-link button-google" v-bind:disabled="authUser.user.google !== undefined">
-                        <div class="button-inner">
-                            <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 10.0793C0 5.01395 4.12098 0.892975 9.18631 0.892975C11.2321 0.892975 13.1684 1.55115 14.7859 2.79638L12.6512 5.56942C11.651 4.79952 10.4529 4.39252 9.18631 4.39252C6.05063 4.39252 3.49955 6.9436 3.49955 10.0793C3.49955 13.215 6.05063 15.766 9.18631 15.766C11.7118 15.766 13.858 14.1114 14.5977 11.8291H9.18631V8.32951H18.3726V10.0793C18.3726 15.1446 14.2516 19.2656 9.18631 19.2656C4.12098 19.2656 0 15.1446 0 10.0793Z" />
-                            </svg>
-                            {{ authUser.user.googleId !== undefined ? 'GOOGLE LINKED' : 'LINK GOOGLE' }}
-                        </div>
-                    </button>
-                </ProfileSettingsElement>
-                -->
-            </div>
-        </div>
     </div>
 </template>
 
@@ -201,134 +149,149 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 24px 16px 24px;
+        border-bottom: 1px solid rgba(184, 115, 51, 0.2);
+        margin-bottom: 16px;
     }
 
     .profile-settings .head-name,
     .profile-settings .head-action {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: var(--accent-copper-light);
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .profile-settings .section-content {
         width: 100%;
-        margin-top: 15px;
     }
 
+    /* Toggle Switch */
     .profile-settings .profile-settings-element button.button-toggle {
-        width: 45px;
-        height: 15px;
+        width: 52px;
+        height: 28px;
         position: relative;
-        filter: drop-shadow(0px 4px 25px rgba(15, 41, 63, 0.35));
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
     }
 
     .profile-settings .profile-settings-element button.button-toggle:disabled {
         cursor: not-allowed;
+        opacity: 0.5;
     }
 
-    .profile-settings .profile-settings-element button.button-toggle::before {
-        content: '';
-        width: 100%;
-        height: 100%;
+    .profile-settings .profile-settings-element button.button-toggle .toggle-slider {
         position: absolute;
-        top: 0;
-        left: 0;
-        background-color: var(--bg-blue-dark);
-        border-radius: var(--radius-md);
-        border: 1px solid rgba(222, 184, 135, 0.2);
-    }
-
-    .profile-settings .profile-settings-element button.button-toggle::after {
-        content: '';
-        width: 25px;
-        height: 19px;
-        position: absolute;
-        top: -2px;
-        left: 0;
-        background: rgba(139, 111, 71, 0.6);
-        border-radius: var(--radius-sm);
+        width: 20px;
+        height: 20px;
+        top: 2px;
+        left: 2px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
         transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
-    .profile-settings .profile-settings-element button.button-toggle.button-active::after {
-        transform: translate(20px, 0);
-        background: var(--gradient-copper);
+    .profile-settings .profile-settings-element button.button-toggle.button-active {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0.1) 100%);
+        border-color: rgba(16, 185, 129, 0.5);
     }
 
-    .profile-settings .profile-settings-element input[type="range"] {
-        width: 200px;
-        height: 15px;
-        position: relative;
+    .profile-settings .profile-settings-element button.button-toggle.button-active .toggle-slider {
+        transform: translateX(24px);
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    .profile-settings .profile-settings-element button.button-toggle:hover:not(:disabled) {
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .profile-settings .profile-settings-element button.button-toggle.button-active:hover:not(:disabled) {
+        border-color: rgba(16, 185, 129, 0.7);
+    }
+
+    /* Volume Control */
+    .volume-control {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .volume-icon {
+        color: #b87333;
+        flex-shrink: 0;
+    }
+
+    .volume-icon.muted {
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    .volume-value {
+        min-width: 45px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #b87333;
+        text-align: right;
+    }
+
+    .volume-slider {
+        width: 150px;
+        height: 6px;
         -webkit-appearance: none;
-        -moz-appearance: none;
         appearance: none;
-        background-color: transparent;
-        z-index: 1;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
     }
 
-    .profile-settings .profile-settings-element input[type="range"]::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: var(--bg-blue-dark);
-        border-radius: var(--radius-md);
-        border: 1px solid rgba(222, 184, 135, 0.2);
-        z-index: -1;
-    }
-
-    /* Webkit track styling */
-    .profile-settings .profile-settings-element input[type="range"]::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 15px;
-        -webkit-appearance: none;
-        background: transparent;
-        border: none;
-    }
-
-    .profile-settings .profile-settings-element input[type="range"]::-webkit-slider-thumb {
-        width: 25px;
-        height: 19px;
+    .volume-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        background: var(--thumbColor, var(--gradient-copper));
-        border-radius: var(--radius-sm);
+        width: 18px;
+        height: 18px;
+        background: linear-gradient(135deg, #b87333 0%, #8b5a2b 100%);
+        border-radius: 50%;
         cursor: pointer;
-        border: 1px solid rgba(222, 184, 135, 0.3);
-        position: relative;
-        z-index: 2;
-        margin-top: -2px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* Firefox track styling */
-    .profile-settings .profile-settings-element input[type="range"]::-moz-range-track {
-        width: 100%;
-        height: 15px;
-        background: transparent;
-        border: none;
+    .volume-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(184, 115, 51, 0.4);
     }
 
-    .profile-settings .profile-settings-element input[type="range"]::-moz-range-thumb {
-        width: 25px;
-        height: 19px;
-        background: var(--thumbColor, var(--gradient-copper));
-        border-radius: var(--radius-sm);
+    .volume-slider::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        background: linear-gradient(135deg, #b87333 0%, #8b5a2b 100%);
+        border-radius: 50%;
         cursor: pointer;
-        border: 1px solid rgba(222, 184, 135, 0.3);
-        position: relative;
-        z-index: 2;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
+    .volume-slider::-moz-range-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        height: 6px;
+    }
+
+    /* Button Link */
     .profile-settings .profile-settings-element button.button-link,
     .profile-settings .profile-settings-element button.button-verify {
-        height: 30px;
+        height: 36px;
     }
 
     .profile-settings .profile-settings-element button.button-link {
-        width: 150px;
+        width: auto;
     }
 
     .profile-settings .profile-settings-element button.button-verify {
@@ -342,75 +305,49 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 0 15px;
+        padding: 0 20px;
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
-        background: rgba(13, 13, 13, 0.8);
-        border-radius: var(--radius-md);
-        border: 1px solid rgba(222, 184, 135, 0.3);
+        background: linear-gradient(135deg, rgba(184, 115, 51, 0.2) 0%, rgba(139, 90, 43, 0.1) 100%);
+        border-radius: 8px;
+        border: 1px solid rgba(184, 115, 51, 0.3);
         transition: all 0.3s ease;
+        gap: 8px;
     }
     
     .profile-settings .profile-settings-element button.button-link:hover .button-inner,
     .profile-settings .profile-settings-element button.button-verify:hover .button-inner {
-        background: var(--bg-blue-dark);
-        border-color: rgba(222, 184, 135, 0.5);
-    }
-
-    .profile-settings .profile-settings-element button.button-link.button-roblox .button-inner {
-        background: rgba(13, 13, 13, 0.8);
-        border-color: rgba(65, 120, 202, 0.5);
-    }
-    
-    .profile-settings .profile-settings-element button.button-link.button-roblox:hover .button-inner {
-        background: var(--bg-blue-dark);
-        border-color: rgba(65, 120, 202, 0.7);
-    }
-
-    .profile-settings .profile-settings-element button.button-link.button-google .button-inner {
-        background: rgba(13, 13, 13, 0.8);
-        border-color: rgba(239, 68, 68, 0.5);
-    }
-    
-    .profile-settings .profile-settings-element button.button-link.button-google:hover .button-inner {
-        background: var(--bg-blue-dark);
-        border-color: rgba(239, 68, 68, 0.7);
-    }
-
-    .profile-settings .profile-settings-element button.button-link.button-avatar {
-        width: 150px;
+        background: linear-gradient(135deg, rgba(184, 115, 51, 0.3) 0%, rgba(139, 90, 43, 0.2) 100%);
+        border-color: rgba(184, 115, 51, 0.5);
+        transform: translateY(-1px);
     }
 
     .profile-settings .profile-settings-element button.button-link.button-avatar:disabled {
         cursor: not-allowed;
-        opacity: 0.6;
-    }
-
-    .profile-settings .profile-settings-element button.button-link.button-avatar:disabled .button-inner {
-        background: rgba(13, 13, 13, 0.5);
+        opacity: 0.5;
     }
 
     .profile-settings .profile-settings-element button.button-link .button-inner svg {
-        width: 15px;
-        margin-right: 8px;
-        fill: #ffffff;
+        width: 14px;
+        height: 14px;
+        fill: #b87333;
     }
 
     .profile-settings .profile-settings-element .element-info {
-        width: 150px;
-        height: 33px;
+        min-width: 150px;
+        height: 36px;
         position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 30px 0 10px;
-        border-radius: var(--radius-md);
-        font-size: 12px;
+        padding: 0 36px 0 14px;
+        border-radius: 8px;
+        font-size: 13px;
         font-weight: 600;
-        color: var(--text-gold);
-        background: rgba(13, 13, 13, 0.8);
-        border: 1px solid rgba(222, 184, 135, 0.3);
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .profile-settings .profile-settings-element .element-info span {
@@ -428,22 +365,51 @@
         top: 50%;
         right: 10px;
         transform: translate(0, -50%);
+        padding: 4px;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+    }
+
+    .profile-settings .profile-settings-element .element-info button:hover {
+        background: rgba(255, 255, 255, 0.1);
     }
 
     .profile-settings .profile-settings-element .element-info button svg {
-        fill: var(--accent-copper);
+        fill: rgba(255, 255, 255, 0.5);
         transition: fill 0.3s ease;
     }
 
     .profile-settings .profile-settings-element .element-info button:hover svg {
-        fill: var(--accent-copper-light);
+        fill: #b87333;
+    }
+
+    @media only screen and (max-width: 550px) {
+        .volume-control {
+            gap: 8px;
+        }
+
+        .volume-slider {
+            width: 100px;
+        }
+
+        .volume-value {
+            min-width: 40px;
+            font-size: 12px;
+        }
+
+        .profile-settings .profile-settings-element button.button-link .button-inner {
+            padding: 0 14px;
+            font-size: 11px;
+        }
     }
 
     @media only screen and (max-width: 450px) {
-
-        .profile-settings .content-element.element-slider input {
-            width: 130px;
+        .volume-slider {
+            width: 80px;
         }
 
+        .volume-icon {
+            display: none;
+        }
     }
 </style>

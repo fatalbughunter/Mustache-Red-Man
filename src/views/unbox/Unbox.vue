@@ -20,7 +20,7 @@
     export default {
         name: 'Unbox',
         metaInfo: {
-            title: 'Unbox - RBLXRoll.com'
+            title: 'Unbox'
         },
         components: {
             UnboxHeaderOverview,

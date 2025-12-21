@@ -28,7 +28,7 @@
             ProfileFilterNav
         },
         metaInfo: {
-            title: 'Profile - RBLXRoll.com'
+            title: 'Profile'
         }
     }
 </script>

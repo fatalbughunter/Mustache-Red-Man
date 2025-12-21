@@ -79,8 +79,8 @@
     export default {
         name: 'Home',
         metaInfo: {
-            title: 'Home - RBLXRoll.com',
-            meta: [{ name: 'description', content: 'RBLXRoll.com the leading roblox gambling experience.' }]
+            title: 'Home',
+            meta: [{ name: 'description', content: '' }]
         },
         components: {
             IconTwitter,

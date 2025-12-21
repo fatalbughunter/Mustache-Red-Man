@@ -6,40 +6,54 @@
         <div class="header-user">
             <div class="user-avatar">
                 <AvatarImage v-bind:image="authUser.user.avatar" />
+                <div class="avatar-glow"></div>
             </div>
             <div class="user-info">
                 <div class="info-username">
                     <span v-html="authUser.user.username"></span>
                 </div>
                 <div class="info-level">
-                    Level {{profileGetLevel}}
+                    <span class="level-badge">Level {{profileGetLevel}}</span>
                 </div>
             </div>
         </div>
         <div class="header-level">
-            <div class="level-box">
-                <div class="box-inner">{{profileGetLevel >= 99 ? 99 : profileGetLevel}}</div>
+            <div class="level-box level-current">
+                <span class="box-value">{{profileGetLevel >= 99 ? 99 : profileGetLevel}}</span>
             </div>
             <div class="level-progress">
-                <div class="progress-bar" v-bind:style=" { 'width': (100 / profileGetLevelBet) * profileGetLevelProgress + '%' }"></div>
+                <div class="progress-track">
+                    <div class="progress-bar" v-bind:style=" { 'width': (100 / profileGetLevelBet) * profileGetLevelProgress + '%' }"></div>
+                </div>
                 <div class="progress-text">
-                    <span>{{parseFloat(profileGetLevelProgress).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}} / </span>
+                    <span class="text-current">{{parseFloat(profileGetLevelProgress).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}}</span>
+                    <span class="text-separator">/</span>
                     <span class="text-target">{{parseFloat(profileGetLevelBet).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}}</span>
                 </div>
             </div>
-            <div class="level-box">
-                <div class="box-inner">{{profileGetLevel >= 99 ? 100 : profileGetLevel + 1}}</div>
+            <div class="level-box level-next">
+                <span class="box-value">{{profileGetLevel >= 99 ? 100 : profileGetLevel + 1}}</span>
             </div>
         </div>
         <div class="header-id">
-            <div class="id-title">
-                <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.49976 0.568909C5.01846 0.568909 2.99976 2.58761 2.99976 5.06891C2.99976 7.55021 5.01846 9.56891 7.49976 9.56891C9.98105 9.56891 11.9998 7.55021 11.9998 5.06891C11.9998 2.58761 9.98105 0.568909 7.49976 0.568909Z" />
-                    <path d="M13.0989 12.5087C11.8669 11.2578 10.2336 10.5689 8.5 10.5689H6.5C4.7664 10.5689 3.13313 11.2578 1.90113 12.5087C0.675167 13.7535 0 15.3967 0 17.1356C0 17.4117 0.223867 17.6356 0.5 17.6356H14.5C14.7761 17.6356 15 17.4117 15 17.1356C15 15.3967 14.3248 13.7535 13.0989 12.5087Z" />
-                </svg>
-                ACCOUNT ID 
+            <div class="id-content">
+                <div class="id-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="id-info">
+                    <span class="id-label">ACCOUNT ID</span>
+                    <button v-on:click="profileCopyButton(authUser.user._id)" class="id-value">
+                        {{ authUser.user._id.substring(0, 6) }}...{{ authUser.user._id.substring(authUser.user._id.length - 3) }}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <button v-on:click="profileCopyButton(authUser.user._id)">{{ authUser.user._id.substring(0, 6) }}...{{ authUser.user._id.substring(authUser.user._id.length - 3) }}</button>
         </div>
     </div>
 </template>
@@ -106,401 +120,404 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 24px;
+        background: linear-gradient(135deg, rgba(26, 41, 66, 0.6) 0%, rgba(15, 25, 35, 0.8) 100%);
+        border-radius: 16px;
+        border: 1px solid rgba(184, 115, 51, 0.15);
     }
 
     .profile-header .header-user {
-        width: 260px;
         display: flex;
         align-items: center;
+        gap: 16px;
+        min-width: 200px;
     }
 
     .profile-header .user-avatar {
-        width: 59px;
-        height: 59px;
+        width: 64px;
+        height: 64px;
+        position: relative;
         display: flex;
         justify-content: center;
-        align-items: flex-end;
-        margin-right: 20px;
+        align-items: center;
         border-radius: 50%;
-        border: 2px solid #9e9e9e;
-        overflow: hidden;
-    }
-
-    .profile-header.header-blue .user-avatar {
-        border: 2px solid #559ee4;
-    }
-
-    .profile-header.header-green .user-avatar {
-        border: 2px solid #b8e92d;
-    }
-
-    .profile-header.header-orange .user-avatar {
-        border: 2px solid #fca311;
-    }
-
-    .profile-header.header-red .user-avatar {
-        border: 2px solid #ff4e4e;
-    }
-
-    .profile-header.header-purple .user-avatar {
-        border: 2px solid #6953f1;
-    } 
-
-    .profile-header.header-partner .user-avatar {
-        border: 2px solid #eca822;
-    }
-    
-    .profile-header.header-mod .user-avatar {
-        border: 2px solid #ffb703;
-    }
-
-    .profile-header.header-admin .user-avatar {
-        border: 2px solid var(--accent-yellow);
+        background: linear-gradient(135deg, #b87333 0%, #8b5a2b 100%);
+        padding: 3px;
     }
 
     .profile-header .user-avatar .avatar-image {
-        width: 49px;
-        height: 49px;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    .profile-header .avatar-glow {
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(184, 115, 51, 0.3) 0%, transparent 70%);
+        z-index: -1;
+    }
+
+    .profile-header.header-blue .user-avatar {
+        background: linear-gradient(135deg, #559ee4 0%, #3b82f6 100%);
+    }
+
+    .profile-header.header-green .user-avatar {
+        background: linear-gradient(135deg, #b8e92d 0%, #84cc16 100%);
+    }
+
+    .profile-header.header-orange .user-avatar {
+        background: linear-gradient(135deg, #fca311 0%, #f59e0b 100%);
+    }
+
+    .profile-header.header-red .user-avatar {
+        background: linear-gradient(135deg, #ff4e4e 0%, #ef4444 100%);
+    }
+
+    .profile-header.header-purple .user-avatar {
+        background: linear-gradient(135deg, #6953f1 0%, #8b5cf6 100%);
+    }
+
+    .profile-header .user-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
     }
 
     .profile-header .info-username {
-        display: flex;
-        align-items: center;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 700;
         color: #ffffff;
     }
 
     .profile-header .info-username span {
-        width: 110px;
-        max-width: 110px;
+        max-width: 150px;
+        display: block;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .profile-header .info-level {
-        height: 17px;
-        margin-top: 2px;
-        display: flex;
+    .profile-header .level-badge {
+        display: inline-flex;
         align-items: center;
+        padding: 4px 12px;
+        border-radius: 20px;
         font-size: 12px;
-        font-weight: 700;
-        color: var(--accent-copper);
+        font-weight: 600;
+        background: rgba(184, 115, 51, 0.2);
+        color: #b87333;
+        border: 1px solid rgba(184, 115, 51, 0.3);
     }
 
-    .profile-header.header-blue .info-level {
+    .profile-header.header-blue .level-badge {
+        background: rgba(85, 158, 228, 0.2);
         color: #559ee4;
+        border-color: rgba(85, 158, 228, 0.3);
     }
 
-    .profile-header.header-green .info-level {
+    .profile-header.header-green .level-badge {
+        background: rgba(184, 233, 45, 0.2);
         color: #b8e92d;
+        border-color: rgba(184, 233, 45, 0.3);
     }
 
-    .profile-header.header-orange .info-level {
+    .profile-header.header-orange .level-badge {
+        background: rgba(252, 163, 17, 0.2);
         color: #fca311;
+        border-color: rgba(252, 163, 17, 0.3);
     }
 
-    .profile-header.header-red .info-level {
+    .profile-header.header-red .level-badge {
+        background: rgba(255, 78, 78, 0.2);
         color: #ff4e4e;
+        border-color: rgba(255, 78, 78, 0.3);
     }
 
-    .profile-header.header-purple .info-level {
+    .profile-header.header-purple .level-badge {
+        background: rgba(105, 83, 241, 0.2);
         color: #6953f1;
-    }
-
-    .profile-header.header-partner .info-level {
-        color: #eca822;
-    }
-
-    .profile-header.header-mod .info-level {
-        color: #ffb703;
-    }
-
-    .profile-header.header-admin .info-level {
-        color: var(--accent-yellow);
+        border-color: rgba(105, 83, 241, 0.3);
     }
 
     .profile-header .header-level {
-        width: calc(100% - 520px);
+        flex: 1;
         display: flex;
         align-items: center;
+        gap: 12px;
+        max-width: 500px;
+        margin: 0 40px;
     }
 
     .profile-header .level-box {
-        width: 46px;
-        height: 34px;
-        position: relative;
-        padding: 1px;
-    }
-
-    .profile-header .level-box::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: linear-gradient(180deg, rgba(139, 111, 71, 0.3) 0%, rgba(184, 115, 51, 0.6) 100%);
-        border-radius: var(--radius-md);
-    }
-
-    .profile-header.header-blue .level-box::before {
-        background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #559ee4 100%);
-    }
-
-    .profile-header.header-green .level-box::before {
-        background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #b8e92d 100%);
-    }
-
-    .profile-header.header-orange .level-box::before {
-        background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #fca311 100%);
-    }
-
-    .profile-header.header-red .level-box::before {
-        background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #ff4e4e 100%);
-    }
-
-    .profile-header.header-purple .level-box::before {
-        background: linear-gradient(180deg, rgba(6, 36, 61, 0) 0%, #6953f1 100%);
-    }  
-
-    .profile-header .box-inner {
-        width: 100%;
-        height: 100%;
+        width: 44px;
+        height: 44px;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: 700;
-        font-size: 15px;
-        color: var(--accent-copper);
-        background-color: var(--bg-blue-dark);
-        border-radius: var(--radius-md);
-        border: 1px solid rgba(222, 184, 135, 0.2);
+        background: linear-gradient(135deg, rgba(184, 115, 51, 0.2) 0%, rgba(139, 90, 43, 0.1) 100%);
+        border: 2px solid rgba(184, 115, 51, 0.4);
+        border-radius: 12px;
+        flex-shrink: 0;
     }
 
-    .profile-header.header-blue .box-inner {
+    .profile-header .level-box .box-value {
+        font-size: 16px;
+        font-weight: 700;
+        color: #b87333;
+    }
+
+    .profile-header.header-blue .level-box {
+        background: linear-gradient(135deg, rgba(85, 158, 228, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+        border-color: rgba(85, 158, 228, 0.4);
+    }
+
+    .profile-header.header-blue .level-box .box-value {
         color: #559ee4;
     }
 
-    .profile-header.header-green .box-inner {
+    .profile-header.header-green .level-box {
+        background: linear-gradient(135deg, rgba(184, 233, 45, 0.2) 0%, rgba(132, 204, 22, 0.1) 100%);
+        border-color: rgba(184, 233, 45, 0.4);
+    }
+
+    .profile-header.header-green .level-box .box-value {
         color: #b8e92d;
     }
 
-    .profile-header.header-orange .box-inner {
+    .profile-header.header-orange .level-box {
+        background: linear-gradient(135deg, rgba(252, 163, 17, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
+        border-color: rgba(252, 163, 17, 0.4);
+    }
+
+    .profile-header.header-orange .level-box .box-value {
         color: #fca311;
     }
 
-    .profile-header.header-red .box-inner {
+    .profile-header.header-red .level-box {
+        background: linear-gradient(135deg, rgba(255, 78, 78, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
+        border-color: rgba(255, 78, 78, 0.4);
+    }
+
+    .profile-header.header-red .level-box .box-value {
         color: #ff4e4e;
     }
 
-    .profile-header.header-purple .box-inner {
+    .profile-header.header-purple .level-box {
+        background: linear-gradient(135deg, rgba(105, 83, 241, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+        border-color: rgba(105, 83, 241, 0.4);
+    }
+
+    .profile-header.header-purple .level-box .box-value {
         color: #6953f1;
-    } 
+    }
 
     .profile-header .level-progress {
-        width: calc(100% - 92px);
-        height: 13px;
-        position: relative;
-        padding: 4px 0;
-        background-color: var(--bg-blue-dark);
-        border-radius: var(--radius-sm);
-        border: 1px solid rgba(222, 184, 135, 0.2);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .profile-header .progress-track {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
     }
 
     .profile-header .progress-bar {
         height: 100%;
-        background: var(--gradient-copper);
-        border-radius: var(--radius-sm);
+        background: linear-gradient(90deg, #b87333 0%, #d4a574 100%);
+        border-radius: 4px;
+        transition: width 0.5s ease;
     }
 
     .profile-header.header-blue .progress-bar {
-        background: linear-gradient(90deg, #a4d0ff 0%, #559ee4 100%);
+        background: linear-gradient(90deg, #559ee4 0%, #a4d0ff 100%);
     }
 
     .profile-header.header-green .progress-bar {
-        background: linear-gradient(90deg, #e5ffa4 0%, #b8e92d 100%);
+        background: linear-gradient(90deg, #b8e92d 0%, #e5ffa4 100%);
     }
 
     .profile-header.header-orange .progress-bar {
-        background: linear-gradient(90deg, #ffe5a4 0%, #fca311 100%);
+        background: linear-gradient(90deg, #fca311 0%, #ffe5a4 100%);
     }
 
     .profile-header.header-red .progress-bar {
-        background: linear-gradient(90deg, #ffa4a4 0%, #ff4e4e 100%);
+        background: linear-gradient(90deg, #ff4e4e 0%, #ffa4a4 100%);
     }
 
     .profile-header.header-purple .progress-bar {
-        background: linear-gradient(90deg, #b5a4ff 0%, #6953f1 100%);
+        background: linear-gradient(90deg, #6953f1 0%, #b5a4ff 100%);
     }
 
     .profile-header .progress-text {
-        position: absolute;
-        top: -39px;
-        left: 50%;
-        transform: translate(-50%, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        font-size: 13px;
     }
 
-    .profile-header .progress-text span {
-        font-size: 15px;
+    .profile-header .text-current {
         font-weight: 700;
-        color: var(--accent-copper-light);
+        color: #b87333;
     }
 
-    .profile-header.header-blue .progress-text span {
-        background: linear-gradient(90deg, #a4d0ff 0%, #559ee4 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
+    .profile-header .text-separator {
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.3);
     }
 
-    .profile-header.header-green .progress-text span {
-        background: linear-gradient(90deg, #e5ffa4 0%, #b8e92d 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
+    .profile-header .text-target {
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
     }
 
-    .profile-header.header-orange .progress-text span {
-        background: linear-gradient(90deg, #ffe5a4 0%, #fca311 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-    }
-
-    .profile-header.header-red .progress-text span {
-        background: linear-gradient(90deg, #ffa4a4 0%, #ff4e4e 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-    }
-
-    .profile-header.header-purple .progress-text span {
-        background: linear-gradient(90deg, #b5a4ff 0%, #6953f1 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-    }
-
-    .profile-header .progress-text span.text-target {
-        opacity: 0.5;
-    }
+    .profile-header.header-blue .text-current { color: #559ee4; }
+    .profile-header.header-green .text-current { color: #b8e92d; }
+    .profile-header.header-orange .text-current { color: #fca311; }
+    .profile-header.header-red .text-current { color: #ff4e4e; }
+    .profile-header.header-purple .text-current { color: #6953f1; }
 
     .profile-header .header-id {
-        width: 260px;
+        min-width: 180px;
         display: flex;
         justify-content: flex-end;
-        align-items: center;
     }
 
-    .profile-header .id-title {
+    .profile-header .id-content {
         display: flex;
         align-items: center;
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--accent-copper-light);
+        gap: 12px;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .profile-header .id-title svg {
-        margin-right: 12px;
-        fill: var(--accent-copper);
+    .profile-header .id-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(184, 115, 51, 0.2) 0%, rgba(139, 90, 43, 0.1) 100%);
+        border-radius: 10px;
+        color: #b87333;
     }
 
-    .profile-header .header-id button {
-        margin-left: 5px;
-        font-size: 14px;
-        font-weight: 400;
-        color: var(--text-gold);
-        background: transparent;
+    .profile-header .id-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .profile-header .id-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .profile-header .id-value {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #b87333;
+        background: none;
         border: none;
         cursor: pointer;
-        padding: 4px 8px;
-        border-radius: var(--radius-sm);
-        transition: all 0.3s ease;
+        padding: 0;
+        transition: color 0.2s ease;
     }
-    
-    .profile-header .header-id button:hover {
-        background: rgba(222, 184, 135, 0.1);
-        color: var(--accent-copper-light);
+
+    .profile-header .id-value:hover {
+        color: #d4a574;
+    }
+
+    .profile-header .id-value svg {
+        opacity: 0.6;
+        transition: opacity 0.2s ease;
+    }
+
+    .profile-header .id-value:hover svg {
+        opacity: 1;
     }
 
     @media only screen and (max-width: 1000px) {
-
         .profile-header {
-            display: grid;
-            grid-template-columns: auto auto;
+            flex-wrap: wrap;
+            gap: 24px;
         }
 
         .profile-header .header-user {
-            width: 100%;
-            grid-column: 1;
-            grid-row: 1;
-        }
-
-        .profile-header .header-level {
-            width: 100%;
-            grid-column: 1 / 3;
-            grid-row: 2;
-            margin-top: 50px;
+            order: 1;
         }
 
         .profile-header .header-id {
-            width: 100%;
-            grid-column: 2;
-            grid-row: 1;
+            order: 2;
         }
 
-        /* Hide username and level text on mobile */
-        .profile-header .user-info {
+        .profile-header .header-level {
+            order: 3;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .profile-header {
+            padding: 20px;
+        }
+
+        .profile-header .header-user {
+            flex: 1;
+        }
+
+        .profile-header .user-avatar {
+            width: 48px;
+            height: 48px;
+        }
+
+        .profile-header .info-username {
+            font-size: 16px;
+        }
+
+        .profile-header .header-id {
+            min-width: auto;
+        }
+
+        .profile-header .id-content {
+            padding: 10px 12px;
+        }
+
+        .profile-header .id-icon {
             display: none;
         }
 
-        /* Make avatar smaller to match icon size on mobile */
-        .profile-header .user-avatar {
-            width: 40px;
-            height: 40px;
-            margin-right: 0;
+        .profile-header .header-level {
+            gap: 8px;
         }
 
-        .profile-header .user-avatar .avatar-image {
+        .profile-header .level-box {
             width: 36px;
             height: 36px;
         }
 
-    }
-
-    @media only screen and (max-width: 600px) {
-
-        .profile-header .header-id {
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-end;
+        .profile-header .level-box .box-value {
+            font-size: 14px;
         }
-
-        .profile-header .header-id button {
-            margin-top: 5px;
-        }
-
-    }
-
-    @media only screen and (max-width: 550px) {
-
-        .profile-header .header-level {
-            margin-top: 60px;
-        }
-
-        .profile-header .progress-text {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            top: -50px;
-        }
-
     }
 </style>

@@ -65,7 +65,7 @@
                 <div class="button-inner">AUTO-SELECT MINE</div>
             </button>
         </div>
-        <div class="controls-info">
+        <!-- <div class="controls-info">
             <button v-on:click="minesFairButton()">
                 <div class="button-inner">
                     <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +86,7 @@
                     {{ soundMines === 1 ? 'MUTE' : 'UNMUTE' }}
                 </div>
             </button>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -696,6 +696,36 @@
             max-width: 100px;
             max-height: 65px;
             margin: -4px 0 0 10px;
+        }
+
+        .mines-controls .controls-top {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Reorder elements on mobile: PLACE BET first, then inputs, then AUTO-SELECT */
+        .mines-controls button.button-bet,
+        .mines-controls button.button-cashout {
+            order: 1;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .mines-controls .top-amount {
+            order: 2;
+        }
+
+        .mines-controls .top-slider {
+            order: 3;
+        }
+
+        .mines-controls .top-mines {
+            order: 4;
+        }
+
+        .mines-controls button.button-auto {
+            order: 5;
+            margin-top: 15px;
         }
 
         .mines-controls .controls-info {

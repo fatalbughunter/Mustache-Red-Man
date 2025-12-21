@@ -114,7 +114,7 @@
                     return;
                 }
 
-                const reward = Math.floor(this.adminReward * 1000);
+                const reward = parseFloat(this.adminReward);
 
                 if(reward === null || isNaN(reward) === true || reward < 10) {
                     this.notificationShow({type: 'error', message: 'Your entered reward is invalid.'});

@@ -3,7 +3,7 @@
         <footer id="footer">
             <div class="footer-top">
                 <div class="top-info">
-                    <img src="@/assets/img/logo_small.png" />
+                    <img src="@/assets/img/tacheLogo.png" width="30" height="100" />
                     <div class="info-text">
                         Mustache-Casino.com is the #1 Gaming Platform and offers the best experience & rewards to our users.
                         <span class="gradient-yellow">Innovative Gaming Experience</span>
@@ -49,9 +49,9 @@
                 </div>
             </div>
         </footer>
-        <div class="footer-bottom">
+        <!-- <div class="footer-bottom">
             <span class="gradient-yellowyellow">MUSTACHE-CASINO is a premium gaming platform committed to providing fair, secure, and exciting gaming experiences for all our users.</span>
-        </div>
+        </div> -->
     </div>
 </template>
 

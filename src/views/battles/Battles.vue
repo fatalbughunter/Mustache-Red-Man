@@ -22,7 +22,7 @@
     export default {
         name: 'Battles',
         metaInfo: {
-            title: 'Battles - RBLXRoll.com'
+            title: 'Battles'
         },
         components: {
             BattlesHeaderOverview,

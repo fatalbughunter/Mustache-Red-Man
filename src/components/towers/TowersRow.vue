@@ -95,9 +95,9 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin-top: 5px;
+        margin-top: 3px;
         padding: 0;
-        gap: 15px;
+        gap: 6px;
     }
 
 
@@ -125,7 +125,7 @@
     }
 
     .towers-row .row-tile {
-        width: calc(50% - 8px);
+        width: calc(50% - 3px);
         height: 45px;
         position: relative;
     }
@@ -141,12 +141,12 @@
     }
 
     .container-game.game-medium .towers-row .row-tile {
-        width: calc(50% - 8px);
+        width: calc(50% - 3px);
     }
 
     .container-game.game-easy .towers-row .row-tile,
     .container-game.game-hard .towers-row .row-tile {
-        width: calc(50% - 8px);
+        width: calc(50% - 3px);
     }
 
     .towers-row  .tile-coin,
@@ -280,12 +280,14 @@
     @media only screen and (max-width: 550px) {
 
         .towers-row {
-            padding: 0 15px;
-            gap: 10px;
+            padding: 0 10px;
+            gap: 5px;
+            margin-top: 2px;
         }
 
         .towers-row .row-tile {
-            width: calc(50% - 6px);
+            width: calc(50% - 4px);
+            height: 40px;
         }
 
         .towers-row .coin-inner .coin-value {

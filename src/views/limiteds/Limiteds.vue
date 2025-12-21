@@ -32,7 +32,7 @@
     export default {
         name: 'Limiteds',
         metaInfo: {
-            title: 'Limiteds - RBLXRoll.com'
+            title: 'Limited'
         },
         components: {
             CashierFilterSearch,
