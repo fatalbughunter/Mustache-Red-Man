@@ -367,6 +367,31 @@ const actions = {
     },
     socketListenAdmin({ getters, dispatch }) {
 
+    },
+    // Helper function to connect game socket based on current route
+    socketConnectGameByRoute({ dispatch, rootGetters }, routeName) {
+        // Map route names to socket connection actions
+        const routeToSocketMap = {
+            'Crash': 'socketConnectCrash',
+            'Roll': 'socketConnectRoll',
+            'Blackjack': 'socketConnectBlackjack',
+            'Duels': 'socketConnectDuels',
+            'Mines': 'socketConnectMines',
+            'Towers': 'socketConnectTowers',
+            'Unbox': 'socketConnectUnbox',
+            'UnboxOverview': 'socketConnectUnbox',
+            'UnboxBox': 'socketConnectUnbox',
+            'Battles': 'socketConnectBattles',
+            'BattlesOverview': 'socketConnectBattles',
+            'BattlesGame': 'socketConnectBattles',
+            'BattlesCreate': 'socketConnectBattles',
+            'Upgrader': 'socketConnectUpgrader'
+        };
+
+        const socketAction = routeToSocketMap[routeName];
+        if(socketAction) {
+            dispatch(socketAction);
+        }
     }
 }
 

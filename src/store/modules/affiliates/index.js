@@ -54,8 +54,48 @@ const actions = {
             commit('socket_set_send_loading', null);
         });
     },
-    affiliatesSendClaimCodeSocket({ getters, commit, dispatch }, data) {
+    affiliatesSendClaimCodeSocket({ getters, commit, dispatch, rootGetters }, data) {
         if(getters.socketGeneral === null || getters.socketSendLoading !== null) { return; }
+        
+        // Check if user is authenticated
+        if(rootGetters.authUser === null || rootGetters.authUser.user === null) {
+            dispatch('notificationShow', { type: 'error', message: 'Please sign in to perform this action.' });
+            return;
+        }
+
+        // Ensure we have an auth token
+        if(rootGetters.authToken === null) {
+            dispatch('notificationShow', { type: 'error', message: 'Please sign in to perform this action.' });
+            return;
+        }
+
+        // Always ensure socket auth token is set and refreshed before sending
+        // This is critical for proper authentication, especially for general users
+        getters.socketGeneral.auth.token = rootGetters.authToken;
+
+        // If socket is not connected, ensure it connects with proper auth
+        if(!getters.socketGeneral.connected) {
+            // Ensure auth is set before connecting
+            getters.socketGeneral.auth.token = rootGetters.authToken;
+            getters.socketGeneral.connect();
+            
+            // Wait for connection, then retry
+            const connectHandler = () => {
+                getters.socketGeneral.off('connect', connectHandler);
+                dispatch('affiliatesSendClaimCodeSocket', data);
+            };
+            getters.socketGeneral.once('connect', connectHandler);
+            
+            // Timeout if connection takes too long
+            setTimeout(() => {
+                getters.socketGeneral.off('connect', connectHandler);
+                if(!getters.socketGeneral.connected) {
+                    dispatch('notificationShow', { type: 'error', message: 'Connection error. Please refresh the page and try again.' });
+                }
+            }, 3000);
+            return;
+        }
+
         commit('socket_set_send_loading', 'AffiliatesClaimCode');
 
         getters.socketGeneral.emit('sendAffiliateClaimCode', data, (res) => {

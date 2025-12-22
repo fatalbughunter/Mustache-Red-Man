@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '@/router';
 
 const state = {
     authSendLoginLoading: false,
@@ -55,6 +56,13 @@ const mutations = {
     }
 }
 
+// Helper function to connect game socket based on current route
+const connectGameSocketByRoute = (dispatch) => {
+    if(router && router.currentRoute && router.currentRoute.name) {
+        dispatch('socketConnectGameByRoute', router.currentRoute.name, { root: true });
+    }
+};
+
 const actions = {
     async authGetUser({ getters, commit, dispatch }, data) {
         if(getters.authUser.loading === true) { return; }
@@ -99,6 +107,9 @@ const actions = {
                 if(res.data.user.rank === 'admin' || res.data.user.rank === 'mod') {
                     dispatch('socketConnectAdmin');
                 }
+
+                // Connect game socket based on current route after login
+                connectGameSocketByRoute(dispatch);
                 
                 dispatch('modalsSetShow', null);
             }
@@ -238,6 +249,11 @@ const actions = {
                         if(res.data.user.rank === 'admin' || res.data.user.rank === 'mod') {
                             dispatch('socketConnectAdmin');
                         }
+
+                        // Connect game socket based on current route after login
+                        if(router && router.currentRoute && router.currentRoute.name) {
+                            dispatch('socketConnectGameByRoute', router.currentRoute.name, { root: true });
+                        }
                     }
 
                     dispatch('modalsSetShow', null);
@@ -272,6 +288,9 @@ const actions = {
                     if(res.data.user.rank === 'admin' || res.data.user.rank === 'mod') {
                         dispatch('socketConnectAdmin');
                     }
+
+                    // Connect game socket based on current route after login
+                    connectGameSocketByRoute(dispatch);
                 }
 
                 dispatch('modalsSetShow', null);
@@ -304,6 +323,9 @@ const actions = {
                     if(res.data.user.rank === 'admin' || res.data.user.rank === 'mod') {
                         dispatch('socketConnectAdmin');
                     }
+
+                    // Connect game socket based on current route after login
+                    connectGameSocketByRoute(dispatch);
                 }
 
                 dispatch('modalsSetShow', null);

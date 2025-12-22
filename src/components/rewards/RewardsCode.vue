@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
 
     export default {
         name: 'RewardsCode',
@@ -42,6 +42,11 @@
                 'modalsSetData'
             ]),
             rewardsClaimButton() {
+                if(this.authUser.user === null) {
+                    this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
+                    return;
+                }
+
                 if(this.rewardsCode === null || this.rewardsCode.trim() === '') {
                     this.notificationShow({ type: 'error', message: 'Your entered code is invalid.' });
                     return;
@@ -50,6 +55,11 @@
                 this.modalsSetData({ typeCaptcha: 'affiliatesClaim', data: { code: this.rewardsCode } });
                 this.modalsSetShow('Captcha');
             }
+        },
+        computed: {
+            ...mapGetters([
+                'authUser'
+            ])
         }
     }
 </script>
