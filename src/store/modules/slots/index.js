@@ -420,9 +420,8 @@ const actions = {
     handleBalanceUpdate({ commit, dispatch, rootState }, update) {
         const { newBalance } = update;
         
-        // Update main auth balance (convert from dollars to cents)
-        const balanceInCents = Math.round(newBalance * 100);
-        commit('authUpdateUserBalance', balanceInCents, { root: true });
+        // Update main auth balance (already in dollars)
+        commit('authUpdateUserBalance', newBalance, { root: true });
         
         // Add transaction to history
         commit('slots_add_transaction', update);
