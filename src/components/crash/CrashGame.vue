@@ -70,6 +70,7 @@ export default {
         return {
             crashTimerRepeater: null,
             crashRunRepeater: null,
+            crashRocketDelayTimer: null,
             crashGraphInstance: null,
             crashWidth: 0,
             crashProfitInfo: false,
@@ -101,8 +102,8 @@ export default {
             const elapsed = (new Date().getTime() + this.generalTimeDiff) - new Date(this.crashGame.updatedAt).getTime();
             const multiplier = Math.floor(100000 * Math.pow(Math.E, 0.00006 * elapsed));
 
-            this.crashMultiplier = multiplier === 100000 ? 100001 : multiplier;
-
+            const clampedMultiplier = Math.max(100000, multiplier);
+            this.crashMultiplier = clampedMultiplier === 100000 ? 100001 : clampedMultiplier;
             CrashGraph.Engine.multi = this.crashMultiplier / 100000;
 
             this.crashRunRepeater = requestAnimationFrame(this.crashStartMutiplier);
@@ -139,12 +140,31 @@ export default {
                     this.crashStartTimer();
                 } else if (data.state === 'rolling') {
                     CrashGraph.Engine.multi = 1.0001;
-                    CrashGraph.Engine.gameState = 'IN_PROGRESS';
+                    // Delay showing rocket to avoid "stuck at 1.00" appearance due to network latency
+                    CrashGraph.Engine.gameState = 'STARTING';
+                    
+                    // Clear any existing delay timer
+                    if (this.crashRocketDelayTimer) {
+                        clearTimeout(this.crashRocketDelayTimer);
+                    }
+                    
+                    // Show rocket after short delay (allows multiplier to start updating)
+                    this.crashRocketDelayTimer = setTimeout(() => {
+                        if (this.crashGame && this.crashGame.state === 'rolling') {
+                            CrashGraph.Engine.gameState = 'IN_PROGRESS';
+                        }
+                    }, 500);
 
                     this.crashMultiplier = 1.0001;
                     this.crashAutoCashoutTriggered = false;
                     this.crashStartMutiplier();
                 } else if (data.state === 'completed') {
+                    // Clear rocket delay timer
+                    if (this.crashRocketDelayTimer) {
+                        clearTimeout(this.crashRocketDelayTimer);
+                        this.crashRocketDelayTimer = null;
+                    }
+                    
                     CrashGraph.Engine.multi = 1.0001;
                     CrashGraph.Engine.gameState = 'ENDED';
 
@@ -189,13 +209,19 @@ export default {
             height: 435
         });
 
-        CrashGraph.Engine.multi = 1;
+        CrashGraph.Engine.multi = 1.0001;
 
         if (this.crashGame.state === 'created') {
             CrashGraph.Engine.gameState = 'STARTING';
             this.crashStartTimer();
         } else if(this.crashGame.state === 'rolling') {
-            CrashGraph.Engine.gameState = 'IN_PROGRESS';
+            // Delay showing rocket when joining mid-game
+            CrashGraph.Engine.gameState = 'STARTING';
+            this.crashRocketDelayTimer = setTimeout(() => {
+                if (this.crashGame && this.crashGame.state === 'rolling') {
+                    CrashGraph.Engine.gameState = 'IN_PROGRESS';
+                }
+            }, 500);
             this.crashStartMutiplier();
         } else {
             this.crashText = 'PENDING...';
@@ -204,6 +230,9 @@ export default {
     destroyed() {
         cancelAnimationFrame(this.crashTimerRepeater);
         cancelAnimationFrame(this.crashRunRepeater);
+        if (this.crashRocketDelayTimer) {
+            clearTimeout(this.crashRocketDelayTimer);
+        }
         this.crashGraphInstance.stopRendering();
     }
 }
