@@ -15,16 +15,18 @@
                  :key="game.id" 
                  :class="{ 'game-disabled': isGameDisabled(game.name) }"
                  @click="handleGameClick(game)">
-                <div class="game-screen" :class="game.bgClass">
-                    <div class="game-info">
-                        <h3 class="game-title">{{ game.name }}</h3>
-                        <p class="game-subtitle">{{ game.subtitle }}</p>
+                <div class="game-content" :class="game.bgClass">
+                    <div class="game-logo">
+                        <img src="@/assets/img/tacheLogo.png" alt="Mustache Bet" />
                     </div>
-                    <button v-if="showPlayButton" class="play-button">
-                        {{ isGameDisabled(game.name) ? 'COMING SOON' : 'PLAY NOW' }}
-                        <span class="chevron" v-if="!isGameDisabled(game.name)">></span>
-                    </button>
+                    <div class="game-info">
+                        <span class="game-subtitle">{{ game.name }}</span>
+                        <h3 class="game-title">{{ game.name.toUpperCase() }}</h3>
+                    </div>
                 </div>
+                <button v-if="showPlayButton" class="play-button">
+                    {{ isGameDisabled(game.name) ? 'COMING SOON' : 'PLAY NOW >' }}
+                </button>
             </div>
         </div>
     </div>
@@ -69,63 +71,63 @@ export default {
                 {
                     id: 1,
                     name: 'Crash',
-                    subtitle: 'NOVA-CASINO Popular',
+                    subtitle: '',
                     route: '/crash',
                     bgClass: 'casino-bg'
                 },
                 {
                     id: 2,
                     name: 'Mines',
-                    subtitle: 'MUSTACHE Original',
+                    subtitle: '',
                     route: '/mines',
                     bgClass: 'card2-bg'
                 },
                 {
                     id: 4,
                     name: 'Towers',
-                    subtitle: 'MUSTACHE Original',
+                    subtitle: '',
                     route: '/towers',
                     bgClass: 'card4-bg'
                 },
                 {
                     id: 3,
                     name: 'Blackjack',
-                    subtitle: 'NOVA-CASINO Popular',
+                    subtitle: '',
                     route: '/blackjack',
                     bgClass: 'card5-bg'
                 },
                 {
                     id: 5,
                     name: 'Upgrader',
-                    subtitle: 'NOVA-CASINO Popular',
+                    subtitle: '',
                     route: '/upgrader',
                     bgClass: 'card3-bg'
                 },
                 {
                     id: 6,
                     name: 'Duels',
-                    subtitle: 'MUSTACHE Original',
+                    subtitle: '',
                     route: '/duels',
                     bgClass: 'card6-bg'
                 },
                 {
                     id: 7,
                     name: 'Battles',
-                    subtitle: 'NOVA-CASINO Popular',
+                    subtitle: '',
                     route: '/battles',
                     bgClass: 'card7-bg'
                 },
                 {
                     id: 8,
                     name: 'Unbox',
-                    subtitle: 'MUSTACHE Original',
+                    subtitle: '',
                     route: '/unbox',
                     bgClass: 'card8-bg'
                 },
                 {
                     id: 9,
                     name: 'Roll',
-                    subtitle: 'NOVA-CASINO Popular',
+                    subtitle: '',
                     route: '/roll',
                     bgClass: 'card9-bg'
                 }
@@ -243,396 +245,228 @@ export default {
 
 /* Copper bolts removed */
 
+/* Games Grid */
 .games-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: var(--spacing-md);
+    display: flex;
+    gap: 24px;
     max-width: 1400px;
     margin: 0 auto;
-    justify-items: center;
+    flex-wrap: wrap;
 }
 
-/* Large cards layout - 4 cards in a row, centered */
+/* Large cards layout */
 .games-grid.large-cards-layout {
-    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
     max-width: 1600px;
-    gap: var(--spacing-xl);
     justify-content: center;
-    align-items: center;
 }
 
 .games-grid.large-cards-layout .game-card {
-    max-width: 250px;
-    width: 100%;
+    width: 220px;
 }
 
 .game-card {
-    border-radius: 12px;
+    border-radius: 16px;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
-    aspect-ratio: 1/1;
-    width: 100%;
-    max-width: 180px;
+    width: 180px;
     display: flex;
     flex-direction: column;
-    background: transparent;
-    box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--accent-yellow);
+    background: #1a1a2e;
+    border: 3px solid #2d2d44;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-/* Corner bolts removed */
-
 .game-card:hover:not(.game-disabled) {
-    transform: translateY(-4px);
-    box-shadow: 
-        0 8px 30px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    border-color: #3d3d54;
 }
 
 /* Disabled game styles */
 .game-card.game-disabled {
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .game-card.game-disabled:hover {
     transform: none;
-    box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
-.game-screen {
-    width: 100%;
-    height: 100%;
-    flex: 1;
+.game-content {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    position: relative;
-    background: #ffffff;
-    border-radius: 4px;
-    min-height: 0;
-    padding: 16px 12px 0 12px;
-    overflow: hidden;
+    justify-content: space-between;
+    padding: 20px 14px;
+    gap: 10px;
+    flex: 1;
+    border-radius: 12px;
+    margin: 6px 6px 8px 6px;
+    min-height: 100px;
 }
 
-.game-screen.casino-bg {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                url('~@/assets/img/gamePreview/crash.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
+/* Background styles for each game */
+.game-content.casino-bg {
+    background: linear-gradient(135deg, #1e8449 0%, #27ae60 50%, #2ecc71 100%);
 }
 
-.game-screen.card2-bg {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                url('~@/assets/img/gamePreview/mines.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
+.game-content.card2-bg {
+    background: linear-gradient(135deg, #1e8449 0%, #27ae60 50%, #2ecc71 100%);
 }
 
-.game-screen.card3-bg {
+.game-content.card3-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/upgrader.png');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    color: white;
 }
 
-.game-screen.card4-bg {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                url('~@/assets/img/gamePreview/towers.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
+.game-content.card4-bg {
+    background: linear-gradient(135deg, #1a5276 0%, #2980b9 50%, #3498db 100%);
 }
 
-.game-screen.card5-bg {
+.game-content.card5-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/black_jack.png');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    color: white;
 }
 
-.game-screen.card6-bg {
+.game-content.card6-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/duels.jpg');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    color: white;
 }
 
-.game-screen.card7-bg {
+.game-content.card7-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/battles.jpg');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    color: white;
 }
 
-.game-screen.card8-bg {
+.game-content.card8-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/unbox.jpg');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    color: white;
 }
 
-.game-screen.card9-bg {
+.game-content.card9-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                 url('~@/assets/img/gamePreview/roll.jpeg');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    color: white;
 }
 
-.title-curve {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 32px;
-    border-radius: 16px 16px 0 0;
-    z-index: 2;
+.game-logo {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.title-curve::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 121px;
-    height: 18px;
-    border-radius: 0 0 16px 16px;
-    z-index: 1;
-}
-
-.game-card:nth-child(1) .title-curve::after {
-    background: #CC88E5;
-}
-
-.game-card:nth-child(2) .title-curve::after {
-    background: #13C6FF;
-}
-
-.game-card:nth-child(3) .title-curve::after {
-    background: #5BFFBB;
-}
-
-.game-card:nth-child(4) .title-curve::after {
-    background: #7A8BFD;
-}
-
-.game-card:nth-child(5) .title-curve::after {
-    background: #CC88E5;
-}
-
-.game-card:nth-child(6) .title-curve::after {
-    background: #13C6FF;
-}
-
-.game-card:nth-child(7) .title-curve::after {
-    background: #5BFFBB;
-}
-
-.game-card:nth-child(8) .title-curve::after {
-    background: #7A8BFD;
-}
-
-.game-card:nth-child(9) .title-curve::after {
-    background: #CC88E5;
-}
-
-.card-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: white;
-    z-index: 3;
-    position: relative;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px;
+.game-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #fff;
+    padding: 3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .game-info {
-    text-align: center;
-   /* z-index: 2; */
-    position: relative;
-    width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    flex: 1;
-    padding-bottom: 12px;
+    text-align: right;
+}
+
+.game-subtitle {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 2px 0;
+    text-transform: capitalize;
 }
 
 .game-title {
     font-size: 18px;
     font-weight: 900;
-    margin: 0 0 6px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    line-height: 1.2;
-}
-
-.game-subtitle {
-    font-size: 11px;
-    margin: 0 0 12px 0;
-    opacity: 0.9;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 1px;
+    line-height: 1.1;
 }
 
 .play-button {
-    background: var(--gradient-button-bg);
+    background: linear-gradient(180deg, #f5d742 0%, #d4a017 100%);
     border: none;
-    border-radius: 0 0 4px 4px;
-    color: #000000;
+    border-radius: 8px;
+    color: #1a1a2e;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 800;
-    padding: 8px 20px;
+    padding: 12px 16px;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(222, 199, 156, 0.5);
-    width: calc(100% + 24px);
-    margin-left: -12px;
-    margin-right: -12px;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    margin-top: auto;
-    margin-bottom: 0;
-    position: relative;
-   /* z-index: 3; */
-}
-
-.play-button .chevron {
-    font-size: 14px;
-    font-weight: 900;
-}
-
-.game-card:nth-child(1) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(2) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(3) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(4) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(5) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(6) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(7) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(8) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(9) .play-button {
-    background: var(--gradient-button-bg);
-}
-
-.game-card:nth-child(n+10) .play-button {
-    background: var(--gradient-button-bg);
+    letter-spacing: 0.5px;
+    width: calc(100% - 12px);
+    margin: 0 6px 6px 6px;
+    text-align: center;
 }
 
 .play-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(222, 199, 156, 0.7);
-    background: var(--gradient-button-bg);
-    opacity: 0.9;
+    background: linear-gradient(180deg, #ffe066 0%, #e6b800 100%);
 }
 
-/* Large cards layout responsive */
+.game-card.game-disabled .play-button {
+    cursor: not-allowed;
+}
+
+/* Responsive styles */
 @media (max-width: 1400px) {
     .games-grid.large-cards-layout {
-        grid-template-columns: repeat(4, 1fr);
-        gap: var(--spacing-lg);
-        max-width: 1400px;
+        gap: 24px;
     }
     
     .games-grid.large-cards-layout .game-card {
-        max-width: 220px;
+        width: 200px;
     }
 }
 
 @media (max-width: 1200px) {
     .games-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--spacing-md);
-    }
-    
-    .games-grid.large-cards-layout {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-lg);
+        justify-content: center;
+        gap: 20px;
     }
     
     .games-grid.large-cards-layout .game-card {
-        max-width: 200px;
+        width: 180px;
     }
 }
 
 @media (max-width: 768px) {
     .games-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-sm);
-    }
-    
-    .games-grid.large-cards-layout {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-md);
+        gap: 16px;
+        justify-content: center;
     }
     
     .game-card {
-        max-width: 100%;
+        width: 160px;
     }
     
     .games-grid.large-cards-layout .game-card {
-        max-width: 100%;
+        width: 160px;
     }
     
     .section-title {
@@ -640,28 +474,51 @@ export default {
     }
     
     .game-title {
-        font-size: 16px;
+        font-size: 14px;
+    }
+    
+    .game-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .game-content {
+        padding: 14px 10px;
+        min-height: 80px;
     }
     
     .play-button {
-        font-size: 18px;
-        padding: 6px 12px;
+        font-size: 12px;
+        padding: 10px 12px;
     }
 }
+
 @media only screen and (max-width: 480px) {
-    .play-button {
-        font-size: 15px;
-        padding: 6px 12px;
+    .game-card {
+        width: 140px;
     }
+    
     .game-title {
-        font-size: 14px;
+        font-size: 12px;
     }
+    
     .game-subtitle {
         font-size: 8px;
-        margin: 0;
     }
-    .game-info {
-        padding-bottom: 0;
+    
+    .game-logo {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .game-content {
+        padding: 12px 8px;
+        gap: 6px;
+    }
+    
+    .play-button {
+        font-size: 11px;
+        padding: 8px 10px;
     }
 }
 </style>

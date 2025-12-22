@@ -1,238 +1,423 @@
 <template>
     <div class="leaderboard-banner">
-        <div class="leaderboard-background">
-            <img src="@/assets/img/affiliates_banner.png" />
-            <img src="@/assets/img/beam.png" />
-            <img src="@/assets/img/beam.png" />
+        <!-- Animated background effects -->
+        <div class="banner-bg-effects">
+            <div class="glow-orb glow-1"></div>
+            <div class="glow-orb glow-2"></div>
         </div>
-        <div class="leaderboard-icons">
-            <img src="@/assets/img/crown_2.png" />
-            <img src="@/assets/img/items.png" />
-            <img src="@/assets/img/coins.png" />
-        </div>
-        <div class="banner-inner">
-            <div class="inner-title">
-                <div class="title-inner">LEADERBOARD</div>
+        
+        <!-- Main content -->
+        <div class="banner-content">
+            <!-- Title section -->
+            <div class="banner-header">
+                <span class="trophy-icon">🏆</span>
+                <h1 class="banner-title">LEADERBOARD</h1>
+                <div class="title-underline"></div>
             </div>
-            <div class="inner-ranks">
-                <div class="ranks-step">2</div>
-                <div class="ranks-step">1</div>
-                <div class="ranks-step">3</div>
+            
+            <!-- Podium section -->
+            <div class="podium-section">
+                <!-- 2nd Place -->
+                <div class="podium-place place-second">
+                    <div class="place-crown">🥈</div>
+                    <div class="place-avatar">
+                        <img src="@/assets/img/anon.png" alt="2nd" />
+                    </div>
+                    <div class="place-rank">2</div>
+                    <div class="place-pedestal">
+                        <span class="reward-amount">$300</span>
+                    </div>
+                </div>
+                
+                <!-- 1st Place -->
+                <div class="podium-place place-first">
+                    <div class="place-crown">👑</div>
+                    <div class="place-avatar">
+                        <img src="@/assets/img/anon.png" alt="1st" />
+                    </div>
+                    <div class="place-rank">1</div>
+                    <div class="place-pedestal">
+                        <span class="reward-amount">$500</span>
+                    </div>
+                </div>
+                
+                <!-- 3rd Place -->
+                <div class="podium-place place-third">
+                    <div class="place-crown">🥉</div>
+                    <div class="place-avatar">
+                        <img src="@/assets/img/anon.png" alt="3rd" />
+                    </div>
+                    <div class="place-rank">3</div>
+                    <div class="place-pedestal">
+                        <span class="reward-amount">$100</span>
+                    </div>
+                </div>
             </div>
-            <div class="inner-info">COMPETE WITH PLAYERS AND EARN FREE MONEY! REWARDS ARE GIVEN OUT AND RESET WEEKLY</div>
+            
+            <!-- Info section -->
+            <div class="banner-info">
+                <p class="info-text">
+                    <span class="highlight">COMPETE</span> WITH PLAYERS AND 
+                    <span class="highlight">EARN FREE MONEY!</span>
+                </p>
+                <p class="info-subtext">Rewards are given out and reset weekly</p>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'LeaderboardBanner'
-    }
+export default {
+    name: 'LeaderboardBanner'
+}
 </script>
 
 <style scoped>
+.leaderboard-banner {
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+    padding: 24px 30px 20px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+    border-radius: 20px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Background effects */
+.banner-bg-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+}
+
+.glow-1 {
+    width: 250px;
+    height: 150px;
+    background: radial-gradient(circle, #d4af37 0%, transparent 70%);
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.glow-2 {
+    width: 200px;
+    height: 100px;
+    background: radial-gradient(circle, #ff6b00 0%, transparent 70%);
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Content */
+.banner-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Header */
+.banner-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.trophy-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 2px 10px rgba(212, 175, 55, 0.5));
+}
+
+.banner-title {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    margin: 0;
+    background: linear-gradient(180deg, #ffd700 0%, #d4af37 50%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.title-underline {
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    border-radius: 1px;
+}
+
+/* Podium Section */
+.podium-section {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 16px;
+}
+
+.podium-place {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.place-crown {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.place-first .place-crown {
+    font-size: 28px;
+}
+
+.place-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #4a4a6a;
+    background: #2a2a4a;
+}
+
+.place-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.place-first .place-avatar {
+    width: 65px;
+    height: 65px;
+    border: 3px solid #d4af37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.place-rank {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    margin: 6px 0 4px;
+}
+
+.place-first .place-rank {
+    font-size: 22px;
+    background: linear-gradient(180deg, #ffd700, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Pedestal */
+.place-pedestal {
+    width: 60px;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.place-first .place-pedestal {
+    width: 75px;
+    height: 50px;
+    background: linear-gradient(180deg, #d4af37 0%, #b8860b 100%);
+}
+
+.place-second .place-pedestal {
+    width: 60px;
+    height: 35px;
+    background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+}
+
+.place-third .place-pedestal {
+    width: 60px;
+    height: 24px;
+    background: linear-gradient(180deg, #cd7f32 0%, #8b4513 100%);
+}
+
+.reward-amount {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1a1a2e;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.place-first .reward-amount {
+    font-size: 16px;
+}
+
+.place-third .reward-amount {
+    font-size: 11px;
+}
+
+/* Info Section */
+.banner-info {
+    text-align: center;
+}
+
+.info-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 4px;
+    letter-spacing: 0.5px;
+}
+
+.info-text .highlight {
+    background: linear-gradient(180deg, #ffd700, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+.info-subtext {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 768px) {
     .leaderboard-banner {
-        width: 955px;
-        position: relative;
-        padding: 1px;
-        font-family: 'Rubik', sans-serif;
+        padding: 20px 16px 16px;
+        border-radius: 16px;
     }
-
-    .leaderboard-banner::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: var(--radius-xl);
-        background: rgba(255, 255, 255, 0.1);
-        z-index: -1;
-    }
-
-    .leaderboard-banner::after {
-        content: '';
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        border-radius: var(--radius-xl);
-        background: var(--bg-secondary);
-        box-shadow: var(--shadow-lg);
-        z-index: -1;
-    }
-
-    .leaderboard-banner .leaderboard-background {
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        border-radius: 25px;
-        overflow: hidden;
-        mix-blend-mode: luminosity;
-        z-index: 0;
-    }
-
-    .leaderboard-banner .leaderboard-background img:nth-child(1) {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        /* opacity: 0.12; */
-    }
-
-    .leaderboard-banner .leaderboard-background img:nth-child(2) {
-        position: absolute;
-        top: 0;
-        left: -25px;
-        opacity: 0.6;
-    }
-
-    .leaderboard-banner .leaderboard-background img:nth-child(3) {
-        position: absolute;
-        top: 0;
-        right: -25px;
-        transform: scaleX(-1);
-        opacity: 0.6;
-    }
-
-    .leaderboard-banner .leaderboard-icons {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 0;
-    }
-
-    .leaderboard-banner .leaderboard-icons img:nth-child(1) {
-        position: absolute;
-        top: -30px;
-        left: -30px;
-    }
-
-    .leaderboard-banner .leaderboard-icons img:nth-child(2) {
-        position: absolute;
-        top: 5px;
-        left: 50px;
-    }
-
-    .leaderboard-banner .leaderboard-icons img:nth-child(3) {
-        position: absolute;
-        top: -35px;
-        right: -7px;
-    }
-
-    .leaderboard-banner .banner-inner {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding-bottom: 20px;
-        border-radius: var(--radius-xl);
-    }
-
-    .leaderboard-banner .inner-title {
-        width: 340px;
-        height: 62px;
-        position: relative;
-    }
-
-    .leaderboard-banner .inner-title::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: transparent;
-        clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 25%, 100% 75%, calc(100% - 7px) 100%, 7px 100%, 0 75%, 0 25%);
-    }
-
-    .leaderboard-banner .title-inner {
-        width: calc(100% - 2px);
-        height: calc(100% - 1px);
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0px;
-        left: 1px;
-        font-size: 32px;
-        font-weight: 900;
-        color: var(--text-primary);
-    }
-
-    .leaderboard-banner .inner-ranks {
-        display: flex;
-        margin-top: 15px;
-    }
-
-    .leaderboard-banner .ranks-step {
-        font-weight: 800;
-        background: var(--gradient-yellow);
-        filter: drop-shadow(0px 4px 25px rgba(255, 107, 0, 0.47));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-    }
-
-    .leaderboard-banner .ranks-step:nth-child(1) {
-        margin: 36px 35px 0 0;
-        font-size: 26px;
-        opacity: 0.5;
-    }
-
-    .leaderboard-banner .ranks-step:nth-child(2) {
-        font-size: 56px;
-    }
-
-    .leaderboard-banner .ranks-step:nth-child(3) {
-        margin: 36px 0 0 35px;
-        font-size: 26px;
-        opacity: 0.25;
-    }
-
-    .leaderboard-banner .inner-info {
-        width: 610px;
-        margin-top: 15px;
-        text-align: center;
+    
+    .banner-title {
         font-size: 24px;
-        font-weight: 800;
-        background: var(--gradient-yellow);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
+        letter-spacing: 3px;
     }
-
-    @media only screen and (max-width: 975px) {
-
-        .leaderboard-banner {
-            width: 100%;
-        }
-
-        .leaderboard-banner .leaderboard-icons {
-            display: none;
-        }
-
-        .leaderboard-banner .banner-inner {
-            padding: 0 10px 20px 10px;
-        }
-
+    
+    .trophy-icon {
+        font-size: 26px;
     }
-
-    @media only screen and (max-width: 700px) {
-
-        .leaderboard-banner .inner-info {
-            width: 100%;
-        }
-
+    
+    .podium-section {
+        gap: 12px;
     }
+    
+    .place-avatar {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .place-first .place-avatar {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .place-crown {
+        font-size: 16px;
+    }
+    
+    .place-first .place-crown {
+        font-size: 22px;
+    }
+    
+    .place-pedestal { width: 50px; }
+    .place-first .place-pedestal { width: 65px; height: 40px; }
+    .place-second .place-pedestal { height: 28px; }
+    .place-third .place-pedestal { height: 20px; }
+    
+    .reward-amount { font-size: 12px; }
+    .place-first .reward-amount { font-size: 14px; }
+    .place-third .reward-amount { font-size: 10px; }
+    
+    .info-text {
+        font-size: 14px;
+    }
+    
+    .info-subtext {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .leaderboard-banner {
+        padding: 16px 12px 14px;
+    }
+    
+    .banner-content {
+        gap: 12px;
+    }
+    
+    .banner-title {
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+    
+    .trophy-icon {
+        font-size: 22px;
+    }
+    
+    .title-underline {
+        width: 100px;
+    }
+    
+    .podium-section {
+        gap: 10px;
+    }
+    
+    .place-avatar {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .place-first .place-avatar {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .place-crown {
+        font-size: 14px;
+    }
+    
+    .place-first .place-crown {
+        font-size: 20px;
+    }
+    
+    .place-rank {
+        font-size: 14px;
+        margin: 4px 0 2px;
+    }
+    
+    .place-first .place-rank {
+        font-size: 18px;
+    }
+    
+    .place-pedestal { width: 42px; }
+    .place-first .place-pedestal { width: 55px; height: 32px; }
+    .place-second .place-pedestal { height: 22px; }
+    .place-third .place-pedestal { height: 16px; }
+    
+    .reward-amount { font-size: 10px; }
+    .place-first .reward-amount { font-size: 12px; }
+    .place-third .reward-amount { font-size: 8px; }
+    
+    .info-text {
+        font-size: 12px;
+    }
+    
+    .info-subtext {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+}
 </style>
