@@ -370,18 +370,51 @@ export default {
         // Setup real-time balance updates via Socket.io
         setupSocketListeners() {
             const socket = this.socketGeneral;
-            if (!socket) return;
+            
+            if (!socket) {
+                console.error('❌ Socket is not available');
+                return;
+            }
 
+            // Ensure socket is connected
+            if (!socket.connected) {
+                console.warn('⚠️ Socket not connected, attempting to connect...');
+                
+                // Connect the socket if not already connected
+                this.$store.dispatch('socketConnectGeneral');
+                
+                // Wait for connection then setup listener
+                socket.once('connect', () => {
+                    console.log('✅ Socket connected, setting up balance listener');
+                    this.setupBalanceListener(socket);
+                });
+                
+                return;
+            }
+
+            console.log('✅ Socket already connected, setting up balance listener');
+            this.setupBalanceListener(socket);
+        },
+
+        setupBalanceListener(socket) {
             console.log('🔌 Setting up casino balance listener on general socket');
+            console.log('🔌 Socket connected:', socket.connected);
+            console.log('🔌 Socket ID:', socket.id);
+
+            // Remove any existing listener to prevent duplicates
+            socket.off('casino:balance-update');
 
             // Listen for casino balance updates from backend callbacks
             socket.on('casino:balance-update', (update) => {
                 console.log('💰 Received balance update:', update);
+                console.log('💰 New balance:', update.newBalance);
+                console.log('💰 Transaction type:', update.transactionType);
                 this.handleBalanceUpdate(update);
             });
 
             // Store unsubscribe function for cleanup
             this.socketUnsubscribe = () => {
+                console.log('🔌 Unsubscribing from casino balance updates');
                 socket.off('casino:balance-update');
             };
         }
