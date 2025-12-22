@@ -333,3 +333,20 @@ span.gradient-purple {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
 }
+
+/* Hide mobile bottom navigation when playing slot games */
+body.slot-game-playing .mobile-button-row {
+    display: none !important;
+}
+
+/* Hide scroll-to-top button when playing slot games */
+body.slot-game-playing .scroll-to-top {
+    display: none !important;
+}
+
+/* Also hide header on mobile when playing slots for full screen experience */
+@media (max-width: 768px) {
+    body.slot-game-playing header {
+        display: none !important;
+    }
+}

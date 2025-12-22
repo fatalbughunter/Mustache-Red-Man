@@ -109,9 +109,15 @@ export default {
 }
 
 @media (max-width: 768px) {
+    .balance-display {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+
     .balance-container {
         grid-template-columns: 1fr 1fr;
         gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
     }
 
     .balance-divider {
@@ -119,16 +125,43 @@ export default {
     }
 
     .balance-value {
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .balance-value.total {
         grid-column: 1 / -1;
     }
 
+    .balance-label {
+        font-size: 11px;
+    }
+
     .last-transaction {
         flex-direction: column;
-        gap: var(--spacing-sm);
+        gap: var(--spacing-xs);
+        padding: var(--spacing-sm);
+        font-size: 13px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .balance-display {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .balance-value {
+        font-size: 18px;
+    }
+
+    .balance-label {
+        font-size: 10px;
+    }
+
+    .last-transaction {
+        font-size: 12px;
+        padding: 10px;
     }
 }
 </style>

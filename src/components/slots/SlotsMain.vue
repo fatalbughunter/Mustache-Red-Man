@@ -148,9 +148,9 @@
             </div>
         </div>
 
-        <!-- Scroll to Top Button -->
+        <!-- Scroll to Top Button - Hidden when game is playing -->
         <button 
-            v-show="showScrollTop" 
+            v-show="showScrollTop && !gameSession" 
             @click="scrollToTop" 
             class="scroll-to-top"
             title="Back to Top"
@@ -247,6 +247,8 @@ export default {
         if (this.mainElement) {
             this.mainElement.removeEventListener('scroll', this.handleScroll);
         }
+        // Clean up body class
+        document.body.classList.remove('slot-game-playing');
     },
 
     beforeDestroy() {
@@ -254,6 +256,8 @@ export default {
         if (this.mainElement) {
             this.mainElement.removeEventListener('scroll', this.handleScroll);
         }
+        // Clean up body class
+        document.body.classList.remove('slot-game-playing');
     },
 
     methods: {
@@ -306,7 +310,10 @@ export default {
             const mainElement = document.querySelector('main');
             const mainScrollTop = mainElement ? mainElement.scrollTop : 0;
             const windowScrollTop = window.scrollY || window.pageYOffset || 0;
-            this.showScrollTop = mainScrollTop > 100 || windowScrollTop > 100;
+            
+            // Show button only when scrolled down at least 300px for better UX
+            // This ensures the button doesn't appear unnecessarily
+            this.showScrollTop = mainScrollTop > 300 || windowScrollTop > 300;
         },
 
         scrollToTop() {
@@ -425,6 +432,14 @@ export default {
             if (newVal) {
                 this.fetchUserBalance();
                 this.setupSocketListeners();
+            }
+        },
+        gameSession(newVal) {
+            // Add/remove class to body when game modal opens/closes
+            if (newVal) {
+                document.body.classList.add('slot-game-playing');
+            } else {
+                document.body.classList.remove('slot-game-playing');
             }
         }
     }
@@ -723,6 +738,7 @@ export default {
     box-sizing: border-box !important;
 }
 
+
 .game-modal {
     background: var(--accent-blue-dark);
     border: 2px solid var(--color-copper);
@@ -775,18 +791,101 @@ export default {
 
 @media (max-width: 1024px) {
     .game-modal-overlay {
-        padding: 0 var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) !important;
+        padding: 60px var(--spacing-md) var(--spacing-md) var(--spacing-md) !important;
+    }
+
+    .game-modal {
+        max-width: 100%;
+        max-height: calc(100vh - 70px) !important;
     }
 }
 
 @media (max-width: 768px) {
+    .game-modal-overlay {
+        padding: 10px var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) !important;
+    }
+
+    .game-modal {
+        border-radius: var(--radius-lg);
+        max-height: calc(100vh - 20px) !important;
+    }
+
+    .game-modal-header {
+        padding: 10px 16px !important;
+    }
+
+    .game-modal-header h3 {
+        font-size: 16px;
+    }
+
+    .close-btn {
+        font-size: 28px;
+    }
+
     .providers-grid,
     .games-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: var(--spacing-md);
     }
 
     .section-title {
         font-size: 22px;
+    }
+
+    .slots-content {
+        padding: var(--spacing-sm);
+    }
+
+    .provider-selector {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-md);
+    }
+
+    .provider-dropdown {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .search-input-wrapper {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-modal-overlay {
+        padding: 10px 8px 8px 8px !important;
+    }
+
+    .game-modal {
+        border-radius: var(--radius-md);
+        max-height: calc(100vh - 20px) !important;
+    }
+
+    .game-modal-header {
+        padding: 8px 12px !important;
+    }
+
+    .game-modal-header h3 {
+        font-size: 14px;
+    }
+
+    .close-btn {
+        font-size: 24px;
+    }
+
+    .providers-grid,
+    .games-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: var(--spacing-sm);
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .balance-display {
+        padding: var(--spacing-md);
     }
 }
 
@@ -871,12 +970,14 @@ export default {
     cursor: pointer;
     box-shadow: 0 4px 20px rgba(252, 163, 17, 0.5);
     transition: all 0.3s ease;
-    z-index: 99999999 !important;
+    z-index: 999 !important; /* Lower z-index to stay below modals */
+    opacity: 0.9;
 }
 
 .scroll-to-top:hover {
     transform: translateY(-5px) scale(1.05);
     box-shadow: 0 8px 25px rgba(252, 163, 17, 0.6);
+    opacity: 1;
 }
 
 .scroll-to-top svg {

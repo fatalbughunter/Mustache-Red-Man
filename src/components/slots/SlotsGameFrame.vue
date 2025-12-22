@@ -82,5 +82,34 @@ export default {
     width: 100%;
     height: 100%;
     border: none;
+    display: block;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .loading-session p {
+        font-size: 14px;
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .loading-session p {
+        font-size: 13px;
+    }
+
+    .spinner {
+        width: 35px;
+        height: 35px;
+    }
+
+    .no-session p {
+        font-size: 14px;
+    }
 }
 </style>
