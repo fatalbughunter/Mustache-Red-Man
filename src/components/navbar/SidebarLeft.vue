@@ -82,13 +82,13 @@
                     <img src="@/assets/img/icons/leftSideMenu/Live casino.png" alt="Live Casino" />
                     <span>LIVE CASINO</span>
                 </router-link>
-                <router-link to="/jackpots" class="sidebar-link" v-on:click.native="closeMobile">
+                <!-- <router-link to="/jackpots" class="sidebar-link" v-on:click.native="closeMobile">
                     <img src="@/assets/img/icons/leftSideMenu/Jackports.png" alt="Jackpots" />
                     <span>JACKPOTS</span>
-                </router-link>  
+                </router-link> -->
                 <router-link to="/rewards" class="sidebar-link" v-on:click.native="closeMobile">
                     <img src="@/assets/img/icons/leftSideMenu/Rewards.png" alt="Leaderboard" />
-                    <span>Rewards</span>
+                    <span>REWARDS</span>
                 </router-link>    
                 <router-link to="/leaderboard" class="sidebar-link" v-on:click.native="closeMobile">
                     <img src="@/assets/img/icons/leftSideMenu/Leaderboard.png" alt="Leaderboard" />

@@ -41,7 +41,7 @@
     export default {
         name: 'Home',
         metaInfo: {
-            title: 'Mustache Casino: The Ultimate Gaming Experience'
+            title: 'Tache Bet Site'
         },
         components: {
             HeroBanner,
