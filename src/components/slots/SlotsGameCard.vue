@@ -328,4 +328,85 @@ export default {
 .favorite-icon:hover .star {
     transform: scale(1.2);
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .game-card {
+        height: 280px;
+    }
+
+    .game-image-container {
+        height: calc(100% * 0.65);
+    }
+
+    .game-info {
+        padding: var(--spacing-sm);
+        height: calc(100% * 0.35);
+    }
+
+    .game-name {
+        font-size: 13px;
+    }
+
+    .game-provider {
+        font-size: 11px;
+    }
+
+    .game-rtp span {
+        font-size: 11px;
+    }
+
+    .play-indicator {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-card {
+        height: 260px;
+    }
+
+    .game-image-container {
+        height: calc(100% * 0.68);
+    }
+
+    .game-info {
+        padding: 10px;
+        height: calc(100% * 0.32);
+    }
+
+    .game-name {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .game-provider {
+        font-size: 10px;
+        margin-bottom: 6px;
+    }
+
+    .game-rtp {
+        padding-top: 6px;
+    }
+
+    .game-rtp span {
+        font-size: 10px;
+    }
+
+    .play-indicator {
+        width: 45px;
+        height: 45px;
+    }
+
+    .favorite-icon {
+        font-size: 18px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .game-overlay {
+        padding: var(--spacing-sm);
+    }
+}
 </style>
