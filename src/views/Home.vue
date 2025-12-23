@@ -41,7 +41,7 @@
     export default {
         name: 'Home',
         metaInfo: {
-            title: 'Tache Bet Site'
+            title: 'Tachebet| Sign Up, Get Bonus, Withdraw Instantly'
         },
         components: {
             HeroBanner,
