@@ -99,7 +99,7 @@
                this.rainTimer = timeMinutes.toString() + ':' + timeSeconds.toString();
            },
            rainClaimButton() {
-               if(this.authUser.user === null) {
+               if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -111,7 +111,8 @@
         computed: {
             ...mapGetters([
                 'socketSendLoading', 
-                'authUser', 
+                'authUser',
+                'authenticated',
                 'generalTimeDiff', 
                 'generalRain'
             ]),
@@ -131,7 +132,7 @@
                 return color;
             },
             rainIsClaimed() {
-                return this.authUser.user !== null && this.generalRain && this.generalRain.active && this.generalRain.active.participants && this.generalRain.active.participants.some((element) => element.user === this.authUser.user._id) === true;
+                return this.authenticated && this.generalRain && this.generalRain.active && this.generalRain.active.participants && this.generalRain.active.participants.some((element) => element.user === this.authUser.user._id) === true;
             }
         },
         beforeDestroy() {

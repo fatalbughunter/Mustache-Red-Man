@@ -80,7 +80,7 @@
                 return color;
             },
             duelsActionButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -93,7 +93,8 @@
         computed: {
             ...mapGetters([
                 'socketSendLoading', 
-                'authUser'
+                'authUser',
+                'authenticated'
             ]),
             duelsGetBotName() {
                 const names = ['Specter', 'Lorenz', 'Gio', 'Cup', 'Dip', 'Fowntain', 'Levrock26', 'Chunkeh', 'Mateheus'];

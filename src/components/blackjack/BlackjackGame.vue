@@ -6,12 +6,12 @@
         <div class="game-inner">
             <div v-if="table.game.state === 'created'" class="inner-created">WAITING FOR PLAYERS TO JOIN...</div>
             <BlackjackControlsBet v-if="
-                authUser.user !== null &&
+                authenticated &&
                 table.players.some((element) => element.user._id === authUser.user._id) === true &&
                 table.game.state === 'countdown'
             " v-bind:table="table" v-bind:blackjackChip="blackjackChip" />
             <BlackjackControlsAction v-else-if="
-                authUser.user !== null &&
+                authenticated &&
                 table.game.state === 'running' &&
                 table.playersPos !== null &&
                 (table.playersPos === 'all' || authUser.user._id === blackjackGetPlayer(table.playersPos).user._id) &&
@@ -112,7 +112,7 @@
             blackjackJoinButton(seat) {
                 if(this.socketSendLoading !== null) { return; }
 
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -122,7 +122,7 @@
             blackjackBetButton(seat, type) {
                 if(this.socketSendLoading !== null) { return; }
 
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -168,7 +168,8 @@
             ...mapGetters([
                 'generalTimeDiff',
                 'socketSendLoading', 
-                'authUser'
+                'authUser',
+                'authenticated'
             ])
         }
     }

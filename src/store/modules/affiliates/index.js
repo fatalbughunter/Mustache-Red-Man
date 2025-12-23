@@ -58,7 +58,7 @@ const actions = {
         if(getters.socketGeneral === null || getters.socketSendLoading !== null) { return; }
         
         // Check if user is authenticated
-        if(rootGetters.authUser === null || rootGetters.authUser.user === null) {
+        if(!rootGetters.authenticated) {
             dispatch('notificationShow', { type: 'error', message: 'Please sign in to perform this action.' });
             return;
         }

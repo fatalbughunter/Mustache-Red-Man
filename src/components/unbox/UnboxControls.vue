@@ -50,7 +50,7 @@
                 return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             unboxBetButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -73,6 +73,7 @@
             ...mapGetters([
                 'socketSendLoading',
                 'authUser',
+                'authenticated',
                 'unboxCount',
                 'unboxRunning',
                 'unboxBoxData'

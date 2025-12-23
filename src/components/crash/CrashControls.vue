@@ -335,7 +335,7 @@ export default {
         return;
       }
 
-      if (this.authUser.user === null) {
+      if (!this.authenticated) {
         this.notificationShow({
           type: "error",
           message: "Please sign in to perform this action.",
@@ -379,7 +379,7 @@ export default {
         return;
       }
 
-      if (this.authUser.user === null) {
+      if (!this.authenticated) {
         this.notificationShow({
           type: "error",
           message: "Please sign in to perform this action.",
@@ -424,13 +424,14 @@ export default {
     ...mapGetters([
       "socketSendLoading",
       "authUser",
+      "authenticated",
       "crashGame",
       "crashBets",
       "socketCrash",
     ]),
     crashHasActiveBet() {
       if (
-        this.authUser.user === null ||
+        !this.authenticated ||
         !this.crashBets ||
         this.crashBets.length === 0
       ) {

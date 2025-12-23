@@ -162,7 +162,7 @@
                 }  
             },
             chatMessageButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -224,6 +224,7 @@
                 'generalDesktopChatOpen',
                 'generalSettings', 
                 'authUser',
+                'authenticated',
                 'chatScroll', 
                 'chatRoom', 
                 'chatOnline', 
@@ -249,7 +250,7 @@
                     if(
                         this.chatScroll === true || 
                         this.chatMessages.data.length === 0 ||
-                        (this.authUser.user !== null && message !== undefined && message.type === 'user' && message.user._id === this.authUser.user._id)
+                        (this.authenticated && message !== undefined && message.type === 'user' && message.user._id === this.authUser.user._id)
                     ) {
                         setTimeout(() => { this.chatScrollToBottom(); }, 200);
                     }

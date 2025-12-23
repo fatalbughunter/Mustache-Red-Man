@@ -42,7 +42,7 @@
                 'modalsSetData'
             ]),
             rewardsClaimButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -58,7 +58,8 @@
         },
         computed: {
             ...mapGetters([
-                'authUser'
+                'authUser',
+                'authenticated'
             ])
         }
     }

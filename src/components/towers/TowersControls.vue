@@ -122,7 +122,7 @@
                 this.towersAmount = parseFloat(amount).toFixed(2);
             },
             towersBetButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -142,7 +142,7 @@
                 this.towersSendCashoutSocket(data);
             },
             towersFairButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -162,6 +162,7 @@
                 'socketSendLoading',
                 'soundTowers',
                 'authUser',
+                'authenticated',
                 'towersRisk',
                 'towersGame'
             ]),

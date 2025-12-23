@@ -75,7 +75,7 @@
             duelsCreateButton() {
                 if(this.socketSendLoading !== null) { return; }
 
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -94,7 +94,8 @@
         computed: {
             ...mapGetters([
                 'socketSendLoading', 
-                'authUser', 
+                'authUser',
+                'authenticated',
                 'duelsFilterCount'
             ])
         }

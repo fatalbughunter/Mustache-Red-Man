@@ -28,7 +28,7 @@
                 return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             minesRevealTile() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -52,7 +52,8 @@
         computed: {
             ...mapGetters([
                 'socketSendLoading',
-                'authUser', 
+                'authUser',
+                'authenticated',
                 'minesGame'
             ]),
             minesGetRevealedTile() {

@@ -147,7 +147,7 @@
                 this.minesCount = value;
             },
             minesBetButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -184,7 +184,7 @@
                 this.minesSendCashoutSocket(data);
             },
             minesFairButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -211,6 +211,7 @@
                 'socketSendLoading',
                 'soundMines',
                 'authUser',
+                'authenticated',
                 'minesGame'
             ]),
             isInputDisabled() {

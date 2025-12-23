@@ -124,7 +124,7 @@
                 this.upgraderAmount = parseFloat(Math.floor(amount / 10) / 100).toFixed(2);
             },
             upgraderFairButton() {
-                if(this.authUser.user === null) {
+                if(!this.authenticated) {
                     this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
                     return;
                 }
@@ -138,7 +138,8 @@
         computed: {
             ...mapGetters([
                 'socketSendLoading',
-                'authUser'
+                'authUser',
+                'authenticated'
             ]),
             upgraderGetPercentageAmount() {
                 let amount = 50;
