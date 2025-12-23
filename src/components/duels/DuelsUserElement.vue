@@ -81,7 +81,7 @@
             },
             duelsActionButton() {
                 if(!this.authenticated) {
-                    this.notificationShow({ type: 'error', message: 'Please sign in to perform this action.' });
+                    this.$root.$emit('open-signin-modal-app');
                     return;
                 }
 
