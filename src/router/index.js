@@ -317,22 +317,22 @@ router.beforeEach(async function(to, from, next) {
         return;
     }
 
-    if(store.getters.authToken !== null && store.getters.authUser.user === null && store.getters.authUser.loading === false) {
+    if(store.getters.authToken !== null && !store.getters.authenticated && store.getters.authUser.loading === false) {
         await store.dispatch('authGetUser');
     }
 
     const affiliateCode = to.query.a !== undefined ? to.query.a : localStorage.getItem('affiliate-code') !== null ? localStorage.getItem('affiliate-code') : null;
     if(affiliateCode !== null) {
-        if(store.getters.authUser.user !== null) {
+        if(store.getters.authenticated) {
             localStorage.removeItem('affiliate-code');
             store.dispatch('modalsSetData', { code: affiliateCode });
             store.dispatch('modalsSetShow', 'Claim');
         } else { localStorage.setItem('affiliate-code', affiliateCode); }
     }
 
-    if(to.matched.some(record => record.meta.auth) && store.getters.authUser.user === null) {
+    if(to.matched.some(record => record.meta.auth) && !store.getters.authenticated) {
         next(false);
-    } else if(to.matched.some(record => record.meta.admin) && (store.getters.authUser.user === null || store.getters.authUser.user.rank !== 'admin')) {
+    } else if(to.matched.some(record => record.meta.admin) && (!store.getters.authenticated || store.getters.authUser.user.rank !== 'admin')) {
         next(false);
     } else {
         next();

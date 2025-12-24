@@ -81,8 +81,15 @@ const actions = {
             }
         } catch(err) {
             if(err.response !== undefined && err.response !== null) {
-                if(err.response.status === 401) { dispatch('authLogoutUser'); }
-                dispatch('notificationShow', err.response.data.error);
+                if(err.response.status === 401) { 
+                    dispatch('authLogoutUser'); 
+                } else {
+                    // Only show notification if user is not already authenticated
+                    // This prevents showing notifications when authGetUser is called unnecessarily
+                    if(!getters.authenticated) {
+                        dispatch('notificationShow', err.response.data.error);
+                    }
+                }
             }
         }
 
