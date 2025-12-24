@@ -6,7 +6,8 @@
                 <div class="head-action">ACTION</div>
             </div>
             <div class="section-content">
-                <ProfileSettingsElement name="CHANGE AVATAR">
+                <!-- CHANGE AVATAR section hidden - now accessible via camera icon on profile header -->
+                <!-- <ProfileSettingsElement name="CHANGE AVATAR">
                     <input ref="avatarInput" type="file" accept="image/*" style="display: none" @change="handleAvatarChange" />
                     <button v-on:click="triggerAvatarUpload" class="button-link button-avatar" v-bind:disabled="authSendLoginLoading === true">
                         <div class="button-inner">
@@ -16,7 +17,7 @@
                             CHANGE AVATAR
                         </div>
                     </button>
-                </ProfileSettingsElement>
+                </ProfileSettingsElement> -->
                 <ProfileSettingsElement name="ANONYMOUS MODE">
                     <button v-on:click="userToggleAnonymous" class="button-toggle" v-bind:class="{ 
                         'button-active': authUser.user.anonymous === true 

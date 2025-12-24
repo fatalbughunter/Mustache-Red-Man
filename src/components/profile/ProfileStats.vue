@@ -93,9 +93,6 @@
         align-items: center;
         gap: 16px;
         padding: 20px;
-        background: linear-gradient(135deg, rgba(26, 41, 66, 0.5) 0%, rgba(15, 25, 35, 0.7) 100%);
-        border-radius: 14px;
-        border: 1px solid rgba(184, 115, 51, 0.15);
         transition: all 0.3s ease;
     }
 

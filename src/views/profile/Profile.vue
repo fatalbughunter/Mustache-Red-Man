@@ -2,6 +2,7 @@
     <div class="profile">
         <div class="profile-container">
             <ProfileHeader />
+            <ProfilePersonalInfo />
             <ProfileStats />
             <div class="container-nav">
                 <ProfileFilterNav />
@@ -17,6 +18,7 @@
 
 <script>
     import ProfileHeader from '@/components/profile/ProfileHeader';
+    import ProfilePersonalInfo from '@/components/profile/ProfilePersonalInfo';
     import ProfileStats from '@/components/profile/ProfileStats';
     import ProfileFilterNav from '@/components/profile/ProfileFilterNav';
 
@@ -24,6 +26,7 @@
         name: 'Profile',
         components: {
             ProfileHeader,
+            ProfilePersonalInfo,
             ProfileStats,
             ProfileFilterNav
         },

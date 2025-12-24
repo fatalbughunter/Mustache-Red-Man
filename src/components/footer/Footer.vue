@@ -49,9 +49,11 @@
                 </div>
             </div>
         </footer>
-        <!-- <div class="footer-bottom">
-            <span class="gradient-yellowyellow">MUSTACHE-CASINO is a premium gaming platform committed to providing fair, secure, and exciting gaming experiences for all our users.</span>
-        </div> -->
+        <div class="footer-legal">
+            <p class="legal-text">
+                Tachebet is owned and operated by Entertainment N.V., Curaçao company registration number 160909, with its registered address at 42 Kaya Pied'i Bos, Tera Kora, Curaçao and is licensed by the Curaçao Gaming Control Board to offer games of chance under license number OGL/2024/833/1005. Contact us at <a href="mailto:support@tachebet.com">support@tachebet.com</a>.
+            </p>
+        </div>
     </div>
 </template>
 
@@ -226,6 +228,34 @@
         word-break: keep-all;
     }
 
+    .footer-legal {
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px var(--spacing-lg);
+        margin: 0 auto 30px auto;
+        text-align: center;
+    }
+
+    .footer-legal .legal-text {
+        font-size: 11px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .footer-legal .legal-text a {
+        color: var(--accent-yellow);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-legal .legal-text a:hover {
+        color: var(--accent-yellow);
+        opacity: 0.8;
+        text-decoration: underline;
+    }
+
     .footer-bottom {
         width: 1250px;
         margin: 0 auto;
@@ -262,6 +292,15 @@
 /*margin: var(--spacing-md) var(--spacing-md) var(--spacing-md) var(--spacing-sm);*/
             margin: 12px;
             /*width: calc(100% - 2 * 100px);*/
+        }
+
+        .footer-legal {
+            padding: 15px var(--spacing-md);
+            margin-bottom: 20px;
+        }
+
+        .footer-legal .legal-text {
+            font-size: 10px;
         }
 
         footer#footer .footer-top {

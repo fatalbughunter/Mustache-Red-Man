@@ -1,40 +1,66 @@
 <template>
     <div class="mines-controls">
         <img src="@/assets/img/christmas/whiteSnow.png" alt="Snow" class="mines-controls-snow" />
+        <div class="controls-tabs">
+            <button 
+                v-on:click="setTab('manual')" 
+                class="tab-button" 
+                v-bind:class="{ 'tab-active': currentTab === 'manual' }"
+                v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'"
+            >
+                <div class="tab-inner">Manual</div>
+            </button>
+            <button 
+                v-on:click="setTab('auto')" 
+                class="tab-button" 
+                v-bind:class="{ 'tab-active': currentTab === 'auto' }"
+                v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'"
+            >
+                <div class="tab-inner">Auto</div>
+            </button>
+        </div>
         <div class="controls-top">
-            <div class="top-amount">
-                <input v-model="minesAmount" v-on:input="minesValidateInput" type="text" placeholder="BET AMOUNT" v-bind:disabled="isInputDisabled" />
-                <img src="@/assets/img/icons/coin.svg" alt="icon" />
+            <div class="top-bet-section">
+                <div class="bet-label">Your Bet</div>
+                <div class="bet-display">
+                    <span class="bet-value">${{ minesAmount === '' || minesAmount === null ? '0.00' : minesFormatValue(minesAmount) }}</span>
+                    <button v-on:click="minesSetAmount('clear')" class="bet-clear" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="top-amount">
+                    <input v-model="minesAmount" v-on:input="minesValidateInput" type="text" placeholder="0.01" v-bind:disabled="isInputDisabled" />
+                    <img src="@/assets/img/icons/coin.svg" alt="icon" />
+                </div>
                 <div class="amount-buttons">
+                    <button v-on:click="minesSetAmount('min')" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
+                        <div class="button-inner">MIN</div>
+                    </button>
+                    <button v-on:click="minesSetAmount('1/2')" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
+                        <div class="button-inner">1/2</div>
+                    </button>
                     <button v-on:click="minesSetAmount('2x')" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
-                        <div class="button-inner">2x</div>
+                        <div class="button-inner">X2</div>
                     </button>
                     <button v-on:click="minesSetAmount('max')" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
                         <div class="button-inner">MAX</div>
                     </button>
                 </div>
             </div>
-            <div class="top-slider">
-                <input v-model="minesAmount" type="range" min="0" v-bind:max="authUser.user !== null ? authUser.user.balance : 0" step="0.1" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'" />
-            </div>
             <div class="top-mines">
-                <div class="mines-title">AMOUNT OF MINES</div>
-                <div class="mines-content">
-                    <button v-on:click="minesSetCount(1)" v-bind:class="{ 'button-active': minesIsCount(1) === true }" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
-                        <div class="button-inner">1</div>
-                    </button>
-                    <button v-on:click="minesSetCount(3)" v-bind:class="{ 'button-active': minesIsCount(3) === true }" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
-                        <div class="button-inner">3</div>
-                    </button>
-                    <button v-on:click="minesSetCount(5)" v-bind:class="{ 'button-active': minesIsCount(5) === true }" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
-                        <div class="button-inner">5</div>
-                    </button>
-                    <button v-on:click="minesSetCount(10)" v-bind:class="{ 'button-active': minesIsCount(10) === true }" v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'">
-                        <div class="button-inner">10</div>
-                    </button>
-                    <div class="content-input">
-                        <input v-model="minesCount" type="number" min="1" max="24" placeholder="..." v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'" />
-                    </div>
+                <div class="mines-label">Mines</div>
+                <div class="mines-display">{{ minesCount }}</div>
+                <div class="top-slider" v-bind:style="{ '--slider-value': minesCount }">
+                    <input 
+                        v-model.number="minesCount" 
+                        type="range" 
+                        min="1" 
+                        max="24" 
+                        step="1" 
+                        v-bind:disabled="minesGame !== null && minesGame.state !== 'completed'"
+                    />
                 </div>
             </div>
             <button v-if="minesGame === null || minesGame.state === 'completed'" v-on:click="minesBetButton()" class="button-bet" v-bind:disabled="socketSendLoading !== null">
@@ -60,9 +86,6 @@
                         </div>
                     </transition>
                 </div>
-            </button>
-            <button v-on:click="minesRevealButton()" class="button-auto" v-bind:disabled="socketSendLoading !== null || minesGame === null || minesGame.state === 'completed'">
-                <div class="button-inner">AUTO-SELECT MINE</div>
             </button>
         </div>
         <!-- <div class="controls-info">
@@ -102,7 +125,9 @@
         data() {
             return {
                 minesAmount: '',
-                minesCount: 1
+                minesCount: 1,
+                currentTab: 'manual',
+                autoRevealInterval: null
             }
         },
         methods: {
@@ -133,18 +158,81 @@
                 return Number(this.minesCount) === count;
             },
             minesSetAmount(action) {
-                let amount = this.minesAmount === null || this.minesAmount === '' ? 0 : parseFloat(this.minesAmount);
+                if(action === 'clear') {
+                    this.minesAmount = '';
+                    return;
+                }
 
-                if(action === '2x') {
+                let amount = this.minesAmount === null || this.minesAmount === '' ? 0 : parseFloat(this.minesAmount);
+                const balance = this.authUser.user !== null ? this.authUser.user.balance : 0;
+
+                if(action === 'min') {
+                    amount = 0.01;
+                } else if(action === '1/2') {
+                    amount = amount / 2;
+                } else if(action === '2x') {
                     amount = amount * 2;
                 } else if(action === 'max') {
-                    amount = this.authUser.user !== null ? this.authUser.user.balance : 0;
+                    amount = balance;
+                }
+
+                // Ensure amount doesn't exceed balance
+                if(amount > balance) {
+                    amount = balance;
+                }
+
+                // Ensure minimum amount
+                if(amount < 0.01 && action !== 'min') {
+                    amount = 0.01;
                 }
 
                 this.minesAmount = parseFloat(amount).toFixed(2);
             },
             minesSetCount(value) {
                 this.minesCount = value;
+            },
+            setTab(tab) {
+                this.currentTab = tab;
+            },
+            startAutoReveal() {
+                // Clear any existing interval
+                this.stopAutoReveal();
+
+                // Start auto-reveal at 3-second intervals
+                this.autoRevealInterval = setInterval(() => {
+                    if (this.minesGame === null || this.minesGame.state === 'completed') {
+                        this.stopAutoReveal();
+                        return;
+                    }
+
+                    // Find an unrevealed tile
+                    let tile = Math.floor(Math.random() * 25);
+                    let attempts = 0;
+                    
+                    while (attempts < 25) {
+                        // Check if tile is already revealed
+                        const isRevealed = this.minesGame.revealed.some((element) => element.tile === tile);
+                        if (!isRevealed) {
+                            break;
+                        }
+                        tile = (tile + 1) % 25;
+                        attempts++;
+                    }
+
+                    if (attempts < 25) {
+                        const data = { tile: tile };
+                        this.minesSendRevealSocket(data);
+                    } else {
+                        // All tiles revealed or game completed
+                        this.stopAutoReveal();
+                    }
+                }, 3000);
+            },
+            stopAutoReveal() {
+                if (this.autoRevealInterval !== null) {
+                    clearInterval(this.autoRevealInterval);
+                    this.autoRevealInterval = null;
+                }
             },
             minesBetButton() {
                 if(!this.authenticated) {
@@ -167,6 +255,14 @@
 
                 const data = { amount: amount, minesCount: minesCount };
                 this.minesSendBetSocket(data);
+
+                // If in auto mode, start auto-reveal after bet is placed
+                if (this.currentTab === 'auto') {
+                    // Wait for the game to start, then begin auto-reveal
+                    this.$nextTick(() => {
+                        // We'll start auto-reveal when the game state changes
+                    });
+                }
             },
             minesRevealButton() {
                 let tile = Math.floor(Math.random() * (24 - this.minesGame.revealed.length));
@@ -180,6 +276,7 @@
                 this.minesSendRevealSocket(data);
             },
             minesCashoutButton() {
+                this.stopAutoReveal();
                 const data = {};
                 this.minesSendCashoutSocket(data);
             },
@@ -204,6 +301,25 @@
                     value = value * (i - 1);
                 }
                 return value;
+            }
+        },
+        watch: {
+            'minesGame': {
+                handler(newGame, oldGame) {
+                    // Start auto-reveal when game starts in auto mode
+                    if (this.currentTab === 'auto' && newGame !== null && newGame.state !== 'completed') {
+                        if (oldGame === null || oldGame.state === 'completed') {
+                            // Game just started
+                            this.startAutoReveal();
+                        }
+                    }
+                    
+                    // Stop auto-reveal when game completes
+                    if (newGame !== null && newGame.state === 'completed') {
+                        this.stopAutoReveal();
+                    }
+                },
+                deep: true
             }
         },
         computed: {
@@ -231,6 +347,9 @@
 
                 return this.minesGame.amount * multiplier;
             }
+        },
+        beforeDestroy() {
+            this.stopAutoReveal();
         }
     }
 </script>
@@ -240,7 +359,7 @@
         width: 30%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+/* justify-content: space-between; */
         padding: 20px 15px;
         background: var(--accent-blue-dark);
         border-radius: 15px;
@@ -264,8 +383,117 @@
         margin: -5px 0 0 8px;
     }
 
+    .mines-controls .controls-tabs {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .mines-controls .tab-button {
+        flex: 1;
+        height: 36px;
+        position: relative;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .mines-controls .tab-button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+    .mines-controls .tab-button .tab-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .mines-controls .tab-button.tab-active .tab-inner {
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
+        border-color: var(--accent-yellow);
+    }
+
+    .mines-controls .tab-button:not(:disabled):hover .tab-inner {
+        color: rgba(255, 255, 255, 0.7);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .mines-controls .tab-button.tab-active:not(:disabled):hover .tab-inner {
+        color: var(--accent-btn-txt-color);
+        background: var(--gradient-button-bg);
+        border-color: var(--accent-yellow);
+    }
+
     .mines-controls .controls-top {
         width: 100%;
+    }
+
+    .mines-controls .top-bet-section {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .mines-controls .bet-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 8px;
+    }
+
+    .mines-controls .bet-display {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .mines-controls .bet-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .mines-controls .bet-clear {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.4);
+        transition: color 0.2s ease;
+        padding: 0;
+    }
+
+    .mines-controls .bet-clear:hover:not(:disabled) {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .mines-controls .bet-clear:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
+
+    .mines-controls .bet-clear svg {
+        width: 12px;
+        height: 12px;
     }
 
     .mines-controls .top-amount {
@@ -273,7 +501,6 @@
         height: 50px;
         position: relative;
         padding: 1px;
-/* border: 1px solid var(--accent-yellow); */
         border-radius: 15px;
     }
 
@@ -291,7 +518,7 @@
     .mines-controls .top-amount input {
         width: 100%;
         height: 100%;
-        padding: 0 100px 0 43px;
+        padding: 0 43px 0 43px;
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
@@ -325,21 +552,15 @@
     }
 
     .mines-controls .amount-buttons {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        transform: translate(0, -50%);
-        z-index: 2;
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
     }
 
     .mines-controls .amount-buttons button {
-        width: 36px;
+        flex: 1;
         height: 27px;
-        margin-right: 5px;
-    }
-
-    .mines-controls .amount-buttons button:last-of-type {
-        margin-right: 0;
     }
 
     .mines-controls .amount-buttons button .button-inner {
@@ -355,171 +576,100 @@
         border-radius: 8px;
     }
 
+    .mines-controls .top-mines {
+        width: 100%;
+    }
+
+    .mines-controls .mines-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 8px;
+    }
+
+    .mines-controls .mines-display {
+        font-size: 16px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 8px;
+        text-align: right;
+    }
+
     .mines-controls .top-slider {
         width: 100%;
-        margin-top: 15px;
     }
 
     .mines-controls .top-slider input {
         width: 100%;
-        height: 15px;
+        height: 12px;
         position: relative;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background-color: #2a2a2a;
-        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
         outline: none;
         cursor: pointer;
     }
 
     .mines-controls .top-slider input::-webkit-slider-track {
         width: 100%;
-        height: 15px;
-        background: #1a1a1a;
-        border-radius: 8px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
         border: none;
     }
 
     .mines-controls .top-slider input::-moz-range-track {
         width: 100%;
-        height: 15px;
-        background: #1a1a1a;
-        border-radius: 8px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
         border: none;
     }
 
     .mines-controls .top-slider input::-webkit-slider-thumb {
-        width: 25px;
-        height: 19px;
+        width: 20px;
+        height: 20px;
         -webkit-appearance: none;
         appearance: none;
-        background: var(--gradient-button-bg);
-        border-radius: 8px;
-        border: none;
+        background: #ffffff;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.2);
         cursor: pointer;
-        margin-top: -2px;
+        margin-top: -4px;
     }
 
     .mines-controls .top-slider input::-moz-range-thumb {
-        width: 25px;
-        height: 19px;
-        background: var(--gradient-button-bg);
-        border-radius: 8px;
-        border: none;
+        width: 20px;
+        height: 20px;
+        background: #ffffff;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.2);
         cursor: pointer;
     }
 
-    .mines-controls .top-mines {
-        width: 100%;
-        margin-top: 15px;
-    }
-
-    .mines-controls .mines-title {
-        font-size: 12px;
-        font-weight: 600;
-        color: #ffffff;
-    }
-
-    .mines-controls .mines-content {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 8px;
-    }
-
-    .mines-controls .mines-content button {
-        width: calc(20% - 4.8px);
-        height: 40px;
+    .mines-controls .top-slider {
         position: relative;
-        padding: 1px;
-        filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.15));
-        z-index: 1;
-        color: white;
     }
 
-    .mines-controls .mines-content button::before {
+    .mines-controls .top-slider::before {
         content: '';
-        width: 100%;
-        height: 100%;
         position: absolute;
-        top: 0;
+        top: 50%;
         left: 0;
-        background-color: #2a2a2a;
-        border-radius: 8px;
-        z-index: -1;
-    }
-
-    .mines-controls .mines-content button.button-active {
-        color: var(--accent-btn-txt-color) !important;
-    }
-
-    .mines-controls .mines-content button.button-active::before {
-        background: var(--accent-yellow);
-        
-    }
-
-    .mines-controls .mines-content button.button-active::after {
-        content: '';
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        background-color: #2a2a2a;
-        border-radius: 8px;
-        z-index: -1;
-    }
-
-    .mines-controls .mines-content button .button-inner {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: 600;
-       /* color: var(--accent-btn-txt-color); */
-        background-color: var(--bg-blue-dark);
-        border-radius: 8px;
-    }
-
-    .mines-controls .mines-content button.button-active .button-inner {
+        width: calc((var(--slider-value, 1) - 1) / 23 * 100%);
+        height: 12px;
         background: var(--gradient-button-bg);
+        border-radius: 6px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        z-index: 1;
     }
 
-    .mines-controls .content-input {
-        width: calc(20% - 4.8px);
-        height: 40px;
+    .mines-controls .top-slider input {
         position: relative;
-        padding: 1px;
-    }
-
-    .mines-controls .content-input::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 8px;
-    }
-
-    .mines-controls .content-input input {
-        width: 100%;
-        height: 100%;
-        padding: 0 5px;
-        text-align: center;
-        font-size: 24px;
-        font-weight: 600;
-        color: #ffffff;
-        background-color: transparent;
-        border-radius: 8px;
-    } 
-    
-    .mines-controls .content-input input::placeholder {
-        color: #ffffff;
+        z-index: 2;
     }
 
     .mines-controls button.button-bet,
