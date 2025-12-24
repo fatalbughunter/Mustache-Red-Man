@@ -186,7 +186,7 @@ export default {
             gameLoading: false,
             socketUnsubscribe: null,
             selectedProvider: '',
-            allowedProviders: ['INOUT', 'SPRIBE', 'HABANERO', 'PGSOFT', 'PRAGMATIC', 'NAGA'],
+            allowedProviders: ['INOUT', 'SPRIBE', 'HABANERO', 'PGSOFT', 'PRAGMATIC', 'NAGA', 'CQ9', 'EVOPLAY'],
             searchQuery: '',
             showScrollTop: false,
             mainElement: null
