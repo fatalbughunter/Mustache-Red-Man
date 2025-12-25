@@ -21,7 +21,7 @@
         <div class="element-amount">
             <div class="amount-title">AMOUNT</div>
             <div class="amount-content">
-                <img src="@/assets/img/icons/coin.svg" alt="icon" />
+                <IconCoin />
                 <div class="content-value" v-bind:class="{ 'value-positive': profileGetAmount > 0 }">
                     <span>{{profileFormatValue(profileGetAmount).split('.')[0]}}</span>.{{profileFormatValue(profileGetAmount).split('.')[1]}}
                 </div>
@@ -32,9 +32,13 @@
 
 <script>
     import { mapGetters } from 'vuex';
+    import IconCoin from '@/components/icons/IconCoin';
 
     export default {
         name: 'ProfileTransactionsElement',
+        components: {
+            IconCoin
+        },
         props: [
             'transaction'
         ],
@@ -146,27 +150,50 @@
     .profile-transactions-element .amount-content {
         display: flex;
         align-items: center;
+        gap: 8px;
     }
 
-    .profile-transactions-element .amount-content img {
-        width: 18px;
-        height: 18px;
-        margin-right: 10px;
+    .profile-transactions-element .amount-content svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3));
+        transition: all 0.3s ease;
+    }
+
+    .profile-transactions-element:hover .amount-content svg {
+        filter: drop-shadow(0 2px 6px rgba(251, 191, 36, 0.5));
+        transform: scale(1.08);
     }
 
     .profile-transactions-element .content-value {
-        font-size: 10px;
+        display: flex;
+        align-items: baseline;
+        font-size: 11px;
         font-weight: 600;
-        color: var(--accent-copper-light);
+        color: rgba(187, 191, 208, 0.7);
+        letter-spacing: 0.3px;
     }
 
     .profile-transactions-element .content-value span {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 800;
+        margin-right: 1px;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
     .profile-transactions-element .content-value.value-positive span {
-        color: var(--text-gold);
+        background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 900;
+        text-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
     }
 
     @media only screen and (max-width: 725px) {

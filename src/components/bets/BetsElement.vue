@@ -37,7 +37,7 @@
             <span>{{ betsGetDate[0] }},</span>{{ betsGetDate[1] }}
         </div>
         <div class="element-wager">
-            <img src="@/assets/img/icons/coin.svg" alt="icon" />
+            <IconCoin />
             <div class="wager-value">
                 <span>{{betsFormatValue(betsGetAmount).split('.')[0]}}</span>.{{betsFormatValue(betsGetAmount).split('.')[1]}}
             </div>
@@ -46,7 +46,7 @@
             <span v-bind:class="{ 'gradient-green': betsGetMultiplier > 0 }">{{parseFloat(betsGetMultiplier).toFixed(2)}}x</span>
         </div>
         <div class="element-payout" v-bind:class="{ 'payout-positive': (bet.payout / betsGetAmount) > 0 }">
-            <img src="@/assets/img/icons/coin.svg" alt="icon" />
+            <IconCoin />
             <div class="payout-value">
                 <span>{{betsFormatValue(bet.payout).split('.')[0]}}</span>.{{betsFormatValue(bet.payout).split('.')[1]}}
             </div>
@@ -66,6 +66,7 @@
     import IconBattles from '@/components/icons/IconBattles';
     // import IconSlots from '@/components/icons/IconSlots';
     import IconDiamond from '@/components/icons/IconDiamond';
+    import IconCoin from '@/components/icons/IconCoin';
 
     export default {
         name: 'BetsElement',
@@ -80,7 +81,8 @@
             IconUnbox,
             IconBattles,
             // IconSlots,
-            IconDiamond
+            IconDiamond,
+            IconCoin
         },
         props: [
             'bet'
@@ -282,39 +284,66 @@
         width: 15%;
         display: flex;
         align-items: center;
+        gap: 8px;
     }
 
     .bets-element .element-payout {
         justify-content: flex-end;
     }
 
-    .bets-element .element-wager img,
-    .bets-element .element-payout img {
-        width: 18px;
-        height: 18px;
-        margin-right: 10px;
-        filter: brightness(0) saturate(100%) invert(60%) sepia(100%) saturate(2000%) hue-rotate(20deg) brightness(1.2);
+    .bets-element .element-wager svg,
+    .bets-element .element-payout svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3));
+        transition: all 0.3s ease;
+    }
+
+    .bets-element:hover .element-wager svg,
+    .bets-element:hover .element-payout svg {
+        filter: drop-shadow(0 2px 6px rgba(251, 191, 36, 0.5));
+        transform: scale(1.08);
     }
 
     .bets-element .wager-value,
     .bets-element .payout-value {
-        font-size: 10px;
+        display: flex;
+        align-items: baseline;
+        font-size: 11px;
         font-weight: 600;
-        color: var(--text-muted);
+        color: rgba(187, 191, 208, 0.7);
+        letter-spacing: 0.3px;
     }
 
     .bets-element .wager-value span,
     .bets-element .payout-value span {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 800;
+        margin-right: 1px;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
     .bets-element .wager-value span {
-        color: var(--text-primary);
+        color: #ffffff;
+        background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .bets-element .payout-value span {
+        color: rgba(187, 191, 208, 0.9);
     }
 
     .bets-element .payout-positive .payout-value span {
-        color: var(--accent-green);
+        background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 900;
+        text-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
     }
 
     .bets-element .element-multiplier {
@@ -324,10 +353,6 @@
         font-size: 14px;
         font-weight: 600;
         color: var(--accent-green);
-    }
-
-    .bets-element .element-multiplier.multiplier-positive {
-
     }
 
     @media only screen and (max-width: 950px) {

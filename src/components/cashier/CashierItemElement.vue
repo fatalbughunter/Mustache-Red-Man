@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="inner-amount">
-                <img src="@/assets/img/icons/coin.svg" alt="icon" />
+                <IconCoin />
                 <div class="amount-value">
                     <span>{{cashierFormatValue(item.amount).split('.')[0]}}</span>.{{cashierFormatValue(item.amount).split('.')[1]}}
                 </div>
@@ -24,9 +24,13 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
+    import IconCoin from '@/components/icons/IconCoin';
 
     export default {
         name: 'CashierItemElement',
+        components: {
+            IconCoin
+        },
         props: [
             'item'
         ],
@@ -201,24 +205,38 @@
     button.cashier-item-element .inner-amount {
         display: flex;
         align-items: center;
+        gap: 6px;
     }
 
-    button.cashier-item-element .inner-amount img {
+    button.cashier-item-element .inner-amount svg {
         width: 18px;
         height: 18px;
-        margin-right: 7px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3));
+    }
+
+    button.cashier-item-element:hover .inner-amount svg {
+        filter: drop-shadow(0 2px 6px rgba(251, 191, 36, 0.5));
+        transform: scale(1.08);
     }
 
     button.cashier-item-element .amount-value {
+        display: flex;
+        align-items: baseline;
         font-size: 11px;
         font-weight: 600;
-        color: #c1c1c1;
+        color: rgba(193, 193, 193, 0.7);
+        letter-spacing: 0.3px;
     }
 
     button.cashier-item-element .amount-value span {
         font-size: 14px;
         font-weight: 800;
-        color: #ffffff;
+        margin-right: 1px;
+        background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     @media only screen and (max-width: 1250px) {
