@@ -68,7 +68,7 @@ export default {
                 return [];
             }
             // Filter to only include bets from the 4 main games: Mines, Crash, Towers, Blackjack
-            const allowedGames = ['mines', 'crash', 'towers', 'blackjack'];
+            const allowedGames = ['mines', 'crash', 'towers', 'blackjack', 'slots'];
             const allBets = this.generalBets.bets.all;
             const filteredBets = allBets.filter(bet => {
                 if (!bet || !bet.method) return false;

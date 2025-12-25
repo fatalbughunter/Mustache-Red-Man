@@ -9,6 +9,8 @@
             <IconTowers v-else-if="bet.method === 'towers'" />
             <IconUnbox v-else-if="bet.method === 'unbox'" />
             <IconBattles v-else-if="bet.method === 'battles'" />
+            <!-- <IconSlots v-else-if="bet.method === 'slots'" /> -->
+            <IconDiamond v-else-if="bet.method === 'slots'" />
             <span v-bind:class="{
                 'gradient-yellow': bet.method === 'crash',
                 'gradient-green': bet.method === 'roll',
@@ -62,6 +64,8 @@
     import IconTowers from '@/components/icons/IconTowers';
     import IconUnbox from '@/components/icons/IconUnbox';
     import IconBattles from '@/components/icons/IconBattles';
+    // import IconSlots from '@/components/icons/IconSlots';
+    import IconDiamond from '@/components/icons/IconDiamond';
 
     export default {
         name: 'BetsElement',
@@ -74,7 +78,9 @@
             IconMines,
             IconTowers,
             IconUnbox,
-            IconBattles
+            IconBattles,
+            // IconSlots,
+            IconDiamond
         },
         props: [
             'bet'

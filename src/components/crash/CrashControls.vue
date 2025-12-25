@@ -33,7 +33,19 @@
         v-bind:disabled="crashAutoRunning === true"
       />
       <img src="@/assets/img/icons/coin.svg" alt="icon" />
-      <div class="cashout-buttons">
+      <div class="amount-buttons">
+        <button
+          v-on:click="crashSetInput('crashAmount', 'min')"
+          v-bind:disabled="crashAutoRunning === true"
+        >
+          <div class="button-inner">MIN</div>
+        </button>
+        <button
+          v-on:click="crashSetInput('crashAmount', '1/2')"
+          v-bind:disabled="crashAutoRunning === true"
+        >
+          <div class="button-inner">1/2</div>
+        </button>
         <button
           v-on:click="crashSetInput('crashAmount', '2x')"
           v-bind:disabled="crashAutoRunning === true"
@@ -42,7 +54,6 @@
         </button>
         <button
           v-on:click="crashSetInput('crashAmount', 'max')"
-          class="button-max"
           v-bind:disabled="crashAutoRunning === true"
         >
           <div class="button-inner">MAX</div>
@@ -56,7 +67,19 @@
         placeholder="AUTO CASHOUT"
         v-bind:disabled="crashAutoRunning === true"
       />
-      <div class="cashout-buttons">
+      <div class="amount-buttons">
+        <button
+          v-on:click="crashSetInput('crashAutoCashout', 'min')"
+          v-bind:disabled="crashAutoRunning === true"
+        >
+          <div class="button-inner">MIN</div>
+        </button>
+        <button
+          v-on:click="crashSetInput('crashAutoCashout', '1/2')"
+          v-bind:disabled="crashAutoRunning === true"
+        >
+          <div class="button-inner">1/2</div>
+        </button>
         <button
           v-on:click="crashSetInput('crashAutoCashout', '2x')"
           v-bind:disabled="crashAutoRunning === true"
@@ -253,12 +276,31 @@ export default {
     crashSetInput(value, action) {
       let amount = parseFloat(this[value]) || 0;
 
-      if (action === "2x") {
+      if (action === "min") {
+        if (value === "crashAmount") {
+          amount = 0.01;
+        } else if (value === "crashAutoCashout") {
+          amount = 1.01;
+        }
+      } else if (action === "1/2") {
+        amount = amount / 2;
+      } else if (action === "2x") {
         amount = amount * 2;
       } else if (action === "10x") {
         amount = amount * 10;
       } else if (action === "max") {
-        amount = this.authUser.user.balance<= 1000 ? this.authUser.user.balance : 1000;
+        if (value === "crashAmount") {
+          amount = this.authUser.user && this.authUser.user.balance <= 1000 ? this.authUser.user.balance : 1000;
+        } else if (value === "crashAutoCashout") {
+          amount = 1000; // Max multiplier for auto cashout
+        }
+      }
+
+      // Ensure minimum values
+      if (value === "crashAmount" && amount < 0.01 && action !== "min") {
+        amount = 0.01;
+      } else if (value === "crashAutoCashout" && amount < 1.01 && action !== "min") {
+        amount = 1.01;
       }
 
       this[value] = parseFloat(amount).toFixed(2);
@@ -636,72 +678,60 @@ export default {
 .crash-controls .controls-amount,
 .crash-controls .controls-cashout {
   width: 100%;
-  height: 51px;
   position: relative;
   margin-top: 20px;
 }
 
-.crash-controls .controls-amount::before,
-.crash-controls .controls-cashout::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 15px;
-}
-
 .crash-controls .controls-amount input,
 .crash-controls .controls-cashout input {
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  padding: 0 90px 0 15px;
+  width: 100%;
+  height: 50px;
+  padding: 0 43px 0 43px;
   font-size: 12px;
   font-weight: 600;
   color: #ffffff;
   background: var(--bg-blue-dark);
-  border-radius: 14px;
+  border-radius: 12px;
   border: none;
+  outline: none;
+  position: relative;
 }
 
-.crash-controls .controls-amount input {
-  padding: 0 90px 0 43px;
+.crash-controls .controls-amount input:disabled,
+.crash-controls .controls-cashout input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .crash-controls .controls-amount input::placeholder,
 .crash-controls .controls-cashout input::placeholder {
-  color: #888888;
+  color: #5e768e;
 }
 
-.crash-controls .amount-buttons,
-.crash-controls .cashout-buttons {
-  position: absolute;
+.crash-controls .amount-buttons {
+  width: 100%;
   display: flex;
-  align-items: center;
-  top: 50%;
-  right: 15px;
-  transform: translate(0, -50%);
+  gap: 8px;
+  margin-top: 8px;
 }
 
-.crash-controls .amount-buttons button,
-.crash-controls .cashout-buttons button {
-  width: 35px;
+.crash-controls .amount-buttons button {
+  flex: 1;
   height: 27px;
   filter: drop-shadow(0px 4px 25px rgba(1, 230, 169, 0.15))
     drop-shadow(0px 4px 25px rgba(15, 41, 63, 0.35));
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
 }
 
-.crash-controls .amount-buttons button:first-of-type,
-.crash-controls .cashout-buttons button:first-of-type {
-  margin-right: 5px;
+.crash-controls .amount-buttons button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
-.crash-controls .amount-buttons button .button-inner,
-.crash-controls .cashout-buttons button .button-inner {
+.crash-controls .amount-buttons button .button-inner {
   width: 100%;
   height: 100%;
   display: flex;
@@ -711,20 +741,18 @@ export default {
   font-weight: 800;
   color: var(--accent-btn-txt-color);
   background: var(--gradient-button-bg);
-  border-radius: 12px;
-}
-
-.crash-controls .amount-buttons button.button-max .button-inner {
-  font-size: 10px;
+  border-radius: 8px;
 }
 
 .crash-controls .controls-amount img {
   width: 19px;
   height: 19px;
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 15px;
   transform: translate(0, -50%);
+  z-index: 2;
+  pointer-events: none;
 }
 
 .crash-controls .controls-manual {

@@ -16,6 +16,12 @@
             <input v-model="towersAmount" v-on:input="towersValidateInput" type="text" placeholder="BET AMOUNT" v-bind:disabled="towersGame !== null && towersGame.state !== 'completed'" />
             <img src="@/assets/img/icons/coin.svg" alt="icon" />
             <div class="amount-buttons">
+                <button v-on:click="towersSetAmount('min')" v-bind:disabled="towersGame !== null && towersGame.state !== 'completed'">
+                    <div class="button-inner">MIN</div>
+                </button>
+                <button v-on:click="towersSetAmount('1/2')" v-bind:disabled="towersGame !== null && towersGame.state !== 'completed'">
+                    <div class="button-inner">1/2</div>
+                </button>
                 <button v-on:click="towersSetAmount('2x')" v-bind:disabled="towersGame !== null && towersGame.state !== 'completed'">
                     <div class="button-inner">2x</div>
                 </button>
@@ -112,11 +118,26 @@
             },
             towersSetAmount(action) {
                 let amount = parseFloat(this.towersAmount) || 0;
+                const balance = this.authUser.user !== null ? this.authUser.user.balance : 0;
 
-                if(action === '2x') {
+                if(action === 'min') {
+                    amount = 0.01;
+                } else if(action === '1/2') {
+                    amount = amount / 2;
+                } else if(action === '2x') {
                     amount = amount * 2;
                 } else if(action === 'max') {
-                    amount = this.authUser.user.balance || 0;
+                    amount = balance;
+                }
+
+                // Ensure amount doesn't exceed balance
+                if(amount > balance) {
+                    amount = balance;
+                }
+
+                // Ensure minimum amount
+                if(amount < 0.01 && action !== 'min') {
+                    amount = 0.01;
                 }
 
                 this.towersAmount = parseFloat(amount).toFixed(2);
@@ -264,29 +285,14 @@
 
     .towers-controls .controls-amount {
         width: 100%;
-        height: 50px;
         position: relative;
         margin-top: 15px;
-        padding: 1px;
-      /*  border: 1px solid var(--accent-yellow);*/
-        border-radius: 15px;
-    }
-
-    .towers-controls .controls-amount::before {
-        content: '';
-        width: 100%;
-        height: 50px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 12px;
-        pointer-events: none;
     }
 
     .towers-controls .controls-amount input {
         width: 100%;
-        height: 100%;
-        padding: 0 100px 0 43px;
+        height: 50px;
+        padding: 0 43px 0 43px;
         font-size: 12px;
         font-weight: 600;
         color: #ffffff;
@@ -296,7 +302,6 @@
         border-radius: 12px;
         cursor: text;
         position: relative;
-        z-index: 1;
     }
     
     .towers-controls .controls-amount input:disabled {
@@ -312,7 +317,7 @@
         width: 19px;
         height: 19px;
         position: absolute;
-        top: 50%;
+        top: 30%;
         left: 15px;
         transform: translate(0, -50%);
         z-index: 2;
@@ -320,21 +325,26 @@
     }
 
     .towers-controls .amount-buttons {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        transform: translate(0, -50%);
-        z-index: 2;
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
     }
 
     .towers-controls .amount-buttons button {
-        width: 36px;
+        flex: 1;
         height: 27px;
-        margin-right: 5px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        padding: 0;
+        filter: drop-shadow(0px 4px 25px rgba(1, 230, 169, 0.15))
+            drop-shadow(0px 4px 25px rgba(15, 41, 63, 0.35));
     }
 
-    .towers-controls .amount-buttons button:last-of-type {
-        margin-right: 0;
+    .towers-controls .amount-buttons button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
     }
 
     .towers-controls .amount-buttons button .button-inner {
