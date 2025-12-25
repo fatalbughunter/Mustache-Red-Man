@@ -248,7 +248,7 @@ export default {
 /* Games Grid */
 .games-grid {
     display: flex;
-    gap: 24px;
+    gap: 28px;
     max-width: 1400px;
     margin: 0 auto;
     flex-wrap: wrap;
@@ -262,16 +262,16 @@ export default {
 }
 
 .games-grid.large-cards-layout .game-card {
-    width: 220px;
+    width: 240px;
 }
 
 .game-card {
-    border-radius: 16px;
+    border-radius: 18px;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
-    width: 180px;
+    width: 220px;
     display: flex;
     flex-direction: column;
     background: #1a1a2e;
@@ -299,12 +299,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 14px;
-    gap: 10px;
+    padding: 24px 16px;
+    gap: 12px;
     flex: 1;
-    border-radius: 12px;
-    margin: 6px 6px 8px 6px;
-    min-height: 100px;
+    border-radius: 14px;
+    margin: 8px 8px 10px 8px;
+    min-height: 120px;
 }
 
 /* Background styles for each game */
@@ -363,8 +363,8 @@ export default {
 }
 
 .game-logo {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -377,7 +377,7 @@ export default {
     object-fit: contain;
     border-radius: 50%;
     background: #fff;
-    padding: 3px;
+    padding: 5px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -391,37 +391,45 @@ export default {
 }
 
 .game-subtitle {
-    font-size: 10px;
+    font-size: 11px;
     color: rgba(255, 255, 255, 0.8);
-    margin: 0 0 2px 0;
+    margin: 0 0 4px 0;
     text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .game-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 900;
     color: #ffffff;
     text-transform: uppercase;
     margin: 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    letter-spacing: 1px;
-    line-height: 1.1;
+    letter-spacing: 1.2px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .play-button {
     background: linear-gradient(180deg, #f5d742 0%, #d4a017 100%);
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     color: #1a1a2e;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 800;
-    padding: 12px 16px;
+    padding: 14px 18px;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    width: calc(100% - 12px);
-    margin: 0 6px 6px 6px;
+    letter-spacing: 0.8px;
+    width: calc(100% - 16px);
+    margin: 0 8px 8px 8px;
     text-align: center;
 }
 
@@ -436,6 +444,17 @@ export default {
 /* Responsive styles */
 @media (max-width: 1400px) {
     .games-grid.large-cards-layout {
+        gap: 28px;
+    }
+    
+    .games-grid.large-cards-layout .game-card {
+        width: 220px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .games-grid {
+        justify-content: center;
         gap: 24px;
     }
     
@@ -444,29 +463,18 @@ export default {
     }
 }
 
-@media (max-width: 1200px) {
-    .games-grid {
-        justify-content: center;
-        gap: 20px;
-    }
-    
-    .games-grid.large-cards-layout .game-card {
-        width: 180px;
-    }
-}
-
 @media (max-width: 768px) {
     .games-grid {
-        gap: 16px;
+        gap: 20px;
         justify-content: center;
     }
     
     .game-card {
-        width: 160px;
+        width: 180px;
     }
     
     .games-grid.large-cards-layout .game-card {
-        width: 160px;
+        width: 180px;
     }
     
     .section-title {
@@ -474,51 +482,52 @@ export default {
     }
     
     .game-title {
-        font-size: 14px;
+        font-size: 16px;
     }
     
     .game-logo {
-        width: 40px;
-        height: 40px;
+        width: 55px;
+        height: 55px;
     }
     
     .game-content {
-        padding: 14px 10px;
-        min-height: 80px;
+        padding: 18px 12px;
+        min-height: 100px;
     }
     
     .play-button {
-        font-size: 12px;
-        padding: 10px 12px;
+        font-size: 13px;
+        padding: 12px 14px;
     }
 }
 
 @media only screen and (max-width: 480px) {
     .game-card {
-        width: 140px;
+        width: 160px;
     }
     
     .game-title {
-        font-size: 12px;
+        font-size: 14px;
     }
     
     .game-subtitle {
-        font-size: 8px;
+        font-size: 9px;
     }
     
     .game-logo {
-        width: 35px;
-        height: 35px;
+        width: 50px;
+        height: 50px;
     }
     
     .game-content {
-        padding: 12px 8px;
-        gap: 6px;
+        padding: 16px 10px;
+        gap: 8px;
+        min-height: 90px;
     }
     
     .play-button {
-        font-size: 11px;
-        padding: 8px 10px;
+        font-size: 12px;
+        padding: 10px 12px;
     }
 }
 </style>
