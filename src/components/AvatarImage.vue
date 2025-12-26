@@ -29,7 +29,7 @@
 
                 // If image is a local path starting with /uploads/avatars/, prepend backend URL
                 if (image.startsWith('/uploads/avatars/')) {
-                    const backendUrl = process.env.VUE_APP_BACKEND_URL || 'https://api.novacasino.bet';
+                    const backendUrl = process.env.VUE_APP_BACKEND_URL || 'https://api.tachebet.com';
                     return `${backendUrl}${image}`;
                 }
 

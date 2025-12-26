@@ -236,7 +236,7 @@ const actions = {
             if(res.data.success) {
                 if(res.data.step === 'captcha') {
                     commit('auth_set_step', 'captcha');
-                    const backendUrl = process.env.VUE_APP_BACKEND_URL || 'https://api.novacasino.bet';
+                    const backendUrl = process.env.VUE_APP_BACKEND_URL || 'https://api.tachebet.com';
                     dispatch('modalsSetData', { challengeId: res.data.challengeId, captchaId: res.data.captchaId, captchaUrl: `${backendUrl}/captcha/iframe?publicKey=476068BF-9607-4799-B53D-966BE98E2B81&data-exchange-blob=${res.data.captchaBlob}`, secureAuthenticationIntent: res.data.secureAuthenticationIntent });
                 } else if(res.data.step === 'twostep') {
                     commit('auth_set_step', 'twostep');

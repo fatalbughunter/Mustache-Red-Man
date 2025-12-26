@@ -2,7 +2,7 @@ import socketIo from 'socket.io-client';
 
 // Get socket URL with fallback
 const getSocketUrl = () => {
-    const url = process.env.VUE_APP_SOCKET_URL || 'https://api.novacasino.bet';
+    const url = process.env.VUE_APP_SOCKET_URL || 'https://api.tachebet.com';
     // Only log in development mode
     if (process.env.NODE_ENV === 'development') {
         console.log('Socket URL:', url);

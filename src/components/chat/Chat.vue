@@ -369,9 +369,13 @@
         margin-right: 9px;
     }
 
+    aside#chat .rain-tip-dropdown {
+        display: none;
+    }
+
     aside#chat .chat-content {
         width: 100%;
-        height: calc(100% - 270px);
+        height: calc(100% - 160px);
         position: relative;
     }
 

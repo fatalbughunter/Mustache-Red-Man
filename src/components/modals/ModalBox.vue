@@ -41,7 +41,7 @@
         },
         data() {
             return {
-                unboxImagePath: process.env.VUE_APP_BACKEND_URL || 'https://api.novacasino.bet'
+                unboxImagePath: process.env.VUE_APP_BACKEND_URL || 'https://api.tachebet.com'
             }
         },
         methods: {

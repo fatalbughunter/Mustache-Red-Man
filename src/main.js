@@ -13,7 +13,7 @@ Vue.use(VueMeta);
 Vue.config.productionTip = false;
 
 // Set axios base URL with fallback
-const backendUrl = process.env.VUE_APP_BACKEND_URL || 'https://api.novacasino.bet';
+const backendUrl = process.env.VUE_APP_BACKEND_URL || 'https://api.tachebet.com';
 axios.defaults.baseURL = backendUrl;
 console.log('Backend URL:', backendUrl);
 
