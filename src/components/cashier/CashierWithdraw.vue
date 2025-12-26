@@ -592,13 +592,15 @@
   /* Currency Selection */
   .withdraw-currency-selection {
     width: 100%;
+    margin-bottom: 4px;
   }
   
   .currency-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
   }
   
   .currency-buttons-scroll {
@@ -676,13 +678,15 @@
   /* Network Selection */
   .withdraw-network-selection {
     width: 100%;
+    margin-top: 20px;
   }
   
   .network-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
   }
   
   .network-buttons {
@@ -722,38 +726,48 @@
   /* Withdraw Address */
   .withdraw-address {
     width: 100%;
+    margin-top: 20px;
   }
   
   .address-title {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 12px;
+    letter-spacing: 0.3px;
   }
   
   .address-input {
     width: 100%;
-    height: 60px;
+    height: 56px;
     border-radius: 8px;
-    background: var(--bg-blue-chat);
-    border: 1px solid rgba(212, 165, 116, 0.3);
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(212, 165, 116, 0.2);
     position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .address-input:hover {
+    border-color: rgba(212, 165, 116, 0.4);
+    background: rgba(15, 23, 42, 0.8);
   }
   
   .address-input input {
     width: 100%;
     height: 100%;
-    padding: 0 20px;
+    padding: 0 18px;
     background: transparent;
     border: none;
     color: var(--text-primary);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     outline: none;
   }
   
   .address-input input::placeholder {
     color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
   }
   
   /* Withdraw Amount */
@@ -833,10 +847,11 @@
   }
   
   .element-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
   }
   
   .element-loading {
@@ -964,9 +979,24 @@
     opacity: 0;
   }
   
-  @media only screen and (max-width: 750px) {
+  @media only screen and (max-width: 768px) {
     .cashier-withdraw {
-      gap: 12px;
+      gap: 16px;
+    }
+
+    .currency-title,
+    .network-title,
+    .address-title {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .address-input {
+      height: 52px;
+    }
+
+    .address-input input {
+      padding: 0 16px;
     }
   
     .rate-content {
@@ -989,6 +1019,61 @@
     }
   
     .element-content input {
+      font-size: 12px;
+    }
+
+    .confirm-button {
+      height: 46px;
+      font-size: 13px;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .cashier-withdraw {
+      gap: 14px;
+    }
+
+    .currency-title,
+    .network-title,
+    .address-title {
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .currency-button,
+    .network-button {
+      font-size: 12px;
+      padding: 7px 12px;
+    }
+
+    .currency-button img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .address-input {
+      height: 50px;
+    }
+
+    .address-input input {
+      padding: 0 14px;
+      font-size: 12px;
+    }
+
+    .element-label {
+      font-size: 11px;
+    }
+
+    .element-content {
+      padding: 0 8px 0 35px;
+    }
+
+    .element-content input {
+      font-size: 11px;
+    }
+
+    .confirm-button {
+      height: 44px;
       font-size: 12px;
     }
   }

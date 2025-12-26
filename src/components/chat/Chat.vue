@@ -148,7 +148,7 @@
                     else if(args[0] === '/mute') { this.modalsSetShow('Mute'); } 
                     else if(args[0] === '/ban') { this.modalsSetShow('Ban'); }
                 } else if(args[0] === '/rain') {
-                    const data = { amount: Math.floor(args[1] * 1000) };
+                    const data = { amount: parseFloat(args[1]) };
                     this.generalSendRainCreateSocket(data);
                 } else if(args[0] === '/clear') {
                     const data = {};

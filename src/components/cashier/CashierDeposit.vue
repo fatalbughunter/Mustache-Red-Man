@@ -464,13 +464,15 @@
     /* Currency Selection */
     .deposit-currency-selection {
         width: 100%;
+        margin-bottom: 4px;
     }
 
     .currency-title {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-muted);
-        margin-bottom: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        letter-spacing: 0.3px;
     }
 
     .currency-buttons-scroll {
@@ -550,13 +552,15 @@
     /* Network Selection */
     .deposit-network-selection {
         width: 100%;
+        margin-top: 20px;
     }
 
     .network-title {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-muted);
-        margin-bottom: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        letter-spacing: 0.3px;
     }
 
     .network-buttons {
@@ -596,30 +600,38 @@
     /* Deposit Address */
     .deposit-address {
         width: 100%;
+        margin-top: 20px;
     }
 
     .address-title {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-muted);
-        margin-bottom: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 12px;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
+        letter-spacing: 0.3px;
     }
 
     .address-title .title-icon {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
     }
 
     .address-input {
         width: 100%;
-        height: 45px;
+        height: 50px;
         border-radius: 8px;
-        background: var(--bg-blue-chat);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(212, 165, 116, 0.2);
         position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .address-input:hover {
+        border-color: rgba(212, 165, 116, 0.4);
+        background: rgba(15, 23, 42, 0.8);
     }
 
     .input-content {
@@ -627,7 +639,7 @@
         height: 100%;
         display: flex;
         align-items: center;
-        padding: 0 45px 0 15px;
+        padding: 0 50px 0 18px;
     }
 
     .input-content input {
@@ -636,7 +648,7 @@
         border: none;
         color: var(--text-primary);
         font-size: 12px;
-        font-weight: 500;
+        font-weight: 600;
         outline: none;
     }
 
@@ -809,23 +821,26 @@
     /* Notice Section */
     .deposit-notice {
         width: 100%;
-        padding: 12px 15px;
+        padding: 14px 16px;
         border-radius: 8px;
-        background: rgba(255, 193, 7, 0.15);
-        border: 1px solid rgba(255, 193, 7, 0.3);
+        background: rgba(255, 193, 7, 0.1);
+        border: 1px solid rgba(255, 193, 7, 0.25);
+        margin-top: 16px;
     }
 
     .notice-title {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         color: #ffc107;
         margin-bottom: 6px;
+        letter-spacing: 0.5px;
     }
 
     .notice-content {
         font-size: 11px;
+        font-weight: 500;
         color: #ffc107;
-        line-height: 1.4;
+        line-height: 1.6;
     }
 
     /* Remove amount conversion styles - no longer needed */
@@ -870,9 +885,24 @@
         opacity: 0;
     }
 
-    @media only screen and (max-width: 750px) {
+    @media only screen and (max-width: 768px) {
         .cashier-deposit {
-            gap: 12px;
+            gap: 16px;
+        }
+
+        .currency-title,
+        .network-title,
+        .address-title {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .address-input {
+            height: 48px;
+        }
+
+        .input-content {
+            padding: 0 48px 0 16px;
         }
 
         .rate-content {
@@ -906,6 +936,60 @@
 
         .deposit-notice {
             padding: 12px 15px;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        .cashier-deposit {
+            gap: 14px;
+        }
+
+        .currency-title,
+        .network-title,
+        .address-title {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .currency-button,
+        .network-button {
+            font-size: 12px;
+            padding: 7px 12px;
+        }
+
+        .currency-button img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .address-input {
+            height: 46px;
+        }
+
+        .input-content {
+            padding: 0 45px 0 14px;
+        }
+
+        .input-content input {
+            font-size: 11px;
+        }
+
+        .qrcode-content,
+        .qrcode-loading {
+            width: 160px;
+            height: 160px;
+        }
+
+        .deposit-notice {
+            padding: 12px 14px;
+        }
+
+        .notice-title {
+            font-size: 11px;
+        }
+
+        .notice-content {
+            font-size: 10px;
         }
     }
 

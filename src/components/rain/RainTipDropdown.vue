@@ -60,7 +60,7 @@
         methods: {
             ...mapActions(['notificationShow', 'rainSetDropdownTip', 'generalSendRainTipSocket']),
             rainFormatValue(value) {
-                return parseFloat(Math.floor(value / 10) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             },
             rainValidateInput() {
                 this.rainAmount = this.rainAmount.replace(/[^\d.]/g, '');
@@ -85,10 +85,10 @@
            rainTipButton() {
                 if(this.socketSendLoading !== null) { return; }
 
-                const amount = Math.floor(this.rainAmount * 1000);
+                const amount = parseFloat(this.rainAmount);
 
-                if(amount === undefined || isNaN(amount) === true || amount <= 0) {
-                    this.notificationShow({ type: 'error', message: 'Your entered rain tip amount is invalid.' });
+                if(amount === undefined || isNaN(amount) === true || amount < 1) {
+                    this.notificationShow({ type: 'error', message: 'Your entered rain tip amount is invalid. Minimum tip is $1 USD.' });
                     return;
                 }
 

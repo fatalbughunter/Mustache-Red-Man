@@ -60,7 +60,30 @@ const actions = {
         commit('user_set_bets_data_page', page);
     },
     userTipSocket({ dispatch }, data) {
-        dispatch('notificationShow', { type: 'success', message: 'You\'ve been tipped ' + (Math.floor(data.transaction.amount / 10) / 100).toFixed(2) + ' Robux.' });
+        dispatch('notificationShow', { type: 'success', message: 'You\'ve been tipped $' + parseFloat(data.transaction.amount).toFixed(2) + ' USD.' });
+    },
+    userSearchUserSocket({ getters }, data) {
+        return new Promise((resolve, reject) => {
+            if(!getters.socketGeneral || getters.socketGeneral === null) { 
+                reject(new Error('Socket not connected. Please wait a moment and try again.'));
+                return;
+            }
+
+            // Set a timeout in case the socket doesn't respond
+            const timeout = setTimeout(() => {
+                reject(new Error('Request timeout. Please try again.'));
+            }, 10000); // 10 second timeout
+
+            getters.socketGeneral.emit('searchUser', data, (res) => {
+                clearTimeout(timeout);
+                
+                if(res && res.success === true) {
+                    resolve(res.user);
+                } else {
+                    reject(res && res.error ? res.error : new Error('Failed to search user'));
+                }
+            });
+        });
     },
     userGetTransactionsSocket({ getters, commit, dispatch }, data) {
         if(getters.socketGeneral === null || getters.userTransactionsData.loading === true) { return; }
@@ -154,7 +177,7 @@ const actions = {
             if(res.success === true) {
                 dispatch('modalsSetShow', null);
 
-                dispatch('notificationShow', { type: 'success', message: 'You\'ve successfully tipped ' + (Math.floor(res.transaction.amount / 10) / 100).toFixed(2) + ' Robux.' });
+                dispatch('notificationShow', { type: 'success', message: 'You\'ve successfully tipped $' + parseFloat(res.transaction.amount).toFixed(2) + ' USD.' });
             } else {
                 dispatch('notificationShow', res.error);
             }
