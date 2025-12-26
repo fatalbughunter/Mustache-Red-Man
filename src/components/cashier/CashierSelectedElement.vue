@@ -5,7 +5,7 @@
         <div class="element-info">
             <div class="info-name">{{ cashierGetName }}</div>
             <div class="info-amount">
-                <img src="@/assets/img/icons/coin.svg" alt="icon" />
+                <IconCoin />
                 <div class="amount-value">
                     <span>{{cashierFormatValue(selected.amount).split('.')[0]}}</span>.{{cashierFormatValue(selected.amount).split('.')[1]}}
                 </div>
@@ -27,9 +27,13 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import IconCoin from '@/components/icons/IconCoin';
 
     export default {
         name: 'CashierSelectedElement',
+        components: {
+            IconCoin
+        },
         props: [
             'selected'
         ],
@@ -103,24 +107,33 @@
     .cashier-selected-element .info-amount {
         display: flex;
         align-items: center;
+        gap: 6px;
     }
 
-    .cashier-selected-element .info-amount img {
-        width: 14px;
-        height: 14px;
-        margin-right: 6px;
+    .cashier-selected-element .info-amount svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3));
     }
 
     .cashier-selected-element .amount-value {
+        display: flex;
+        align-items: baseline;
         font-size: 10px;
         font-weight: 600;
-        color: #c1c1c1;
+        color: rgba(193, 193, 193, 0.7);
+        letter-spacing: 0.3px;
     }
 
     .cashier-selected-element .amount-value span {
         font-size: 12px;
         font-weight: 800;
-        color: #ffffff;
+        margin-right: 1px;
+        background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     .cashier-selected-element .element-image {

@@ -92,8 +92,10 @@
 <style scoped>
     .modal-cashier {
         width: 100%;
-        max-width: 500px;
-        height: 650px;
+        max-width: 520px;
+        height: 680px;
+        min-height: 680px;
+        max-height: 680px;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -102,10 +104,15 @@
         border-radius: 15px;
         background: var(--bg-blue-dark);
         box-sizing: border-box;
+        overflow: hidden;
     }
 
     .modal-cashier .cashier-header {
         width: 100%;
+        height: 80px;
+        min-height: 80px;
+        max-height: 80px;
+        flex-shrink: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -201,11 +208,15 @@
 
     .modal-cashier .cashier-content {
         width: 100%;
-        height: 550px;
+        height: 500px;
+        min-height: 500px;
+        max-height: 500px;
+        flex-shrink: 0;
         display: flex;
         flex-direction: column;
         position: relative;
         overflow: hidden;
+        margin-top: 20px;
     }
 
     .modal-cashier .cashier-content .content-wrapper {
@@ -214,6 +225,8 @@
         position: relative;
         overflow-y: auto;
         overflow-x: hidden;
+        padding-right: 8px;
+        padding-bottom: 10px;
     }
 
     .modal-cashier .cashier-content .content-wrapper::-webkit-scrollbar {
@@ -237,21 +250,106 @@
 
         .modal-cashier {
             width: calc(100vw - 20px);
+            max-width: 100%;
             height: 650px;
-            padding: 25px 20px 20px 20px;
+            min-height: 650px;
+            max-height: 650px;
+            padding: 25px 15px 20px 15px;
+        }
+
+        .modal-cashier .cashier-header {
+            height: 75px;
+            min-height: 75px;
+            max-height: 75px;
+        }
+
+        .modal-cashier .cashier-content {
+            height: 475px;
+            min-height: 475px;
+            max-height: 475px;
+        }
+
+        .modal-cashier .cashier-content .content-wrapper {
+            padding-right: 4px;
         }
 
     }
 
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 600px) {
 
         .modal-cashier {
-            height: 650px;
-            padding: 75px 20px 20px 20px;
+            width: calc(100vw - 20px);
+            height: 620px;
+            min-height: 620px;
+            max-height: 620px;
+            padding: 70px 15px 15px 15px;
         }
 
         .modal-cashier .cashier-header {
+            height: 70px;
+            min-height: 70px;
+            max-height: 70px;
             justify-content: center;
+            padding-bottom: 15px;
+            gap: 6px;
+        }
+
+        .modal-cashier .cashier-content {
+            height: 450px;
+            min-height: 450px;
+            max-height: 450px;
+        }
+
+        .modal-cashier button.button-nav {
+            min-height: 55px;
+        }
+
+        .modal-cashier button.button-nav .button-inner {
+            min-height: 55px;
+            padding: 6px 8px;
+        }
+
+    }
+
+    @media only screen and (max-width: 400px) {
+
+        .modal-cashier {
+            width: calc(100vw - 16px);
+            height: 580px;
+            min-height: 580px;
+            max-height: 580px;
+            padding: 65px 12px 12px 12px;
+        }
+
+        .modal-cashier .cashier-header {
+            height: 65px;
+            min-height: 65px;
+            max-height: 65px;
+            gap: 4px;
+        }
+
+        .modal-cashier .cashier-content {
+            height: 420px;
+            min-height: 420px;
+            max-height: 420px;
+        }
+
+        .modal-cashier button.button-nav {
+            min-height: 50px;
+        }
+
+        .modal-cashier button.button-nav .button-inner {
+            min-height: 50px;
+            padding: 6px 6px;
+        }
+
+        .modal-cashier button.button-nav .button-inner span {
+            font-size: 10px;
+        }
+
+        .modal-cashier button.button-nav .button-inner svg {
+            width: 16px;
+            height: 16px;
         }
 
     }

@@ -42,6 +42,13 @@
                 </div>
             </button>
         </div>
+        <div class="tip-privacy">
+            <label class="privacy-toggle">
+                <input type="checkbox" v-model="hideInChat" />
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Don't show this tip in the Chat</span>
+            </label>
+        </div>
         <div class="tip-info">Please note that this action is irreversable and you are the only one responsible. We cannot and will not refund any tips, therefore double check your tip amount and verify who you are tipping to.</div>
     </div>
 </template>
@@ -63,7 +70,8 @@
         },
         data() {
             return {
-                modalAmount: null
+                modalAmount: null,
+                hideInChat: false
             }
         },
         methods: {
@@ -75,14 +83,18 @@
                 this.modalAmount = this.modalAmount.replace(/[^\d.]/g, '');
             },
             modalTipButton() {
-                const amount = Math.floor(this.modalAmount * 1000);
+                const amount = parseFloat(this.modalAmount);
 
-                if(amount === undefined || isNaN(amount) === true || amount < 10) {
-                    this.notificationShow({ type: 'error', message: 'Your entered tip amount is invalid.' });
+                if(amount === undefined || isNaN(amount) === true || amount < 1) {
+                    this.notificationShow({ type: 'error', message: 'Your entered tip amount is invalid. Minimum tip is $1 USD.' });
                     return;
                 }
 
-                const data = { receiverId: this.generalUserInfo.data._id, amount: amount };
+                const data = { 
+                    receiverId: this.generalUserInfo.data._id, 
+                    amount: amount,
+                    hideInChat: this.hideInChat
+                };
                 this.userSendUserTipSocket(data);
             }
         },
@@ -397,9 +409,64 @@
         opacity: 0;
     }
 
+    .modal-tip .tip-privacy {
+        width: 448px;
+        margin-top: 20px;
+    }
+
+    .modal-tip .privacy-toggle {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .modal-tip .privacy-toggle input[type="checkbox"] {
+        display: none;
+    }
+
+    .modal-tip .toggle-slider {
+        width: 44px;
+        height: 24px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        position: relative;
+        transition: background-color 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-tip .toggle-slider::before {
+        content: '';
+        width: 18px;
+        height: 18px;
+        background-color: var(--text-muted);
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 3px;
+        transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .modal-tip .privacy-toggle input[type="checkbox"]:checked + .toggle-slider {
+        background-color: rgba(184, 115, 51, 0.3);
+        border-color: rgba(222, 184, 135, 0.5);
+    }
+
+    .modal-tip .privacy-toggle input[type="checkbox"]:checked + .toggle-slider::before {
+        transform: translateX(19px);
+        background-color: var(--text-gold);
+    }
+
+    .modal-tip .toggle-label {
+        margin-left: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
     .modal-tip .tip-info {
         width: 100%;
-        margin-top: 35px;
+        margin-top: 20px;
         padding: 0 42px;
         text-align: center;
         font-size: 14px;
@@ -423,7 +490,8 @@
 
     @media only screen and (max-width: 508px) {
 
-        .modal-tip .tip-input {
+        .modal-tip .tip-input,
+        .modal-tip .tip-privacy {
             width: 100%;
         }
 

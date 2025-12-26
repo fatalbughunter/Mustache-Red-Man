@@ -1,9 +1,25 @@
 <template>
     <div class="chat-message-element" v-bind:class="{
         'element-rain': message.type === 'rainTip' || message.type === 'rainCompleted',
+        'element-tip': message.type === 'userTip',
         'element-system': message.type === 'system'
     }">
-        <div v-if="message.type === 'rainTip' || message.type === 'rainCompleted'" class="element-rain">
+        <div v-if="message.type === 'userTip'" class="element-tip">
+            <div class="tip-header">
+                <IconRainGradient />
+                <span>USER TIP</span>
+            </div>
+            <div class="tip-content">
+                <span v-html="message.transaction.sender.username" class="content-username"></span>
+                tipped
+                <span v-html="message.transaction.receiver.username" class="content-username"></span>
+                <div class="tip-amount">
+                    <img src="@/assets/img/icons/coin.svg" alt="icon" />
+                    <span>{{chatFormatValue(Math.abs(message.transaction.amount)).split('.')[0]}}</span>.{{chatFormatValue(Math.abs(message.transaction.amount)).split('.')[1]}}
+                </div>
+            </div>
+        </div>
+        <div v-else-if="message.type === 'rainTip' || message.type === 'rainCompleted'" class="element-rain">
             <div class="rain-header">
                 <IconRainGradient />
                 <span>{{ message.type === 'rainTip' ? 'RAIN TIP' : 'RAIN COMPLETED!' }}</span>
@@ -228,6 +244,7 @@
     }
 
     .chat-message-element.element-rain::after,
+    .chat-message-element.element-tip::after,
     .chat-message-element.element-system::after {
         content: '';
         width: 100%;
@@ -244,12 +261,14 @@
     }
 
     .chat-message-element .element-rain,
+    .chat-message-element .element-tip,
     .chat-message-element .element-system,
     .chat-message-element .element-message {
         width: 100%;
     }
 
     .chat-message-element .rain-header,
+    .chat-message-element .tip-header,
     .chat-message-element .system-header {
         display: flex;
         align-items: center;
@@ -257,17 +276,20 @@
         font-weight: 800;
     }
 
-    .chat-message-element .rain-header span {
+    .chat-message-element .rain-header span,
+    .chat-message-element .tip-header span {
         color: var(--accent-yellow);
     }
 
     .chat-message-element .rain-header svg,
+    .chat-message-element .tip-header svg,
     .chat-message-element .system-header svg {
         width: 27px;
         margin-right: 12px;
     }
 
     .chat-message-element .rain-content,
+    .chat-message-element .tip-content,
     .chat-message-element .system-content {
         width: 100%;
         margin-top: 8px;
@@ -280,6 +302,7 @@
     }
 
     .chat-message-element .content-tip,
+    .chat-message-element .tip-content,
     .chat-message-element .content-completed {
         display: inline-block;
         font-size: 14px;
@@ -288,6 +311,7 @@
     }
 
     .chat-message-element .rain-content span.content-username,
+    .chat-message-element .tip-content span.content-username,
     .chat-message-element .rain-content span.content-participants {
         font-weight: 700;
         color: var(--accent-yellow);

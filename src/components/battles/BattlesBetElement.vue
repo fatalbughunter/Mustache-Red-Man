@@ -17,7 +17,7 @@
                         <span v-html="bet.bot === true ? battlesGetBotName : bet.user.username"></span>
                     </div>
                     <div class="info-amount">
-                        <img src="@/assets/img/icons/coin.svg" alt="icon" />
+                        <IconCoin />
                         <div class="amount-value">
                             <span>{{ battlesFormatValue(battlesGetOutcomeAmount).split('.')[0] }}</span>.{{ battlesFormatValue(battlesGetOutcomeAmount).split('.')[1] }}
                         </div>
@@ -65,13 +65,15 @@
     import AvatarImage from '@/components/AvatarImage';
     import ButtonLoading from '@/components/ButtonLoading';
     import BattlesItemElement from '@/components/battles/BattlesItemElement';
+    import IconCoin from '@/components/icons/IconCoin';
 
     export default {
         name: 'BattlesBetElement',
         components: {
             AvatarImage,
             ButtonLoading,
-            BattlesItemElement
+            BattlesItemElement,
+            IconCoin
         },
         props: [
             'pos', 
@@ -313,24 +315,41 @@
     .battles-bet-element .info-amount {
         display: flex;
         align-items: center;
+        gap: 8px;
     }
 
-    .battles-bet-element .info-amount img {
-        width: 18px;
-        height: 18px;
-        margin-right: 8px;
+    .battles-bet-element .info-amount svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3));
+        transition: all 0.3s ease;
+    }
+
+    .battles-bet-element:hover .info-amount svg {
+        filter: drop-shadow(0 2px 6px rgba(251, 191, 36, 0.5));
+        transform: scale(1.08);
     }
 
     .battles-bet-element .amount-value {
+        display: flex;
+        align-items: baseline;
         font-size: 11px;
         font-weight: 600;
-        color: #bbbfd0;
+        color: rgba(187, 191, 208, 0.7);
+        letter-spacing: 0.3px;
     }
 
     .battles-bet-element .amount-value span {
         font-size: 15px;
         font-weight: 800;
-        color: #ffffff;
+        margin-right: 1px;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
     .battles-bet-element .inner-actions {

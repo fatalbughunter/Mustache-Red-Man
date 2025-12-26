@@ -25,7 +25,7 @@
         <div class="element-section section-amount">
             <div class="section-title">AMOUNT</div>
             <div class="section-content">
-                <img src="@/assets/img/icons/coin.svg" alt="icon" />
+                <IconCoin />
                 <div class="content-value">
                     <span>{{adminFormatValue(transaction.amount).split('.')[0]}}</span>.{{adminFormatValue(transaction.amount).split('.')[1]}}
                 </div>
@@ -48,6 +48,7 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import AvatarImage from '@/components/AvatarImage';
+    import IconCoin from '@/components/icons/IconCoin';
 
     export default {
         name: 'AdminCashierElement',
@@ -55,7 +56,8 @@
             'transaction'
         ],
         components: {
-            AvatarImage
+            AvatarImage,
+            IconCoin
         },
         methods: {
             ...mapActions([
@@ -187,21 +189,36 @@
         color: #0dd4b1;
     }
 
-    .admin-cashier-element .element-section.section-amount .section-content img {
-        width: 18px;
-        height: 18px;
-        margin-right: 10px;
+    .admin-cashier-element .element-section.section-amount .section-content {
+        gap: 8px;
+    }
+
+    .admin-cashier-element .element-section.section-amount .section-content svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3));
     }
 
     .admin-cashier-element .element-section.section-amount .content-value {
-        font-size: 10px;
+        display: flex;
+        align-items: baseline;
+        font-size: 11px;
         font-weight: 600;
-        color: #bbbfd0;
+        color: rgba(187, 191, 208, 0.7);
+        letter-spacing: 0.3px;
     }
 
     .admin-cashier-element .element-section.section-amount .content-value span {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 800;
+        margin-right: 1px;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         color: #ffffff;
     }
 
